@@ -1,9 +1,9 @@
 <link href="<?php if(isset($herramientas) && $herramientas){echo base_url('assets/css/jquery-ui/jquery-ui.css');} ?>" rel="stylesheet" />
-<link href="<?php echo base_url('assets/third-party/jsgrid-1.5.3/dist/jsgrid.min.css'); ?>" rel="stylesheet" />
-<link href="<?php echo base_url('assets/third-party/jsgrid-1.5.3/dist/jsgrid-theme.min.css'); ?>" rel="stylesheet" />
+<link href="<?php echo base_url('assets/js/js_export_grid/jsgrid-1.5.3/jsgrid.min.css'); ?>" rel="stylesheet" />
+<link href="<?php echo base_url('assets/js/js_export_grid/jsgrid-1.5.3/jsgrid-theme.min.css'); ?>" rel="stylesheet" />
 <link href="<?php if(isset($herramientas) && $herramientas){echo base_url('assets/css/catalogos.css');} ?>" rel="stylesheet" />
-<script src="<?php echo base_url(); ?>assets/third-party/jsgrid-1.5.3/dist/jsgrid.min.js"></script>
-<script src="<?php if(isset($herramientas) && $herramientas){echo base_url('assets/css/jquery-ui/jquery-ui.js');}?>"></script>
+<script src="<?php echo base_url(); ?>assets/js/js_export_grid/jsgrid-1.5.3/jsgrid.min.js"></script>
+<script src="<?php if(isset($herramientas) && $herramientas){echo base_url('assets/js/jquery-ui.js');}?>"></script>
 
 <?php
 if(isset($scripts_adicionales))

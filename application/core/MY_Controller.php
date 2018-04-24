@@ -11,7 +11,45 @@ class MY_Controller extends CI_Controller {
 
     function __construct() {
         parent::__construct();
-        
+        $this->lang->load('interface', 'spanish');
+        $this->load->config('general');
+
+//        $this->lang->load('interface', 'spanish');
+//        $this->load->library('Configuracion_grupos');
+//        $usuario = $this->session->userdata('usuario');
+        $usuario = $this->get_datos_sesion(En_datos_sesion::ID_USUARIO);
+        //pr($usuario);
+        if (!is_null($usuario)) {
+            $data['usuario'] = $this->get_datos_sesion();
+            $this->load->model('Menu_model', 'menu');
+//            $this->load->model('Notificacion_model', 'notificaciones');
+
+            $menu = $this->menu->get_menu_usuario($usuario, false);
+            // $data['usuario']['workflow'] = array(array('id_linea_tiempo' => 3, 'id_etapa_activa' => 1)); // solo para pruebas
+            if(isset($data['usuario']) && !empty($data['usuario']))
+            {
+//                $this->load->model('Workflow_model', 'workflow');
+                $this->load->model('Sesion_model', 'sesion');
+//                $modelos = array('workflow' =>$this->workflow, 'sesion' =>$this->sesion);
+//                $this->menu->menu_convocatoria($menu, $data['usuario'], $modelos);
+            }
+            $w = null;
+            if(isset($data['usuario']['workflow']) && !empty($data['usuario']['workflow']))
+            {
+                $w = $data['usuario']['workflow'][0];
+            }
+            $menu['lateral'] = $this->menu->get_tree($menu['lateral'], $w);
+            // pr($menu);
+            $this->template->setNav($menu);
+//            $notificaciones = $this->notificaciones->obtener_notificacion_estatica();
+//            $data['notificaciones'] = $notificaciones;
+//            $notificaciones = $this->load->view('notificaciones/estaticas.tpl.php', $data, true);
+//            $this->template->set_notificaciones_estaticas($notificaciones);
+            $this->carga_imagen();
+            //pr($menu);
+//            $perfil = $this->load->view('tc_template/perfil.tpl.php', $usuario, true);
+//            $this->template->setPerfilUsuario($perfil);
+        }
     }
 
     private function carga_imagen() {

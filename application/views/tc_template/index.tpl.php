@@ -14,14 +14,6 @@
     <meta name="viewport" content="width=device-width" />
     <!-- BOOTSTRAP STYLES-->
     <?php echo css('bootstrap.css'); ?>
-    <!-- FONTAWESOME ICONS STYLES-->
-    <!--CUSTOM STYLES-->
-    <!-- HTML5 Shiv and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
 
     <script type="text/javascript">
     var url = "<?php echo base_url(); ?>";
@@ -29,21 +21,21 @@
     var img_url_loader = "<?php echo base_url('assets/img/loader.gif'); ?>";
     </script>
     <?php echo css('estilo_perfil.css'); ?>
-    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
-    <?php echo css('font-awesome.css'); ?>
+    <?php echo css('fonts/font-awesome.css'); ?>
     <?php echo css('style.css'); ?>
-    <?php echo css('template_sipimss/sipimss.css'); ?>
+    <?php echo css('template_foro/sipimss.css'); ?>
     <?php echo css("date/datepicker.css"); ?>
     <?php echo css("datepicker.less"); ?>
 
-    <?php echo css('template_sipimss/apprise.css'); ?>
+    <?php echo css('template_foro/apprise.css'); ?>
 
 
     <?php echo js("jquery.js"); ?>
     <?php echo js("jquery.min.js"); ?>
     <?php echo js("jquery.ui.min.js"); ?>
-
-    <!--Let browser know website is optimized for mobile-->
+    <!-- General de SIPIMSS -->
+    <?php echo js('template_foro/general.js'); ?>
+    <?php echo js('template_foro/apprise.js'); ?>
 </head>
 <body>
     <div id="overlay">
@@ -100,7 +92,7 @@
                         </a>
                         <ul class="dropdown-menu dropdown-user">
 
-                            <?php // pr($datos_sesion); ?>
+                            <?php if(isset($datos_sesion['matricula'])){ ?>
                             <li><a class="link_ficha_usuario" href="#">
                                 <b>Nombre:</b> <?php echo $datos_sesion['nombre'] . ' ' . $datos_sesion['apellido_p'] . ' ' . $datos_sesion['apellido_m']; ?> <br>
                                 <b>Matrícula:</b> <?php echo $datos_sesion['matricula']; ?><br>
@@ -110,6 +102,7 @@
                                 <!--<b>Rol:</b> <?php // echo $datos_sesion['nombre_role'];         ?><br>-->
                                 <div class="ripple-container"></div></a>
                             </li>
+                            <?php } ?>
 
                             <li><a href="<?php echo site_url(); ?>/perfil"><i class="fa fa-user-plus"></i> Mi perfil</a></li>
                             <li><a href="<?php echo site_url(); ?>/inicio/cerrar_sesion"><i class="fa fa-sign-out"></i> Cerrar sesión</a></li>
@@ -159,9 +152,9 @@
                 <li class="nav pull-right">
                     <ul class="">
                         <li>
-                            <!-- <a href="#"><img img-responsive class"logos" height="70px" src="assets/img/template_sipimss/sipimss.png" alt=""></a> -->
+                            <!-- <a href="#"><img img-responsive class"logos" height="70px" src="assets/img/sipimss.png" alt=""></a> -->
                             <a href="#">
-                                <img img-responsive src="<?php echo asset_url(); ?>img/template_sipimss/sipimss.png"
+                                <img img-responsive src="<?php echo asset_url(); ?>img/sipimss.png"
                                 height="70px"
                                 class="logos"
                                 alt="SIPIMSS"
@@ -170,9 +163,9 @@
                             </a>
                         </li>
                         <li>
-                            <!-- <a href="#"><img img-responsive class"logos" height="70px" src="assets/img/template_sipimss/ces.png" alt=""></a> -->
+                            <!-- <a href="#"><img img-responsive class"logos" height="70px" src="assets/img/ces.png" alt=""></a> -->
                             <a href="http://educacionensalud.imss.gob.mx">
-                                <img img-responsive src="<?php echo asset_url(); ?>img/template_sipimss/ces.png"
+                                <img img-responsive src="<?php echo asset_url(); ?>img/ces.png"
                                 height="70px"
                                 class="logos"
                                 alt="CES"
@@ -181,9 +174,9 @@
                             </a>
                         </li>
                         <li>
-                            <!-- <a href="#"><img img-responsive class"logos" height="70px" src="assets/img/template_sipimss/imss.png" alt=""></a> -->
+                            <!-- <a href="#"><img img-responsive class"logos" height="70px" src="assets/img/imss.png" alt=""></a> -->
                             <a href="http://www.imss.gob.mx/">
-                                <img img-responsive src="<?php echo asset_url(); ?>img/template_sipimss/imss.png"
+                                <img img-responsive src="<?php echo asset_url(); ?>img/imss.png"
                                 height="70px"
                                 class="logos"
                                 alt="IMSS"
@@ -266,16 +259,9 @@
                 </div>
             </div>
         </div>
-
-
         <!-- /. PAGE WRAPPER  -->
     </div>
 </div>
-<!-- /. WRAPPER  -->
-<!-- /. FOOTER  -->
-<!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
-<!-- JQUERY SCRIPTS -->
-<!-- <script src="assets/js/jquery-2.js"></script> -->
 
 <footer class="navbar">
     <div class="col-md-1"></div>
@@ -309,24 +295,12 @@
 
 <!-- BOOTSTRAP SCRIPTS -->
 <?php echo js("bootstrap.js"); ?>
-<?php echo isset($date_picker) && $date_picker ? js("date/bootstrap-datepicker.js"): ''; ?>
 <!-- METISMENU SCRIPTS -->
 <?php echo js("jquery.metisMenu.js"); ?>
-<!-- <?php //echo js("jquery-2.js"); ?> -->
-
-
 <!-- CUSTOM SCRIPTS -->
 <?php echo js("/custom.js"); ?>
-<?php echo js('template_sipimss/general.js'); ?>
-<?php echo js('template_sipimss/apprise.js'); ?>
-<?php echo js('menu.js'); ?>
-<?php echo js('/convocatoria/convocatoria.js'); ?>
-<?php echo js('ayuda.js'); ?>
-
-<!--Import jQuery before materialize.js-->
-<!-- <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-<script type="text/javascript" src="assets/js/materialize.min.js"></script> -->
-
+<?php echo js('template_foro/menu.js'); ?>
+<?php echo js('template_foro/ayuda.js'); ?>
 <script type="text/javascript">
 // Instantiate the Bootstrap carousel
 $('.multi-item-carousel').carousel({
@@ -339,24 +313,5 @@ $('.multi-item-carousel').carousel({
 $('#info_siap_modal').modal('show');
 </script>
 
-<div class="modal fade" id="admin-finalizacenso" tabindex="-1" role="dialog" style="display: none;">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header" style="padding:35px 50px;">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4><span class="glyphicon glyphicon-lock"></span>Finalizar registro de convocatoria</h4>
-            </div>
-            <div class="modal-body" style="padding:40px 50px;">
-                <p>Al dar clic en "Finalizar convocatoria" se finalizará por completo el registro de convocatoria.</p>
-                <p>Por favor confirme que desea continuar y que da por concluido el registro.</p>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                <a href="<?php echo site_url('convocatoriaV2/guardar_registro_finaliza_convocatoria/'); ?>" class="btn btn-primary">
-                    Finalizar convocatoria
-                </a>
-                <!-- <button type="submit" class="btn btn-primary" onclick="finalizar_censo(this)">Finalizar censo</button>-->
-            </div>
-        </div>
-    </div>
-</div>
 </body>
 </html>

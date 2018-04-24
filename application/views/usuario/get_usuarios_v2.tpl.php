@@ -1,6 +1,6 @@
-<link href="<?php echo base_url('assets/third-party/jsgrid-1.5.3/dist/jsgrid.min.css'); ?>" rel="stylesheet" />
-<link href="<?php echo base_url('assets/third-party/jsgrid-1.5.3/dist/jsgrid-theme.min.css'); ?>" rel="stylesheet" />
-<script src="<?php echo base_url(); ?>assets/third-party/jsgrid-1.5.3/dist/jsgrid.min.js"></script>
+<link href="<?php echo base_url('assets/js/js_export_grid/jsgrid-1.5.3/jsgrid.min.css'); ?>" rel="stylesheet" />
+<link href="<?php echo base_url('assets/js/js_export_grid/jsgrid-1.5.3/jsgrid-theme.min.css'); ?>" rel="stylesheet" />
+<script src="<?php echo base_url(); ?>assets/js/js_export_grid/jsgrid-1.5.3/jsgrid.min.js"></script>
 <?php echo js('usuario/lista.js'); ?>
 <div id="page-inner">
     <div class="col-sm-12">
