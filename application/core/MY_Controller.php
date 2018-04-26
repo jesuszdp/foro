@@ -340,6 +340,11 @@ class MY_Controller extends CI_Controller {
         return $salida;
     }
 
+    /**
+     * 
+     * @return type
+     * @author LEAS 
+     */
     public function obtener_idioma() {
         $language = $this->session->userdata('die_sipimss')['language'];
         return $language;

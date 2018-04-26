@@ -57,20 +57,7 @@ $config['upload_config'] = array(
     ),
 );
 
-$config['propiedades_validacion_registro'] = array(
-    En_estado_validacion_registro::REGISTRO_USUARIO => array('icon' => 'minus-circle'),
-    En_estado_validacion_registro::REGISTRO_SISTEMA => array('icon' => 'ban'),
-    En_estado_validacion_registro::VALIDADO_N1 => array('icon' => 'check-circle'),
-    En_estado_validacion_registro::VALIDADO_N2 => array('icon' => 'check-circle-o'),
-    En_estado_validacion_registro::EVALUADO => array('icon' => 'check'),
-    En_estado_validacion_registro::NO_VALIDO_EVALUACION => array('icon' => 'remove'),
-);
 $config['img_perfil_default'] = base_url('assets/img/user_icon_icons.png');
-
-$config['config_secciones'] = array(
-    En_seccion_actividad_docente::ACTIVIDAD_DOCENTE => array('nivel_profundidad' => 1, 's_seccion' => 'Experiencia'),
-    En_seccion_actividad_docente::FORMACION => array('nivel_profundidad' => 1, 's_seccion' => 'Educación')
-);
 
 $config['columnas_unidades_grid'] = array(
     'id' => array('name' => 'id_unidad_instituto', 'type' => "text", 'title' => 'Id'),

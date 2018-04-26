@@ -72,24 +72,6 @@ class Template {
             "modal_pie" => null, //Píe del modal, normalmente se usa para disponer de un botón de cerrar y/o botones de guardado u actualización de algun formulario
         );
 
-        $this->set_Boton_cancelar();
-    }
-
-    /**
-     * @author LEAS
-     * @fecha 08/05/2017
-     * @param type $boton Vista de botón con todas las acciones ya definidas
-     * @param type String Ruta de la vista template del botón que cancela la acción de editar
-     * o guardar un nuevo registro del censo en cualquiera de las secciones
-     * @descripcion Asigna a elementos_seccion el atributo "boton_cancear" que cancela y cierra la vista
-     * de un formulario de sección en su estado de edición o guardado
-     *      */
-    public function set_Boton_cancelar($parametros = null, $tpl = 'tc_template/btn_cancelar_nueva_actividad') {
-        if (is_null($parametros)) {
-            $string_value = get_elementos_lenguaje(array(En_catalogo_textos::GENERAL));
-            $parametros['titulo'] = $string_value['cancelar'];
-        }
-        $this->element_seccion['boton_cancelar'] = $this->CI->load->view($tpl, $parametros, TRUE);
     }
 
     /**
