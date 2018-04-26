@@ -32,11 +32,11 @@ class MY_Controller extends CI_Controller {
 //                $modelos = array('workflow' =>$this->workflow, 'sesion' =>$this->sesion);
 //                $this->menu->menu_convocatoria($menu, $data['usuario'], $modelos);
             }
-            $w = null;
-            if (isset($data['usuario']['workflow']) && !empty($data['usuario']['workflow'])) {
-                $w = $data['usuario']['workflow'][0];
-            }
-            $menu['lateral'] = $this->menu->get_tree($menu['lateral'], $w);
+//            $w = null;
+//            if (isset($data['usuario']['workflow']) && !empty($data['usuario']['workflow'])) {
+//                $w = $data['usuario']['workflow'][0];
+//            }
+            $menu['lateral'] = $this->menu->get_tree($menu['lateral'], null);
             // pr($menu);
             $this->template->setNav($menu);
 //            $notificaciones = $this->notificaciones->obtener_notificacion_estatica();

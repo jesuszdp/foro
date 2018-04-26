@@ -7,8 +7,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 if (!function_exists('render_menu'))
 {
 
-    function render_menu($menu = [], $dropdown = null, $elementos_censo = [])
+    function render_menu($menu = [], $dropdown = null)
     {
+//        pr($menu);
         $html = '';
         ob_start();
         ?>
@@ -16,6 +17,7 @@ if (!function_exists('render_menu'))
             <?php
             foreach ($menu as $item)
             {
+//                pr($item);
                 $enlace = '#';
                 if(isset($item['link'])){
                     if(startsWith($item['link'], 'http://')||startsWith($item['link'], 'https://')){
@@ -65,7 +67,7 @@ if (!function_exists('render_menu'))
                     }
                     if($item['id_menu'] == 'CENSO')
                     {
-                        render_elementos_censo($elementos_censo);
+//                        render_elementos_censo($elementos_censo);
                     }
                     ?>
                 </li>
@@ -77,23 +79,5 @@ if (!function_exists('render_menu'))
         return $html;
     }
 
-    function render_elementos_censo($elementos)
-    {
-        // pr($elementos);
-        ?>
-        <ul class="nav  collapse" id="menuCENSO" style="margin-left: 20px;">
-            <?php foreach ($elementos as $row)
-            {
-            ?>
-            <li class="" style="list-style-type: none;">
-                <a href="<?php echo site_url($row['url']); ?>" class="tablero-menu-item">
-                    <i class="dashboard"></i><?php echo $row['nombre']; ?>
-                </a>
-            </li>
-            <?php
-            }
-            ?>
-        </ul>
-        <?php
-    }
+    
 }

@@ -50,8 +50,9 @@ class Menu_model extends CI_Model
         {
             $menu = $result;
         }
+//        pr($menu);
         $salida['lateral'] = $menu;
-        $salida['secciones'] = $this->get_secciones();
+//        $salida['secciones'] = $this->get_secciones();
         return $salida;
     }
 
