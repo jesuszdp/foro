@@ -26,16 +26,14 @@ class MY_Controller extends CI_Controller {
 
             $menu = $this->menu->get_menu_usuario($usuario, false);
             // $data['usuario']['workflow'] = array(array('id_linea_tiempo' => 3, 'id_etapa_activa' => 1)); // solo para pruebas
-            if(isset($data['usuario']) && !empty($data['usuario']))
-            {
+            if (isset($data['usuario']) && !empty($data['usuario'])) {
 //                $this->load->model('Workflow_model', 'workflow');
                 $this->load->model('Sesion_model', 'sesion');
 //                $modelos = array('workflow' =>$this->workflow, 'sesion' =>$this->sesion);
 //                $this->menu->menu_convocatoria($menu, $data['usuario'], $modelos);
             }
             $w = null;
-            if(isset($data['usuario']['workflow']) && !empty($data['usuario']['workflow']))
-            {
+            if (isset($data['usuario']['workflow']) && !empty($data['usuario']['workflow'])) {
                 $w = $data['usuario']['workflow'][0];
             }
             $menu['lateral'] = $this->menu->get_tree($menu['lateral'], $w);
@@ -290,8 +288,7 @@ class MY_Controller extends CI_Controller {
      * @param type $delimiter delimitador del csv, por default será ","
      * @return type Descriptión documento a exportado ceon extención csv
      */
-    protected function exportar_xls($columnas = null, $informacion = null, $column_unset = null, $orden_columna = null, $file_name = 'tmp_file_export_data', $delimiter = ',')
-    {//$id_ciclo_evaluacion,$status,$filename
+    protected function exportar_xls($columnas = null, $informacion = null, $column_unset = null, $orden_columna = null, $file_name = 'tmp_file_export_data', $delimiter = ',') {//$id_ciclo_evaluacion,$status,$filename
         header("Content-Encoding: UTF-8");
         header("Content-type: application/x-msexcel;charset=UTF-8");
         header('Content-Disposition: attachment; filename="' . $file_name . '.csv";');
@@ -302,33 +299,24 @@ class MY_Controller extends CI_Controller {
         fputcsv($f, $columnas, $delimiter);
 
         //pr($info);
-        if (!is_null($orden_columna))
-        {
-            foreach ($informacion as $line)
-            {
+        if (!is_null($orden_columna)) {
+            foreach ($informacion as $line) {
 
                 $column = [];
-                foreach ($orden_columna as $genera)//Recorre las columnas extra que no se imprimen
-                {
-                    if (isset($line[$genera]))
-                    {
+                foreach ($orden_columna as $genera) {//Recorre las columnas extra que no se imprimen
+                    if (isset($line[$genera])) {
                         $column[] = $line[$genera]; //Elimina colunas extra
-                    } else
-                    {
+                    } else {
                         $column[] = ' '; //Elimina colunas extra
                     }
                 }
                 fputcsv($f, $column, $delimiter);
             }
-        } else
-        {
-            foreach ($informacion as $line)
-            {
-                if (!is_null($column_unset))
-                {
+        } else {
+            foreach ($informacion as $line) {
+                if (!is_null($column_unset)) {
 
-                    foreach ($column_unset as $val_unset)//Recorre las columnas extra que no se imprimen
-                    {
+                    foreach ($column_unset as $val_unset) {//Recorre las columnas extra que no se imprimen
                         unset($line[$val_unset]);
                     }
                 }
@@ -339,21 +327,29 @@ class MY_Controller extends CI_Controller {
     }
 
     /**
-    *
-    **/
-    public function prepara_filtros($array = [], $map = [], $omitir = [])
-    {
+     *
+     * */
+    public function prepara_filtros($array = [], $map = [], $omitir = []) {
         $salida = array();
         $omitidos = array('pageIndex', 'pageSize', 'sortField', 'sortOrder');
-        foreach ($map as $key => $value)
-        {
-            if(isset($array[$key]) && !is_null($array[$key]) && $array[$key] != '')
-            {
+        foreach ($map as $key => $value) {
+            if (isset($array[$key]) && !is_null($array[$key]) && $array[$key] != '') {
                 $salida[$value] = $array[$key];
             }
         }
         return $salida;
     }
+
+    public function obtener_idioma() {
+        $language = $this->session->userdata('die_sipimss')['language'];
+        return $language;
+    }
+
+    public function obtener_grupos_texto($grupos) {
+        $grupos_textos = [];
+        return $grupos_textos;
+    }
+
 }
 
 /*include_once APPPATH . 'core/Informacion_docente.php';*/
