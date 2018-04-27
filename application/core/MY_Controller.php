@@ -103,7 +103,7 @@ class MY_Controller extends CI_Controller {
      * @obtiene el array de los datos de
      */
     public function get_datos_sesion($busqueda_especifica = '*') {
-        $data_usuario = $this->session->userdata('die_sipimss')['usuario'];
+        $data_usuario = $this->session->userdata(En_datos_sesion::__INSTANCIA)['usuario'];
 //        $data_usuario = array(En_datos_sesion::ID_DOCENTE =>1,  En_datos_sesion::MATRICULA=>'311091488');
         if ($busqueda_especifica == '*') {
             return $data_usuario;
