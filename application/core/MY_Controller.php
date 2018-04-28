@@ -10,7 +10,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class MY_Controller extends CI_Controller {
 
     protected $language_text = []; //Textos actuales de texto 
-    protected $grupo_language_text = []; //Grupos de texto actuales del controlador 
+    protected $grupo_language_text = ['generales']; //Grupos de texto actuales del controlador 
 
     function __construct() {
         parent::__construct();
