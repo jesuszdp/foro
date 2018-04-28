@@ -9,45 +9,49 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * */
 class MY_Controller extends CI_Controller {
 
+    protected $language_text = []; //Textos actuales de texto 
+    protected $grupo_language_text = []; //Grupos de texto actuales del controlador 
+
     function __construct() {
         parent::__construct();
-        $this->lang->load('interface', 'spanish');
-        $this->load->config('general');
+        $this->initialization();
+    }
 
-//        $this->lang->load('interface', 'spanish');
-//        $this->load->library('Configuracion_grupos');
-//        $usuario = $this->session->userdata('usuario');
+    private function initialization() {
+        $this->load->config('general');
+        $this->load->model('Idioma_model', 'idioma');
+
         $usuario = $this->get_datos_sesion(En_datos_sesion::ID_USUARIO);
-        //pr($usuario);
+
         if (!is_null($usuario)) {
             $data['usuario'] = $this->get_datos_sesion();
             $this->load->model('Menu_model', 'menu');
-//            $this->load->model('Notificacion_model', 'notificaciones');
-
             $menu = $this->menu->get_menu_usuario($usuario, false);
-            // $data['usuario']['workflow'] = array(array('id_linea_tiempo' => 3, 'id_etapa_activa' => 1)); // solo para pruebas
             if (isset($data['usuario']) && !empty($data['usuario'])) {
-//                $this->load->model('Workflow_model', 'workflow');
                 $this->load->model('Sesion_model', 'sesion');
-//                $modelos = array('workflow' =>$this->workflow, 'sesion' =>$this->sesion);
-//                $this->menu->menu_convocatoria($menu, $data['usuario'], $modelos);
             }
-//            $w = null;
-//            if (isset($data['usuario']['workflow']) && !empty($data['usuario']['workflow'])) {
-//                $w = $data['usuario']['workflow'][0];
-//            }
             $menu['lateral'] = $this->menu->get_tree($menu['lateral'], null);
-            // pr($menu);
             $this->template->setNav($menu);
-//            $notificaciones = $this->notificaciones->obtener_notificacion_estatica();
-//            $data['notificaciones'] = $notificaciones;
-//            $notificaciones = $this->load->view('notificaciones/estaticas.tpl.php', $data, true);
-//            $this->template->set_notificaciones_estaticas($notificaciones);
             $this->carga_imagen();
-            //pr($menu);
-//            $perfil = $this->load->view('tc_template/perfil.tpl.php', $usuario, true);
-//            $this->template->setPerfilUsuario($perfil);
+            $lenguaje = $this->obtener_idioma();
+            if (is_null($lenguaje)) {//Si no existe el lenguaje, lo modifica
+                $lenguaje = $this->idioma->get_lenguaje(En_datos_sesion::LANGUAGE_DEFAULT, $data['usuario'][En_datos_sesion::ID_USUARIO], null);
+            }
+            //Selecciona el lenguaje del usuario actual
+        } else {//No existe el usuario
+            //Selecciona el lenguaje asignado en la bitacora
+            $ip = $this->input->ip_address();
+            $lenguaje = $this->idioma->get_lenguaje(En_datos_sesion::LANGUAGE_DEFAULT, null, $ip);
         }
+
+        if (!empty($this->grupo_language_text)) {//Carga los textos del lenguaje actual
+            $this->language_text = $this->obtener_grupos_texto($this->grupo_language_text, $lenguaje);
+            $this->template->setLanguageText($this->language_text);
+        }
+        $catalogo_idioma = $this->obtener_catalogo_idiomas([], $lenguaje);
+        $this->template->setLanguageCatalogue($catalogo_idioma);
+
+//        pr($this->language_text);
     }
 
     private function carga_imagen() {
@@ -346,13 +350,21 @@ class MY_Controller extends CI_Controller {
      * @author LEAS 
      */
     public function obtener_idioma() {
-        $language = $this->session->userdata('die_sipimss')['language'];
+        $language = null;
+        if (isset($this->session->userdata(En_datos_sesion::__INSTANCIA)[En_datos_sesion::LANGUAGE])) {
+            $language = $this->session->userdata(En_datos_sesion::__INSTANCIA)[En_datos_sesion::LANGUAGE];
+        }
         return $language;
     }
 
-    public function obtener_grupos_texto($grupos) {
-        $grupos_textos = [];
+    public function obtener_grupos_texto($grupos, $lenguaje) {
+        $grupos_textos = $this->idioma->get_etiquetas_texto($grupos, $lenguaje);
         return $grupos_textos;
+    }
+
+    public function obtener_catalogo_idiomas($idiomas, $lenguaje) {
+        $catalogo_idiomas = $this->idioma->get_idiomas($idiomas, $lenguaje);
+        return $catalogo_idiomas;
     }
 
 }

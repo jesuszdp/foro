@@ -39,9 +39,9 @@ class Bitacora
         $valor = json_encode($valor);
         $uri = $this->CI->uri->uri_string();
         $usuario = null;
-        if ($this->CI->session->userdata('die_sipimss') != null)
+        if ($this->CI->session->userdata(En_datos_sesion::__INSTANCIA) != null)
         {
-            $usuario = $this->CI->session->userdata('die_sipimss')['usuario']['id_usuario'];
+            $usuario = $this->CI->session->userdata(En_datos_sesion::__INSTANCIA)['usuario']['id_usuario'];
         }
         $insert = array(
             'id_usuario' => $usuario,

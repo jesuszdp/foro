@@ -10,8 +10,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Catalogo extends MY_Controller {
 
     const LISTA = 'lista', LIMIT = 25, NUEVA = 'agregar', EDITAR = 'editar',
-    CREAR = 'crear', LEER= 'leer', ACTUALIZAR = 'actualizar', ELIMINAR = 'eliminar',
-    EXPORTAR = 'exportar', IMPORTAR='importar';
+            CREAR = 'crear', LEER = 'leer', ACTUALIZAR = 'actualizar', ELIMINAR = 'eliminar',
+            EXPORTAR = 'exportar', IMPORTAR = 'importar';
 
     function __construct() {
         parent::__construct();
@@ -24,8 +24,7 @@ class Catalogo extends MY_Controller {
         redirect(site_url());
     }
 
-    public function categoria($opcion = '')
-    {
+    public function categoria($opcion = '') {
         $this->load->model('Catalogo_model', 'catalogo');
         // $this->load->config('catalogos');
         $filtros = $this->config->item('catalogo.categorias');
@@ -37,9 +36,9 @@ class Catalogo extends MY_Controller {
         switch ($opcion) {
             case Catalogo::LISTA:
                 $params = $this->input->get(null, true);
-                $filtros['limit'] = isset($params['pageSize'])? $params['pageSize']:Catalogo::LIMIT;
-                $filtros['offset'] = isset($params['pageIndex'])?  ($filtros['limit']*($params['pageIndex']-1)):0;
-                $filtros['where'] = $this->prepara_filtros($params, array('id_grupo_categoria'=>'categorias.id_grupo_categoria'));
+                $filtros['limit'] = isset($params['pageSize']) ? $params['pageSize'] : Catalogo::LIMIT;
+                $filtros['offset'] = isset($params['pageIndex']) ? ($filtros['limit'] * ($params['pageIndex'] - 1)) : 0;
+                $filtros['where'] = $this->prepara_filtros($params, array('id_grupo_categoria' => 'categorias.id_grupo_categoria'));
                 $filtros['like'] = $this->prepara_filtros($params, array(
                     'clave_categoria' => 'clave_categoria',
                     'categoria' => 'categorias.nombre'
@@ -71,14 +70,14 @@ class Catalogo extends MY_Controller {
                 $filtros = $this->config->item('catalogo.categorias');
                 $registros['data'] = $this->catalogo->get_registros('catalogo.categorias', $filtros);
                 $registros['columnas'] = array(
-                    'id_categoria','categoria', 'id_grupo_categoria',
-                    'grupo_categoria','clave_categoria',
+                    'id_categoria', 'categoria', 'id_grupo_categoria',
+                    'grupo_categoria', 'clave_categoria',
                 );
                 $this->exportar_xls($registros['columnas'], $registros['data'], null, null, $file_name);
             default:
                 //$grupos_categorias = array('id_grupo_categoria' => '', 'grupo_categoria' => 'Seleccionar');
                 $grupos_categorias = $this->catalogo->get_registros('catalogo.grupos_categorias', $c_query);
-                array_unshift($grupos_categorias,  array('id_grupo_categoria' => '', 'grupo_categoria' => 'Seleccionar'));
+                array_unshift($grupos_categorias, array('id_grupo_categoria' => '', 'grupo_categoria' => 'Seleccionar'));
                 $output['var_js'] = array(
                     array(
                         "name" => 'g_grupos_categorias',
@@ -93,10 +92,8 @@ class Catalogo extends MY_Controller {
         }
     }
 
-    private function eliminar_categoria(&$params)
-    {
-        if($this->input->post())
-        {
+    private function eliminar_categoria(&$params) {
+        if ($this->input->post()) {
             $where_ids = array('id_categoria' => $params['id_categoria']);
             $result = $this->catalogo->delete_registros('catalogo.categorias', $where_ids);
             header('Content-Type: application/json; charset=utf-8;');
@@ -104,23 +101,19 @@ class Catalogo extends MY_Controller {
         }
     }
 
-    private function nueva_categoria(&$params)
-    {
-        if($this->input->post())
-        {
+    private function nueva_categoria(&$params) {
+        if ($this->input->post()) {
             $this->config->load('form_validation'); //Cargar archivo con validaciones
             $validations = $this->config->item('insert_catalogo_categorias'); //Obtener validaciones de archivo general
             $this->form_validation->set_rules($validations); //Añadir validaciones
-            if ($this->form_validation->run() == TRUE)
-            {
+            if ($this->form_validation->run() == TRUE) {
                 $form = array(
                     'nombre' => $params['categoria'],
                     'clave_categoria' => $params['clave_categoria'],
                     'id_grupo_categoria' => $params['id_grupo_categoria']
                 );
                 $result = $this->catalogo->insert_registro('catalogo.categorias', $form);
-            }else
-            {
+            } else {
                 $result['success'] = false;
                 $result['message'] = validation_errors();
             }
@@ -130,15 +123,12 @@ class Catalogo extends MY_Controller {
         }
     }
 
-    private function editar_categoria(&$params)
-    {
-        if($this->input->post())
-        {
+    private function editar_categoria(&$params) {
+        if ($this->input->post()) {
             $this->config->load('form_validation'); //Cargar archivo con validaciones
             $validations = $this->config->item('update_catalogo_categorias'); //Obtener validaciones de archivo general
             $this->form_validation->set_rules($validations); //Añadir validaciones
-            if ($this->form_validation->run() == TRUE)
-            {
+            if ($this->form_validation->run() == TRUE) {
                 $form = array(
                     'nombre' => $params['categoria'],
                     'clave_categoria' => $params['clave_categoria'],
@@ -148,8 +138,7 @@ class Catalogo extends MY_Controller {
                     'id_categoria' => $params['id_categoria']
                 );
                 $result = $this->catalogo->update_registro('catalogo.categorias', $form, $ids);
-            }else
-            {
+            } else {
                 $result['success'] = false;
                 $result['message'] = validation_errors();
             }
@@ -159,52 +148,46 @@ class Catalogo extends MY_Controller {
             echo json_encode($result);
         }
     }
-    
-   /**
+
+    /**
      * Función que muestra la vista para cargar csv
      * @author Lima
      * @param  $view['status']['result']== 1 Si Cargo el CSV Redirige a Precarga
      *
      * Inicia Carga Categoría por Lote */
-    public function categoria_csv()
-    {
-      if ($this->input->post())
-      {     // SI EXISTE UN ARCHIVO EN POST
-          $config['upload_path'] = './uploads/';      // CONFIGURAMOS LA RUTA DE LA CARGA PARA LA LIBRERIA UPLOAD
-          $config['allowed_types'] = 'csv';           // CONFIGURAMOS EL TIPO DE ARCHIVO A CARGAR
-          $config['max_size'] = '1000';               // CONFIGURAMOS EL PESO DEL ARCHIVO
-          $this->load->library('upload', $config);    // CARGAMOS LA LIBRERIA UPLOAD
-          $view['status']['result'] = false;
-          if ($this->upload->do_upload())
-          { //Se ejecuta la validación de datos
-              $this->load->library('csvimport');
-              $file_data = $this->upload->data();     //BUSCAMOS LA INFORMACIÓN DEL ARCHIVO CARGADO
-              $file_path = './uploads/' . $file_data['file_name'];         // CARGAMOS LA URL DEL ARCHIVO
-              if ($this->csvimport->get_array($file_path))
-              {              // EJECUTAMOS EL METODO get_array() DE LA LIBRERIA csvimport PARA BUSCAR SI EXISTEN DATOS EN EL ARCHIVO Y VERIFICAR SI ES UN CSV VALIDO
-                  $csv_array = $this->csvimport->get_array($file_path);   //SI EXISTEN DATOS, LOS CARGAMOS EN LA VARIABLE $csv_array
-                  $view['status'] = $this->catalogo->carga_masiva($csv_array,$file_data);
-                  //pr($view['status']);
-                  //$this->reporte_registro($view['status']);
-              } else
-              {
-                  $view['status']['msg'] = "Formato inválido";
-              }
-          } else
-          {
-              $view['status']['msg'] = "Formato inválido";
-          }
+    public function categoria_csv() {
+        if ($this->input->post()) {     // SI EXISTE UN ARCHIVO EN POST
+            $config['upload_path'] = './uploads/';      // CONFIGURAMOS LA RUTA DE LA CARGA PARA LA LIBRERIA UPLOAD
+            $config['allowed_types'] = 'csv';           // CONFIGURAMOS EL TIPO DE ARCHIVO A CARGAR
+            $config['max_size'] = '1000';               // CONFIGURAMOS EL PESO DEL ARCHIVO
+            $this->load->library('upload', $config);    // CARGAMOS LA LIBRERIA UPLOAD
+            $view['status']['result'] = false;
+            if ($this->upload->do_upload()) { //Se ejecuta la validación de datos
+                $this->load->library('csvimport');
+                $file_data = $this->upload->data();     //BUSCAMOS LA INFORMACIÓN DEL ARCHIVO CARGADO
+                $file_path = './uploads/' . $file_data['file_name'];         // CARGAMOS LA URL DEL ARCHIVO
+                if ($this->csvimport->get_array($file_path)) {              // EJECUTAMOS EL METODO get_array() DE LA LIBRERIA csvimport PARA BUSCAR SI EXISTEN DATOS EN EL ARCHIVO Y VERIFICAR SI ES UN CSV VALIDO
+                    $csv_array = $this->csvimport->get_array($file_path);   //SI EXISTEN DATOS, LOS CARGAMOS EN LA VARIABLE $csv_array
+                    $view['status'] = $this->catalogo->carga_masiva($csv_array, $file_data);
+                    //pr($view['status']);
+                    //$this->reporte_registro($view['status']);
+                } else {
+                    $view['status']['msg'] = "Formato inválido";
+                }
+            } else {
+                $view['status']['msg'] = "Formato inválido";
+            }
 
-          if($view['status']['result']==1)
-          {
-            redirect('precarga');
-          }  
-      }
-      #Muestra Vista del Template Carga CSV
-      $main_content = $this->load->view('catalogo/formulario_carga_categorias.tpl.php', array(), true);
-      $this->template->setMainContent($main_content);
-      $this->template->getTemplate();
+            if ($view['status']['result'] == 1) {
+                redirect('precarga');
+            }
+        }
+        #Muestra Vista del Template Carga CSV
+        $main_content = $this->load->view('catalogo/formulario_carga_categorias.tpl.php', array(), true);
+        $this->template->setMainContent($main_content);
+        $this->template->getTemplate();
     }
+
     /* Termina Carga Categoría por Lote */
 
     public function delegacion() {
@@ -254,8 +237,7 @@ class Catalogo extends MY_Controller {
         }
     }
 
-    public function departamento($opcion = '', $id = null)
-    {
+    public function departamento($opcion = '', $id = null) {
         $this->load->model('Catalogo_model', 'catalogo');
         // $this->load->config('catalogos');
         $filtros = $this->config->item('catalogo.departamentos_instituto');
@@ -265,8 +247,8 @@ class Catalogo extends MY_Controller {
         switch ($opcion) {
             case Catalogo::LISTA:
                 $params = $this->input->get(null, true);
-                $filtros['limit'] = isset($params['pageSize'])? $params['pageSize']:Catalogo::LIMIT;
-                $filtros['offset'] = isset($params['pageIndex'])?  ($filtros['limit']*($params['pageIndex']-1)):0;
+                $filtros['limit'] = isset($params['pageSize']) ? $params['pageSize'] : Catalogo::LIMIT;
+                $filtros['offset'] = isset($params['pageIndex']) ? ($filtros['limit'] * ($params['pageIndex'] - 1)) : 0;
                 $filtros['like'] = $this->prepara_filtros($params, array(
                     'departamento' => 'departamentos.nombre',
                     'clave_departamental' => 'departamentos.clave_departamental',
@@ -292,19 +274,19 @@ class Catalogo extends MY_Controller {
                 $this->editar_departamento($post);
                 break;
             case Catalogo::ELIMINAR:
-               $post = $this->input->post(null, true);
-               $this->eliminar_departamento($post);
-               break;
+                $post = $this->input->post(null, true);
+                $this->eliminar_departamento($post);
+                break;
             case Catalogo::EXPORTAR:
                 $file_name = 'catalogo_adscripciones_' . date('Ymd_his', time());
                 $filtros = $this->config->item('catalogo.departamentos_instituto');
                 $registros['data'] = $this->catalogo->get_registros('catalogo.departamentos_instituto departamentos', $filtros);
                 $registros['columnas'] = array(
-                   "id_departamento_instituto",
-                   "Adscripción",
-                   "Clave departamental",
-                   "Clave unidad",
-                   "Activa"
+                    "id_departamento_instituto",
+                    "Adscripción",
+                    "Clave departamental",
+                    "Clave unidad",
+                    "Activa"
                 );
                 $this->exportar_xls($registros['columnas'], $registros['data'], null, null, $file_name);
                 break;
@@ -316,34 +298,28 @@ class Catalogo extends MY_Controller {
         }
     }
 
-    private function eliminar_departamento(&$params)
-    {
-      if($this->input->post())
-      {
-          $where_ids = array('id_departamento_instituto' => $params['id_departamento_instituto']);
-          $result = $this->catalogo->delete_registros('catalogo.departamentos_instituto', $where_ids);
-          header('Content-Type: application/json; charset=utf-8;');
-          echo json_encode($result);
-      }
+    private function eliminar_departamento(&$params) {
+        if ($this->input->post()) {
+            $where_ids = array('id_departamento_instituto' => $params['id_departamento_instituto']);
+            $result = $this->catalogo->delete_registros('catalogo.departamentos_instituto', $where_ids);
+            header('Content-Type: application/json; charset=utf-8;');
+            echo json_encode($result);
+        }
     }
 
-    private function nuevo_departamento(&$params = [])
-    {
-        if($this->input->post())
-        {
+    private function nuevo_departamento(&$params = []) {
+        if ($this->input->post()) {
             $this->config->load('form_validation'); //Cargar archivo con validaciones
             $validations = $this->config->item('insert_catalogo_departamento'); //Obtener validaciones de archivo general
             $this->form_validation->set_rules($validations); //Añadir validaciones
-            if ($this->form_validation->run() == TRUE)
-            {
+            if ($this->form_validation->run() == TRUE) {
                 $form = array(
                     'nombre' => $params['departamento'],
                     'clave_unidad' => $params['clave_unidad'],
                     'clave_departamental' => $params['clave_departamental']
                 );
                 $result = $this->catalogo->insert_registro('catalogo.departamentos_instituto', $form);
-            }else
-            {
+            } else {
                 $result['success'] = false;
                 $result['message'] = validation_errors();
             }
@@ -353,15 +329,12 @@ class Catalogo extends MY_Controller {
         }
     }
 
-    private function editar_departamento($params = [])
-    {
-        if($this->input->post())
-        {
+    private function editar_departamento($params = []) {
+        if ($this->input->post()) {
             $this->config->load('form_validation'); //Cargar archivo con validaciones
             $validations = $this->config->item('update_catalogo_departamento'); //Obtener validaciones de archivo general
             $this->form_validation->set_rules($validations); //Añadir validaciones
-            if ($this->form_validation->run() == TRUE)
-            {
+            if ($this->form_validation->run() == TRUE) {
                 $form = array(
                     'nombre' => $params['departamento'],
                     'clave_unidad' => $params['clave_unidad'],
@@ -371,8 +344,7 @@ class Catalogo extends MY_Controller {
                     'id_departamento_instituto' => $params['id_departamento_instituto']
                 );
                 $result = $this->catalogo->update_registro('catalogo.departamentos_instituto', $form, $ids);
-            }else
-            {
+            } else {
                 $result['success'] = false;
                 $result['message'] = validation_errors();
             }
@@ -383,8 +355,7 @@ class Catalogo extends MY_Controller {
         }
     }
 
-    public function grupo_categoria()
-    {
+    public function grupo_categoria() {
         try {
             $this->db->schema = 'catalogo';
             //pr($this->db->list_tables()); //Muestra el listado de tablas pertenecientes al esquema seleccionado
@@ -420,8 +391,7 @@ class Catalogo extends MY_Controller {
         }
     }
 
-    public function region()
-    {
+    public function region() {
         try {
             $this->db->schema = 'catalogo';
             //pr($this->db->list_tables()); //Muestra el listado de tablas pertenecientes al esquema seleccionado
@@ -464,8 +434,7 @@ class Catalogo extends MY_Controller {
         }
     }
 
-    public function tipo_unidad()
-    {
+    public function tipo_unidad() {
         try {
             $this->db->schema = 'catalogo';
             //pr($this->db->list_tables()); //Muestra el listado de tablas pertenecientes al esquema seleccionado
@@ -505,8 +474,7 @@ class Catalogo extends MY_Controller {
         }
     }
 
-    public function unidad_instituto($opcion = '', $id = null)
-    {
+    public function unidad_instituto($opcion = '', $id = null) {
         $this->load->model('Catalogo_model', 'catalogo');
         // $this->load->config('catalogos');
         $filtros = $this->config->item('catalogo.unidades_instituto');
@@ -517,21 +485,19 @@ class Catalogo extends MY_Controller {
         switch ($opcion) {
             case Catalogo::LISTA:
                 $params = $this->input->get(null, true);
-                $filtros['limit'] = isset($params['pageSize'])? $params['pageSize']:Catalogo::LIMIT;
-                $filtros['offset'] = isset($params['pageIndex'])?  ($filtros['limit']*($params['pageIndex']-1)):0;
-                $filtros['like'] = $this->prepara_filtros($this->input->get(null, true),
-                    array(
-                        'unidad'=>'unidades.nombre',
-                        'delegacion' => 'delegacion.nombre',
-                        'clave_presupuestal' => 'unidades.clave_presupuestal',
-                        'clave_unidad' => 'unidades.clave_unidad',
-                        'es_umae' => 'unidades.grupo_tipo_unidad',
-                    )
+                $filtros['limit'] = isset($params['pageSize']) ? $params['pageSize'] : Catalogo::LIMIT;
+                $filtros['offset'] = isset($params['pageIndex']) ? ($filtros['limit'] * ($params['pageIndex'] - 1)) : 0;
+                $filtros['like'] = $this->prepara_filtros($this->input->get(null, true), array(
+                    'unidad' => 'unidades.nombre',
+                    'delegacion' => 'delegacion.nombre',
+                    'clave_presupuestal' => 'unidades.clave_presupuestal',
+                    'clave_unidad' => 'unidades.clave_unidad',
+                    'es_umae' => 'unidades.grupo_tipo_unidad',
+                        )
                 );
-                $filtros['where'] = $this->prepara_filtros($this->input->get(null, true),
-                    array(
-                        'anio' => 'unidades.anio'
-                    )
+                $filtros['where'] = $this->prepara_filtros($this->input->get(null, true), array(
+                    'anio' => 'unidades.anio'
+                        )
                 );
                 $registros['data'] = $this->catalogo->get_registros('catalogo.unidades_instituto unidades', $filtros);
                 // $registros['query'] = $this->db->last_query();
@@ -571,26 +537,22 @@ class Catalogo extends MY_Controller {
         }
     }
 
-    private function nueva_unidad_instituto(&$params = [])
-    {
+    private function nueva_unidad_instituto(&$params = []) {
         $this->load->library('form_complete');
         $this->load->library('form_validation');
         $output = [];
-        if($this->input->post())
-        {
+        if ($this->input->post()) {
             $post = $this->input->post(null, true);
             $this->config->load('form_validation'); //Cargar archivo con validaciones
             $validations = $this->config->item('catalogo_unidades_instituto'); //Obtener validaciones de archivo general
             $this->form_validation->set_rules($validations); //Añadir validaciones
-            if($this->form_validation->run() == TRUE)
-            {
-                $post['umae'] = $post['umae'] == 1? true:false;
-                $post['activa'] = $post['activa'] == 1? true:false;
-                $post['longitud'] = is_numeric($post['longitud'])?$post['longitud']:null;
-                $post['latitud'] = is_numeric($post['latitud'])?$post['latitud']:null;
+            if ($this->form_validation->run() == TRUE) {
+                $post['umae'] = $post['umae'] == 1 ? true : false;
+                $post['activa'] = $post['activa'] == 1 ? true : false;
+                $post['longitud'] = is_numeric($post['longitud']) ? $post['longitud'] : null;
+                $post['latitud'] = is_numeric($post['latitud']) ? $post['latitud'] : null;
                 $output['status'] = $this->catalogo->insert_registro('catalogo.unidades_instituto', $post);
-            }else
-            {
+            } else {
                 pr(validation_errors());
             }
         }
@@ -600,7 +562,7 @@ class Catalogo extends MY_Controller {
         $regiones = $this->catalogo->get_registros('catalogo.regiones', $filtros);
 
         $output['post']['data'] = $params;
-        $output['delegaciones'] = dropdown_options($this->catalogo->get_delegaciones(null, array('oficinas_centrales'=>true)), 'clave_delegacional', 'nombre');
+        $output['delegaciones'] = dropdown_options($this->catalogo->get_delegaciones(null, array('oficinas_centrales' => true)), 'clave_delegacional', 'nombre');
         $output['tipos_unidades'] = dropdown_options($tipos_unidades, 'id_tipo_unidad', 'tipo_unidad');
         $output['regiones'] = dropdown_options($regiones, 'id_region', 'region');
         $view = $this->load->view('catalogo/formulario_unidad_instituto.tpl.php', $output, true);
@@ -608,31 +570,27 @@ class Catalogo extends MY_Controller {
         $this->template->getTemplate();
     }
 
-    private function editar_unidad_instituto(&$params = [])
-    {
+    private function editar_unidad_instituto(&$params = []) {
         $this->load->library('form_complete');
         $this->load->library('form_validation');
         $output = [];
         $filtros = $this->config->item('catalogo.unidades_instituto');
         $tipos_unidades = $this->catalogo->get_registros('catalogo.unidades_instituto unidades', $filtros);
-        if($this->input->post())
-        {
+        if ($this->input->post()) {
             $post = $this->input->post(null, true);
             $this->config->load('form_validation'); //Cargar archivo con validaciones
             $validations = $this->config->item('catalogo_unidades_instituto'); //Obtener validaciones de archivo general
             $this->form_validation->set_rules($validations); //Añadir validaciones
-            if($this->form_validation->run() == TRUE)
-            {
-                $post['umae'] = $post['umae'] == 1? true:false;
-                $post['activa'] = $post['activa'] == 1? true:false;
-                $post['longitud'] = is_numeric($post['longitud'])?$post['longitud']:null;
-                $post['latitud'] = is_numeric($post['latitud'])?$post['latitud']:null;
+            if ($this->form_validation->run() == TRUE) {
+                $post['umae'] = $post['umae'] == 1 ? true : false;
+                $post['activa'] = $post['activa'] == 1 ? true : false;
+                $post['longitud'] = is_numeric($post['longitud']) ? $post['longitud'] : null;
+                $post['latitud'] = is_numeric($post['latitud']) ? $post['latitud'] : null;
                 $where_ids = array(
                     'id_unidad_instituto' => $params['id_unidad']
                 );
                 $output['status'] = $this->catalogo->update_registro('catalogo.unidades_instituto', $post, $where_ids);
-            }else
-            {
+            } else {
                 pr(validation_errors());
             }
         }
@@ -643,18 +601,52 @@ class Catalogo extends MY_Controller {
             'id_unidad_instituto' => $params['id_unidad']
         );
         $unidad = $this->catalogo->get_registros('catalogo.unidades_instituto unidades', $filtros);
-        if(empty($unidad))
-        {
+        if (empty($unidad)) {
             redirect('catalogo/unidad_instituto');
         }
         $output['post'] = $unidad[0];
         // pr($output['post']);
-        $output['delegaciones'] = dropdown_options($this->catalogo->get_delegaciones(null, array('oficinas_centrales'=>true)), 'clave_delegacional', 'nombre');
+        $output['delegaciones'] = dropdown_options($this->catalogo->get_delegaciones(null, array('oficinas_centrales' => true)), 'clave_delegacional', 'nombre');
         $output['tipos_unidades'] = dropdown_options($tipos_unidades, 'id_tipo_unidad', 'tipo_unidad');
         $output['regiones'] = dropdown_options($regiones, 'id_region', 'region');
         $view = $this->load->view('catalogo/formulario_unidad_instituto.tpl.php', $output, true);
         $this->template->setMainContent($view);
         $this->template->getTemplate();
+    }
+
+    function genero() {
+        //        try
+//        {
+        $data_view = array();
+
+        $this->db->schema = 'idiomas';
+        $crud = $this->new_crud();
+        $crud->set_table('genero');
+        $crud->set_subject('genero');
+        $crud->set_primary_key('id_genero');
+
+        $crud->columns("id_genero", "nombre", "clave_control_idioma");
+        $crud->fields( "nombre", "clave_control_idioma");
+
+        $crud->required_fields("id_genero", "nombre");
+        $crud->display_as("id_genero", 'Id genero');
+        $crud->display_as('nombre', 'Genero');
+
+        $crud->edit_fields('nombre');
+        $crud->add_fields('nombre');
+//        $crud->unset_delete();
+//        $crud->unset_read();
+
+        $data_view['output'] = $crud->render();
+        $data_view['title'] = "Genero";
+
+        $vista = $this->load->view('admin/admin.tpl.php', $data_view, true);
+        $this->template->setMainContent($vista);
+        $this->template->getTemplate();
+//        } catch (Exception $e)
+//        {
+//            show_error($e->getMessage() . ' --- ' . $e->getTraceAsString());
+//        }
     }
 
 }

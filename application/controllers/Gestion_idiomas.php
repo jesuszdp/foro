@@ -14,51 +14,41 @@ class Gestion_idiomas extends MY_Controller {
             EXPORTAR = 'exportar';
 
     function __construct() {
+        $this->grupo_language_text = ['generales', 'cat_paises', 'cat_idiomas']; //Grupo de idiomas para el controlador actual
         parent::__construct();
     }
 
     function idiomas() {
         //        try
 //        {
-            $data_view = array();
+        $data_view = array();
 
-            $this->db->schema = 'idiomas';
-            $crud = $this->new_crud();
-            $crud->set_table('idioma');
-            $crud->set_subject('Idiomas');
-            $crud->set_primary_key('id_participante');
-            $crud->set_relation('clave_delegacion', 'delegaciones', 'nombre');
-           // $crud->set_relation('id_tipo_curso', 'tipo_curso', 'nombre');
+        $this->db->schema = 'idiomas';
+        $crud = $this->new_crud();
+        $crud->set_table('idioma');
+        $crud->set_subject('Idiomas');
+        $crud->set_primary_key('clave_idioma');
 
-            $crud->columns("id_participante", "matricula", "curp", "nombre", "apellido_paterno", "apellido_materno", "is_ciefd","correo_electronico", "clave_delegacion", "nombre_siap", "apellido_paterno_siap", "apellido_materno_siap");
-            $crud->fields("matricula", "curp", "nombre", "apellido_paterno", "apellido_materno", "correo_electronico", "is_profesor", "is_institucional", "is_ciefd", "activo", "fecha_registro", "clave_delegacion", "clave_departamental", "nombre_siap", "apellido_paterno_siap", "apellido_materno_siap");
+        $crud->columns("clave_idioma", "nombre", "activo", "orden", "clave_control_idioma");
+        $crud->fields("clave_idioma", "nombre", "activo", "orden", "clave_control_idioma");
 
-            $crud->required_fields("matricula", "curp", "nombre", "apellido_paterno", "apellido_materno", "correo_electronico", "is_institucional", "is_ciefd", "activo", "clave_delegacion");
-            $crud->display_as("matricula", 'Matrícula');
-            $crud->display_as('nombre', 'Nombre');
-            $crud->display_as('apellido_paterno', 'Apellido paterno');
-            $crud->display_as('apellido_materno', 'Apellido materno');
-            $crud->display_as('nombre_siap', 'Nombre SIAP');
-            $crud->display_as('apellido_paterno_siap', 'Apellido paterno SIAP');
-            $crud->display_as('apellido_materno_siap', 'Apellido materno SIAP');
-            $crud->display_as('is_ciefd', 'Pertence a CIEFD');
-            $crud->display_as('clave_delegacion', 'Delegación');
-            $crud->display_as('is_institucional', 'Pertenece a la institución');
+        $crud->required_fields("clave_idioma", "nombre");
+        $crud->display_as("clave_idioma", 'Clave de idioma');
+        $crud->display_as('nombre', 'Nombre del idioma');
+        $crud->display_as('activo', 'Activo');
+        $crud->display_as('orden', 'Orden de presentación');
 
-            $crud->change_field_type('activo', 'true_false', array(0 => 'No', 1 => 'Si'));
-            $crud->change_field_type('is_ciefd', 'true_false', array(0 => 'No', 1 => 'Si'));
-            $crud->change_field_type('is_institucional', 'true_false', array(0 => 'No', 1 => 'Si'));
+        $crud->change_field_type('activo', 'true_false', array(0 => 'No', 1 => 'Si'));
 
-            $crud->unset_delete();
-            $crud->unset_add();
-            $crud->unset_read();
+        $crud->edit_fields('nombre', 'activo', 'orden');
+        $crud->add_fields('clave_idioma', 'nombre', 'activo', 'orden');
 
-            $data_view['output'] = $crud->render();
-            $data_view['title'] = "Participantes";
+        $data_view['output'] = $crud->render();
+        $data_view['title'] = "Idiomas";
 
-            $vista = $this->load->view('catalogo/admin.tpl.php', $data_view, true);
-            $this->template->setMainContent($vista);
-            $this->template->getTemplate();
+        $vista = $this->load->view('admin/admin.tpl.php', $data_view, true);
+        $this->template->setMainContent($vista);
+        $this->template->getTemplate();
 //        } catch (Exception $e)
 //        {
 //            show_error($e->getMessage() . ' --- ' . $e->getTraceAsString());
@@ -66,11 +56,59 @@ class Gestion_idiomas extends MY_Controller {
     }
 
     function paises() {
-        
+        $data_view = array();
+        $this->db->schema = 'idiomas';
+        $crud = $this->new_crud();
+        $crud->set_table('pais');
+        $crud->set_subject($this->language_text['cat_paises']['titulo']);
+        $crud->set_primary_key('clave_pais');
+
+        $crud->columns("clave_pais", "nombre", "descripcion", "clave_control_idioma");
+        $crud->fields("clave_pais", "nombre", "descripcion", "clave_control_idioma");
+
+        $crud->required_fields("clave_pais", "nombre");
+        $crud->display_as("clave_pais", 'Clave del país');
+        $crud->display_as('nombre', 'Nombre del país');
+        $crud->display_as('descripcion', 'Descripción');
+
+        $crud->edit_fields('nombre', 'descripcion');
+        $crud->add_fields('clave_pais', 'nombre', 'descripcion');
+
+        $data_view['output'] = $crud->render();
+        $data_view['title'] = $this->language_text['cat_paises']['titulo'];
+
+        $vista = $this->load->view('admin/admin.tpl.php', $data_view, true);
+        $this->template->setMainContent($vista);
+        $this->template->getTemplate();
     }
 
     function tipo_etiquetas() {
-        
+        $data_view = array();
+
+        $this->db->schema = 'idiomas';
+        $crud = $this->new_crud();
+        $crud->set_table('tipo_etiqueta');
+        $crud->set_subject('Tipo de etiquetas');
+        $crud->set_primary_key('clave_tipo_etiqueta');
+
+        $crud->columns("clave_tipo_etiqueta", "nombre", "descripcion");
+        $crud->fields("clave_tipo_etiqueta", "nombre", "descripcion");
+
+        $crud->required_fields("clave_tipo_etiqueta", "nombre");
+        $crud->display_as("clave_tipo_etiqueta", 'Clave del tipo etiqueta');
+        $crud->display_as('nombre', 'Nombre del tipo etiqueta');
+        $crud->display_as('descripcion', 'Descripción');
+
+        $crud->edit_fields('nombre', 'descripcion');
+        $crud->add_fields('clave_tipo_etiqueta', 'nombre', 'descripcion');
+
+        $data_view['output'] = $crud->render();
+        $data_view['title'] = "Tipo de etiquetas";
+
+        $vista = $this->load->view('admin/admin.tpl.php', $data_view, true);
+        $this->template->setMainContent($vista);
+        $this->template->getTemplate();
+//      
     }
 
     /**
@@ -82,6 +120,9 @@ class Gestion_idiomas extends MY_Controller {
      */
     function modifica_idioma($idioma = "ES") {
         update_lenguaje($idioma);
+        $result = ['success' => true];
+        header('Content-Type: application/json; charset=utf-8;');
+        echo json_encode($result);
     }
 
 }

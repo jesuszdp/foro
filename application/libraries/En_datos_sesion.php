@@ -10,6 +10,8 @@ class En_datos_sesion {
     const
             __default = '',
             __INSTANCIA = 'die_sipimss',
+            LANGUAGE = 'language',
+            LANGUAGE_DEFAULT = 'es',
             MATRICULA = 'matricula',
             ID_USUARIO = 'id_usuario',
             ID_DOCENTE = 'id_docente',

@@ -16,6 +16,7 @@
     <?php echo css('bootstrap.css'); ?>
 
     <script type="text/javascript">
+    var language_text = <?php echo json_encode($language_text); ?>;
     var url = "<?php echo base_url(); ?>";
     var site_url = "<?php echo site_url(); ?>";
     var img_url_loader = "<?php echo base_url('assets/img/loader.gif'); ?>";
@@ -36,6 +37,7 @@
     <!-- General de SIPIMSS -->
     <?php echo js('template_foro/general.js'); ?>
     <?php echo js('template_foro/apprise.js'); ?>
+    <?php echo js('template_foro/idioma.js'); ?>
 </head>
 <body>
     <div id="overlay">
@@ -108,33 +110,28 @@
                             <li><a href="<?php echo site_url(); ?>/inicio/cerrar_sesion"><i class="fa fa-sign-out"></i> Cerrar sesión</a></li>
                         </ul>
                     </li>
+                    
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <?php echo (isset($language_text['generales']['titulo']))?$language_text['generales']['titulo']:''; ?> <i class="fa fa-user-plus"></i> <i class="fa fa-caret-down"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
 
-                    <?php if(isset($notificaciones_estaticas))
-                    {
-                        echo $notificaciones_estaticas;
-                    }
-                    ?>
-                    <!-- <li >
-                    <a id="item-contacto" href="#item-contacto" class="tablero-menu-item"
-                    data-toggle="modal" data-target="#admin-finalizacenso">
-                    <i class="dashboard"></i>De clic aquí para finalizar el registro de convocatoria</a>
-                </li> -->
-                <?php
-                if(isset($datos_sesion['workflow']) && count($datos_sesion['workflow']) > 0){
-                    if(!$datos_sesion['workflow'][0]['finalizada'] && $datos_sesion['workflow'][0]['etapa_activa'] == 'Registro'){
-                        ?>
-                        <li >
-                            <a id="item-contacto" href="#item-contacto" class="tablero-menu-item"
-                            data-toggle="modal" data-target="#admin-finalizacenso">
-                            <i class="dashboard"></i>De clic aquí para finalizar el registro de convocatoria</a>
-                        </li>
-                        <?php
-                    }
-                }
-                ?>
+                            <?php if(isset($language_catalogue)){ ?>
+                                
+                            <?php foreach ($language_catalogue as $value) {?>
+                            <li>
+                                <a class="link_ficha_usuario languaje_catalogo" data-cvelanguage="<?php echo $value['clave_idioma'] ?>" href="#">
+                                <b><?php echo $value['idioma'] ?></b>
+                                <div class="ripple-container"></div>
+                                </a>
+                            <?php }?>
+                            </li>
+                            <?php } ?>
+                        </ul>
+                    </li>
 
-
-                <?php if(isset($this->session->userdata('die_sipimss')['anterior']))
+                <?php if(isset($this->session->userdata(En_datos_sesion::__INSTANCIA)['anterior']))
                 {
                     ?>
                     <li class="nav">

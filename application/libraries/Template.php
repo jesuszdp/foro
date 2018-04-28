@@ -9,43 +9,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Template {
 
     private $elements;
-    private $element_seccion;
-    private $comprobante;
-    private $elements_comprobante;
     private $elements_modal;
-    private $date_picker;
-    var $lang;
-    var $lang_text;
-    var $multiligual;
     private $datos_imagen_perfil;
 
     public function __construct() {
         $this->CI = & get_instance();
         $this->CI->load->helper('html');
         $this->CI->load->helper('menu_helper');
-        $this->lang = "spanish";
         $this->new_tpl = FALSE;
-        $this->lang_text = array();
-        $this->element_seccion = array(
-            "seccion" => null,
-            "formulario" => null,
-            "tabla" => null,
-            "tabla_tpl" => NULL,
-            "titulo_seccion" => null,
-            "titulo_form" => null,
-            "rutas_js" => null,
-            "boton_agregar" => null,
-            "boton_cancelar" => null,
-            "boton_submit" => null, //Guardar u actalizar
-            "ruta_accion_boton_agregar" => null,
-            "ruta_controller" => null,
-        );
         $this->elements = array(
             "title" => null, //Titulo de de la sección
             "menu" => null, //Pinta todo el cuerpo del menú en el template
             "main_title" => null, //Pinta un titulo, el titulo del "main_content", puede o no existir
             "sub_title" => null, //Pinta un subtitulo, el sub_titulo del "main_content", puede o no existir
             "descripcion" => null, //
+            "language_text" => null, //
+            "language_catalogue" => null, //
             "main_content" => null, //contenido del template, información relevante de la sección en cuestion
             "css_files" => null, //Carga rutas de archivos css que se llamarán al pintar el formulario de core
             "js_files" => null, //Carga rutas de archivos js que se llmaran al pintar el formulario de core
@@ -56,16 +35,6 @@ class Template {
             'notificaciones_estaticas' => null
         );
 
-        $this->comprobante = null;
-        $this->elements_comprobante = array(
-            "folio" => null, //Folio del comprobante (alfa numérico)
-            "nombre_comprobante" => null, //Nombre del comprobante en el sistema
-            "ruta" => null, //Ruta de acceso al archivo
-            "id_file" => null, //Identificador del archivo en la base de datos
-            "nombre_extencion" => null, //Extención del archivo
-            "is_carga_sistema" => null, //Indica que el comprobante fue cargado por sistema (de ser así,  no podrá ser modificado),
-            "id_validacion_registro" => null, //Indica el estado de la validación del registro, si el registro ya fue evaluado por profesionalización, no podrá ser modificado
-        );
         $this->elements_modal = array(
             "modal_titulo" => null, //Titulo del modal
             "modal_cuerpo" => null, //Cuerpo del modal, contenido reelevante
@@ -74,182 +43,6 @@ class Template {
 
     }
 
-    /**
-     * @author LEAS
-     * @fecha 08/05/2017
-     * @param type $parametros Vista de botón con todas las acciones ya definidas para guardar
-     * nuevo registro del censo, contiene los siguientes argumentos
-     * Array(
-     *      [id_censo] => 1
-     *      [formulario] => 1
-     * );
-     * @descripcion Asigna a elementos_seccion el atributo "boton_guardar" que guarda la vista
-     * del botón guardar cualquier información de formuario de censo
-     */
-    public function set_boton_guardar($parametros = null, $tpl = 'tc_template/btn_guardar_editar_actividad') {
-//        pr($parametros);
-        $this->element_seccion['boton_submit'] = $this->CI->load->view($tpl, $parametros, TRUE);
-//        pr($this->element_seccion['boton_submit']);
-    }
-
-    /**
-     * @author LEAS
-     * @fecha 31/05/2017
-     * @Descripcion Obtiene la vista del botón
-     */
-    public function get_boton_guardar() {
-        return $this->element_seccion['boton_submit'];
-    }
-
-    /**
-     * @author LEAS
-     * @fecha 08/05/2017
-     * @param type $boton Vista de botón con todas las acciones ya definidas para ejecutar el primer
-     * elemento del arbol que lleve a una sección de registros de actividades del docente
-     * @descripcion Asigna a elementos_seccion el atributo "boton_agregar nuevo registro" el cual dispara el
-     * llamado al primer elemento hijo de una seccion (secciónes Actividad docente, Formación, Becas, Investigación,
-     * Dirección de tesis, Comisiones, Material educativo), es decir, los "elementos_seccion" hijos.
-     */
-    public function setBotonAgregar($boton) {
-        $this->element_seccion['boton_agregar'] = $boton;
-    }
-
-    /**
-     * @author LEAS
-     * @fecha 8/05/2017
-     * @return type String
-     * @Descripcion Obtiene la vista del componente comprobante y folio del registro censo
-     */
-    public function get_comprobante() {
-        return $this->comprobante;
-    }
-
-    /**
-     *
-     * @author LEAS
-     * @param type Array $elementos_comprobante
-     * @param type String $tpl template que genera la vista del componente comprobante y folio
-     * con los siguiente estructura
-     * Array(
-      [id_censo] => 108
-      [is_carga_sistema] =>
-      [folio] => 5g7k8h9l
-      [id_file] => 108
-      [nombre_comprobante] => 3342165412_1495119429
-      [ruta] => /assets/us/uploads/3342165412/
-      [nombre_extencion] => pdf
-      [id_validacion_registro] => 1
-      [nombre_validacion] => Registro usuario
-     * actividad del docente en el modulo registro de censo
-     * @descripcion Genera y asigna a la variable "elements_comprobante" la vista del componente
-     * comprobante y folio del registro del censo
-     */
-    public function set_comprobante($elementos_comprobante = null, $tpl = 'tc_template/formulario_carga_archivo') {
-        if (!is_null($elementos_comprobante)) {//Valida que exista el elemento comprobante
-            $this->elements_comprobante = $elementos_comprobante;
-        }
-        $this->comprobante = $this->CI->load->view($tpl, $this->elements_comprobante, TRUE);
-    }
-
-    /**
-     * @author LEAS
-     * @fecha 08/05/2017
-     * @param Array type $parametros parametros de configuración del botón que inicia
-     * el árbol de secciones
-     * Array(
-     *      [titulo] => Agregar
-     *      [nombre_boton] => btn_agregar
-     *      [tipo_evento_js] => onclick
-     *      [funcion_js] => carga_hijo_seccion(this)
-     *      [seccion] => 2
-     * );
-     * @param type $tpl
-     * @param type String $ruta_accion_js
-     */
-    public function setBotonAgregarGeneral($parametros, $tpl = 'tc_template/btn_agregar_nueva_actividad', $ruta_accion_js = "assets/js/docente/template_docente.js") {
-//        pr($parametros);
-        $this->element_seccion['boton_agregar'] = $this->CI->load->view($tpl, $parametros, TRUE);
-        $this->element_seccion['ruta_accion_boton_agregar'] = $ruta_accion_js;
-    }
-
-    /**
-     * @author: LEAS
-     * @fecha: 08/05/2017
-     * @return type Array con los parametros basicos para generar botón de
-     * agregar un nuevo registro de la sección, es decir, m
-     *
-     */
-
-    /**
-     * @author LEAS
-     * @fecha 08/05/2017
-     * @param type $boton Vista de botón con todas las acciones ya definidas para ejecutar el primer
-     * elemento del arbol que lleve a una sección de registros de actividades del docente
-     * @descripcion Asigna a elementos_seccion el atributo "boton_agregar nuevo registro" el cual dispara el
-     * llamado al primer elemento hijo de una seccion (secciónes Actividad docente, Formación, Becas, Investigación,
-     * Dirección de tesis, Comisiones, Material educativo), es decir, los "elementos_seccion" hijos.
-     */
-    public function getParametrorBoton() {
-        return array(
-            'titulo' => 'Agregar',
-            'nombre_boton' => 'btn_agregar',
-            'tipo_evento_js' => 'onclick',
-            'funcion_js' => 'carga_hijo_seccion(this)',
-            'seccion' => null,
-        );
-    }
-
-    /*
-     * @method: array setFormularioSecciones()
-     * @param: $elementos_seccion elementos que definen la estructura de una secccion,
-     * (rutas, data_table, boton de cancelar guardado etc) con la siguiente estructura del array
-     * array(
-     *         "seccion" => null,
-     *         "formulario" => null,
-     *         "tabla" => null,
-     *         "tabla_tpl" => NULL,
-     *         "titulo_seccion" => null,
-     *         "titulo_form" => null,
-     *         "rutas_js" => null,
-     *         "boton_agregar" => null,
-     *         "boton_cancelar" => null,
-     *         "boton_submit" => null, //Guardar u actalizar
-     *         "ruta_accion_boton_agregar" => null,
-     *         "ruta_controller" => null,
-     *     )
-     * @descripcion:Genera la vista de la sección en cuestión(datatable, agregar nuevo registro) y
-     * lo asigna a la propiedad "main_content" (cuerpo del template)
-     */
-
-    public function setFormularioSecciones($elementos_seccion, $tpl = 'tc_template/secciones.tpl.php') {
-        //  $this->elementos_seccion = $elementos_seccion;
-//        pr($elementos_seccion);
-        foreach ($elementos_seccion as $key => $value) {
-            $this->element_seccion[$key] = $value;
-        }
-//        pr($this->elementos_seccion['componente_comprobante']);
-        //  pr ($this->elementos_seccion);
-        $this->elements["main_content"] = $this->CI->load->view($tpl, $this->element_seccion, TRUE);
-    }
-
-    /* Retorna el atributo elements_sección
-     * @author LEAS
-     * @return: mixed[] Data arreglo de datos de plantilla con la siguiente estructura array("title"=>null,"nav"=>null,"main_title"=>null,"main_content"=>null);
-     */
-
-    function get_elements_seccion() {
-        return $this->element_seccion;
-    }
-
-    /**
-     *
-     * @author LEAS
-     * @param type $key
-     * @param type $dato
-     */
-    function add_elements_seccion($key, $dato) {
-        $this->element_seccion[$key] = $dato;
-    }
 
     /* Retorna el atributo elements
      * @method: array getData()
@@ -266,11 +59,6 @@ class Template {
      */
 
     function getTemplate($tipo = FALSE, $tpl = 'tc_template/index.tpl.php') {
-        if ($this->multiligual) {
-            $this->CI->lang->load('interface', $this->lang);
-            $this->elements["string_tpl"] = $this->CI->lang->line('interface_tpl');
-            // pr($this->elements);
-        }
         if (empty($this->elements["menu"])) {//Genera menú vacio
             $menu_data['datos_imagen'] = $this->get_datos_imagen_perfil(); //Agrega datos de la imagen para el menu
             $this->setNav($menu_data);
@@ -313,6 +101,24 @@ class Template {
 
     function setTitle($title = null) {
         $this->elements["title"] = $title;
+    }
+    
+    /**
+     * @author LEAS
+     * @fecha 27/04/2018
+     * @param type $language_text Agrega el catalogo de textos que serán usados 
+     */
+    function setLanguageText($language_text = null) {
+        $this->elements["language_text"] = $language_text;
+    }
+    /**
+     * @author LEAS
+     * @fecha 27/04/2018
+     * @param type $language_catalogue Agrega el catalogo de idiomas del sistema
+     * 
+     */
+    function setLanguageCatalogue($language_catalogue = null) {
+        $this->elements["language_catalogue"] = $language_catalogue;
     }
 
     /*
