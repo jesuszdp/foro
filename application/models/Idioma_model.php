@@ -67,31 +67,56 @@ class Idioma_model extends CI_Model {
     }
 
     public function get_etiquetas_texto($grupos_texto = [], $idioma = 'es') {
-        
+
         $this->db->flush_cache();
         $this->db->reset_query();
         $this->db->select(array(
-            "et.clave_grupo_etiqueta", "et.clave_etiqueta", "t.valor"
+            "t.clave_traduccion", "t.clave_tipo", "t.clave_grupo", "t.lang"
         ));
-        $this->db->join('idiomas.grupo_etiqueta ge', 'ge.clave_grupo_etiqueta = et.clave_grupo_etiqueta', 'inner');
-        $this->db->join('idiomas.texto t', 't.id_etiqueta = et.id_etiqueta', 'inner');
-        $this->db->where('t.clave_idioma', $idioma);
-        $this->db->where_in('ge.clave_grupo_etiqueta', $grupos_texto);
-        $result = $this->db->get('idiomas.etiqueta et')->result_array();
+        $this->db->where_in('t.clave_grupo', $grupos_texto);
+        $result = $this->db->get('idiomas.traduccion t')->result_array();
         $this->db->flush_cache();
         $this->db->reset_query();
-//            pr($result);
         if (!empty($result)) {
             $language = [];
             foreach ($result as $value) {//Genera agrupaciónes
-                if (!isset($language[$value['clave_grupo_etiqueta']])) {//Si no existe, agrega 
-                    $language[$value['clave_grupo_etiqueta']] = [];
+                if (!isset($language[$value['clave_grupo']])) {//Si no existe, agrega 
+                    $language[$value['clave_grupo']] = [];
                 }
-                $language[$value['clave_grupo_etiqueta']][$value['clave_etiqueta']] = $value['valor']; //Asigna el valor
+                $valores = json_decode($value['lang'], true);
+                if (isset($valores[$idioma])) {
+                    $language[$value['clave_grupo']][$value['clave_traduccion']] = $valores[$idioma]; //Asigna el valor
+                } else {
+                    $language[$value['clave_grupo']][$value['clave_traduccion']] = ""; //Asigna el valor
+                }
             }
             return $language;
         }
         return [];
+    }
+
+    public function insert_user_idioma($id_user, $idioma) {
+        $this->db->flush_cache();
+        $this->db->reset_query();
+        $salida = false;
+        $this->db->trans_begin();
+        $params = array(
+            'clave_idioma' => $idioma
+        );
+
+        $this->db->where('id_usuario', $id_user);
+        $this->db->update('sistema.usuarios', $params);
+
+        if ($this->db->trans_status() === FALSE) {
+            $this->db->trans_rollback();
+            $salida = false;
+        } else {
+            $this->db->trans_commit();
+            $salida = true;
+        }
+        $this->db->flush_cache();
+        $this->db->reset_query();
+        return $salida;
     }
 
 }

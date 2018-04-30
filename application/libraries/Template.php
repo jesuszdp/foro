@@ -24,7 +24,6 @@ class Template {
             "sub_title" => null, //Pinta un subtitulo, el sub_titulo del "main_content", puede o no existir
             "descripcion" => null, //
             "language_text" => null, //
-            "language_catalogue" => null, //
             "main_content" => null, //contenido del template, información relevante de la sección en cuestion
             "css_files" => null, //Carga rutas de archivos css que se llamarán al pintar el formulario de core
             "js_files" => null, //Carga rutas de archivos js que se llmaran al pintar el formulario de core
@@ -110,15 +109,6 @@ class Template {
      */
     function setLanguageText($language_text = null) {
         $this->elements["language_text"] = $language_text;
-    }
-    /**
-     * @author LEAS
-     * @fecha 27/04/2018
-     * @param type $language_catalogue Agrega el catalogo de idiomas del sistema
-     * 
-     */
-    function setLanguageCatalogue($language_catalogue = null) {
-        $this->elements["language_catalogue"] = $language_catalogue;
     }
 
     /*

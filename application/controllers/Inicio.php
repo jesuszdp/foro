@@ -13,11 +13,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  *
  * @author chrigarc
  */
-class Inicio extends MY_Controller
-{
+class Inicio extends MY_Controller {
 
-    public function __construct()
-    {
+    public function __construct() {
         parent::__construct();
         $this->load->library('form_complete');
         $this->load->library('form_validation');
@@ -28,43 +26,38 @@ class Inicio extends MY_Controller
         $this->load->model('Usuario_model', 'usuario');
     }
 
-    public function index()
-    {
+    public function index() {
         $data["texts"] = $this->lang->line('formulario'); //textos del formulario
-        if ($this->input->post())
-        {
+        if ($this->input->post()) {
             $post = $this->input->post(null, true);
 
             $this->config->load('form_validation'); //Cargar archivo con validaciones
             $validations = $this->config->item('login'); //Obtener validaciones de archivo general
             $this->form_validation->set_rules($validations);
 
-            if ($this->form_validation->run() == TRUE)
-            {
+            if ($this->form_validation->run() == TRUE) {
                 $valido = $this->sesion->validar_usuario($post["usuario"], $post["password"]);
                 $mensajes = $this->lang->line('mensajes');
-                switch ($valido)
-                {
+                switch ($valido) {
                     case 1:
                         //redirect to home //load menu...etc etc
                         $params = array(
-                            'where' => array('username' => $post['usuario']),
+                            'where' => array('usuarios.username' => $post['usuario']),
                             'select' => array(
-                                'usuarios.id_usuario', 'coalesce(docentes.matricula, usuarios.username) matricula',
-                                'docentes.id_docente', 'docentes.nombre',
-                                'docentes.apellido_p', 'docentes.apellido_m', 'sexo',
-                                'E.id_unidad_instituto', 'E.nombre unidad', 'E.clave_unidad',
-                                'docentes.fecha_nacimiento', 'D.id_departamento_instituto', 'D.nombre departamento',
-                                'D.clave_departamental', 'F.clave_categoria',
-                                'F.id_categoria', 'F.nombre categoria', 'C.cve_tipo_contratacion',
-                                'docentes.curp', 'docentes.rfc', 'docentes.telefono_particular',
-                                'docentes.telefono_laboral', 'docentes.email', 'G.clave_delegacional', 'G.nombre delegacion',
+                                "usuarios.id_usuario", "coalesce(inf.matricula, usuarios.username) matricula", "usuarios.clave_idioma language",
+                                "inf.id_informacion_usuario", "inf.nombre", "inf.apellido_paterno", "inf.apellido_materno",
+                                "uni.clave_unidad", "uni.nombre unidad", "inf.fecha_nacimiento",
+                                "dep.clave_departamental", "dep.nombre departamento",
+                                "cat.clave_categoria", "cat.id_categoria", "cat.nombre categoria",
+                                "inf.curp", "inf.rfc"
+                                , "inf.email", "inf.clave_delegacional", "del.nombre delegacion"
                             )
                         );
-                        $die_sipimss['usuario'] = $this->usuario->get_usuarios($params)[0];
-                        $die_sipimss['usuario']['niveles_acceso'] = $this->sesion->get_niveles_acceso($die_sipimss['usuario']['id_usuario']);
+                        $foro_educacion['usuario'] = $this->usuario->get_usuarios($params)[0];
+                        $foro_educacion['usuario']['niveles_acceso'] = $this->sesion->get_niveles_acceso($foro_educacion['usuario']['id_usuario']);
+                        $foro_educacion['language'] = $foro_educacion['usuario']['language']; 
 //                        $die_sipimss['usuario']['workflow'] = $this->sesion->get_info_convocatoria($die_sipimss['usuario']['id_docente']);
-                        $this->session->set_userdata('die_sipimss', $die_sipimss);
+                        $this->session->set_userdata(En_datos_sesion::__INSTANCIA, $foro_educacion);
                         redirect(site_url() . '/inicio/inicio');
                         break;
                     case 2:
@@ -78,20 +71,17 @@ class Inicio extends MY_Controller
                     default :
                         break;
                 }
-            } else
-            {
+            } else {
 //                pr(validation_errors());
                 $data['errores'] = validation_errors();
             }
         }
 
-        $die_sipimss = $this->session->userdata('die_sipimss');
-        if (isset($die_sipimss['usuario']['id_usuario']))
-        {
+        $foro_educacion = $this->session->userdata('die_sipimss');
+        if (isset($foro_educacion['usuario']['id_usuario'])) {
 
-            redirect(site_url('inicio/inicio') );
-        } else
-        {//De inicio aquí es donde entra 
+            redirect(site_url('inicio/inicio'));
+        } else {//De inicio aquí es donde entra 
             $this->load->model('Catalogo_model', 'catalogo');
             $data['delegaciones'] = dropdown_options($this->catalogo->get_delegaciones(null, array('oficinas_centrales' => true)), 'clave_delegacional', 'nombre');
             $data['my_modal'] = $this->load->view("sesion/login_modal.tpl.php", $data, TRUE);
@@ -100,11 +90,10 @@ class Inicio extends MY_Controller
         }
     }
 
-    public function inicio(){
+    public function inicio() {
         $output = [];
         $u_siap = $this->session->flashdata('die_sipimss_siap');
-        if(!is_null($u_siap) && $u_siap == 0)
-        {
+        if (!is_null($u_siap) && $u_siap == 0) {
             $output['usuario'] = $this->get_datos_sesion();
             $output['modal_siap'] = $this->load->view('sesion/modal_siap.tpl.php', $output, true);
         }
@@ -114,40 +103,32 @@ class Inicio extends MY_Controller
         $this->template->getTemplate();
     }
 
-    function captcha()
-    {
+    function captcha() {
         new_captcha();
     }
 
-    public function cerrar_sesion()
-    {
+    public function cerrar_sesion() {
         $this->session->sess_destroy();
         redirect(site_url());
     }
 
-    public function recuperar_password($code = null)
-    {
+    public function recuperar_password($code = null) {
         $datos = array();
-        if ($this->input->post() && $code == null)
-        {
+        if ($this->input->post() && $code == null) {
             $usuario = $this->input->post("usuario", true);
             $this->form_validation->set_rules('usuario', 'Usuario', 'required');
-            if ($this->form_validation->run() == TRUE)
-            {
+            if ($this->form_validation->run() == TRUE) {
                 $this->sesion->recuperar_password($usuario);
                 $datos['recovery'] = true;
             }
-        } else if ($this->input->post() && $code != null)
-        {
+        } else if ($this->input->post() && $code != null) {
             $this->form_validation->set_rules('new_password', 'Constraseña', 'required');
             $this->form_validation->set_rules('new_password_confirm', 'Confirmar constraseña', 'required');
-            if ($this->form_validation->run() == TRUE)
-            {
+            if ($this->form_validation->run() == TRUE) {
                 $new_password = $this->input->post('new_password', true);
                 $datos['success'] = $this->sesion->update_password($code, $new_password);
             }
-        } else if ($code != null)
-        {
+        } else if ($code != null) {
             $datos['code'] = $code;
             $datos['form_recovery'] = true;
         }
@@ -158,34 +139,29 @@ class Inicio extends MY_Controller
         //$this->load->view("sesion/recuperar_password.tpl.php", $datos);
     }
 
-    public function manteminiemto()
-    {
+    public function manteminiemto() {
         echo 'En mantenimiento';
     }
 
-    public function dashboard()
-    {
+    public function dashboard() {
         $id_usuario = $this->get_datos_sesion(En_datos_sesion::ID_USUARIO);
         $this->load->model('Modulo_model', 'modulo');
         $this->load->library('LNiveles_acceso');
         $niveles = $this->modulo->get_niveles_acceso($id_usuario, 'usuario');
-        if($this->lniveles_acceso->nivel_acceso_valido(array(LNiveles_acceso::Super, LNiveles_acceso::Admin, LNiveles_acceso::Nivel_central), $niveles)){
+        if ($this->lniveles_acceso->nivel_acceso_valido(array(LNiveles_acceso::Super, LNiveles_acceso::Admin, LNiveles_acceso::Nivel_central), $niveles)) {
             redirect('reporte/nivel_central');
-        }else{
+        } else {
             redirect('reporte/n1');
         }
     }
 
-    public function registro()
-    {
+    public function registro() {
         $output["texts"] = $this->lang->line('formulario'); //textos del formulario
-        if($this->input->post())
-        {
+        if ($this->input->post()) {
             $this->config->load('form_validation'); //Cargar archivo con validaciones
             $validations = $this->config->item('form_registro_usuario'); //Obtener validaciones de archivo general
             $this->form_validation->set_rules($validations); //Añadir validaciones
-            if ($this->form_validation->run() == TRUE)
-            {
+            if ($this->form_validation->run() == TRUE) {
                 $this->load->model('Administracion_model', 'administracion');
                 $data = array(
                     'matricula' => $this->input->post('reg_usuario', TRUE),
@@ -196,7 +172,7 @@ class Inicio extends MY_Controller
                     'registro_usuario' => true
                 );
                 $output['registro_valido'] = $this->usuario->nuevo($data);
-            }else{
+            } else {
                 // pr(validation_errors());;
             }
         }
@@ -205,41 +181,36 @@ class Inicio extends MY_Controller
         $this->load->view("sesion/registro_modal.tpl.php", $output);
     }
 
-    public function mesa_ayuda(){
+    public function mesa_ayuda() {
         $this->template->set_titulo_modal('<h4><span class="glyphicon glyphicon-lock"></span>Mesa de ayuda</h4>');
         $view = $this->load->view('sesion/mesa_ayuda.tpl.php', [], true);
         $this->template->set_cuerpo_modal($view);
         $this->template->get_modal();
     }
 
-
-    private function valida_info_siap($usuario)
-    {
+    private function valida_info_siap($usuario) {
         $status = true;
-        if(isset($usuario['id_docente']))
-        {
+        if (isset($usuario['id_docente'])) {
             $status = false;
             // pr($usuario['clave_departamental'].' - '.$usuario['clave_categoria']);
 
             $siap = $this->empleados_siap->buscar_usuario_siap(substr($usuario['clave_unidad'], 0, 2), $usuario['matricula']);
-            if($siap['tp_msg'] == En_tpmsg::SUCCESS)
-            {
+            if ($siap['tp_msg'] == En_tpmsg::SUCCESS) {
                 $siap = $siap['empleado'];
                 // pr($siap);
                 // pr($siap['adscripcion'][0].' - '.$siap['emp_keypue'][0]);
                 $status = ($siap['adscripcion'][0] == $usuario['clave_departamental']) && ($siap['emp_keypue'][0] == $usuario['clave_categoria']);
                 // echo $status ? 'true':'false';
             }
-            if(!$status)
-            {
+            if (!$status) {
                 $this->session->set_flashdata('die_sipimss_siap', 0);
             }
         }
     }
 
-    public function p404()
-    {
+    public function p404() {
         $output = [];
         $this->load->view('404.tpl.php', $output);
     }
+
 }

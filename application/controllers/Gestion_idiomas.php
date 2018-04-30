@@ -14,7 +14,7 @@ class Gestion_idiomas extends MY_Controller {
             EXPORTAR = 'exportar';
 
     function __construct() {
-        $this->grupo_language_text = ['generales', 'cat_paises', 'cat_idiomas']; //Grupo de idiomas para el controlador actual
+        $this->grupo_language_text = ['generales']; //Grupo de idiomas para el controlador actual
         parent::__construct();
     }
 
@@ -119,8 +119,15 @@ class Gestion_idiomas extends MY_Controller {
      * 
      */
     function modifica_idioma($idioma = "ES") {
-        update_lenguaje($idioma);
-        $result = ['success' => true];
+        $update = update_lenguaje($idioma);
+        if ($update) {
+            $id_user = $this->get_datos_sesion(En_datos_sesion::ID_USUARIO);
+            $this->load->model('Idioma_model', 'idioma');
+            $correct = $this->idioma->insert_user_idioma($id_user, $idioma);
+            $result = ['success' => $correct];
+        } else {
+            $result = ['success' => FALSE];
+        }
         header('Content-Type: application/json; charset=utf-8;');
         echo json_encode($result);
     }

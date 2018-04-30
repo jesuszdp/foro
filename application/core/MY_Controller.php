@@ -10,7 +10,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class MY_Controller extends CI_Controller {
 
     protected $language_text = []; //Textos actuales de texto 
-    protected $grupo_language_text = ['generales']; //Grupos de texto actuales del controlador 
+    protected $grupo_language_text = []; //Grupos de texto actuales del controlador 
+    private $grupo_language_text_generales = ['template_general']; //Grupos de texto actuales del controlador 
 
     function __construct() {
         parent::__construct();
@@ -35,21 +36,17 @@ class MY_Controller extends CI_Controller {
             $this->carga_imagen();
             $lenguaje = $this->obtener_idioma();
             if (is_null($lenguaje)) {//Si no existe el lenguaje, lo modifica
-                $lenguaje = $this->idioma->get_lenguaje(En_datos_sesion::LANGUAGE_DEFAULT, $data['usuario'][En_datos_sesion::ID_USUARIO], null);
+                $lenguaje = 'es';
+//                        $this->idioma->get_lenguaje(En_datos_sesion::LANGUAGE_DEFAULT, $data['usuario'][En_datos_sesion::ID_USUARIO], null);
             }
             //Selecciona el lenguaje del usuario actual
         } else {//No existe el usuario
             //Selecciona el lenguaje asignado en la bitacora
-            $ip = $this->input->ip_address();
-            $lenguaje = $this->idioma->get_lenguaje(En_datos_sesion::LANGUAGE_DEFAULT, null, $ip);
+            $lenguaje = 'es';
         }
 
-        if (!empty($this->grupo_language_text)) {//Carga los textos del lenguaje actual
-            $this->language_text = $this->obtener_grupos_texto($this->grupo_language_text, $lenguaje);
-            $this->template->setLanguageText($this->language_text);
-        }
-        $catalogo_idioma = $this->obtener_catalogo_idiomas([], $lenguaje);
-        $this->template->setLanguageCatalogue($catalogo_idioma);
+        $this->language_text = $this->obtener_grupos_texto($this->grupo_language_text, $lenguaje);
+        $this->template->setLanguageText($this->language_text);
 
 //        pr($this->language_text);
     }
@@ -107,13 +104,15 @@ class MY_Controller extends CI_Controller {
      * @obtiene el array de los datos de
      */
     public function get_datos_sesion($busqueda_especifica = '*') {
-        $data_usuario = $this->session->userdata(En_datos_sesion::__INSTANCIA)['usuario'];
+        if (isset($this->session->userdata(En_datos_sesion::__INSTANCIA)['usuario'])) {
+            $data_usuario = $this->session->userdata(En_datos_sesion::__INSTANCIA)['usuario'];
 //        $data_usuario = array(En_datos_sesion::ID_DOCENTE =>1,  En_datos_sesion::MATRICULA=>'311091488');
-        if ($busqueda_especifica == '*') {
-            return $data_usuario;
-        } else {
-            if (isset($data_usuario[$busqueda_especifica])) {
-                return $data_usuario[$busqueda_especifica];
+            if ($busqueda_especifica == '*') {
+                return $data_usuario;
+            } else {
+                if (isset($data_usuario[$busqueda_especifica])) {
+                    return $data_usuario[$busqueda_especifica];
+                }
             }
         }
         return NULL; //No se encontro  una llave especifica o la session caduco
@@ -349,23 +348,21 @@ class MY_Controller extends CI_Controller {
      * @return type
      * @author LEAS 
      */
-    public function obtener_idioma() {
-        $language = null;
-        if (isset($this->session->userdata(En_datos_sesion::__INSTANCIA)[En_datos_sesion::LANGUAGE])) {
-            $language = $this->session->userdata(En_datos_sesion::__INSTANCIA)[En_datos_sesion::LANGUAGE];
-        }
-        return $language;
+    protected function obtener_idioma() {
+        return obtener_lenguaje_actual();
     }
 
-    public function obtener_grupos_texto($grupos, $lenguaje) {
+    protected function obtener_grupos_texto($grupos, $lenguaje) {
+        $grupos = array_merge($grupos, $this->grupo_language_text_generales); //Agrega el grupo generales
         $grupos_textos = $this->idioma->get_etiquetas_texto($grupos, $lenguaje);
         return $grupos_textos;
     }
 
-    public function obtener_catalogo_idiomas($idiomas, $lenguaje) {
-        $catalogo_idiomas = $this->idioma->get_idiomas($idiomas, $lenguaje);
-        return $catalogo_idiomas;
-    }
+//    public function obtener_catalogo_idiomas($idiomas, $lenguaje) {
+////        $catalogo_idiomas = $this->idioma->get_idiomas($idiomas, $lenguaje);
+//        $catalogo_idiomas = ['es' => 'Español', 'en' => 'Inglish'];
+//        return $catalogo_idiomas;
+//    }
 
 }
 

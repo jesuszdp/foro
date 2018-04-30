@@ -1,4 +1,6 @@
-<?php header('Content-type: text/html; charset=utf-8'); ?>
+<?php header('Content-type: text/html; charset=utf-8'); 
+//pr($language_text); 
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -94,9 +96,10 @@
                         </a>
                         <ul class="dropdown-menu dropdown-user">
 
-                            <?php if(isset($datos_sesion['matricula'])){ ?>
+                            <?php //pr($datos_sesion);
+                            if(isset($datos_sesion['matricula'])){ ?>
                             <li><a class="link_ficha_usuario" href="#">
-                                <b>Nombre:</b> <?php echo $datos_sesion['nombre'] . ' ' . $datos_sesion['apellido_p'] . ' ' . $datos_sesion['apellido_m']; ?> <br>
+                                <b>Nombre:</b> <?php echo $datos_sesion['nombre'] . ' ' . $datos_sesion['apellido_paterno'] . ' ' . $datos_sesion['apellido_materno']; ?> <br>
                                 <b>Matrícula:</b> <?php echo $datos_sesion['matricula']; ?><br>
                                 <b>Categoría:</b> <?php echo $datos_sesion['categoria']; ?><br>
                                 <b>Delegación:</b> <?php echo $datos_sesion['delegacion']; ?> <br>
@@ -111,26 +114,6 @@
                         </ul>
                     </li>
                     
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <?php echo (isset($language_text['generales']['titulo']))?$language_text['generales']['titulo']:''; ?> <i class="fa fa-user-plus"></i> <i class="fa fa-caret-down"></i>
-                        </a>
-                        <ul class="dropdown-menu dropdown-user">
-
-                            <?php if(isset($language_catalogue)){ ?>
-                                
-                            <?php foreach ($language_catalogue as $value) {?>
-                            <li>
-                                <a class="link_ficha_usuario languaje_catalogo" data-cvelanguage="<?php echo $value['clave_idioma'] ?>" href="#">
-                                <b><?php echo $value['idioma'] ?></b>
-                                <div class="ripple-container"></div>
-                                </a>
-                            <?php }?>
-                            </li>
-                            <?php } ?>
-                        </ul>
-                    </li>
-
                 <?php if(isset($this->session->userdata(En_datos_sesion::__INSTANCIA)['anterior']))
                 {
                     ?>
@@ -148,6 +131,26 @@
 
                 <li class="nav pull-right">
                     <ul class="">
+                        <li>
+                            <!-- <a href="#"><img img-responsive class"logos" height="70px" src="assets/img/sipimss.png" alt=""></a> -->
+                            <a href="#" class="languaje_catalogo" data-cvelanguage="es">
+                                <img img-responsive src="<?php echo asset_url(); ?>img/language/Spain.png"
+                                height="30px"
+                                class="logos"
+                                alt="SIPIMSS"
+                                title="<?php echo $language_text['template_general']['espaniol']; ?>"
+                                target="_blank"/>
+                            </a>
+                            <!-- <a href="#"><img img-responsive class"logos" height="70px" src="assets/img/sipimss.png" alt=""></a> -->
+                            <a href="#" class="languaje_catalogo" data-cvelanguage="en">
+                                <img img-responsive src="<?php echo asset_url(); ?>img/language/England.png"
+                                height="30px"
+                                class="logos"
+                                alt="SIPIMSS"
+                                title="<?php echo $language_text['template_general']['ingles']; ?>"
+                                target="_blank"/>
+                            </a>
+                        </li>
                         <li>
                             <!-- <a href="#"><img img-responsive class"logos" height="70px" src="assets/img/sipimss.png" alt=""></a> -->
                             <a href="#">
