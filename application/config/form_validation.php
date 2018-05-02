@@ -264,17 +264,17 @@ $config['form_registro_usuario'] = array(
 );
 $config['form_registro_usuario_internos'] = array(
     array(
-        'field' => 'reg_usuario',
+        'field' => 'matricula',
         'label' => 'Matrícula',
         'rules' => 'required|max_length[18]|alpha_dash'
     ),
     array(
-        'field' => 'id_delegacion',
+        'field' => 'cve_delegacion',
         'label' => 'Delegación',
         'rules' => 'required' //|callback_valid_pass
     ),
     array(
-        'field' => 'reg_email',
+        'field' => 'ext_mail',
         'label' => 'Correo electrónico',
         'rules' => 'trim|required|valida_correo_electronico' //|callback_valid_pass
     ),
@@ -292,23 +292,53 @@ $config['form_registro_usuario_internos'] = array(
         'field' => 'reg_captcha',
         'label' => 'Captcha',
         'rules' => 'required|check_captcha'
+    ),
+    array(
+        'field' => 'pais_institucion',
+        'label' => '',
+        'rules' => 'required'
+    ),
+    array(
+        'field' => 'institucion',
+        'label' => '',
+        'rules' => 'required'
+    ),
+    array(
+        'field' => 'telefono',
+        'label' => '',
+        'rules' => 'required|numeric|max[11]'
+    ),
+    array(
+        'field' => 'pais_origen',
+        'label' => '',
+        'rules' => 'required'
     )
 );
 $config['form_registro_usuario_externos'] = array(
     array(
-        'field' => 'reg_usuario',
-        'label' => 'Matrícula',
+        'field' => 'ext_nombre',
+        'label' => 'Nombre',
         'rules' => 'required|max_length[18]|alpha_dash'
     ),
     array(
-        'field' => 'id_delegacion',
-        'label' => 'Delegación',
-        'rules' => 'required' //|callback_valid_pass
+        'field' => 'ext_ap',
+        'label' => '',
+        'rules' => 'required|alpha_dash' //|callback_valid_pass
     ),
     array(
-        'field' => 'reg_email',
-        'label' => 'Correo electrónico',
+        'field' => 'ext_am',
+        'label' => '',
+        'rules' => 'trim|required|alpha_dash' //|callback_valid_pass
+    ),
+    array(
+        'field' => 'ext_mail',
+        'label' => 'E-mail',
         'rules' => 'trim|required|valida_correo_electronico' //|callback_valid_pass
+    ),
+    array(
+        'field' => 'ext_sexo',
+        'label' => 'Sexo',
+        'rules' => 'trim|required' //|callback_valid_pass
     ),
     array(
         'field' => 'reg_password',
@@ -324,6 +354,26 @@ $config['form_registro_usuario_externos'] = array(
         'field' => 'reg_captcha',
         'label' => 'Captcha',
         'rules' => 'required|check_captcha'
+    ),
+    array(
+        'field' => 'pais_institucion',
+        'label' => '',
+        'rules' => 'required'
+    ),
+    array(
+        'field' => 'institucion',
+        'label' => '',
+        'rules' => 'required'
+    ),
+    array(
+        'field' => 'telefono',
+        'label' => '',
+        'rules' => 'required|numeric|max[11]'
+    ),
+    array(
+        'field' => 'pais_origen',
+        'label' => '',
+        'rules' => 'required'
     )
 );
 

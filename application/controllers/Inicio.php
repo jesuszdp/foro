@@ -15,7 +15,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 class Inicio extends MY_Controller {
 
-    const INTERNOS = 'internos', EXTERNOS = 'externos';
+    const INTERNOS = 'internos', EXTERNOS = 'externos', REGISTRO_USUARIO = "registro_usuario";
+    
 
     public function __construct() {
         $this->grupo_language_text = ['registro_usuario', 'inicio_sesion']; //Grupo de idiomas para el controlador actual
@@ -87,8 +88,9 @@ class Inicio extends MY_Controller {
         } else {//De inicio aquí es donde entra 
             $this->load->model('Catalogo_model', 'catalogo');
             $data['delegaciones'] = dropdown_options($this->catalogo->get_delegaciones(null, array('oficinas_centrales' => true)), 'clave_delegacional', 'nombre');
+            $data['paises'] = dropdown_options($this->catalogo->get_paises($this->obtener_idioma()), "clave_pais", "lang");
             $data['my_modal'] = $this->load->view("sesion/login_modal.tpl.php", $data, TRUE);
-            $data['language_text'] = $this->language_text;
+            $data['language_text'] = $this->language_text;//Asigna textos de lenguaje para el template de login
             $data['registro_externos'] = $this->load->view("sesion/registro_externos.php", $data, TRUE);
             $data['registro_internos'] = $this->load->view("sesion/registro_internos.php", $data, TRUE);
             $data['registro_modal'] = $this->load->view("sesion/registro_modal.tpl.php", $data, TRUE);
@@ -166,45 +168,50 @@ class Inicio extends MY_Controller {
 //            if ($this->input->post()) {
             $config = ['ruta_registro', 'select_validation'];
             $data_post = $this->input->post(null, TRUE);
+            pr($data_post);
             switch ($tipo_registro) {
                 case Inicio::INTERNOS:
                     $config['select_validation'] = "form_registro_usuario_internos";
                     $config['ruta_registro'] = "sesion/registro_internos.php";
-                    $data = array(
-                        'matricula' => $data_post['reg_usuario'],
-                        'delegacion' => $data_post['id_delegacion'],
-                        'email' => $data_post['reg_email'],
-                        'password' => $data_post['reg_password'],
-                        'grupo' => Administracion_model::INVESTIGADOR,
-                        'registro_usuario' => true
-                    );
+                    $config['tipo_registro'] = Usuario_model::SIAP;
                     break;
                 case Inicio::EXTERNOS:
                     $config['select_validation'] = "form_registro_usuario_externos";
                     $config['ruta_registro'] = "sesion/registro_externos.php";
-                    $data = array(
-                        'matricula' => $data_post['reg_usuario'],
-                        'delegacion' => $data_post['id_delegacion'],
-                        'email' => $data_post['reg_email'],
-                        'password' => $data_post['reg_password'],
-                        'grupo' => Administracion_model::INVESTIGADOR,
-                        'registro_usuario' => true
-                    );
+                    $config['tipo_registro'] = Usuario_model::NO_IMSS;
                     break;
             }
 //            $output["texts"] = $this->lang->line('formulario'); //textos del formulario
             $this->config->load('form_validation'); //Cargar archivo con validaciones
             $validations = $this->config->item($config['select_validation']); //Obtener validaciones de archivo general
+            $this->set_textos_campos_validacion($validations, $this->language_text[Inicio::REGISTRO_USUARIO]);//Modifica los textos del nombre de campo
             $this->form_validation->set_rules($validations); //Añadir validaciones
             if ($this->form_validation->run() == TRUE) {
+                $data['informacion_usuario'] = array(
+                    'nombre' => $data_post['ext_nombre'],
+                    'matricula' => $data_post['ext_nombre'],
+                    'apellido_paterno' => $data_post['ext_ap'],
+                    'apellido_materno' => $data_post['ext_am'],
+                    'email' => $data_post['ext_mail'],
+                    'sexo' => $data_post['ext_sexo'],
+                    'pais_institucion' => $data_post['pais_institucion'],
+                    'institucion' => $data_post['institucion'],
+                    'telefono' => $data_post['telefono'],
+                    'pais_origen' => $data_post['pais_origen'],
+                    'password' => $data_post['reg_password'],
+                    'grupo' => Administracion_model::INVESTIGADOR,
+                    'registro_usuario' => true,
+                    'tipo_registro' => Inicio::EXTERNOS,
+                );
                 $this->load->model('Administracion_model', 'administracion');
-                $output['registro_valido'] = $this->usuario->nuevo($data);
+                $output['registro_valido'] = $this->usuario->nuevo($data, $config['tipo_registro']);
             } else {
                 // pr(validation_errors());;
             }
 //            }
             $this->load->model('Catalogo_model', 'catalogo');
             $output['delegaciones'] = dropdown_options($this->catalogo->get_delegaciones(null, array('oficinas_centrales' => true)), 'clave_delegacional', 'nombre');
+            $output['paises'] = dropdown_options($this->catalogo->get_paises($this->obtener_idioma()), "clave_pais", "lang");
             $output['language_text'] = $this->language_text;
             $this->load->view($config['ruta_registro'], $output);
         }

@@ -10,7 +10,14 @@ class Usuario_model extends MY_Model {
         // Call the CI_Model constructor
         parent::__construct();
     }
-
+    
+    /**
+     * @author LEAS
+     * @fecha 02/05/2018
+     * @param type $parametros
+     * @param type $tipo
+     * @return boolean
+     */
     public function nuevo(&$parametros = null, $tipo = Usuario_model::SIAP) {
         $salida['msg'] = 'Error';
         $salida['result'] = false;
@@ -21,7 +28,7 @@ class Usuario_model extends MY_Model {
             case Usuario_model::NO_SIAP:
                 $this->nuevo_no_siap($parametros, $salida);
                 break;
-            case Usuario_model::NO_IMSS:
+            case Usuario_model::NO_IMSS://Externos
                 $this->nuevo_no_imss($parametros, $salida);
                 break;
         }
@@ -32,7 +39,7 @@ class Usuario_model extends MY_Model {
         $token = $this->seguridad->folio_random(10, TRUE);
         $pass = $this->seguridad->encrypt_sha512($token . $parametros['password'] . $token);
         $params['where'] = array(
-            'username' => $parametros['matricula'],
+            'email' => null,
         );
         $params['informacion_docente'] = false;
         $usuario_db = count($this->get_usuarios($params)) == 0;
@@ -40,7 +47,7 @@ class Usuario_model extends MY_Model {
             $data['usuario'] = array(
                 'password' => $pass,
                 'token' => $token,
-                'username' => $parametros['matricula'],
+                'username' => null,
                 'email' => $parametros['email']
             );
             $salida = $this->insert_guardar($data, $parametros['grupo']);
