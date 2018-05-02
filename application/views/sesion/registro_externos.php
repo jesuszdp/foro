@@ -1,6 +1,6 @@
 
 <div id="area_registro_<?php echo Inicio::INTERNOS;?>" class="form area_registro">
-    <?php echo form_open('inicio/registro/'.Inicio::INTERNOS, array('id' => 'registro_form', 'autocomplete' => 'off')); ?>
+    <?php echo form_open('inicio/registro/'.Inicio::INTERNOS, array('id' => 'registro_form'.Inicio::EXTERNOS, 'autocomplete' => 'off')); ?>
     <div class="sign-in-htm">
         <div class="form-group">
             <?php
@@ -113,7 +113,7 @@
         </div>
         <br>
         <div class="">
-            <input type="button" class="btn btn-success btn-block regform" value="<?php echo $language_text['inicio_sesion']['inicio_sesion']; ?>" data-tpform="<?php echo Inicio::EXTERNOS;?>">
+            <input type="button" class="btn btn-success btn-block regform" value="<?php echo $language_text['registro_usuario']['registrar']; ?>" data-tpform="<?php echo Inicio::EXTERNOS;?>">
         </div>
 
     </div>

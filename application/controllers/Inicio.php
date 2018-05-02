@@ -165,14 +165,31 @@ class Inicio extends MY_Controller {
         if (!is_null($tipo_registro)) {
 //            if ($this->input->post()) {
             $config = ['ruta_registro', 'select_validation'];
+            $data_post = $this->input->post(null, TRUE);
             switch ($tipo_registro) {
                 case Inicio::INTERNOS:
-                    $config['select_validation']= "form_registro_usuario_internos";
-                    $config['ruta_registro']= "sesion/registro_internos.php";
+                    $config['select_validation'] = "form_registro_usuario_internos";
+                    $config['ruta_registro'] = "sesion/registro_internos.php";
+                    $data = array(
+                        'matricula' => $data_post['reg_usuario'],
+                        'delegacion' => $data_post['id_delegacion'],
+                        'email' => $data_post['reg_email'],
+                        'password' => $data_post['reg_password'],
+                        'grupo' => Administracion_model::INVESTIGADOR,
+                        'registro_usuario' => true
+                    );
                     break;
                 case Inicio::EXTERNOS:
-                    $config['select_validation']= "form_registro_usuario_externos";
-                    $config['ruta_registro']= "sesion/registro_externos.php";
+                    $config['select_validation'] = "form_registro_usuario_externos";
+                    $config['ruta_registro'] = "sesion/registro_externos.php";
+                    $data = array(
+                        'matricula' => $data_post['reg_usuario'],
+                        'delegacion' => $data_post['id_delegacion'],
+                        'email' => $data_post['reg_email'],
+                        'password' => $data_post['reg_password'],
+                        'grupo' => Administracion_model::INVESTIGADOR,
+                        'registro_usuario' => true
+                    );
                     break;
             }
 //            $output["texts"] = $this->lang->line('formulario'); //textos del formulario
@@ -181,14 +198,6 @@ class Inicio extends MY_Controller {
             $this->form_validation->set_rules($validations); //Añadir validaciones
             if ($this->form_validation->run() == TRUE) {
                 $this->load->model('Administracion_model', 'administracion');
-                $data = array(
-                    'matricula' => $this->input->post('reg_usuario', TRUE),
-                    'delegacion' => $this->input->post('id_delegacion', TRUE),
-                    'email' => $this->input->post('reg_email', true),
-                    'password' => $this->input->post('reg_password', TRUE),
-                    'grupo' => Administracion_model::INVESTIGADOR,
-                    'registro_usuario' => true
-                );
                 $output['registro_valido'] = $this->usuario->nuevo($data);
             } else {
                 // pr(validation_errors());;
