@@ -354,6 +354,22 @@ class MY_Controller extends CI_Controller {
         $grupos_textos = $this->idioma->get_etiquetas_texto($grupos, $lenguaje);
         return $grupos_textos;
     }
+    
+    /**
+     * @param type $name Description
+     * @param type $grupos
+     * @param type $lenguaje
+     */
+    protected function set_textos_campos_validacion(&$array_validacion, $array_textos, $field = 'field', $label = 'label') {
+//        pr($array_validacion);
+//        pr($array_textos);
+        foreach ($array_validacion as &$value) {
+           if(isset($array_textos[$value[$field]])){
+                $value[$label] = $array_textos[$value[$field]];//Modifica el texto de las validaciones
+           } 
+        }
+        
+    }
 
 //    public function obtener_catalogo_idiomas($idiomas, $lenguaje) {
 ////        $catalogo_idiomas = $this->idioma->get_idiomas($idiomas, $lenguaje);

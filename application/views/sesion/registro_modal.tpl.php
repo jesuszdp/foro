@@ -50,13 +50,6 @@
     </div>
 </div>
 <script type="text/javascript">
-    $(document).ready(function () {
-        $(".regform").on('click', function (e) {
-            var tipoform = $(this).data('tpform');
-            var div = "area_registro_" + tipoform;
-            data_ajax(site_url + '/inicio/registro/' + tipoform, 'registro_form' + tipoform, div);
-        });
-    });
 
     $(function () {
         new_captcha();
