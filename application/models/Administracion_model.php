@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Administracion_model extends MY_Model {
 
-    const DOCENTE = 'DOCENTE', ROOT = 'SUPERAMIN', ADMIN = 'ADMIN';
+    const INVESTIGADOR = 'INVESTIGADOR', ROOT = 'SUPERAMIN', ADMIN = 'ADMIN';
 
     public function __construct() {
         // Call the CI_Model constructor

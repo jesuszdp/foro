@@ -80,13 +80,10 @@ if (!function_exists('update_lenguaje')) {
      */
     function update_lenguaje($clave_lenguaje = 'es') {
         $CI = & get_instance();
-        if (isset($CI->session->userdata(En_datos_sesion::__INSTANCIA)['usuario'])) {
             $session = $CI->session->userdata(En_datos_sesion::__INSTANCIA);
             $session['language'] = $clave_lenguaje; //Agrega el lenguaje seleccionado
             $CI->session->set_userdata(En_datos_sesion::__INSTANCIA, $session);
             return TRUE;
-        }
-        return FALSE;
     }
 
 }

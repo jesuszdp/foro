@@ -169,7 +169,7 @@ class Welcome extends MY_Controller
                     'delegacion' => $this->input->post('delegacion', TRUE),
                     'email' => $this->input->post('email', true),
                     'password' => $this->input->post('pass', TRUE),
-                    'grupo' => Administracion_model::DOCENTE,
+                    'grupo' => Administracion_model::INVESTIGADOR,
                     'registro_usuario' => true
                 );
                 $output['registro_valido'] = $this->usuario->nuevo($data);

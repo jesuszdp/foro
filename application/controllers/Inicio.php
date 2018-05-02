@@ -15,7 +15,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 class Inicio extends MY_Controller {
 
+    const INTERNOS = 'internos', EXTERNOS = 'externos';
+
     public function __construct() {
+        $this->grupo_language_text = ['registro_usuario', 'inicio_sesion']; //Grupo de idiomas para el controlador actual
         parent::__construct();
         $this->load->library('form_complete');
         $this->load->library('form_validation');
@@ -55,7 +58,7 @@ class Inicio extends MY_Controller {
                         );
                         $foro_educacion['usuario'] = $this->usuario->get_usuarios($params)[0];
                         $foro_educacion['usuario']['niveles_acceso'] = $this->sesion->get_niveles_acceso($foro_educacion['usuario']['id_usuario']);
-                        $foro_educacion['language'] = $foro_educacion['usuario']['language']; 
+                        $foro_educacion['language'] = $foro_educacion['usuario']['language'];
 //                        $die_sipimss['usuario']['workflow'] = $this->sesion->get_info_convocatoria($die_sipimss['usuario']['id_docente']);
                         $this->session->set_userdata(En_datos_sesion::__INSTANCIA, $foro_educacion);
                         redirect(site_url() . '/inicio/inicio');
@@ -85,6 +88,9 @@ class Inicio extends MY_Controller {
             $this->load->model('Catalogo_model', 'catalogo');
             $data['delegaciones'] = dropdown_options($this->catalogo->get_delegaciones(null, array('oficinas_centrales' => true)), 'clave_delegacional', 'nombre');
             $data['my_modal'] = $this->load->view("sesion/login_modal.tpl.php", $data, TRUE);
+            $data['language_text'] = $this->language_text;
+            $data['registro_externos'] = $this->load->view("sesion/registro_externos.php", $data, TRUE);
+            $data['registro_internos'] = $this->load->view("sesion/registro_internos.php", $data, TRUE);
             $data['registro_modal'] = $this->load->view("sesion/registro_modal.tpl.php", $data, TRUE);
             $this->load->view("sesion/login.tpl.php", $data);
         }
@@ -155,11 +161,23 @@ class Inicio extends MY_Controller {
         }
     }
 
-    public function registro() {
-        $output["texts"] = $this->lang->line('formulario'); //textos del formulario
-        if ($this->input->post()) {
+    public function registro($tipo_registro = null) {
+        if (!is_null($tipo_registro)) {
+//            if ($this->input->post()) {
+            $config = ['ruta_registro', 'select_validation'];
+            switch ($tipo_registro) {
+                case Inicio::INTERNOS:
+                    $config['select_validation']= "form_registro_usuario_internos";
+                    $config['ruta_registro']= "sesion/registro_internos.php";
+                    break;
+                case Inicio::EXTERNOS:
+                    $config['select_validation']= "form_registro_usuario_externos";
+                    $config['ruta_registro']= "sesion/registro_externos.php";
+                    break;
+            }
+//            $output["texts"] = $this->lang->line('formulario'); //textos del formulario
             $this->config->load('form_validation'); //Cargar archivo con validaciones
-            $validations = $this->config->item('form_registro_usuario'); //Obtener validaciones de archivo general
+            $validations = $this->config->item($config['select_validation']); //Obtener validaciones de archivo general
             $this->form_validation->set_rules($validations); //Añadir validaciones
             if ($this->form_validation->run() == TRUE) {
                 $this->load->model('Administracion_model', 'administracion');
@@ -168,17 +186,19 @@ class Inicio extends MY_Controller {
                     'delegacion' => $this->input->post('id_delegacion', TRUE),
                     'email' => $this->input->post('reg_email', true),
                     'password' => $this->input->post('reg_password', TRUE),
-                    'grupo' => Administracion_model::DOCENTE,
+                    'grupo' => Administracion_model::INVESTIGADOR,
                     'registro_usuario' => true
                 );
                 $output['registro_valido'] = $this->usuario->nuevo($data);
             } else {
                 // pr(validation_errors());;
             }
+//            }
+            $this->load->model('Catalogo_model', 'catalogo');
+            $output['delegaciones'] = dropdown_options($this->catalogo->get_delegaciones(null, array('oficinas_centrales' => true)), 'clave_delegacional', 'nombre');
+            $output['language_text'] = $this->language_text;
+            $this->load->view($config['ruta_registro'], $output);
         }
-        $this->load->model('Catalogo_model', 'catalogo');
-        $output['delegaciones'] = dropdown_options($this->catalogo->get_delegaciones(null, array('oficinas_centrales' => true)), 'clave_delegacional', 'nombre');
-        $this->load->view("sesion/registro_modal.tpl.php", $output);
     }
 
     public function mesa_ayuda() {

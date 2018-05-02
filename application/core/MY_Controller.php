@@ -34,15 +34,12 @@ class MY_Controller extends CI_Controller {
             $menu['lateral'] = $this->menu->get_tree($menu['lateral'], null);
             $this->template->setNav($menu);
             $this->carga_imagen();
-            $lenguaje = $this->obtener_idioma();
-            if (is_null($lenguaje)) {//Si no existe el lenguaje, lo modifica
-                $lenguaje = 'es';
-//                        $this->idioma->get_lenguaje(En_datos_sesion::LANGUAGE_DEFAULT, $data['usuario'][En_datos_sesion::ID_USUARIO], null);
-            }
-            //Selecciona el lenguaje del usuario actual
-        } else {//No existe el usuario
-            //Selecciona el lenguaje asignado en la bitacora
+        }
+        //Selecciona el lenguaje del usuario actual
+        $lenguaje = $this->obtener_idioma();
+        if (is_null($lenguaje)) {//Si no existe el lenguaje, lo modifica
             $lenguaje = 'es';
+//                        $this->idioma->get_lenguaje(En_datos_sesion::LANGUAGE_DEFAULT, $data['usuario'][En_datos_sesion::ID_USUARIO], null);
         }
 
         $this->language_text = $this->obtener_grupos_texto($this->grupo_language_text, $lenguaje);
@@ -363,7 +360,6 @@ class MY_Controller extends CI_Controller {
 //        $catalogo_idiomas = ['es' => 'Español', 'en' => 'Inglish'];
 //        return $catalogo_idiomas;
 //    }
-
 }
 
 /*include_once APPPATH . 'core/Informacion_docente.php';*/

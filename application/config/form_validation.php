@@ -262,6 +262,70 @@ $config['form_registro_usuario'] = array(
         'rules' => 'required|check_captcha'
     )
 );
+$config['form_registro_usuario_internos'] = array(
+    array(
+        'field' => 'reg_usuario',
+        'label' => 'Matrícula',
+        'rules' => 'required|max_length[18]|alpha_dash'
+    ),
+    array(
+        'field' => 'id_delegacion',
+        'label' => 'Delegación',
+        'rules' => 'required' //|callback_valid_pass
+    ),
+    array(
+        'field' => 'reg_email',
+        'label' => 'Correo electrónico',
+        'rules' => 'trim|required|valida_correo_electronico' //|callback_valid_pass
+    ),
+    array(
+        'field' => 'reg_password',
+        'label' => 'Contraseña',
+        'rules' => 'required' //|callback_valid_pass
+    ),
+    array(
+        'field' => 'reg_repassword',
+        'label' => 'Confirmación contraseña',
+        'rules' => 'required|matches[reg_password]'
+    ),
+    array(
+        'field' => 'reg_captcha',
+        'label' => 'Captcha',
+        'rules' => 'required|check_captcha'
+    )
+);
+$config['form_registro_usuario_externos'] = array(
+    array(
+        'field' => 'reg_usuario',
+        'label' => 'Matrícula',
+        'rules' => 'required|max_length[18]|alpha_dash'
+    ),
+    array(
+        'field' => 'id_delegacion',
+        'label' => 'Delegación',
+        'rules' => 'required' //|callback_valid_pass
+    ),
+    array(
+        'field' => 'reg_email',
+        'label' => 'Correo electrónico',
+        'rules' => 'trim|required|valida_correo_electronico' //|callback_valid_pass
+    ),
+    array(
+        'field' => 'reg_password',
+        'label' => 'Contraseña',
+        'rules' => 'required' //|callback_valid_pass
+    ),
+    array(
+        'field' => 'reg_repassword',
+        'label' => 'Confirmación contraseña',
+        'rules' => 'required|matches[reg_password]'
+    ),
+    array(
+        'field' => 'reg_captcha',
+        'label' => 'Captcha',
+        'rules' => 'required|check_captcha'
+    )
+);
 
 $config['nueva_convocatoria_censo'] = array(
     array(
