@@ -71,6 +71,72 @@ $config['form_status_actividad_usuario'] = array(
     )
 );
 
+$config["form_registro_investigacion"] = array(
+    /*
+    array(
+        'field' => 'titulo',
+        'label' => 'Titulo',
+        'rules' => 'required'
+    ),
+    */
+    array(
+        'field' => 'tipo_metodologia',
+        'label' => 'Tipo de metodología',
+        'rules' => 'required'
+    )
+    /*,
+    array(
+        'field' => 'metodologia',
+        'label' => 'Metodología',
+        'rules' => 'required'
+    ),
+    array(
+        'field' => 'antecedentes',
+        'label' => 'Antecedentes',
+        'rules' => 'required'
+    ),
+    array(
+        'field' => 'problema',
+        'label' => 'Problema',
+        'rules' => 'required'
+    ),
+    array(
+        'field' => 'justificacion',
+        'label' => 'Justificación',
+        'rules' => 'required'
+    ),
+    array(
+        'field' => 'pregunta_investigacion',
+        'label' => 'Pregunta de investigación',
+        'rules' => 'required'
+    ),
+    array(
+        'field' => 'objetivo',
+        'label' => 'Objetivo',
+        'rules' => 'required'
+    ),
+    array(
+        'field' => 'hipotesis',
+        'label' => 'Hipotesis',
+        'rules' => 'required'
+    ),
+    array(
+        'field' => 'resultados',
+        'label' => 'Resultados',
+        'rules' => 'required'
+    ),
+    array(
+        'field' => 'conclusiones',
+        'label' => 'Conclusiones',
+        'rules' => 'required'
+    ),
+    array(
+        'field' => 'consideraciones_eticas',
+        'label' => 'Consideraciones éticas',
+        'rules' => 'required'
+    )
+    */
+);
 
 $config["login"] = array(
     array(
