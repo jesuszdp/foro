@@ -19,7 +19,7 @@ class Inicio extends MY_Controller {
     
 
     public function __construct() {
-        $this->grupo_language_text = ['registro_usuario', 'inicio_sesion']; //Grupo de idiomas para el controlador actual
+        $this->grupo_language_text = ['registro_usuario', 'inicio_sesion', 'mensajes', 'template_general']; //Grupo de idiomas para el controlador actual
         parent::__construct();
         $this->load->library('form_complete');
         $this->load->library('form_validation');
@@ -31,7 +31,8 @@ class Inicio extends MY_Controller {
     }
 
     public function index() {
-        $data["texts"] = $this->lang->line('formulario'); //textos del formulario
+        //$this->language_text += $this->obtener_grupos_texto(array('template_general'), $this->obtener_idioma()); //textos del formulario
+        $data['language_text'] = $this->language_text;//Asigna textos de lenguaje para el template de login
         if ($this->input->post()) {
             $post = $this->input->post(null, true);
 
@@ -41,7 +42,7 @@ class Inicio extends MY_Controller {
 
             if ($this->form_validation->run() == TRUE) {
                 $valido = $this->sesion->validar_usuario($post["usuario"], $post["password"]);
-                $mensajes = $this->lang->line('mensajes');
+                //$mensajes = $this->lang->line('mensajes');
                 switch ($valido) {
                     case 1:
                         //redirect to home //load menu...etc etc
@@ -65,19 +66,19 @@ class Inicio extends MY_Controller {
                         redirect(site_url() . '/inicio/inicio');
                         break;
                     case 2:
-                        $data['errores'] = true;
-                        $this->session->set_flashdata('flash_password', $mensajes[$valido]);
+                        $data['errores'] = $data['language_text']['mensajes']['msg_contrasenia_incorrecta'];
+                        //$this->session->set_flashdata('flash_password', $mensajes[$valido]);
                         break;
                     case 3:
-                        $data['errores'] = true;
-                        $this->session->set_flashdata('flash_usuario', $mensajes[$valido]);
+                        $data['errores'] = $data['language_text']['mensajes']['msg_usuario_no_existe'];
+                        //$this->session->set_flashdata('flash_usuario', $mensajes[$valido]);
                         break;
                     default :
                         break;
                 }
             } else {
 //                pr(validation_errors());
-                $data['errores'] = validation_errors();
+                //$data['errores'] = validation_errors();
             }
         }
 
@@ -87,15 +88,88 @@ class Inicio extends MY_Controller {
             redirect(site_url('inicio/inicio'));
         } else {//De inicio aquí es donde entra 
             $this->load->model('Catalogo_model', 'catalogo');
+            
+            $this->template->setTitle('XV Foro Nacional y I Foro Internacional de Educación en Salud');
+            $this->template->setNav($this->load->view('tc_template/menu.tpl.php', null, TRUE));
+            $main_content = $this->load->view('sesion/login_modal.tpl.php', $data, true);
+            $this->template->setMainContent($main_content);
+            $this->template->getTemplate(true, 'tc_template/index_login.tpl.php');
+        }
+    }
+
+    public function registro_usuario() {
+        //$this->language_text += $this->obtener_grupos_texto(array('template_general'), $this->obtener_idioma()); //textos del formulario
+        $data['language_text'] = $this->language_text;//Asigna textos de lenguaje para el template de login
+        /*if ($this->input->post()) {
+            $post = $this->input->post(null, true);
+
+            $this->config->load('form_validation'); //Cargar archivo con validaciones
+            $validations = $this->config->item('login'); //Obtener validaciones de archivo general
+            $this->form_validation->set_rules($validations);
+
+            if ($this->form_validation->run() == TRUE) {
+                $valido = $this->sesion->validar_usuario($post["usuario"], $post["password"]);
+                //$mensajes = $this->lang->line('mensajes');
+                switch ($valido) {
+                    case 1:
+                        //redirect to home //load menu...etc etc
+                        $params = array(
+                            'where' => array('usuarios.username' => $post['usuario']),
+                            'select' => array(
+                                "usuarios.id_usuario", "coalesce(inf.matricula, usuarios.username) matricula", "usuarios.clave_idioma language",
+                                "inf.id_informacion_usuario", "inf.nombre", "inf.apellido_paterno", "inf.apellido_materno",
+                                "uni.clave_unidad", "uni.nombre unidad", "inf.fecha_nacimiento",
+                                "dep.clave_departamental", "dep.nombre departamento",
+                                "cat.clave_categoria", "cat.id_categoria", "cat.nombre categoria",
+                                "inf.curp", "inf.rfc"
+                                , "inf.email", "inf.clave_delegacional", "del.nombre delegacion"
+                            )
+                        );
+                        $foro_educacion['usuario'] = $this->usuario->get_usuarios($params)[0];
+                        $foro_educacion['usuario']['niveles_acceso'] = $this->sesion->get_niveles_acceso($foro_educacion['usuario']['id_usuario']);
+                        $foro_educacion['language'] = $foro_educacion['usuario']['language'];
+//                        $die_sipimss['usuario']['workflow'] = $this->sesion->get_info_convocatoria($die_sipimss['usuario']['id_docente']);
+                        $this->session->set_userdata(En_datos_sesion::__INSTANCIA, $foro_educacion);
+                        redirect(site_url() . '/inicio/inicio');
+                        break;
+                    case 2:
+                        $data['errores'] = $data['language_text']['mensajes']['msg_contrasenia_incorrecta'];
+                        //$this->session->set_flashdata('flash_password', $mensajes[$valido]);
+                        break;
+                    case 3:
+                        $data['errores'] = $data['language_text']['mensajes']['msg_usuario_no_existe'];
+                        //$this->session->set_flashdata('flash_usuario', $mensajes[$valido]);
+                        break;
+                    default :
+                        break;
+                }
+            } else {
+//                pr(validation_errors());
+                //$data['errores'] = validation_errors();
+            }
+        }
+
+        $foro_educacion = $this->session->userdata('die_sipimss');
+        if (isset($foro_educacion['usuario']['id_usuario'])) {
+
+            redirect(site_url('inicio/inicio'));
+        } else {//De inicio aquí es donde entra */
+            $this->load->model('Catalogo_model', 'catalogo');
             $data['delegaciones'] = dropdown_options($this->catalogo->get_delegaciones(null, array('oficinas_centrales' => true)), 'clave_delegacional', 'nombre');
             $data['paises'] = dropdown_options($this->catalogo->get_paises($this->obtener_idioma()), "clave_pais", "lang");
-            $data['my_modal'] = $this->load->view("sesion/login_modal.tpl.php", $data, TRUE);
-            $data['language_text'] = $this->language_text;//Asigna textos de lenguaje para el template de login
+            //$data['my_modal'] = $this->load->view("sesion/login_modal.tpl.php", $data, TRUE);            
             $data['registro_externos'] = $this->load->view("sesion/registro_externos.php", $data, TRUE);
             $data['registro_internos'] = $this->load->view("sesion/registro_internos.php", $data, TRUE);
-            $data['registro_modal'] = $this->load->view("sesion/registro_modal.tpl.php", $data, TRUE);
-            $this->load->view("sesion/login.tpl.php", $data);
-        }
+            //$data['registro_modal'] = $this->load->view("sesion/registro_modal.tpl.php", $data, TRUE);
+            $main_content = $this->load->view("sesion/registro_modal.tpl.php", $data, TRUE);
+            //$this->load->view("sesion/login.tpl.php", $data);
+            
+            $this->template->setTitle('XV Foro Nacional y I Foro Internacional de Educación en Salud');
+            $this->template->setNav($this->load->view('tc_template/menu.tpl.php', null, TRUE));
+            //$main_content = $this->load->view('sesion/login_modal.tpl.php', $data, true);
+            $this->template->setMainContent($main_content);
+            $this->template->getTemplate(true, 'tc_template/index_login.tpl.php');
+        //}
     }
 
     public function inicio() {

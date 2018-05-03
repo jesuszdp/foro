@@ -350,7 +350,6 @@ class MY_Controller extends CI_Controller {
     }
 
     protected function obtener_grupos_texto($grupos, $lenguaje) {
-        $grupos = array_merge($grupos, $this->grupo_language_text_generales); //Agrega el grupo generales
         $grupos_textos = $this->idioma->get_etiquetas_texto($grupos, $lenguaje);
         return $grupos_textos;
     }

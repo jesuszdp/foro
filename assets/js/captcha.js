@@ -7,5 +7,6 @@
 
 
 function new_captcha(){
-    $('.captcha').attr("src",site_url+ '/inicio/captcha/' + Math.random()); 
+	$('.captcha').attr("src",img_url_loader);
+    $('.captcha').attr("src",site_url+ '/inicio/captcha/' + Math.random());
 }

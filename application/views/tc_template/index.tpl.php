@@ -10,7 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>
         <?php echo (!is_null($title)) ? "{$title}&nbsp;|" : "" ?>
-        <?php echo (!is_null($main_title)) ? $main_title : "SIPIMSS II" ?>
+        <?php echo (!is_null($main_title)) ? $main_title : "XV Foro Nacional y I Foro Internacional de Educación en Salud" ?>
     </title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
@@ -69,7 +69,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a  class="navbar-brand" href="<?php echo site_url(); ?>">SIPIMSS
+                <a  class="navbar-brand" href="<?php echo site_url(); ?>">XV Foro Nacional y I Foro Internacional de Educación en Salud
                 </a>
             </div>
             <div class="notifications-wrapper">

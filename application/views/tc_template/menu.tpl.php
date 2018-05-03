@@ -1,5 +1,5 @@
 <?php
-
+/*
 $this->load->config('general');
 $ruta_imagen_perfil = $this->config->item('img_perfil_default');
 $nombre_usuario = '';
@@ -16,12 +16,18 @@ if (isset($datos_imagen) and ! empty($datos_imagen)) {
     }
     $nombre_usuario = isset($datos_imagen['nombre_docente']) ? $datos_imagen['nombre_docente'] : '';
     $matricula = isset($datos_imagen['matricula']) ? $datos_imagen['matricula'] : '';
-}
+}*/
 //pr($datos_imagen);
 ?>
 
-
-<div class="sidebar-collapse">
+<div id="mobile-menu"></div>
+<nav class="navigation closed clearfix">
+    <a href="#" class="menu-toggle btn"><i class="fa fa-bars"></i></a>
+    <ul class="sf-menu nav">
+        <li class="active"><a href="#home">Inicio</a></li>
+    </ul>
+</nav>
+<!-- <div class="sidebar-collapse">
   <ul class="nav menu-menu" id="main-menu">
     <li>
       <div class="user-img-div">
@@ -36,7 +42,6 @@ if (isset($datos_imagen) and ! empty($datos_imagen)) {
             $class = ($this->uri->rsegment(1) == $value['ruta']) ? 'active-menu' : '';
             ?>
             <li class="<?php echo $value['class']; ?>">
-                <!--<a class="<?php // echo $class;         ?>" href="<?php // echo $value['ruta'];         ?>">-->
                 <a class="<?php echo $class; ?>" href="<?php echo base_url('index.php/') . $value['ruta']; ?>">
                     <img class="img-menu" src="<?php echo base_url('assets/img/template_sipimss/img-menu/') . $value['imagen']; ?>">
                     <span><?php echo $value['name_act']; ?></span>
@@ -46,4 +51,4 @@ if (isset($datos_imagen) and ! empty($datos_imagen)) {
         }
         ?>
   </ul>
-</div>
+</div> -->
