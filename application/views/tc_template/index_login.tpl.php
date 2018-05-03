@@ -83,9 +83,28 @@
                     </a>
                 </div>
                 <!-- /Logo -->
+                <div class="col-sm-8 col-md-8 col-lg-8 pull-right text-right">
+                    <a href="#" class="languaje_catalogo" data-cvelanguage="es">
+                        <img img-responsive src="<?php echo asset_url(); ?>img/language/Spain.png"
+                        class="logos"
+                        alt="<?php echo $language_text['template_general']['espaniol']; ?>"
+                        title="<?php echo $language_text['template_general']['espaniol']; ?>"
+                        target="_blank"
+                        width="20px;"/>
+                    </a>
+                    <!-- <a href="#"><img img-responsive class"logos" height="70px" src="assets/img/sipimss.png" alt=""></a> -->
+                    <a href="#" class="languaje_catalogo" data-cvelanguage="en">
+                        <img img-responsive src="<?php echo asset_url(); ?>img/language/England.png"
+                        class="logos"
+                        alt="<?php echo $language_text['template_general']['ingles']; ?>"
+                        title="<?php echo $language_text['template_general']['ingles']; ?>"
+                        target="_blank"
+                        width="20px;"/>
+                    </a>
+                </div>
 
                 <!-- Navigation -->
-                <div class=" col-sm-8 col-md-8 col-lg-8 right">
+                <div class="col-sm-8 col-md-8 col-lg-8 right">
                     <?php
                     if (isset($menu) && !is_null($menu))
                     {

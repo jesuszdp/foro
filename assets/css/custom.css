@@ -5,7 +5,7 @@
 	#background-color: #FFF;
 }
 .shrink .logo a img {
-	height: 1.5em;
+	height: 2em;
 }
 label.formulario {
 	font-size: 16px;
@@ -52,4 +52,8 @@ label.formulario {
 }
 #my_modal{
 	z-index: 100000;
+}
+.modal-header h4{
+	color: #000;
+	font-weight: 600;
 }
