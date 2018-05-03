@@ -90,7 +90,7 @@ class Inicio extends MY_Controller {
             $this->load->model('Catalogo_model', 'catalogo');
             
             $this->template->setTitle('XV Foro Nacional y I Foro Internacional de Educación en Salud');
-            $this->template->setNav($this->load->view('tc_template/menu.tpl.php', null, TRUE));
+            //$this->template->setNav($this->load->view('tc_template/menu.tpl.php', null, TRUE));
             $main_content = $this->load->view('sesion/login_modal.tpl.php', $data, true);
             $this->template->setMainContent($main_content);
             $this->template->getTemplate(true, 'tc_template/index_login.tpl.php');
@@ -165,7 +165,7 @@ class Inicio extends MY_Controller {
             //$this->load->view("sesion/login.tpl.php", $data);
             
             $this->template->setTitle('XV Foro Nacional y I Foro Internacional de Educación en Salud');
-            $this->template->setNav($this->load->view('tc_template/menu.tpl.php', null, TRUE));
+            //$this->template->setNav($this->load->view('tc_template/menu.tpl.php', null, TRUE));
             //$main_content = $this->load->view('sesion/login_modal.tpl.php', $data, true);
             $this->template->setMainContent($main_content);
             $this->template->getTemplate(true, 'tc_template/index_login.tpl.php');

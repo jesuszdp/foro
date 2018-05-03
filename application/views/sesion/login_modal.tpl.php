@@ -1,9 +1,9 @@
-<div class="item page slide1">
+<!-- <div class="item page slide1">
     <div class="caption">
         <div class="container">
             <div class="div-table">
                 <div class="div-cell">
-                    <div class="row">
+                    <div class="row"> -->
                         <div class="col-md-6 col-lg-8">
                             <div class="form-background">
                                 <div class="form-header color">
@@ -107,7 +107,7 @@
                                                     </button>
                                                 <?php echo $errores; ?>
                                                 </div>
-<?php } ?>
+                                            <?php } ?>
                                         </div>
                                     </div>
                                     <br>                                    
@@ -126,21 +126,21 @@
                                     </div> -->
                                 </div>
                                 <!-- </form> -->
-<?php echo form_close(); ?>
+                                <?php echo form_close(); ?>
                             </div>
                         </div>
                         <div class="col-md-6 col-lg-4">
                             <div class="text-holder">
-                                <h2 class="caption-title">04 AL 09 DE NOVIEMBRE DEL 2018</h2>
-                                <h3 class="caption-subtitle">EDUCACIÓN EN SALUD ORIENTADA AL FUTURO</h3>
+                                <h1 class="caption-title">04 AL 09 DE NOVIEMBRE DEL 2018</h1>
+                                <h2 class="caption-subtitle">EDUCACIÓN EN SALUD ORIENTADA AL FUTURO</h2>
                             </div>
                         </div>
-                    </div>
+                    <!-- </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 <!--div class="">
     <div class="modal fade" id="login-modal" tabindex="-1" role="dialog">
@@ -164,10 +164,10 @@
                                            placeholder="<?php echo $texts['user']; ?>:" required>
 
                                 </div>
-<?php
-echo form_error_format('usuario');
-if ($this->session->flashdata('flash_usuario')) {
-    ?>
+    <?php
+    echo form_error_format('usuario');
+    if ($this->session->flashdata('flash_usuario')) {
+        ?>
                                         <div class="alert alert-danger" role="alert">
                                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                 <span aria-hidden="true">×</span>
@@ -187,20 +187,20 @@ if ($this->session->flashdata('flash_usuario')) {
                                            data-type="password"
                                            placeholder="<?php echo $texts['passwd']; ?>:" required>
                                 </div>
-<?php
-echo form_error_format('password');
-if ($this->session->flashdata('flash_password')) {
-    ?>
+                                        <?php
+                                        echo form_error_format('password');
+                                        if ($this->session->flashdata('flash_password')) {
+                                            ?>
 
                                         <div class="alert alert-danger" role="alert">
                                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                 <span aria-hidden="true">×</span>
                                             </button>
-    <?php echo $this->session->flashdata('flash_password'); ?>
-                                        </div>
-    <?php
-}
-?>
+                                    <?php echo $this->session->flashdata('flash_password'); ?>
+                                                                        </div>
+                                    <?php
+                                }
+                                ?>
                                 <div class="form-group" style="text-align:center;">
                                     <label for="pass" class="pull-left"><span class="glyphicon glyphicon-text-width"></span> Escribe el texto de la imagen:</label>
                                     <input id="captcha"
@@ -208,9 +208,9 @@ if ($this->session->flashdata('flash_password')) {
                                            type="text"
                                            class="input form-control"
                                            placeholder="<?php echo $texts['captcha']; ?>" required>
-<?php
-echo form_error_format('captcha');
-?>
+                                    <?php
+                                    echo form_error_format('captcha');
+                                    ?>
                                     <br>
                                     <div class="captcha-container" id="captcha_first">
                                         <img class="captcha" id="captcha_img" src="<?php echo site_url(); ?>/inicio/captcha" alt="CAPTCHA Image" />
@@ -225,7 +225,7 @@ echo form_error_format('captcha');
                                 </div>
 
                             </div>
-<?php echo form_close(); ?>
+                            <?php echo form_close(); ?>
                         </div>
                     </div>
                 </div>
@@ -244,20 +244,19 @@ echo form_error_format('captcha');
 </div -->
 <script src="<?php echo asset_url(); ?>js/captcha.js"></script>
 <script type="text/javascript">
-                                                    $(function () {
-                                                        new_captcha();
-                                                    });
-
+$(function () {
+    new_captcha();
+});
 <?php
 if (isset($errores)) {
     ?>
-                                                        $('#login-modal').modal({show: true});
+    $('#login-modal').modal({show: true});
     <?php
 }
 
 if (isset($user_recovery) || isset($code_recovery)) {
     ?>
-                                                        $('#modalRecovery').modal({show: true});
+    $('#modalRecovery').modal({show: true});
     <?php
 }
 ?>

@@ -87,8 +87,13 @@
                     if (isset($menu) && !is_null($menu))
                     {
                         // pr($menu);
-                        echo $menu;
-                        //echo render_menu($menu['lateral'], null);
+                        //echo $menu;
+                        if (isset($menu['lateral']) && !empty($menu['lateral'])) {
+                            echo render_menu($menu['lateral'], null);
+                        }
+                        if (isset($menu['lateral_no_sesion']) && !empty($menu['lateral_no_sesion'])) {
+                            echo render_menu_no_sesion($menu['lateral_no_sesion'], null);
+                        }
                     }
                     ?>
                 <!-- /Navigation -->
@@ -109,21 +114,28 @@
     <!-- Content area -->
     <div class="content-area">
 
-        <div id="main">
-            <!-- SLIDER -->
-            <section class="page-section no-padding background-img-slider">
-                <div style="clear:both;"></div>
+        <!-- <div id="main"> -->
+            <section class="page-section background-img">
                 <div class="container">
-                    <div id="main-slider">
-                        <?php echo $main_content; ?>                       
+                    <div class="row">
+                        <?php echo $main_content; ?>
                     </div>
                 </div>
             </section>
+            <!-- SLIDER -->
+            <!-- <section class="page-section no-padding background-img-slider">
+                <div style="clear:both;"></div>
+                <div class="container">
+                    <div id="main-slider"> -->
+                        <?php //echo $main_content; ?>                       
+                    <!-- </div>
+                </div>
+            </section> -->
             <!-- /SLIDER -->
         </div>
         <span class="copyright" data-animation="fadeInUp" data-animation-delay="100"></span>
         
-    </div>
+    <!-- </div> -->
     <!-- /Content area -->
     <!-- FOOTER -->
     <footer class="footer">

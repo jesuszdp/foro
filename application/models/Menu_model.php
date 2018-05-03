@@ -56,6 +56,44 @@ class Menu_model extends CI_Model
         return $salida;
     }
 
+    public function get_menu_no_sesion(){
+        $configuradores = implode($this->config->item('menu_configuradores_no_sesion'), "','");
+        $select = array(
+            'A.clave_modulo id_menu', 'A.nombre label', 'A.url enlace',
+            'A.modulo_padre_clave id_menu_padre', 'A.icon', 'A.orden',
+            'A.clave_configurador_modulo'
+        );
+
+        $this->db->select($select);
+        $this->db->from('sistema.modulos A');
+        //$this->db->join('sistema.roles_modulos B','B.clave_modulo = A.clave_modulo', 'inner');
+        //$this->db->join('sistema.usuario_rol C','C.clave_rol = B.clave_rol', 'inner');
+        $this->db->where('A.activo', true);
+        //$this->db->where('B.activo', true);
+        //$this->db->where('C.activo', true);
+        $this->db->where("A.clave_configurador_modulo in ('{$configuradores}')"); //elemento menu
+        //$this->db->where('C.id_usuario', $id_usuario);
+        $this->db->order_by('A.modulo_padre_clave desc, A.orden');
+
+        $query = $this->db->get();
+        $result = $query->result_array();
+        // pr($result);
+        //pr($this->db->last_query()); exit();
+        $query->free_result();
+        //procesamos el arreglo para limpiarlo
+        /*if($tree)
+        {
+            $menu = $this->get_tree($result);
+        }else
+        {*/
+            $menu = $result;
+        //}
+//        pr($menu);
+        $salida['lateral_no_sesion'] = $menu;
+//        $salida['secciones'] = $this->get_secciones();
+        return $salida;
+    }
+
     public function get_tree(&$result, $workflow = null)
     {
         // pr($workflow);

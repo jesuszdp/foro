@@ -24,9 +24,10 @@ class MY_Controller extends CI_Controller {
 
         $usuario = $this->get_datos_sesion(En_datos_sesion::ID_USUARIO);
 
+        $this->load->model('Menu_model', 'menu');
+        $menu['lateral_no_sesion'] = $menu['lateral'] = null;
         if (!is_null($usuario)) {
-            $data['usuario'] = $this->get_datos_sesion();
-            $this->load->model('Menu_model', 'menu');
+            $data['usuario'] = $this->get_datos_sesion();            
             $menu = $this->menu->get_menu_usuario($usuario, false);
             if (isset($data['usuario']) && !empty($data['usuario'])) {
                 $this->load->model('Sesion_model', 'sesion');
@@ -34,6 +35,10 @@ class MY_Controller extends CI_Controller {
             $menu['lateral'] = $this->menu->get_tree($menu['lateral'], null);
             $this->template->setNav($menu);
             $this->carga_imagen();
+        } else {
+            $menu = $this->menu->get_menu_no_sesion();
+            $menu['lateral_no_sesion'] = $this->menu->get_tree($menu['lateral_no_sesion'], null);
+            $this->template->setNav($menu);
         }
         //Selecciona el lenguaje del usuario actual
         $lenguaje = $this->obtener_idioma();
