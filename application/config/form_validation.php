@@ -389,17 +389,17 @@ $config['form_registro_usuario_externos'] = array(
     array(
         'field' => 'ext_nombre',
         'label' => 'Nombre',
-        'rules' => 'required|max_length[18]|alpha_dash'
+        'rules' => 'required'
     ),
     array(
         'field' => 'ext_ap',
         'label' => '',
-        'rules' => 'required|alpha_dash' //|callback_valid_pass
+        'rules' => 'required' //|callback_valid_pass
     ),
     array(
         'field' => 'ext_am',
         'label' => '',
-        'rules' => 'trim|required|alpha_dash' //|callback_valid_pass
+        'rules' => 'trim|required' //|callback_valid_pass
     ),
     array(
         'field' => 'ext_mail',

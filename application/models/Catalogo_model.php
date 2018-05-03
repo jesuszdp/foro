@@ -39,10 +39,11 @@ class Catalogo_model extends MY_Model {
                 $this->db->where($key, $value);
             }
         }
-        if (is_null($adicionales) || !isset($adicionales['oficinas_centrales']) || (isset($adicionales['oficinas_centrales']) && !$adicionales['oficinas_centrales'])) {
-            $this->db->where("clave_delegacional!= '09'");
-        }
+//        if (is_null($adicionales) || !isset($adicionales['oficinas_centrales']) || (isset($adicionales['oficinas_centrales']) && !$adicionales['oficinas_centrales'])) {
+//            $this->db->where("clave_delegacional!= '09'");
+//        }
 
+                $this->db->order_by("nombre");
         $resultado = $this->db->get('catalogo.delegaciones');
 //            pr($this->db->last_query());
         return $resultado->result_array();

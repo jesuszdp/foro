@@ -96,7 +96,7 @@
             <?php
             echo $this->form_complete->create_element(array('id' => 'institucion',
                 'type' => 'text',
-                'value' => isset($post['institucion']) ? $post['institucion'] : '',
+                'value' => isset($post['institucion']) ? $post['institucion'] : 'Instituto Mexicano del Seguro Social',
                 'attributes' => array(
                     'class' => 'input form-control',
                     'placeholder' => $language_text['registro_usuario']['institucion']

@@ -75,7 +75,7 @@ $active_group = 'default';
 $query_builder = TRUE;
 
 $db['default'] = array(
-    'dsn' => 'pgsql:host=11.32.41.13;port=5433;dbname=foro_imss',
+    'dsn' => 'pgsql:host=11.32.41.13;port=5433;dbname=foro_imss_2',
     'hostname' => '11.32.41.13',
     'username' => 'innovaedu',
     'password' => 'nPgEoXCqd/?gV.,',  
@@ -101,7 +101,7 @@ $db['default'] = array(
 
 
 $db['bitacoras'] = array(
-    'dsn' => 'pgsql:host=11.32.41.13;port=5433;dbname=foro_imss',
+    'dsn' => 'pgsql:host=11.32.41.13;port=5433;dbname=foro_imss_2',
     'hostname' => '11.32.41.13',
     'username' => 'innovaedu',
     'password' => 'nPgEoXCqd/?gV.,',

@@ -179,6 +179,7 @@
 <!-- /Wrap all content -->
 
 <!-- JS Global -->
+<script src="<?php echo asset_url(); ?>js/template_foro/general.js"></script>
 <script src="<?php echo asset_url(); ?>plugins/modernizr.custom.js"></script>
 <script src="<?php echo asset_url(); ?>plugins/bootstrap/js/bootstrap.min.js"></script>
 <script src="<?php echo asset_url(); ?>plugins/bootstrap-select/bootstrap-select.min.js"></script>
