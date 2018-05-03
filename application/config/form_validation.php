@@ -370,7 +370,12 @@ $config['form_registro_usuario_internos'] = array(
         'rules' => 'required'
     ),
     array(
-        'field' => 'telefono',
+        'field' => 'telefono_oficina',
+        'label' => '',
+        'rules' => 'numeric|max[11]'
+    ),
+    array(
+        'field' => 'telefono_personal',
         'label' => '',
         'rules' => 'required|numeric|max[11]'
     ),
@@ -432,7 +437,12 @@ $config['form_registro_usuario_externos'] = array(
         'rules' => 'required'
     ),
     array(
-        'field' => 'telefono',
+        'field' => 'telefono_oficina',
+        'label' => '',
+        'rules' => 'numeric|max[11]'
+    ),
+    array(
+        'field' => 'telefono_personal',
         'label' => '',
         'rules' => 'required|numeric|max[11]'
     ),

@@ -9,8 +9,9 @@ class En_sexo {
 
     const
             __default = '',
-            MASCULINO = 1,
-            FEMENINO = 2
+            MASCULINO = 'M',
+            FEMENINO = 'F',
+            OTRO = 'O'
 
     ;
 }

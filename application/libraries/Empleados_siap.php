@@ -63,6 +63,8 @@ class Empleados_siap {
                     case'Masculino':
                         $sexo = En_sexo::MASCULINO;
                         break;
+                    default :
+                        $sexo = En_sexo::OTRO;
                 }
 
 //                $sexo_asp = str_split($aspirante->SEXO, 1);

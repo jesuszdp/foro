@@ -72,14 +72,26 @@
         </div>
         <div class="form-group">
             <?php
-            echo $this->form_complete->create_element(array('id' => 'telefono',
+            echo $this->form_complete->create_element(array('id' => 'telefono_personal',
                 'type' => 'numeric',
-                'value' => isset($post['telefono']) ? $post['telefono'] : '',
+                'value' => isset($post['telefono_personal']) ? $post['telefono_personal'] : '',
                 'attributes' => array(
                     'class' => 'input form-control',
-                    'placeholder' => $language_text['registro_usuario']['telefono']
+                    'placeholder' => $language_text['registro_usuario']['telefono_personal']
             )));
-            echo form_error_format('telefono');
+            echo form_error_format('telefono_personal');
+            ?>
+        </div>
+        <div class="form-group">
+            <?php
+            echo $this->form_complete->create_element(array('id' => 'telefono_oficina',
+                'type' => 'numeric',
+                'value' => isset($post['telefono_oficina']) ? $post['telefono_oficina'] : '',
+                'attributes' => array(
+                    'class' => 'input form-control',
+                    'placeholder' => $language_text['registro_usuario']['telefono_oficina']
+            )));
+            echo form_error_format('telefono_oficina');
             ?>
         </div>
         <div class="form-group">

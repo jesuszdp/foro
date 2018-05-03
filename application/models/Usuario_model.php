@@ -10,7 +10,7 @@ class Usuario_model extends MY_Model {
         // Call the CI_Model constructor
         parent::__construct();
     }
-    
+
     /**
      * @author LEAS
      * @fecha 02/05/2018
@@ -35,11 +35,29 @@ class Usuario_model extends MY_Model {
         return $salida;
     }
 
+    /*     * *
+     * Array
+      (
+      [ext_nombre] =>
+      [ext_ap] =>
+      [ext_am] =>
+      [ext_sexo] => M
+      [ext_mail] =>
+      [telefono] =>
+      [pais_origen] =>
+      [pais_institucion] =>
+      [institucion] =>
+      [reg_password] =>
+      [reg_repassword] =>
+      [reg_captcha] =>
+      )
+     */
+
     private function nuevo_no_imss(&$parametros, &$salida) {
         $token = $this->seguridad->folio_random(10, TRUE);
         $pass = $this->seguridad->encrypt_sha512($token . $parametros['password'] . $token);
         $params['where'] = array(
-            'email' => null,
+            'email' => $parametros['ext_mail'],
         );
         $params['informacion_docente'] = false;
         $usuario_db = count($this->get_usuarios($params)) == 0;
@@ -48,7 +66,23 @@ class Usuario_model extends MY_Model {
                 'password' => $pass,
                 'token' => $token,
                 'username' => null,
-                'email' => $parametros['email']
+                'email' => $parametros['email'],
+                'clave_idioma' => $parametros['idioma']
+            );
+            $data['informacion_usuario'] = array(
+                'email' => $parametros['email'],
+                'matricula' => null,
+                'nombre' => $parametros['nombre'],
+                'apellido_paterno' => $parametros['apellido_paterno'],
+                'apellido_materno' => $parametros['apellido_materno'],
+                'sexo' => $parametros['sexo'],
+                'es_imss' => FALSE,
+                'activo' => true,
+                'clave_pais' => $parametros['pais_origen'],
+                'pais_institucion' => $parametros['pais_institucion'],
+                'institucion' => $parametros['institucion'],
+                'telefono_personal' => $parametros['telefono_personal'],
+                'telefono_oficina' => $parametros['telefono_oficina'],
             );
             $salida = $this->insert_guardar($data, $parametros['grupo']);
             if ($salida['result'] && isset($parametros['registro_usuario'])) {
@@ -57,6 +91,72 @@ class Usuario_model extends MY_Model {
             }
         } else if (!$usuario_db) {
             $salida['msg'] = 'Usuario ya registrado';
+        }
+    }
+
+    private function nuevo_siap(&$parametros, &$salida) {
+        // pr($parametros);
+        $token = $this->seguridad->folio_random(10, TRUE);
+        $pass = $this->seguridad->encrypt_sha512($token . $parametros['password'] . $token);
+        $usuario = $this->empleados_siap->buscar_usuario_siap($parametros['delegacion'], $parametros['matricula'])['empleado'];
+//        pr($usuario);
+        $params['where'] = array(
+            'username' => $parametros['matricula']
+        );
+        $usuario_db = count($this->get_usuarios($params)) == 0;
+        // pr($parametros);
+        // pr($this->db->last_query());
+        if ($usuario && $usuario_db) {
+            $unidad_instituto = $this->get_unidad($usuario['adscripcion'][0]);
+            $categoria = $this->get_categoria($usuario['emp_keypue'][0]);
+            if ($unidad_instituto == null) {
+                $unidad_instituto = $this->localiza_unidad($usuario['adscripcion'][0]);
+            }
+            if ($unidad_instituto != null) {
+                $data['usuario'] = array(
+                    'password' => $pass,
+                    'token' => $token,
+                    'username' => $parametros['matricula'],
+                    'email' => $parametros['email'],
+                    'clave_idioma' => $parametros['idioma']
+                );
+                $data['informacion_usuario'] = array(
+                    'email' => $parametros['email'],
+                    'matricula' => $parametros['matricula'],
+                    'nombre' => $usuario['nombre'][0],
+                    'apellido_paterno' => $usuario['paterno'][0],
+                    'apellido_materno' => $usuario['materno'][0],
+                    'curp' => $usuario ['curp'],
+                    'sexo' => $usuario['sexo'],
+                    'rfc' => $usuario['rfc'][0],
+                    'es_imss' => true,
+                    'activo' => true,
+                    'status_siap' => $usuario['status'][0],
+                    'clave_pais' => $parametros['pais_origen'],
+                    'pais_institucion' => $parametros['pais_institucion'],
+                    'institucion' => $parametros['institucion'],
+                    'telefono_personal' => $parametros['telefono_personal'],
+                    'telefono_oficina' => $parametros['telefono_oficina'],
+                );
+                $data['historico_informacion_usuario'] = array(
+                    'actual' => 1,
+                    'id_categoria' => $categoria['id_categoria'],
+                    'clave_departamental' => $unidad_instituto['clave_departamental']
+                );
+                //pr($data);
+                $salida = $this->insert_guardar($data, $parametros['grupo']);
+                if ($salida['result'] && isset($parametros['registro_usuario'])) {
+                    $this->load->model('Plantilla_model', 'plantilla');
+                    //$this->plantilla->send_mail(Plantilla_model::BIENVENIDA_REGISTRO, $parametros);
+                }
+                $salida['siap'] = $data;
+            } else {
+                $salida['msg'] = 'Adcripción no localizada en la base de datos';
+            }
+        } else if (!$usuario_db) {
+            $salida['msg'] = 'Usuario ya registrado';
+        } else if (!$usuario) {
+            $salida['msg'] = 'Usuario no registrado en SIAP';
         }
     }
 
@@ -91,7 +191,7 @@ class Usuario_model extends MY_Model {
                 $data['historico'] = array(
                     'actual' => 1,
                     'id_categoria' => $categoria['id_categoria'],
-                    'id_departamento_instituto' => $unidad_instituto['id_departamento_instituto']
+                    'clave_departamental' => $unidad_instituto['clave_departamental']
                 );
                 //pr($data);
                 $salida = $this->insert_guardar($data, $parametros['grupo']);
@@ -105,64 +205,6 @@ class Usuario_model extends MY_Model {
             }
         } else if (!$usuario_db) {
             $salida['msg'] = 'Usuario ya registrado';
-        }
-    }
-
-    private function nuevo_siap(&$parametros, &$salida) {
-        // pr($parametros);
-        $token = $this->seguridad->folio_random(10, TRUE);
-        $pass = $this->seguridad->encrypt_sha512($token . $parametros['password'] . $token);
-        $usuario = $this->empleados_siap->buscar_usuario_siap($parametros['delegacion'], $parametros['matricula'])['empleado'];
-//        pr($usuario);
-        $params['where'] = array(
-            'username' => $parametros['matricula']
-        );
-        $usuario_db = count($this->get_usuarios($params)) == 0;
-        // pr($parametros);
-        // pr($this->db->last_query());
-        if ($usuario && $usuario_db) {
-            $unidad_instituto = $this->get_unidad($usuario['adscripcion'][0]);
-            $categoria = $this->get_categoria($usuario['emp_keypue'][0]);
-            if ($unidad_instituto == null) {
-                $unidad_instituto = $this->localiza_unidad($usuario['adscripcion'][0]);
-            }
-            if ($unidad_instituto != null) {
-                $data['usuario'] = array(
-                    'password' => $pass,
-                    'token' => $token,
-                    'username' => $parametros['matricula'],
-                    'email' => $parametros['email']
-                );
-                $data['docente'] = array(
-                    'email' => $parametros['email'],
-                    'matricula' => $parametros['matricula'],
-                    'nombre' => $usuario['nombre'][0],
-                    'apellido_p' => $usuario['paterno'][0],
-                    'apellido_m' => $usuario['materno'][0],
-                    'curp' => $usuario ['curp'],
-                    'sexo' => $usuario['sexo'],
-                    'rfc' => $usuario['rfc'][0],
-                    'status_siap' => 1
-                );
-                $data['historico'] = array(
-                    'actual' => 1,
-                    'id_categoria' => $categoria['id_categoria'],
-                    'id_departamento_instituto' => $unidad_instituto['id_departamento_instituto']
-                );
-                //pr($data);
-                $salida = $this->insert_guardar($data, $parametros['grupo']);
-                if ($salida['result'] && isset($parametros['registro_usuario'])) {
-                    $this->load->model('Plantilla_model', 'plantilla');
-                    //$this->plantilla->send_mail(Plantilla_model::BIENVENIDA_REGISTRO, $parametros);
-                }
-                $salida['siap'] = $data;
-            } else {
-                $salida['msg'] = 'Adcripción no localizada en la base de datos';
-            }
-        } else if (!$usuario_db) {
-            $salida['msg'] = 'Usuario ya registrado';
-        } else if (!$usuario) {
-            $salida['msg'] = 'Usuario no registrado en SIAP';
         }
     }
 
@@ -208,6 +250,14 @@ class Usuario_model extends MY_Model {
         return $categoria;
     }
 
+    /**
+     * 
+     * @param type $datos usuario
+      informacion_usuario
+      historico_informacion_usuario
+     * @param type $id_grupo
+     * @return type
+     */
     private function insert_guardar(&$datos, $id_grupo) {
         $this->db->flush_cache();
         $this->db->reset_query();
@@ -216,21 +266,21 @@ class Usuario_model extends MY_Model {
         $this->db->insert('sistema.usuarios', $datos['usuario']); //nombre de la tabla en donde se insertaran
 
         $id_usuario = $this->db->insert_id();
-        $docente = $this->get_docente($datos['usuario']['username']);
+        $docente = $this->get_informacion_usuario($datos['usuario']['username']);
         // pr($docente);
 
         if (!is_null($docente)) {
             if (isset($datos['docente'])) {
-                $datos['docente']['id_usuario'] = $id_usuario;
-                $datos['usuario']['id_docente'] = $docente['id_docente'];
-                $this->db->where('id_docente', $docente['id_docente']);
-                $this->db->update('censo.docente', $datos['docente']);
+                $datos['informacion_usuario']['id_usuario'] = $id_usuario;
+//                $datos['usuario']['id_docente'] = $docente['id_informacion_usuario'];
+                $this->db->where('id_informacion_usuario', $docente['id_informacion_usuario']);
+                $this->db->update('sistema.informacion_usuario', $datos['informacion_usuario']);
                 $this->db->reset_query();
             }
-        } else if (isset($datos['docente'])) {
-            $datos['docente']['id_usuario'] = $id_usuario;
-            $this->db->insert('censo.docente', $datos['docente']);
-            $datos['usuario']['id_docente'] = $this->db->insert_id();
+        } else if (isset($datos['informacion_usuario'])) {
+            $datos['informacion_usuario']['id_usuario'] = $id_usuario;
+            $this->db->insert('sistema.informacion_usuario', $datos['informacion_usuario']);
+            $docente['id_informacion_usuario'] = $this->db->insert_id();
         }
 
         $data = array(
@@ -238,14 +288,14 @@ class Usuario_model extends MY_Model {
             'id_usuario' => $id_usuario
         );
         $this->db->insert('sistema.usuario_rol', $data);
-        if (isset($datos['historico'])) {
+        if (isset($datos['historico_informacion_usuario'])) {
             $this->db->reset_query();
-            $this->db->where('id_docente', $datos['usuario']['id_docente']);
+            $this->db->where('informacion_usuario', $docente['id_informacion_usuario']);
             $this->db->set('actual', 0);
-            $this->db->update('censo.historico_datos_docente');
+            $this->db->update('sistema.historico_informacion_usuario');
             $this->db->reset_query();
-            $datos['historico']['id_docente'] = $datos['usuario']['id_docente'];
-            $this->db->insert('censo.historico_datos_docente', $datos['historico']);
+            $datos['historico_informacion_usuario']['id_informacion_usuario'] = $docente['id_informacion_usuario'];
+            $this->db->insert('sistema.historico_informacion_usuario', $datos['historico_informacion_usuario']);
             //pr($this->db->last_query());
             //pr($datos);
         }
@@ -264,19 +314,19 @@ class Usuario_model extends MY_Model {
         return $resultado;
     }
 
-    private function get_docente($matricula = '') {
+    private function get_informacion_usuario($matricula = '') {
         $this->db->flush_cache();
         $this->db->reset_query();
-        $this->db->select('id_docente');
+        $this->db->select('id_informacion_usuario');
         $this->db->where('matricula', $matricula);
         $this->db->where('id_usuario is null');
-        $docente = $this->db->get('censo.docente')->result_array();
-        if (!empty($docente)) {
-            $docente = $docente[0];
+        $informacion_usuario = $this->db->get('sistema.informacion_usuario')->result_array();
+        if (!empty($informacion_usuario)) {
+            $informacion_usuario = $informacion_usuario[0];
         } else {
-            $docente = null;
+            $informacion_usuario = null;
         }
-        return $docente;
+        return $informacion_usuario;
     }
 
     private function localiza_unidad($clave) {

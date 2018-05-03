@@ -8,9 +8,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  *
  * Automatic base url
  */
-if(isset($_SERVER['SERVER_NAME']))
-{
-    define('APP_URL', ($_SERVER['SERVER_PORT'] == 443 ? 'https' : 'http') . "://{$_SERVER['SERVER_NAME']}" . str_replace(basename($_SERVER['SCRIPT_NAME']), "", $_SERVER['SCRIPT_NAME']));
+if (isset($_SERVER['SERVER_NAME'])) {
+    if (defined('APP_URL')) {
+        define('APP_URL', ($_SERVER['SERVER_PORT'] == 443 ? 'https' : 'http') . "://{$_SERVER['SERVER_NAME']}" . str_replace(basename($_SERVER['SCRIPT_NAME']), "", $_SERVER['SCRIPT_NAME']));
+    }
 }
 /*
   |--------------------------------------------------------------------------
@@ -36,11 +37,9 @@ if(isset($_SERVER['SERVER_NAME']))
  */
 
 //$config['base_url'] = 'http://localhost/sipimss_ii/';
-if(isset($_SERVER['HTTP_HOST']))
-{
+if (isset($_SERVER['HTTP_HOST'])) {
     $config['base_url'] = "http://" . $_SERVER['HTTP_HOST'] . preg_replace('@/+$@', '', dirname($_SERVER['SCRIPT_NAME'])) . '/';
-}
-else{
+} else {
     $config['base_url'] = '';
 }
 //$config['base_url'] = APP_URL; //Asigna automaticamente la ruta

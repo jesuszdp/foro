@@ -276,6 +276,7 @@ class Inicio extends MY_Controller {
                     'grupo' => Administracion_model::INVESTIGADOR,
                     'registro_usuario' => true,
                     'tipo_registro' => Inicio::EXTERNOS,
+					'idioma' => $this->obtener_idioma(),
                 );
                 $this->load->model('Administracion_model', 'administracion');
                 $output['registro_valido'] = $this->usuario->nuevo($data, $config['tipo_registro']);

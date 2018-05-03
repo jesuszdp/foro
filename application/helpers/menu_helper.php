@@ -80,10 +80,11 @@ if (!function_exists('update_lenguaje')) {
      */
     function update_lenguaje($clave_lenguaje = 'es') {
         $CI = & get_instance();
-            $session = $CI->session->userdata(En_datos_sesion::__INSTANCIA);
-            $session['language'] = $clave_lenguaje; //Agrega el lenguaje seleccionado
-            $CI->session->set_userdata(En_datos_sesion::__INSTANCIA, $session);
-            return TRUE;
+        $session = $CI->session->userdata(En_datos_sesion::__INSTANCIA);
+        $session['language'] = $clave_lenguaje; //Agrega el lenguaje seleccionado
+        $CI->session->set_userdata(En_datos_sesion::__INSTANCIA, $session);
+        update_lenguaje_sistema($clave_lenguaje);
+        return TRUE;
     }
 
 }
@@ -101,6 +102,23 @@ if (!function_exists('obtener_lenguaje_actual')) {
             $clave_lenguaje = $CI->session->userdata(En_datos_sesion::__INSTANCIA)[En_datos_sesion::LANGUAGE];
         }
         return $clave_lenguaje;
+    }
+
+}
+
+if (!function_exists('update_lenguaje_sistema')) {
+
+    /**
+     * @author LEAS
+     * @fecha 02/05/2018
+     * @param type $clave_lenguaje Modifica el lenguaje del sistema, es decir el predeterminado
+     * 
+     */
+    function update_lenguaje_sistema($clave_lenguaje = 'es') {
+        $lenguaje = ['es' => 'spanish', 'en' => 'english'];
+        $CI = & get_instance();
+        $CI->config->load('config');
+        $CI->config->set_item('language', $lenguaje[$clave_lenguaje]);
     }
 
 }
