@@ -46,10 +46,20 @@ if (!function_exists('pr')) {
  */
 if (!function_exists('dropdown_options')) {
 
-    function dropdown_options($array_data, $field_key, $field_value) {
+    function dropdown_options($array_data, $field_key, $field_value, $idioma = null) {
         $options = array();
-        foreach ($array_data as $key => $value) {
-            $options[$value[$field_key]] = $value[$field_value];
+        if (is_null($idioma)) {
+            foreach ($array_data as $key => $value) {
+                $options[$value[$field_key]] = $value[$field_value];
+            }
+        }else{//Obtiene el idioma
+            foreach ($array_data as $key => &$value) {
+                $tmp = json_decode($value[$field_value], TRUE);
+                if (isset($tmp[$idioma])) {
+                    $value[$field_value] = $tmp[$idioma];
+                }
+                $options[$value[$field_key]] = $value[$field_value];
+            }
         }
         return $options;
     }

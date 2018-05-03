@@ -23,7 +23,9 @@ class MY_Controller extends CI_Controller {
         $this->load->model('Idioma_model', 'idioma');
 
         $usuario = $this->get_datos_sesion(En_datos_sesion::ID_USUARIO);
-
+//        $usuario_ = $this->get_datos_sesion();
+//        pr($usuario_);
+        
         $this->load->model('Menu_model', 'menu');
         $menu['lateral_no_sesion'] = $menu['lateral'] = null;
         if (!is_null($usuario)) {
@@ -48,10 +50,9 @@ class MY_Controller extends CI_Controller {
         }
         //Asignar idioma al sistema
         update_lenguaje_sistema($lenguaje);
-        $this->grupo_language_text += $this->grupo_language_text_generales; //Agrega el grupo generales
+        $this->grupo_language_text = array_merge($this->grupo_language_text_generales, $this->grupo_language_text); //Agrega el grupo generales
         $this->language_text = $this->obtener_grupos_texto($this->grupo_language_text, $lenguaje);
         $this->template->setLanguageText($this->language_text);
-
 //        pr($this->language_text);
     }
 

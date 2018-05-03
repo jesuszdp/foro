@@ -18,7 +18,7 @@ class Inicio extends MY_Controller {
     const INTERNOS = 'internos', EXTERNOS = 'externos', REGISTRO_USUARIO = "registro_usuario";
 
     public function __construct() {
-        $this->grupo_language_text = ['registro_usuario', 'inicio_sesion', 'mensajes', 'template_general']; //Grupo de idiomas para el controlador actual
+        $this->grupo_language_text = ['registro_usuario', 'inicio_sesion', 'mensajes']; //Grupo de idiomas para el controlador actual
         parent::__construct();
         $this->load->library('form_complete');
         $this->load->library('form_validation');
@@ -46,9 +46,11 @@ class Inicio extends MY_Controller {
                     case 1:
                         //redirect to home //load menu...etc etc
                         $params = array(
-                            'where' => array('usuarios.username' => $post['usuario']),
-                            'select' => array(
-                                "usuarios.id_usuario", "coalesce(inf.matricula, usuarios.username) matricula", "usuarios.clave_idioma language",
+                            'where' => array('usuarios.username' => $post['usuario'], 'usuarios.email'=> $post["usuario"]),
+                            'where_funcion' => array('usuarios.username' => "where", 'usuarios.email'=>"or_where"),
+                            'select' => array("usuarios.email",
+                                "usuarios.id_usuario", "coalesce(inf.matricula, usuarios.username) matricula", 
+                                "usuarios.clave_idioma language",
                                 "inf.id_informacion_usuario", "inf.nombre", "inf.apellido_paterno", "inf.apellido_materno",
                                 "uni.clave_unidad", "uni.nombre unidad", "inf.fecha_nacimiento",
                                 "dep.clave_departamental", "dep.nombre departamento",
@@ -154,7 +156,7 @@ class Inicio extends MY_Controller {
           } else {//De inicio aquí es donde entra */
         $this->load->model('Catalogo_model', 'catalogo');
         $data['delegaciones'] = dropdown_options($this->catalogo->get_delegaciones(null, array('oficinas_centrales' => true)), 'clave_delegacional', 'nombre');
-        $data['paises'] = dropdown_options($this->catalogo->get_paises($this->obtener_idioma()), "clave_pais", "lang");
+        $data['paises'] = dropdown_options($this->catalogo->get_paises(), "clave_pais", "lang", $this->obtener_idioma()); //Obtiene el idioma
         //$data['my_modal'] = $this->load->view("sesion/login_modal.tpl.php", $data, TRUE);            
         $data['registro_externos'] = $this->load->view("sesion/registro_externos.php", $data, TRUE);
         $data['registro_internos'] = $this->load->view("sesion/registro_internos.php", $data, TRUE);
@@ -240,7 +242,7 @@ class Inicio extends MY_Controller {
 //            if ($this->input->post()) {
             $config = ['ruta_registro', 'select_validation'];
             $data_post = $this->input->post(null, TRUE);
-            pr($data_post);
+//            pr($data_post);
             switch ($tipo_registro) {
                 case Inicio::INTERNOS:
                     $config['select_validation'] = "form_registro_usuario_internos";
@@ -263,6 +265,7 @@ class Inicio extends MY_Controller {
                 $data = array(
                     'nombre' => $this->input->post('ext_nombre', TRUE),
                     'matricula' => $this->input->post('matricula', TRUE),
+                    'delegacion' => $this->input->post('cve_delegacion', TRUE),
                     'apellido_paterno' => $this->input->post('ext_ap', TRUE),
                     'apellido_materno' => $this->input->post('ext_am', TRUE),
                     'email' => $this->input->post('ext_mail', TRUE),
@@ -278,14 +281,16 @@ class Inicio extends MY_Controller {
                     'tipo_registro' => Inicio::EXTERNOS,
                     'idioma' => $this->obtener_idioma(),
                 );
-                $output['registro_valido'] = $this->usuario->nuevo($data, $config['tipo_registro']);
+                $output['registro_valido'] = $this->usuario->nuevo($data, $config['tipo_registro'], $this->language_text);
+                pr($output['registro_valido']['msg']);
+//                pr($output['registro_valido']);
             } else {
                 // pr(validation_errors());;
             }
 //            }
             $this->load->model('Catalogo_model', 'catalogo');
-            $output['delegaciones'] = dropdown_options($this->catalogo->get_delegaciones(null, null /*array('oficinas_centrales' => false)*/), 'clave_delegacional', 'nombre');
-            $output['paises'] = dropdown_options($this->catalogo->get_paises($this->obtener_idioma()), "clave_pais", "lang");
+            $output['delegaciones'] = dropdown_options($this->catalogo->get_delegaciones(null, null /* array('oficinas_centrales' => false) */), 'clave_delegacional', 'nombre');
+            $output['paises'] = dropdown_options($this->catalogo->get_paises(), "clave_pais", "lang", $this->obtener_idioma());
             $output['language_text'] = $this->language_text;
             $this->load->view($config['ruta_registro'], $output);
         }

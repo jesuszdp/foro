@@ -80,32 +80,6 @@
         </div>
         <div class="form-group">
             <?php
-            echo $this->form_complete->create_element(array('id' => 'pais_institucion',
-                'type' => 'dropdown',
-                'first' => array('' => $language_text['registro_usuario']['pais_institucion']),
-                'options' => $paises,
-                'value' => isset($post['pais_institucion']) ? $post['pais_institucion'] : '',
-                'attributes' => array(
-                    'class' => 'form-control',
-                    'placeholder' => $language_text['registro_usuario']['pais_institucion']
-            )));
-            echo form_error_format('pais_institucion');
-            ?>
-        </div>
-        <div class="form-group">
-            <?php
-            echo $this->form_complete->create_element(array('id' => 'institucion',
-                'type' => 'text',
-                'value' => isset($post['institucion']) ? $post['institucion'] : 'Instituto Mexicano del Seguro Social',
-                'attributes' => array(
-                    'class' => 'input form-control',
-                    'placeholder' => $language_text['registro_usuario']['institucion']
-            )));
-            echo form_error_format('institucion');
-            ?>
-        </div>
-        <div class="form-group">
-            <?php
             echo $this->form_complete->create_element(array('id' => 'reg_password',
                 'type' => 'password',
                 'value' => isset($post['reg_password']) ? $post['reg_password'] : '',

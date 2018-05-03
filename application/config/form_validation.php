@@ -332,7 +332,7 @@ $config['form_registro_usuario_internos'] = array(
     array(
         'field' => 'matricula',
         'label' => 'Matrícula',
-        'rules' => 'required|max_length[18]|alpha_dash'
+        'rules' => 'trim|required|max_length[18]|alpha_dash'
     ),
     array(
         'field' => 'cve_delegacion',
@@ -359,16 +359,16 @@ $config['form_registro_usuario_internos'] = array(
         'label' => 'Captcha',
         'rules' => 'required|check_captcha'
     ),
-    array(
-        'field' => 'pais_institucion',
-        'label' => '',
-        'rules' => 'required'
-    ),
-    array(
-        'field' => 'institucion',
-        'label' => '',
-        'rules' => 'required'
-    ),
+//    array(
+//        'field' => 'pais_institucion',
+//        'label' => '',
+//        'rules' => 'required'
+//    ),
+//    array(
+//        'field' => 'institucion',
+//        'label' => '',
+//        'rules' => 'required'
+//    ),
     array(
         'field' => 'telefono_oficina',
         'label' => '',

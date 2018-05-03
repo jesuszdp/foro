@@ -352,7 +352,7 @@ class Catalogo_model extends MY_Model {
      * @param type $idioma
      * @return type Catálogo de paises
      */
-    public function get_paises($idioma = 'es') {
+    public function get_paises() {
         $this->db->flush_cache();
         $this->db->reset_query();
         $select = array(
@@ -362,14 +362,14 @@ class Catalogo_model extends MY_Model {
         $result = $this->db->get('catalogo.pais')->result_array();
         $this->db->flush_cache();
         $this->db->reset_query();
-        if (!empty($result)) {
-            foreach ($result as &$value) {
-                $tmp = json_decode($value['lang'], TRUE);
-                if (isset($tmp[$idioma])) {
-                    $value['lang'] = $tmp[$idioma];
-                }
-            }
-        }
+//        if (!empty($result)) {
+//            foreach ($result as &$value) {
+//                $tmp = json_decode($value['lang'], TRUE);
+//                if (isset($tmp[$idioma])) {
+//                    $value['lang'] = $tmp[$idioma];
+//                }
+//            }
+//        }
         return $result;
     }
     

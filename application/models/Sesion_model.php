@@ -14,9 +14,10 @@ class Sesion_model extends CI_Model {
         $this->db->reset_query();
         $this->db->start_cache();
 
-        $this->db->select(array('username', 'password', 'token', ''));
+        $this->db->select(array('username', 'email', 'password', 'token', ''));
         $this->db->from('sistema.usuarios u');
         $this->db->where('u.username', $usr);
+        $this->db->or_where('u.email', $usr);//Valida que sea el correo también un nombre de usuario
 
         $num_user = $this->db->count_all_results();
         $this->db->reset_query();
