@@ -372,5 +372,64 @@ class Catalogo_model extends MY_Model {
         }
         return $result;
     }
+    
+    public function get_registros($nombre_tabla = null, &$params = [])
+    {
+        //pr($params);
+        if(is_null($nombre_tabla ))
+        {
+            return [];
+        }
+        $this->db->flush_cache();
+        $this->db->reset_query();
+        if (isset($params['total']))
+        {
+            $select = 'count(*) total';
+        } else if (isset($params['select']))
+        {
+            $select = $params['select'];
+        } else
+        {
+            $select = '*';
+        }
+        $this->db->select($select);
+        if (isset($params['join']))
+        {
+            foreach ($params['join'] as $value)
+            {
+                $this->db->join($value['table'], $value['condition'], $value['type']);
+            }
+        }
+        if (isset($params['where']))
+        {
+            foreach ($params['where'] as $key => $value)
+            {
+                $this->db->where($key, $value);
+            }
+        }
+        if(isset($params['like']))
+        {
+            foreach ($params['like'] as $key => $value)
+            {
+                $this->db->like($key, $value);
+            }
+        }
+//        $this->db->where('date(fecha) = current_date', null, false);
+        if (isset($params['limit']) && isset($params['offset']) && !isset($params['total']))
+        {
+            $this->db->limit($params['limit'], $params['offset']);
+        } else if (isset($params['limit']) && !isset($params['total']))
+        {
+            $this->db->limit($params['limit']);
+        }
+
+        $query = $this->db->get($nombre_tabla);
+        $salida = $query->result_array();
+        $query->free_result();
+        //pr($this->db->last_query());
+        $this->db->flush_cache();
+        $this->db->reset_query();
+        return $salida;
+    }
 
 }

@@ -25,3 +25,31 @@ label.formulario {
 	font-size: 28px;
 	color: #FFF;
 }
+.form-background{
+	background-color: rgba(13,29,49,0.8);
+}
+.nav-tabs > li.active > a {
+	color: #f15a29;
+	font-weight: 700;
+}
+.nav-tabs > li > a {
+	color: #f15a29;
+	font-weight: 500;
+}
+.nav-tabs {
+	margin-bottom: 10px;
+}
+/*.tablero-menu-item {
+	background-color: red;
+}*/
+.sf-menu ul li {
+	background-color: rgba(13, 29, 49, 0.80);
+	border-radius: 1px;
+}
+
+.sf-menu ul li a:hover {
+	color: #000;
+}
+#my_modal{
+	z-index: 100000;
+}

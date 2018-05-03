@@ -21,9 +21,9 @@
     <link href="<?php echo asset_url(); ?>plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="<?php echo asset_url(); ?>plugins/fontawesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="<?php echo asset_url(); ?>plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
-    <link href="<?php echo asset_url(); ?>plugins/owlcarousel2/assets/owl.carousel.min.css" rel="stylesheet">
+    <!-- <link href="<?php echo asset_url(); ?>plugins/owlcarousel2/assets/owl.carousel.min.css" rel="stylesheet">
     <link href="<?php echo asset_url(); ?>plugins/owlcarousel2/assets/owl.theme.default.min.css" rel="stylesheet">
-    <link href="<?php echo asset_url(); ?>plugins/prettyphoto/css/prettyPhoto.css" rel="stylesheet">
+    <link href="<?php echo asset_url(); ?>plugins/prettyphoto/css/prettyPhoto.css" rel="stylesheet"> -->
     <link href="<?php echo asset_url(); ?>plugins/animate/animate.min.css" rel="stylesheet">
     <!-- <link href="<?php echo asset_url(); ?>plugins/countdown/jquery.countdown.css" rel="stylesheet"> -->
 
@@ -43,7 +43,10 @@
     var img_url_loader = "<?php echo base_url('assets/img/loader.gif'); ?>";
     </script>
     <!--[if lt IE 9]><script src="<?php echo asset_url(); ?>plugins/jquery/jquery-1.11.1.min.js"></script><![endif]-->
-<!--[if gte IE 9]><!--><script src="<?php echo asset_url(); ?>plugins/jquery/jquery-2.1.1.min.js"></script><!--<![endif]-->
+    <!--[if gte IE 9]><!--><script src="<?php echo asset_url(); ?>plugins/jquery/jquery-2.1.1.min.js"></script><!--<![endif]-->
+    <script src="<?php echo asset_url(); ?>js/template_foro/general.js"></script>
+    <script src="<?php echo asset_url(); ?>js/template_foro/apprise.js"></script>
+    <script src="<?php echo asset_url(); ?>js/template_foro/idioma.js"></script>
 </head>
 <body id="home" class="wide body-light">
 
@@ -89,7 +92,8 @@
                         // pr($menu);
                         //echo $menu;
                         if (isset($menu['lateral']) && !empty($menu['lateral'])) {
-                            echo render_menu($menu['lateral'], null);
+                            //echo render_menu($menu['lateral'], null);
+                            echo render_menu_no_sesion($menu['lateral'], null);
                         }
                         if (isset($menu['lateral_no_sesion']) && !empty($menu['lateral_no_sesion'])) {
                             echo render_menu_no_sesion($menu['lateral_no_sesion'], null);
@@ -179,18 +183,17 @@
 <!-- /Wrap all content -->
 
 <!-- JS Global -->
-<script src="<?php echo asset_url(); ?>js/template_foro/general.js"></script>
 <script src="<?php echo asset_url(); ?>plugins/modernizr.custom.js"></script>
 <script src="<?php echo asset_url(); ?>plugins/bootstrap/js/bootstrap.min.js"></script>
 <script src="<?php echo asset_url(); ?>plugins/bootstrap-select/bootstrap-select.min.js"></script>
-<script src="<?php echo asset_url(); ?>plugins/superfish/js/superfish.js"></script>
-<script src="<?php echo asset_url(); ?>plugins/prettyphoto/js/jquery.prettyPhoto.js"></script>
+<!-- <script src="<?php echo asset_url(); ?>plugins/superfish/js/superfish.js"></script>
+<script src="<?php echo asset_url(); ?>plugins/prettyphoto/js/jquery.prettyPhoto.js"></script> -->
 <script src="<?php echo asset_url(); ?>plugins/placeholdem.min.js"></script>
 <script src="<?php echo asset_url(); ?>plugins/jquery.smoothscroll.min.js"></script>
 <script src="<?php echo asset_url(); ?>plugins/jquery.easing.min.js"></script>
 
 <!-- JS Page Level -->
-<script src="<?php echo asset_url(); ?>plugins/owlcarousel2/owl.carousel.min.js"></script>
+<!-- <script src="<?php echo asset_url(); ?>plugins/owlcarousel2/owl.carousel.min.js"></script> -->
 <script src="<?php echo asset_url(); ?>plugins/waypoints/waypoints.min.js"></script>
 <!-- <script src="<?php echo asset_url(); ?>plugins/countdown/jquery.plugin.min.js"></script>
 <script src="<?php echo asset_url(); ?>plugins/countdown/jquery.countdown.min.js"></script>
@@ -198,6 +201,7 @@
 
 <script src="<?php echo asset_url(); ?>js/theme-ajax-mail.js"></script>
 <script src="<?php echo asset_url(); ?>js/theme.js"></script>
+<script src="<?php echo asset_url(); ?>js/template_foro/menu.js"></script>
 <!-- script src="<?php echo asset_url(); ?>js/custom.js"></script -->
 
 <script type="text/javascript">

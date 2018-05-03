@@ -27,7 +27,7 @@ if (!function_exists('render_menu_no_sesion')) {
                         }
                     }
                     ?>
-                    <li>
+                    <li class="<?php echo (current_url()==$enlace) ? 'active' : ''; ?>">
                         <a href="<?php echo (isset($item['childs']) || $item['id_menu'] == 'CENSO' ? '#' : $enlace); ?>" <?php echo (isset($item['childs']) || $item['id_menu'] == 'CENSO' ? 'data-toggle="collapse" data-target="#menu' . $item['id_menu'] . '"' : ' id="tablero-menu-item-' . $item['id_menu'] . '" class="tablero-menu-item" '); ?>
                         <?php
                         if (isset($item['configurador'])) {
@@ -78,7 +78,7 @@ if (!function_exists('render_menu')) {
         $html = '';
         ob_start();
         ?>
-        <ul class="nav  <?php echo ($dropdown != null ? 'collapse' : ''); ?>" <?php echo ($dropdown != null ? 'id="' . $dropdown . '" style="margin-left: 20px;"' : ''); ?>>
+        <ul class="nav  <?php echo ($dropdown != null ? 'collapse' : ''); ?>" <?php echo ($dropdown != null ? 'id="' . $dropdown . '" style="margin-left: 1px;"' : ''); ?>>
             <?php
             foreach ($menu as $item) {
 //                pr($item);

@@ -57,7 +57,7 @@ class Template {
      * @return: mixed[] Data arreglo de datos de plantilla con la siguisnte estructura array("title"=>null,"nav"=>null,"main_title"=>null,"main_content"=>null);
      */
 
-    function getTemplate($tipo = FALSE, $tpl = 'tc_template/index.tpl.php') {
+    function getTemplate($tipo = FALSE, $tpl = 'tc_template/index_login.tpl.php') {
         if (empty($this->elements["menu"])) {//Genera menú vacio
             $menu_data['datos_imagen'] = $this->get_datos_imagen_perfil(); //Agrega datos de la imagen para el menu
             $this->setNav($menu_data);

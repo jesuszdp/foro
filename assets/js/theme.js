@@ -38,7 +38,7 @@ var theme = function () {
     // superfish menu
     // ---------------------------------------------------------------------------------------
     function handleSuperFish() {
-        $('ul.sf-menu').superfish();
+        /*$('ul.sf-menu').superfish();
         $('ul.sf-menu a').click(function() {
             $('body').scrollspy('refresh');
         });
@@ -58,7 +58,7 @@ var theme = function () {
         });
         $('ul.sf-menu a').click(function() {
             $('ul.sf-menu li').removeClass('mobile-submenu-open');
-        });
+        });*/
     }
 
     // Smooth scrolling
@@ -88,9 +88,9 @@ var theme = function () {
     // prettyPhoto
     // ---------------------------------------------------------------------------------------
     function handlePrettyPhoto() {
-        $("a[data-gal^='prettyPhoto']").prettyPhoto({
+        /*$("a[data-gal^='prettyPhoto']").prettyPhoto({
             theme: 'dark_square'
-        });
+        });*/
     }
 
     // Scroll totop button
@@ -212,7 +212,7 @@ var theme = function () {
         },
         // Main Slider
         initMainSlider: function () {
-            $('#main-slider').owlCarousel({
+            /*$('#main-slider').owlCarousel({
                 items: 1,
                 autoplay: false,
                 autoplayHoverPause: false,
@@ -232,7 +232,7 @@ var theme = function () {
                     991:  {items: 1},
                     1024: {items: 1}
                 }
-            });
+            });*/
 
         },
         // CountDown
@@ -244,7 +244,7 @@ var theme = function () {
         },
         // Partners Slider
         initPartnerSlider: function () {
-            $('.partners-carousel .owl-carousel').owlCarousel({
+            /*$('.partners-carousel .owl-carousel').owlCarousel({
                 autoplay: true,
                 loop: true,
                 margin: 25,
@@ -261,7 +261,7 @@ var theme = function () {
                     991:  {items: 5},
                     1024: {items: 6}
                 }
-            });
+            });*/
         },
         // Partners Slider
         initEventCarousel: function () {
@@ -286,7 +286,7 @@ var theme = function () {
         },
         // Testimonials
         initTestimonials: function () {
-            $('#testimonials').owlCarousel({
+            /*$('#testimonials').owlCarousel({
                 items: 1,
                 autoplay: true,
                 loop: true,
@@ -296,7 +296,7 @@ var theme = function () {
                     "<i class='fa fa-caret-left'></i>",
                     "<i class='fa fa-caret-right'></i>"
                 ]
-            });
+            });*/
         },
         // Animation on Scroll
         initAnimation: function () {

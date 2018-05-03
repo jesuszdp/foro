@@ -86,9 +86,9 @@ class Usuario extends MY_Controller
         $filtros['offset'] = isset($params['pageIndex'])?  ($filtros['limit']*($params['pageIndex']-1)):0;
 
         $filtros['select'] = array(
-            'usuarios.id_usuario', 'coalesce(docentes.matricula, usuarios.username) matricula',
-            'concat(docentes.nombre, $$ $$, docentes.apellido_p, $$ $$, apellido_m) nombre',
-            'G.nombre delegacion', 'E.nombre unidad'
+            'usuarios.id_usuario', 'coalesce(inf.matricula, usuarios.username) matricula',
+            'concat(inf.nombre, $$ $$, inf.apellido_paterno, $$ $$, inf.apellido_materno) nombre',
+            'del.nombre delegacion', 'uni.nombre unidad'
         );
         $filtros['like'] = $this->genera_filtros($params);
         $usuarios['data'] = $this->usuario->get_usuarios($filtros);
