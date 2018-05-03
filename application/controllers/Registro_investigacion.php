@@ -22,6 +22,11 @@ class Registro_investigacion extends MY_Controller {
     public function index()
     {
     	$output = [];
+        $datos_sesion = $this->get_datos_sesion();
+        $id_informacion_usuario = $datos_sesion['id_informacion_usuario'];
+
+        $output['listado'] = $this->trabajo->listado_trabajos_autor($id_informacion_usuario);
+
     	$this->template->setTitle('Trabajos de investigación registrados');
         $main_content = $this->load->view('trabajo/index.tpl.php', $output, true);
         $this->template->setMainContent($main_content);
@@ -39,10 +44,10 @@ class Registro_investigacion extends MY_Controller {
     	
     	if($post)
     	{
-    		pr($post);
+    		//pr($post);
     		$this->config->load('form_validation'); //Cargar archivo 
     		$validations = $this->config->item('form_registro_investigacion'); //Obtener validaciones de archivo general
-    		pr($validations);
+    		//pr($validations);
             $this->form_validation->set_rules($validations); //Añadir validaciones
             if($this->form_validation->run() == TRUE)
             {
@@ -67,12 +72,17 @@ class Registro_investigacion extends MY_Controller {
             	$status = $this->trabajo->nuevo($datos);
             	if($status)
             	{
-            		$output['msg'] = 'El trabajo se registró correctamente con folio '.$folio;
+            		$output['msg'] = 'El trabajo se registró correctamente con folio ';
+                    $output['msg_type'] = 'success';
+                    $output['folio'] = $folio;
             	}else
             	{
             		$output['msg'] = 'El trabajo no se pudo registrar, intentelo más tarde.';
+                    $output['msg_type'] = 'danger';
             		$output['trabajo'] = $post;
+                    $output['folio'] = $folio;
             	}
+                //pr($output);
             }else
             {
     			$output['trabajo'] = $post;

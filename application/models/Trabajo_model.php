@@ -69,4 +69,53 @@ class Trabajo_model extends CI_Model
 
     	return $this->db->count_all('foro.trabajo_investigacion');
     }
+
+    public function listado_trabajos_autor($id_informacion_usuario)
+    {
+        $this->db->flush_cache();
+        $this->db->reset_query();
+
+        $this->db->select(array('ti.folio','ti.titulo','ti.id_tipo_metodologia','m.nombre nombre_metodologia'));
+        $this->db->where(array('a.id_informacion_usuario'=>$id_informacion_usuario));
+        $this->db->join('foro.autor a', 'a.folio_investigacion = ti.folio','left');
+        $this->db->join('foro.tipo_metodologia m','m.id_tipo_metodologia = ti.id_tipo_metodologia', 'left');
+        $res = $this->db->get('foro.trabajo_investigacion ti');
+
+        $this->db->flush_cache();
+        $this->db->reset_query();    
+        
+        return $res->result_array();
+    }
+
+    public function autores_trabajo_folio($folio)
+    {
+        $this->db->flush_cache();
+        $this->db->reset_query();
+
+        $this->db->where('a.folio',$folio);
+
+        $this->db->join('sistema.informacion_usuario iu','a.id_informacion_usuario = iu.id_informacion_usuario');
+        $res = $this->db->get('foro.autor a');
+
+        $this->db->flush_cache();
+        $this->db->reset_query();    
+        
+        return $res->result_array();
+    }
+
+    public function trabajo_investigacion($filtros=null)
+    {
+        $this->db->flush_cache();
+        $this->db->reset_query();
+
+        if(!is_null($filtros))
+            $this->db->where($filtros);
+
+        $res = $this->db->get('foro.trabajo_investigacion');
+
+        $this->db->flush_cache();
+        $this->db->reset_query();    
+        
+        return $res->result_array();
+    }
 }

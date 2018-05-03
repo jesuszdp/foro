@@ -1,12 +1,19 @@
-<?php
-if(isset($post))
-	pr($post);
-?>
-
 <div class="panel panel-default">
-    <h1 class="page-head-line">Registrar nuevo trabajo d einvestigación</h1>
+    <h1 class="page-head-line">Registrar nuevo trabajo de investigación</h1>
     <div class="panel-body">
     	<div class="container">
+    		<div class="row">
+    			<div class="col-sm-offset-1 col-sm-10">
+    				<?php
+    				if(isset($msg))
+    				{
+    					echo '<div class="alert alert-'.$msg_type.'">';
+    					echo $msg.'<strong>'.$folio.'</strong>';
+						echo '</div>';
+					}
+					?>
+    			</div>
+    		</div><!--row-->
     		<?php echo form_open('registro_investigacion/nuevo', array('id' => 'form_registro_investigacion', 'class'=>'form-horizontal', 'data-toggle'=>"validator", 'role'=>"form")); ?>
     		<div class="row">
 	    		<div class="col-sm-offset-2 col-sm-8">
@@ -51,7 +58,7 @@ if(isset($post))
 				      </div>
 				    </div>
 				     <div class="form-group">
-				      <label for="problema" class="col-sm-3 control-label">Problema*:</label>
+				      <label for="problema" class="col-sm-3 control-label">Planteamiento del problema*:</label>
 				      <div class="col-sm-9">
 				      	<textarea class="form-control" rows="3" id="problema" name="problema" required><?php if(isset($trabajo['problema'])) echo $trabajo['problema'];?></textarea>
 				      </div>
