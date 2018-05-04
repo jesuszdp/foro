@@ -32,13 +32,21 @@ class Inicio extends MY_Controller {
     public function index() {
         //$this->language_text += $this->obtener_grupos_texto(array('template_general'), $this->obtener_idioma()); //textos del formulario
         $data['language_text'] = $this->language_text; //Asigna textos de lenguaje para el template de login
-        if ($this->input->post()) {
-            $post = $this->input->post(null, true);
+        $inicio_reg = $this->session->flashdata('inicio_registro');
+        if (!is_null($inicio_reg)) {
+            $post["usuario"] = $inicio_reg['username'];
+            $post["password"] = $inicio_reg['password'];
+            $this->session->set_flashdata('inicio_registro', null);
+        }
+        ////        $data_post = $this->input->post();
+//            $post = $this->input->post(null, true);
+        if ($post) {
 
             $this->config->load('form_validation'); //Cargar archivo con validaciones
+
+
             $validations = $this->config->item('login'); //Obtener validaciones de archivo general
             $this->form_validation->set_rules($validations);
-
             if ($this->form_validation->run() == TRUE) {
                 $valido = $this->sesion->validar_usuario($post["usuario"], $post["password"]);
                 //$mensajes = $this->lang->line('mensajes');
@@ -46,10 +54,10 @@ class Inicio extends MY_Controller {
                     case 1:
                         //redirect to home //load menu...etc etc
                         $params = array(
-                            'where' => array('usuarios.username' => $post['usuario'], 'usuarios.email'=> $post["usuario"]),
-                            'where_funcion' => array('usuarios.username' => "where", 'usuarios.email'=>"or_where"),
+                            'where' => array('usuarios.username' => $post['usuario'], 'usuarios.email' => $post["usuario"]),
+                            'where_funcion' => array('usuarios.username' => "where", 'usuarios.email' => "or_where"),
                             'select' => array("usuarios.email",
-                                "usuarios.id_usuario", "coalesce(inf.matricula, usuarios.username) matricula", 
+                                "usuarios.id_usuario", "coalesce(inf.matricula, usuarios.username) matricula",
                                 "usuarios.clave_idioma language",
                                 "inf.id_informacion_usuario", "inf.nombre", "inf.apellido_paterno", "inf.apellido_materno",
                                 "uni.clave_unidad", "uni.nombre unidad", "inf.fecha_nacimiento",
@@ -83,7 +91,7 @@ class Inicio extends MY_Controller {
             }
         }
 
-        $foro_educacion = $this->session->userdata('die_sipimss');
+        $foro_educacion = $this->session->userdata(En_datos_sesion::__INSTANCIA);
         if (isset($foro_educacion['usuario']['id_usuario'])) {
             redirect(site_url('inicio/inicio'));
         } else {//De inicio aquí es donde entra 
@@ -99,7 +107,7 @@ class Inicio extends MY_Controller {
 
     public function registro_usuario() {
         $data['language_text'] = $this->language_text; //Asigna textos de lenguaje para el template de login
-      
+
         $this->load->model('Catalogo_model', 'catalogo');
         $data['delegaciones'] = dropdown_options($this->catalogo->get_delegaciones(null, array('oficinas_centrales' => true)), 'clave_delegacional', 'nombre');
         $data['paises'] = dropdown_options($this->catalogo->get_paises(), "clave_pais", "lang", $this->obtener_idioma()); //Obtiene el idioma
