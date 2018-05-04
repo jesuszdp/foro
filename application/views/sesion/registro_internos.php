@@ -1,4 +1,11 @@
-<?php // pr($language_text);?>
+<?php // pr($language_text); ?>
+<?php
+if (isset($registro_valido)) {
+    $tipo = $registro_valido['result'] ? 'success' : 'danger';
+    echo html_message($registro_valido['msg'], $tipo);
+}
+?>
+
 <div id="area_registro_<?php echo Inicio::INTERNOS; ?>" class="form area_registro">
     <?php echo form_open('inicio/registro/' . Inicio::INTERNOS, array('id' => 'registro_form' . Inicio::INTERNOS, 'autocomplete' => 'off')); ?>
     <div class="sign-in-htm">

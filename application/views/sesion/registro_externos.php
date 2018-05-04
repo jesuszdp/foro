@@ -1,3 +1,9 @@
+<?php
+if (isset($registro_valido)) {
+    $tipo = $registro_valido['result'] ? 'success' : 'danger';
+    echo html_message($registro_valido['msg'], $tipo);
+}
+?>
 
 <div id="area_registro_<?php echo Inicio::INTERNOS; ?>" class="form area_registro">
     <?php echo form_open('inicio/registro/' . Inicio::INTERNOS, array('id' => 'registro_form' . Inicio::EXTERNOS, 'autocomplete' => 'off')); ?>
@@ -190,7 +196,7 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $(".regform").on('click', function (e) {
+        $("#regform").on('click', function (e) {
             var tipoform = $(this).data('tpform');
             var div = "#r_" + tipoform;
             data_ajax(site_url + '/inicio/registro/' + tipoform, '#registro_form' + tipoform, div);
