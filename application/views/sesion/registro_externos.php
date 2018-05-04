@@ -181,7 +181,7 @@
         </div>
         <br>
         <div class="">
-            <input type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" value="<?php echo $language_text['registro_usuario']['registrar']; ?>" data-tpform="<?php echo Inicio::EXTERNOS; ?>">
+            <input type="button" id="regform" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" value="<?php echo $language_text['registro_usuario']['registrar']; ?>" data-tpform="<?php echo Inicio::EXTERNOS; ?>">
         </div>
 
     </div>
@@ -193,8 +193,6 @@
         $(".regform").on('click', function (e) {
             var tipoform = $(this).data('tpform');
             var div = "#r_" + tipoform;
-            console.log(div);
-            console.log(div);
             data_ajax(site_url + '/inicio/registro/' + tipoform, '#registro_form' + tipoform, div);
         });
     });
