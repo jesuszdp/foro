@@ -35,10 +35,7 @@
     </div>
 </div>
 <div class="col-md-6 col-lg-4">
-    <div class="text-holder">
-        <h1 class="caption-title">04 AL 09 DE NOVIEMBRE DEL 2018</h1>
-        <h2 class="caption-subtitle">EDUCACIÓN EN SALUD ORIENTADA AL FUTURO</h2>
-    </div>
+    <?php echo $language_text['registro_usuario']['convocatoria_registro']; ?>
 </div>
 <!-- </div>
 </div>

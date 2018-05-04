@@ -1,6 +1,5 @@
-<div class="wrappe">
+<!--<div class="wrappe">
   <div class="containe">
-    <!-- Modal recovery pass-->
     <div class="modal" aria-hidden="true" id="modalRecovery" tabindex="-1" role="document" >
      <div class="modal-dialog">
        <div class="modal-content">
@@ -8,32 +7,38 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4><span class="glyphicon glyphicon-lock"></span>Recuperar contraseña</h4>
         </div>
-        <div id="modal_recovery" class="modal-body" style="padding:40px 50px;">
-          <div class="login-page">
-            <div class="form">
+        <div id="modal_recovery" class="modal-body" style="padding:40px 50px;"> -->
+  <div class="col-md-6 col-lg-8">
+    <div class="form-background">
+        <div class="form-header color">
+            <h1 class="section-title">
+                <span class="icon-inner"><span class="fa-stack"><i class="fa rhex fa-stack-2x"></i><i class="fa fa-ticket fa-stack-1x"></i></span></span>
+                <span class="title-inner"><?php echo $language_text['recuperar_contrasenia']['recuperar_contrasenia']; ?></span>
+            </h1>
+        </div>
+          <!-- <div class="row"> -->
+            <div class="">
               <?php
               if (!isset($recovery) && !isset($form_recovery) && !isset($success)) {
                   ?>
                   <div class="login-form">
-                      <p >¿Perdiste tu contraseña? Por favor introduce tu nombre de usuario o correo electrónico. Recibirás un enlace para crear una contraseña nueva por correo electronico.</p>
+                      <label for="user" class="formulario"><?php echo $language_text['recuperar_contrasenia']['recuperar_contrasenia_texto']; ?></label>
                       <?php echo form_open('/inicio/recuperar_password', array('id' => 'session_form')); ?>
                       <div class="sign-in-htm">
                           <div class="group">
-                              <label for="user">Nombre de usuario o correo electrónico:</label>
+                              <label for="user" class="formulario"><br><?php echo $language_text['recuperar_contrasenia']['matricula_o_correo_rc']; ?></label>
                               <br>
                               <input id="usuario" name="usuario" type="text" class="input form-control">
                           </div>
                           <br>
                           <?php echo form_error_format('usuario'); ?>
                           <div class="group">
-                            <button class="btn btn-success btn-block" value="Restablecer contraseña">
-                              Restablecer contraseña
+                            <button data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" value="<?php echo $language_text['recuperar_contrasenia']['recuperar_contrasenia']; ?>">
+                              <?php echo $language_text['recuperar_contrasenia']['recuperar_contrasenia']; ?>
                             </button>
-                              <!-- <input type="submit" class="btn btn-success btn-block" value="Restablecer contraseña"> -->
                           </div>
                           <?php echo form_close(); ?>
                       </div>
-
                   </div>
                   <?php
               } else if (isset($form_recovery)) {
@@ -63,21 +68,25 @@
                   <?php
               } else if (isset($success)) {
                   ?>
-                  <p >Contraseña actualizada con éxito</p>
+                  <label for="user" class="formulario"><?php echo $language_text['recuperar_contrasenia']['msg_exito_rc']; ?></label>
                   <?php
               } else {
                   ?>
-                  <p >El sistema ha recibido tu solicud con éxito, recibirás un enlace para crear una contraseña nueva por correo electrónico.</p>
+                  <label for="user" class="formulario"><?php echo $language_text['recuperar_contrasenia']['msg_correo_enviado_rc']; ?></label>
                   <?php
               }
               ?>
             </div>
-            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <?php echo $language_text['inicio_sesion']['convocatoria']; ?>
+        </div>
+            <!-- </div>
         </div>
         </div>
       </div>
       </div>
-    <!-- /Modal recovery pass -->
   </div>
 </div>
 <?php //echo js("jquery.js"); ?>
@@ -87,4 +96,4 @@
 <?php //echo js("bootstrap.js"); ?>
 <script type="text/javascript">
   $('#modalRecovery').modal('show');
-</script>
+</script> -->

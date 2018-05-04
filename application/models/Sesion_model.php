@@ -81,9 +81,9 @@ class Sesion_model extends CI_Model {
                 $this->db->flush_cache();
         $this->db->reset_query();
         $this->db->select(array(
-            'u.id_usuario', 'concat("D".nombre, $$ $$, "D".apellido_p, $$ $$, "D".apellido_m) nombre', 'u.email', 'recovery_code'
+            'u.id_usuario', 'concat("D".nombre, $$ $$, "D".apellido_paterno, $$ $$, "D".apellido_materno) nombre', 'u.email', 'recovery_code'
         ));
-        $this->db->join('censo.docente D', 'D.id_usuario = u.id_usuario', 'left');
+        $this->db->join('sistema.informacion_usuario D', 'D.id_usuario = u.id_usuario', 'left');
         $this->db->where('username', $username);
         $this->db->limit(1);
         $resultado = $this->db->get('sistema.usuarios u')->result_array();
@@ -113,7 +113,7 @@ class Sesion_model extends CI_Model {
         $emailStatus = $this->load->view('sesion/mail_recovery_password.tpl.php', $usuario, true);
 //        $mailStatus->addAddress('zurgcom@gmail.com'); //pruebas chris
         $mailStatus->addAddress($usuario['email']);
-        $subject = 'Recuperación de contraseña para SIPIMSS';
+        $subject = 'Recuperación de contraseña para el Foro Nacional e Internacional de Educación en Salud';
         $subject = ENVIRONMENT=='development'?'[Pruebas] '.$subject:$subject;
         $mailStatus->Subject = utf8_decode($subject);
         $mailStatus->msgHTML(utf8_decode($emailStatus));
