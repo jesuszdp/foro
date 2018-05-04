@@ -18,29 +18,42 @@ class Trabajo_model extends CI_Model
         $this->db->reset_query();
         $this->db->trans_begin();
 
-
+        // Agregamos informacion del trabajo
         $this->db->insert('foro.trabajo_investigacion', $datos['datos']);
 
-        if ($this->db->trans_status() === FALSE)
+        //Agregamos los datos del autor registrante
+    	$autor_registrante = array(
+    		'folio_investigacion' => $datos['datos']['folio'],
+    		'id_informacion_usuario' => $datos['registrante'],
+    		'registro' => true
+    		);
+    	$this->db->insert('foro.autor',$autor_registrante);
+
+        //Agregamos los datos de los demas autores
+        $autores = $datos['autores'];
+        if(count($autores) > 0)
+        {
+            foreach ($autores as $key => $value) {
+                $this->db->insert('sistema.informacion_usuario', $value);
+                $insert_id = $this->db->insert_id();
+                $coautor = array(
+                    'folio_investigacion' => $datos['datos']['folio'],
+                    'id_informacion_usuario' => $insert_id,
+                    'registro' => false
+                );
+                $this->db->insert('foro.autor',$coautor);
+            }
+        }
+
+    	if ($this->db->trans_status() === FALSE)
         {
             $this->db->trans_rollback();
         } else
         {
-        	$autor_registrante = array(
-        		'folio_investigacion' => $datos['datos']['folio'],
-        		'id_informacion_usuario' => $datos['registrante'],
-        		'registro' => true
-        		);
-        	$this->db->insert('foro.autor',$autor_registrante);
-        	if ($this->db->trans_status() === FALSE)
-	        {
-	            $this->db->trans_rollback();
-	        } else
-	        {
-	            $this->db->trans_commit();
-	            $salida = true;
-	        }
+            $this->db->trans_commit();
+            $salida = true;
         }
+
         $this->db->flush_cache();
         $this->db->reset_query();
         return $salida;	

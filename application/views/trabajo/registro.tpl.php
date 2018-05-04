@@ -1,3 +1,5 @@
+<?php echo js('trabajo_investigacion/registro.js'); ?>
+
 <div class="panel panel-default">
     <h1 class="page-head-line">Registrar nuevo trabajo de investigación</h1>
     <div class="panel-body">
@@ -9,8 +11,13 @@
     				{
     					echo '<div class="alert alert-'.$msg_type.'">';
     					echo $msg.'<strong>'.$folio.'</strong>';
-						echo '</div>';
-					}
+						?>
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					    <span aria-hidden="true">&times;</span>
+					  </button>
+					  <?php
+					  echo '</div>';
+						}
 					?>
     			</div>
     		</div><!--row-->
@@ -88,7 +95,7 @@
 				      </div>
 				    </div>
 				    <div class="form-group">
-				      <label for="resultados" class="col-sm-3 control-label">Resultado*:</label>
+				      <label for="resultados" class="col-sm-3 control-label">Resultados*:</label>
 				      <div class="col-sm-9">
 				      	<textarea class="form-control" rows="3" id="resultados" name="resultados" required><?php if(isset($trabajo['resultados'])) echo $trabajo['resultados'];?></textarea>
 				      </div>
@@ -120,12 +127,64 @@
 				    </div>
 					</div>
 				</div> <!--row-->
-				<div class="col-sm-2"></div>
-				<!--<div class="row">
-					<div class="col-sm-offset-2 col-sm-8">
-				  	<p><h5>A continuación ingrese los datos de los demás autores con los que realizó el trabjo de investigación.</h5></p>
+				<div class="row">
+					<div class="col-sm-12">
+				  	A continuación ingrese los datos de los demás autores con los que realizó el trabjo de investigación. <br>El campo de matrícula solo aplica para trabajadores IMSS, ingreselo si lo conoce.
+				  	<br><br>
+				  	<button id="btnAddRow" type="button">Agregar autor</button>
+				  	<br><br>
+				  	<div class="table-responsive" style="overflow:scroll;">
+				  	<table id="tabla_autores" class="table table-striped table-bordered">
+				  		<thead>
+				  			<tr>
+				  				<th>Trabajador IMSS</th>
+				  				<th>Matrícula</th>
+				  				<th>Nombre*</th>
+				  				<th>Apellido Paterno*</th>
+				  				<th>Apellido Materno*</th>
+				  				<th>Sexo*</th>
+				  				<th>País de origen*</th>
+				  				<th></th>
+				  			</tr>
+				  		</thead>
+				  		<tbody>
+				  			<tr>
+				  				<!--<td><input type="checkbox" name="autor_imss[]"></td>-->
+				  				<td>
+				  					<select name="autor_imss[]">
+				  						<option value="0">No</option>
+				  						<option value="1">Si</option>
+				  					</select>
+				  				</td>
+				  				<td><input type="text" name="autor_matricula[]"></td>
+				  				<td><input type="text" name="autor_nombre[]"></td>
+				  				<td><input type="text" name="autor_app[]"></td>
+				  				<td><input type="text" name="autor_apm[]"></td>
+				  				<td>
+				  					<select name="autor_sexo[]">
+				  						<option value="">Selecciona una opción</option>
+				  						<option value="H">Masculino</option>
+				  						<option value="M">Femenino</option>
+				  						<option value="O">Otro</option>
+				  					</select>
+				  				</td>
+				  				<!--<td><input type="text" name="autor_pais[]"></td>-->
+				  				<td>
+				  					<select name="autor_pais[]">
+				  						<?php
+				  						echo '<option value="">Selecciona un país</option>';
+				  						foreach ($paises as $key => $value) {
+				  							echo '<option value="'.$key.'">'.$value.'</option>';
+				  						}
+				  						?>
+				  					</select>
+				  				</td>
+				  			</tr>
+				  		</tbody>
+				  	</table>
+				  	</div>
 				  </div>
-				</div><!row-->
+				</div><!--row-->
 			  <div class="row">
 			  	<div class="col-sm-offset-2 col-sm-8">
 			  	
