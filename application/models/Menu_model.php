@@ -94,7 +94,7 @@ class Menu_model extends CI_Model
         return $salida;
     }
 
-    public function get_tree(&$result, $workflow = null)
+    public function get_tree(&$result, $workflow = null, $idioma = null)
     {
         // pr($workflow);
         // pr($result);
@@ -115,8 +115,16 @@ class Menu_model extends CI_Model
                     {
                         if (!isset($pre_menu[$row['id_menu']]))
                         {
+                            if (is_null($idioma)) {
+                                $pre_menu[$row['id_menu']]['titulo'] = $row['label'];
+                            } else {
+                                $tmp = json_decode($row['label'], TRUE);
+                                if (isset($tmp[$idioma])) {
+                                    $pre_menu[$row['id_menu']]['titulo'] = $tmp[$idioma];
+                                }
+                            }
                             $pre_menu[$row['id_menu']]['id_menu_padre'] = $row['id_menu_padre'];
-                            $pre_menu[$row['id_menu']]['titulo'] = $row['label'];
+                            //$pre_menu[$row['id_menu']]['titulo'] = $row['label'];
                             $pre_menu[$row['id_menu']]['id_menu'] = $row['id_menu'];
                             $pre_menu[$row['id_menu']]['link'] = $row['enlace'];
                             $pre_menu[$row['id_menu']]['icon'] = $row['icon'];

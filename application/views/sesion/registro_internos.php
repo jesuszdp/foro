@@ -116,14 +116,14 @@
             <br>
             <div class="captcha-container" id="captcha_first">
                 <img id="captcha_img" class="captcha" src="<?php echo site_url(); ?>/inicio/captcha" alt="CAPTCHA Image" />
-                <a class="btn btn-lg btn-success pull-right" onclick="new_captcha()">
+                <a class="btn btn-lg btn-theme pull-right" onclick="new_captcha()">
                     <span class="glyphicon glyphicon-refresh"></span>
                 </a>
             </div>
         </div>
         <br>
         <div class="">
-            <input type="button" class="btn btn-success btn-block regform" value="<?php echo $language_text['registro_usuario']['registrar']; ?>" data-tpform="<?php echo Inicio::INTERNOS; ?>">
+            <input type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" value="<?php echo $language_text['registro_usuario']['registrar']; ?>" data-tpform="<?php echo Inicio::INTERNOS; ?>">
         </div>
 
     </div>

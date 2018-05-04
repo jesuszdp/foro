@@ -22,7 +22,7 @@ class Modulo extends MY_Controller
     public function index($full_view = 1, $modulo = null)
     {
         $output['full_view'] = $full_view;
-        $output['modulos'] = $this->modulo->get_modulos();
+        $output['modulos'] = $this->modulo->get_modulos(array(), true, $this->obtener_idioma());
 
         switch ($full_view)
         {

@@ -9,7 +9,7 @@
                                 <div class="form-header color">
                                     <h1 class="section-title">
                                         <span class="icon-inner"><span class="fa-stack"><i class="fa rhex fa-stack-2x"></i><i class="fa fa-ticket fa-stack-1x"></i></span></span>
-                                        <span class="title-inner">Iniciar sesión</span>
+                                        <span class="title-inner"><?php echo $language_text['inicio_sesion']['inicio_sesion']; ?></span>
                                     </h1>
                                 </div>
                                 <?php echo form_open('inicio/index', array('id' => 'session_form', 'autocomplete' => 'off', 'class' => 'registration-form alt')); ?>
@@ -19,7 +19,7 @@
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <div class="col-lg-5">
-                                                <label for="user" class="pull-right formulario">&nbsp;Matrícula o correo electrónico:</label>
+                                                <label for="user" class="pull-right formulario">&nbsp;<?php echo $language_text['inicio_sesion']['matricula_o_correo']; ?>:</label>
                                             </div>
                                             <div class="col-lg-7">
                                                 <input id="usuario" name="usuario"
@@ -48,7 +48,7 @@
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <div class="col-lg-5">
-                                                <label for="user" class="pull-right formulario">&nbsp;Contraseña:</label>
+                                                <label for="user" class="pull-right formulario">&nbsp;<?php echo $language_text['inicio_sesion']['contrasenia']; ?>:</label>
                                             </div>
                                             <div class="col-lg-7">
                                                 <input id="password" name="password"
@@ -76,7 +76,7 @@
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <div class="col-lg-5">
-                                                <label for="user" class="pull-right formulario">&nbsp;Código de verificación:</label>
+                                                <label for="user" class="pull-right formulario">&nbsp;<?php echo $language_text['inicio_sesion']['captcha']; ?>:</label>
                                             </div>
                                             <div class="col-lg-7">
                                                 <input id="captcha" name="captcha"
@@ -91,7 +91,7 @@
                                                     <img class="captcha" id="captcha_img" src="<?php echo site_url(); ?>/inicio/captcha" alt="CAPTCHA Image" />
                                                 </div>
                                                 <div class="col-lg-3">
-                                                    <a class="btn btn-lg btn-success" onclick="new_captcha()">
+                                                    <a class="btn btn-lg btn-theme" onclick="new_captcha()">
                                                         <span class="glyphicon glyphicon-refresh"></span>
                                                     </a>
                                                 </div>
@@ -116,7 +116,7 @@
                                             <button
                                                 data-animation="flipInY" data-animation-delay="100"
                                                 class="btn btn-theme btn-block submit-button" type="submit"
-                                                > Iniciar sesión <i class="fa fa-arrow-circle-right"></i></button>
+                                                > <?php echo $language_text['inicio_sesion']['inicio_sesion']; ?> <i class="fa fa-arrow-circle-right"></i></button>
                                         </div>
                                     </div>
                                     <!-- <div class="col-sm-12">

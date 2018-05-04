@@ -6,7 +6,7 @@
                     <div class="form-header color">
                         <h1 class="section-title">
                             <span class="icon-inner"><span class="fa-stack"><i class="fa rhex fa-stack-2x"></i><i class="fa fa-ticket fa-stack-1x"></i></span></span>
-                            <span class="title-inner">Iniciar sesión</span>
+                            <span class="title-inner"><?php echo $language_text['registro_usuario']['registro_usuario_titulo']; ?></span>
                         </h1>
                     </div>
 

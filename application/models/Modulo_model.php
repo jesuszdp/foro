@@ -18,7 +18,7 @@ class Modulo_model extends CI_Model
         $this->load->database();
     }
 
-    public function get_modulos($filtros = [], $agrupadas = true)
+    public function get_modulos($filtros = [], $agrupadas = true, $idioma = null)
     {
         // pr($filtros);
         $this->db->flush_cache();
@@ -41,7 +41,7 @@ class Modulo_model extends CI_Model
         $modulos = $this->db->get('sistema.modulos A')->result_array();
         if ($agrupadas)
         {
-            $modulos = $this->get_tree($modulos);
+            $modulos = $this->get_tree($modulos, $idioma);
         }
         return $modulos;
     }
@@ -288,7 +288,7 @@ class Modulo_model extends CI_Model
         return $clave_nueva;
     }
 
-    private function get_tree($modulos = array())
+    private function get_tree($modulos = array(), $idioma = null)
     {
         $niveles_tree = 10;
         $pre_tree = [];
@@ -296,6 +296,14 @@ class Modulo_model extends CI_Model
         {
             foreach ($modulos as $row)
             {
+                if (is_null($idioma)) {
+                    $row['nombre'] = $row['nombre'];
+                } else {
+                    $tmp = json_decode($row['nombre'], TRUE);
+                    if (isset($tmp[$idioma])) {
+                        $row['nombre'] = $tmp[$idioma];
+                    }
+                }
                 if (!isset($pre_tree[$row['id_modulo']]))
                 {
                     $pre_tree[$row['id_modulo']] = $row;
@@ -309,6 +317,7 @@ class Modulo_model extends CI_Model
                 {
                     //pr($row['id_modulo']['id_modulo_padre']);
                 }
+                //pr($row);
             }
         }
         $tree = [];
