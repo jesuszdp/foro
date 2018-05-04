@@ -109,18 +109,23 @@ class Inicio extends MY_Controller {
     }
 
     public function registro_usuario() {
-        $data['language_text'] = $this->language_text; //Asigna textos de lenguaje para el template de login
+        $foro_educacion = $this->session->userdata(En_datos_sesion::__INSTANCIA);
+        if (isset($foro_educacion['usuario']['id_usuario'])) {
+            redirect(site_url('inicio/inicio'));
+        } else {//De inicio aquí es donde entra 
+            $data['language_text'] = $this->language_text; //Asigna textos de lenguaje para el template de login
 
-        $this->load->model('Catalogo_model', 'catalogo');
-        $data['delegaciones'] = dropdown_options($this->catalogo->get_delegaciones(null, array('oficinas_centrales' => true)), 'clave_delegacional', 'nombre');
-        $data['paises'] = dropdown_options($this->catalogo->get_paises(), "clave_pais", "lang", $this->obtener_idioma()); //Obtiene el idioma
-        $data['registro_externos'] = $this->load->view("sesion/registro_externos.php", $data, TRUE);
-        $data['registro_internos'] = $this->load->view("sesion/registro_internos.php", $data, TRUE);
-        $main_content = $this->load->view("sesion/registro_modal.tpl.php", $data, TRUE);
+            $this->load->model('Catalogo_model', 'catalogo');
+            $data['delegaciones'] = dropdown_options($this->catalogo->get_delegaciones(null, array('oficinas_centrales' => true)), 'clave_delegacional', 'nombre');
+            $data['paises'] = dropdown_options($this->catalogo->get_paises(), "clave_pais", "lang", $this->obtener_idioma()); //Obtiene el idioma
+            $data['registro_externos'] = $this->load->view("sesion/registro_externos.php", $data, TRUE);
+            $data['registro_internos'] = $this->load->view("sesion/registro_internos.php", $data, TRUE);
+            $main_content = $this->load->view("sesion/registro_modal.tpl.php", $data, TRUE);
 
-        $this->template->setTitle('XV Foro Nacional y I Foro Internacional de Educación en Salud');
-        $this->template->setMainContent($main_content);
-        $this->template->getTemplate(true, 'tc_template/index_login.tpl.php');
+            $this->template->setTitle('XV Foro Nacional y I Foro Internacional de Educación en Salud');
+            $this->template->setMainContent($main_content);
+            $this->template->getTemplate(true, 'tc_template/index_login.tpl.php');
+        }
     }
 
     public function inicio() {
