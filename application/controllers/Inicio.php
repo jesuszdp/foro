@@ -37,14 +37,14 @@ class Inicio extends MY_Controller {
             $post["usuario"] = $inicio_reg['username'];
             $post["password"] = $inicio_reg['password'];
             $this->session->set_flashdata('inicio_registro', null);
+        } else {
+
+            $post = $this->input->post(null, true);
         }
         ////        $data_post = $this->input->post();
-//            $post = $this->input->post(null, true);
         if ($post) {
 
             $this->config->load('form_validation'); //Cargar archivo con validaciones
-
-
             $validations = $this->config->item('login'); //Obtener validaciones de archivo general
             $this->form_validation->set_data($post);
             $this->form_validation->set_rules($validations);
@@ -169,7 +169,6 @@ class Inicio extends MY_Controller {
         $datos["texts"] = $this->lang->line('formulario'); //textos del formulario
         //$datos['my_modal'] .= $this->load->view("sesion/login_modal.tpl.php", $datos, TRUE);
         //$this->load->view("sesion/login.tpl.php", $datos);
-
         //$main_content = $this->load->view('sesion/login_modal.tpl.php', $data, true);
         $this->template->setMainContent($main_content);
         $this->template->getTemplate(true, 'tc_template/index_login.tpl.php');
