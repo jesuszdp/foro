@@ -11,7 +11,9 @@ if (!function_exists('render_menu_no_sesion')) {
         $html = '';
         ob_start();
         ?>
+        <div id="mobile-menu"></div>
         <nav class="navigation closed clearfix">
+            <a href="#" class="menu-toggle btn"><i class="fa fa-bars"></i></a>
             <ul class="sf-menu nav">
                 <?php
                 foreach ($menu as $item) {
@@ -43,7 +45,7 @@ if (!function_exists('render_menu_no_sesion')) {
                         ?>
 
                            >
-                            <i class="<?php echo ((isset($item['icon']) && !empty($item['icon'])) ? $item['icon'] : 'dashboard'); ?>"></i>
+                            <!-- <i class="<?php echo ((isset($item['icon']) && !empty($item['icon'])) ? $item['icon'] : 'dashboard'); ?>"></i> -->
                             <?php
                             if (isset($item['titulo'])) {
                                 ?>

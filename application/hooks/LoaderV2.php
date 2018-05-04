@@ -45,11 +45,11 @@ class LoaderV2
             }else{
                 $this->modulo = $modulo[0];
                 $this->checa_permisos_acceso();
-                $this->bitacora();
+                //$this->bitacora();
             }
         }else if($this->superadmin)
         {
-            $this->bitacora();
+            //$this->bitacora();
         }
     }
 
