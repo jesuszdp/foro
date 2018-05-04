@@ -46,6 +46,7 @@ class Inicio extends MY_Controller {
 
 
             $validations = $this->config->item('login'); //Obtener validaciones de archivo general
+            $this->form_validation->set_data($post);
             $this->form_validation->set_rules($validations);
             if ($this->form_validation->run() == TRUE) {
                 $valido = $this->sesion->validar_usuario($post["usuario"], $post["password"]);
