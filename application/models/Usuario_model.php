@@ -381,12 +381,12 @@ class Usuario_model extends MY_Model {
         $this->db->select($select);
         $this->db->from('sistema.usuarios usuarios');
 //        if ($params['informacion_docente']) {
-            $this->db->join('sistema.informacion_usuario inf', 'inf.id_informacion_usuario = usuarios.id_usuario', 'left');
-            $this->db->join('sistema.historico_informacion_usuario hinf', 'hinf.id_informacion_usuario = inf.id_informacion_usuario and hinf.actual', 'left');
-            $this->db->join('catalogo.departamento dep', 'dep.clave_departamental = hinf.clave_departamental', 'left');
-            $this->db->join('catalogo.unidad uni', 'uni.clave_unidad = dep.clave_unidad and uni.anio = extract(year from CURRENT_DATE)', 'left');
-            $this->db->join('catalogo.categorias cat', 'cat.id_categoria = hinf.id_categoria', 'left');
-            $this->db->join('catalogo.delegaciones del', 'del.clave_delegacional = inf.clave_delegacional', 'left');
+        $this->db->join('sistema.informacion_usuario inf', 'inf.id_informacion_usuario = usuarios.id_usuario', 'left');
+        $this->db->join('sistema.historico_informacion_usuario hinf', 'hinf.id_informacion_usuario = inf.id_informacion_usuario and hinf.actual', 'left');
+        $this->db->join('catalogo.departamento dep', 'dep.clave_departamental = hinf.clave_departamental', 'left');
+        $this->db->join('catalogo.unidad uni', 'uni.clave_unidad = dep.clave_unidad and uni.anio = extract(year from CURRENT_DATE)', 'left');
+        $this->db->join('catalogo.categorias cat', 'cat.id_categoria = hinf.id_categoria', 'left');
+        $this->db->join('catalogo.delegaciones del', 'del.clave_delegacional = inf.clave_delegacional', 'left');
 //        }
 
         if (isset($params['where'])) {
@@ -805,6 +805,18 @@ class Usuario_model extends MY_Model {
 
     public function test_precarga($data) {
         return json_decode($data['detalle_registro'], true);
+    }
+
+    public function is_unico_datos_usuarios($campo, $valor) {
+        $this->db->flush_cache();
+        $this->db->reset_query();
+        $this->db->where($campo, $valor);
+        $this->db->limit(1);
+        $query = $this->db->get('sistema.usuarios')->result_array();
+//        pr($this->db->last_query());
+        $this->db->flush_cache();
+        $this->db->reset_query();
+        return (empty($query));
     }
 
 }

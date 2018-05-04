@@ -366,5 +366,14 @@ class MY_Form_validation extends CI_Form_validation {
         $fecha_actual = date('dmY', now());
         return ($fecha_actual >= $fecha_c);
     }
+    
+    public function is_unico_datos_usuarios($str, $field) {
+//        pr($field);
+//        pr($str);
+        $this->CI = & get_instance();
+        $this->CI->load->model('Usuario_model', 'us');
+        $result = $this->CI->us->is_unico_datos_usuarios($field, $str);
+        return $result;
+    }
 
 }

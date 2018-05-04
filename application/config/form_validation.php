@@ -332,7 +332,7 @@ $config['form_registro_usuario_internos'] = array(
     array(
         'field' => 'matricula',
         'label' => 'Matrícula',
-        'rules' => 'trim|required|max_length[18]|alpha_dash'
+        'rules' => 'trim|required|max_length[18]|alpha_dash|is_unico_datos_usuarios[username]'
     ),
     array(
         'field' => 'cve_delegacion',
@@ -342,7 +342,7 @@ $config['form_registro_usuario_internos'] = array(
     array(
         'field' => 'ext_mail',
         'label' => 'Correo electrónico',
-        'rules' => 'trim|required|valida_correo_electronico' //|callback_valid_pass
+        'rules' => 'trim|required|valida_correo_electronico|is_unico_datos_usuarios[email]' //|callback_valid_pass
     ),
     array(
         'field' => 'reg_password',
@@ -404,7 +404,7 @@ $config['form_registro_usuario_externos'] = array(
     array(
         'field' => 'ext_mail',
         'label' => 'E-mail',
-        'rules' => 'trim|required|valida_correo_electronico' //|callback_valid_pass
+        'rules' => 'trim|required|valida_correo_electronico|is_unico_datos_usuarios[email]' //|callback_valid_pass
     ),
     array(
         'field' => 'ext_sexo',
