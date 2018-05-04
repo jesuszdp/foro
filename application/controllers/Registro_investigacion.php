@@ -46,7 +46,7 @@ class Registro_investigacion extends MY_Controller {
 
     	if($post)
     	{
-    		pr($post);
+    		//pr($post);
     		$this->config->load('form_validation'); //Cargar archivo 
     		$validations = $this->config->item('form_registro_investigacion'); //Obtener validaciones de archivo general
     		//pr($validations);
@@ -71,7 +71,7 @@ class Registro_investigacion extends MY_Controller {
                 $msg = null;
                 $msg_type = 'success';
 
-                pr(count($post['autor_imss']));
+                //pr(count($post['autor_imss']));
                 
                 for ($i=0; $i < count($post['autor_imss']); $i++)
                 { 
