@@ -142,8 +142,6 @@ if (isset($registro_valido)) {
         $("#regform").on('click', function (e) {
             var tipoform = $(this).data('tpform');
             var div = "#r_" + tipoform;
-            console.log(div);
-            console.log(div);
             data_ajax(site_url + '/inicio/registro/' + tipoform, '#registro_form' + tipoform, div);
         });
     });

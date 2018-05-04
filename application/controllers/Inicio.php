@@ -247,14 +247,15 @@ class Inicio extends MY_Controller {
                     'tipo_registro' => Inicio::EXTERNOS,
                     'idioma' => $this->obtener_idioma(),
                 );
-                $output['registro_valido'] = $this->usuario->nuevo($data, $config['tipo_registro'], $this->language_text);
+                 $output['registro_valido'] = $this->usuario->nuevo($data, $config['tipo_registro'], $this->language_text);
                 if ($output['registro_valido']['result'] == 'success') {
-                    $data_session = ['username' => $data['matricula'], 'password'=> $data['password']];
+                    $data_session = ['username' => $data['matricula'], 'password' => $data['password']];
                     if ($data['tipo_registro'] == Inicio::EXTERNOS) {
                         $data_session['username'] = $data['email'];
                     }
                     $this->session->set_flashdata('inicio_registro', $data_session);
-                    redirect(site_url('inicio/index'));
+                    echo $this->load->view('sesion/registro_internos_externos_redireccionar.php', null, true);
+                    exit();
                 }
 //                pr($output['registro_valido']['msg']);
 //                
