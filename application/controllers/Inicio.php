@@ -36,6 +36,7 @@ class Inicio extends MY_Controller {
         if (!is_null($inicio_reg)) {
             $post["usuario"] = $inicio_reg['username'];
             $post["password"] = $inicio_reg['password'];
+            $post["captcha"] = $this->session->userdata('captchaWord');
             $this->session->set_flashdata('inicio_registro', null);
         } else {
 
@@ -69,6 +70,7 @@ class Inicio extends MY_Controller {
                             )
                         );
                         $foro_educacion['usuario'] = $this->usuario->get_usuarios($params)[0];
+//                        pr($foro_educacion);
                         $foro_educacion['usuario']['niveles_acceso'] = $this->sesion->get_niveles_acceso($foro_educacion['usuario']['id_usuario']);
                         $foro_educacion['language'] = $foro_educacion['usuario']['language'];
 //                        $die_sipimss['usuario']['workflow'] = $this->sesion->get_info_convocatoria($die_sipimss['usuario']['id_docente']);
@@ -235,6 +237,14 @@ class Inicio extends MY_Controller {
                     'idioma' => $this->obtener_idioma(),
                 );
                 $output['registro_valido'] = $this->usuario->nuevo($data, $config['tipo_registro'], $this->language_text);
+                if ($output['registro_valido']['result'] == 'success') {
+                    $data_session = ['username' => $data['matricula'], 'password'=> $data['password']];
+                    if ($data['tipo_registro'] == Inicio::EXTERNOS) {
+                        $data_session['username'] = $data['email'];
+                    }
+                    $this->session->set_flashdata('inicio_registro', $data_session);
+                    redirect(site_url('inicio/index'));
+                }
 //                pr($output['registro_valido']['msg']);
 //                
 //                registro_valido

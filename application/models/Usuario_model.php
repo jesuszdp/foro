@@ -381,7 +381,7 @@ class Usuario_model extends MY_Model {
         $this->db->select($select);
         $this->db->from('sistema.usuarios usuarios');
 //        if ($params['informacion_docente']) {
-        $this->db->join('sistema.informacion_usuario inf', 'inf.id_informacion_usuario = usuarios.id_usuario', 'left');
+        $this->db->join('sistema.informacion_usuario inf', 'inf.id_usuario = usuarios.id_usuario', 'left');
         $this->db->join('sistema.historico_informacion_usuario hinf', 'hinf.id_informacion_usuario = inf.id_informacion_usuario and hinf.actual', 'left');
         $this->db->join('catalogo.departamento dep', 'dep.clave_departamental = hinf.clave_departamental', 'left');
         $this->db->join('catalogo.unidad uni', 'uni.clave_unidad = dep.clave_unidad and uni.anio = extract(year from CURRENT_DATE)', 'left');
