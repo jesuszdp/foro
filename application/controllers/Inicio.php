@@ -129,16 +129,22 @@ class Inicio extends MY_Controller {
     }
 
     public function inicio() {
-        $output = [];
-        $u_siap = $this->session->flashdata('die_sipimss_siap');
-        if (!is_null($u_siap) && $u_siap == 0) {
-            $output['usuario'] = $this->get_datos_sesion();
-            $output['modal_siap'] = $this->load->view('sesion/modal_siap.tpl.php', $output, true);
+        $foro_educacion = $this->session->userdata(En_datos_sesion::__INSTANCIA);
+        //pr($foro_educacion);exit();
+        if (isset($foro_educacion['usuario']['niveles_acceso']['0']['clave_rol']) && $foro_educacion['usuario']['niveles_acceso']['0']['clave_rol']=='INV') {
+            redirect(site_url('/registro_investigacion/index'));
+        } else {
+            $output = [];
+            $u_siap = $this->session->flashdata('die_sipimss_siap');
+            if (!is_null($u_siap) && $u_siap == 0) {
+                $output['usuario'] = $this->get_datos_sesion();
+                $output['modal_siap'] = $this->load->view('sesion/modal_siap.tpl.php', $output, true);
+            }
+            $this->template->setTitle('Inicio');
+            $main_content = $this->load->view('sesion/index.tpl.php', $output, true);
+            $this->template->setMainContent($main_content);
+            $this->template->getTemplate();
         }
-        $this->template->setTitle('Inicio');
-        $main_content = $this->load->view('sesion/index.tpl.php', $output, true);
-        $this->template->setMainContent($main_content);
-        $this->template->getTemplate();
     }
 
     function captcha() {
