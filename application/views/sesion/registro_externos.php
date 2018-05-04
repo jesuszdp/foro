@@ -106,7 +106,7 @@ if (isset($registro_valido)) {
                 'type' => 'dropdown',
                 'first' => array('' => $language_text['registro_usuario']['pais_origen']),
                 'options' => $paises,
-                'value' => isset($post['pais_origen']) ? $post['pais_origen'] : '',
+                'value' => isset($post['pais_origen']) ? $post['pais_origen'] : 'MX',
                 'attributes' => array(
                     'class' => 'form-control',
                     'placeholder' => $language_text['registro_usuario']['pais_origen']
@@ -120,7 +120,7 @@ if (isset($registro_valido)) {
                 'type' => 'dropdown',
                 'first' => array('' => $language_text['registro_usuario']['pais_institucion']),
                 'options' => $paises,
-                'value' => isset($post['pais_institucion']) ? $post['pais_institucion'] : '',
+                'value' => isset($post['pais_institucion']) ? $post['pais_institucion'] : 'MX',
                 'attributes' => array(
                     'class' => 'form-control',
                     'placeholder' => $language_text['registro_usuario']['pais_institucion']
@@ -169,7 +169,7 @@ if (isset($registro_valido)) {
             <?php
             echo $this->form_complete->create_element(array('id' => 'reg_captcha',
                 'type' => 'text',
-                'value' => isset($post['reg_captcha']) ? $post['reg_captcha'] : '',
+                'value' => '',
                 'attributes' => array(
                     'class' => 'form-control',
                     'required' => true,
@@ -187,7 +187,7 @@ if (isset($registro_valido)) {
         </div>
         <br>
         <div class="">
-            <input type="button" id="regform" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" value="<?php echo $language_text['registro_usuario']['registrar']; ?>" data-tpform="<?php echo Inicio::EXTERNOS; ?>">
+            <input type="button" id="regform_ext" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" value="<?php echo $language_text['registro_usuario']['registrar']; ?>" data-tpform="<?php echo Inicio::EXTERNOS; ?>">
         </div>
 
     </div>
@@ -196,7 +196,7 @@ if (isset($registro_valido)) {
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#regform").on('click', function (e) {
+        $("#regform_ext").on('click', function (e) {
             var tipoform = $(this).data('tpform');
             var div = "#r_" + tipoform;
             data_ajax(site_url + '/inicio/registro/' + tipoform, '#registro_form' + tipoform, div);

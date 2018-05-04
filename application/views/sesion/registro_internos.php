@@ -77,7 +77,7 @@ if (isset($registro_valido)) {
                 'type' => 'dropdown',
                 'first' => array('' => $language_text['registro_usuario']['pais_origen']),
                 'options' => $paises,
-                'value' => isset($post['pais_origen']) ? $post['pais_origen'] : '',
+                'value' => isset($post['pais_origen']) ? $post['pais_origen'] : 'MX',
                 'attributes' => array(
                     'class' => 'form-control',
                     'placeholder' => $language_text['registro_usuario']['pais_origen']
@@ -113,7 +113,7 @@ if (isset($registro_valido)) {
             <?php
             echo $this->form_complete->create_element(array('id' => 'reg_captcha',
                 'type' => 'text',
-                'value' => isset($post['reg_captcha']) ? $post['reg_captcha'] : '',
+                'value' => '',
                 'attributes' => array(
                     'class' => 'form-control',
                     'placeholder' => $language_text['registro_usuario']['reg_captcha']
