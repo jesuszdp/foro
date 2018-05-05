@@ -169,6 +169,8 @@ if (!function_exists('obtener_lenguaje_actual')) {
         if (isset($CI->session->userdata(En_datos_sesion::__INSTANCIA)[En_datos_sesion::LANGUAGE])) {
             $clave_lenguaje = $CI->session->userdata(En_datos_sesion::__INSTANCIA)[En_datos_sesion::LANGUAGE];
         }
+        //pr($clave_lenguaje);
+        //$clave_lenguaje = 'en';
         return $clave_lenguaje;
     }
 

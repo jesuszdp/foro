@@ -1,4 +1,4 @@
-<?php // pr($language_text); ?>
+<?php //pr($language_text); ?>
 <?php
 if (isset($registro_valido)) {
     $tipo = $registro_valido['result'] ? 'success' : 'danger';

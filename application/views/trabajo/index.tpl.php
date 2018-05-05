@@ -7,7 +7,7 @@
     				<a href="<?php echo site_url('registro_investigacion/nuevo');?>" class="btn btn-primary">Registrar nuevo trabajo</a>
     			</div>
     		</div><!--row-->
-    		<br>
+    		<br><br>
     		<div class="row">
     			<div class="col-sm-offset-1 col-sm-10">
 	    			<div class="table-responsive">
@@ -16,6 +16,7 @@
 	    					<th>Folio</th>
 	    					<th>Título</th>
 	    					<th>Tipo de metodología</th>
+	    					<th>Fecha de registro</th>
 	    					<th>Estado</th>
 	    				</tr>
 	    				<?php
@@ -26,6 +27,7 @@
 	    						echo '<td>'.$value['folio'].'</td>';
 	    						echo '<td>'.$value['titulo'].'</td>';
 	    						echo '<td>'.$value['nombre_metodologia'].'</td>';
+	    						echo '<td>'.$value['fecha'].'</td>';
 	    						echo '<td>En revisión</td>';
 	    						echo '</tr>';
 	    					}

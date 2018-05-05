@@ -83,15 +83,19 @@ class Trabajo_model extends CI_Model
     	return $this->db->count_all('foro.trabajo_investigacion');
     }
 
-    public function listado_trabajos_autor($id_informacion_usuario)
+    public function listado_trabajos_autor($id_informacion_usuario,$lang)
     {
         $this->db->flush_cache();
         $this->db->reset_query();
 
-        $this->db->select(array('ti.folio','ti.titulo','ti.id_tipo_metodologia','m.nombre nombre_metodologia'));
-        $this->db->where(array('a.id_informacion_usuario'=>$id_informacion_usuario));
+        $this->db->select(array('ti.folio','ti.titulo','ti.id_tipo_metodologia',"lang::json->'".$lang."' nombre_metodologia",'ti.fecha'));
+        $this->db->where(array(
+            'a.id_informacion_usuario'=>$id_informacion_usuario,
+            'a.registro' => 'true'
+            ));
         $this->db->join('foro.autor a', 'a.folio_investigacion = ti.folio','left');
         $this->db->join('foro.tipo_metodologia m','m.id_tipo_metodologia = ti.id_tipo_metodologia', 'left');
+        $this->db->order_by('ti.folio','desc');
         $res = $this->db->get('foro.trabajo_investigacion ti');
 
         $this->db->flush_cache();
