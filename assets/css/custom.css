@@ -13,7 +13,9 @@ label.formulario {
 	color: #FFF;
 }
 .page-section.background-img{
-	background: transparent url("../img/preview/background-img-slider.jpg") 50% 0 repeat !important;
+	/* background: transparent url("../img/preview/background-img-slider.jpg") 50% 0 repeat !important; */
+	/* background: transparent url("../img/preview/Img_1_head.png") 50% 0 repeat !important; */
+	background-color: #fff;
 	background-position: 50% 0 !important;
 	background-size: cover !important;
 }
@@ -23,7 +25,7 @@ label.formulario {
 }
 .caption-title{
 	font-size: 28px;
-	color: #FFF;
+	color: #333;
 }
 .form-background{
 	background-color: rgba(13,29,49,0.8);

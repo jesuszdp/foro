@@ -1,11 +1,11 @@
 <?php //pr($language_text);?>
 <div class="panel panel-default">
-    <h1 class="page-head-line"><?php echo $language_text['listado_trabajo']['titulo_seccion'];?></h1>
+    <h1 class="page-head-line text-center"><?php echo $language_text['listado_trabajo']['titulo_seccion'];?></h1>
     <div class="panel-body">
     	<div>
     		<div class="row">
     			<div class="col-sm-offset-8 col-md-4">
-    				<a href="<?php echo site_url('registro_investigacion/nuevo');?>" class="btn btn-primary pull-right"><?php echo $language_text['listado_trabajo']['registrar_nuevo'];?></a>
+    				<a href="<?php echo site_url('registro_investigacion/nuevo');?>" class="btn btn-theme animated flipInY visible pull-right"><?php echo $language_text['listado_trabajo']['registrar_nuevo'];?></a>
     			</div>
     		</div><!--row-->
     		<br><br>

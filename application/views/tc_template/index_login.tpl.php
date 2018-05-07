@@ -79,7 +79,7 @@
                 <!-- Logo -->
                 <div class="logo col-sm-4 col-md-4 col-lg-4">
                     <a href="#home" class="scroll-to">
-                        <img src="<?php echo asset_url(); ?>img/logo-inicio.png" />
+                        <img height="100px" src="<?php echo asset_url(); ?>img/logo_foro_naranja.png" />
                     </a>
                 </div>
                 <!-- /Logo -->
@@ -150,14 +150,14 @@
                 <div style="clear:both;"></div>
                 <div class="container">
                     <div id="main-slider"> -->
-                        <?php //echo $main_content; ?>                       
+                        <?php //echo $main_content; ?>
                     <!-- </div>
                 </div>
             </section> -->
             <!-- /SLIDER -->
         </div>
         <span class="copyright" data-animation="fadeInUp" data-animation-delay="100"></span>
-        
+
     <!-- </div> -->
     <!-- /Content area -->
     <!-- FOOTER -->
@@ -173,21 +173,21 @@
                     <ul class="social-line list-inline">
                         <li data-animation="flipInY" data-animation-delay="100"><a href="#" class="twitter"><i class="fa fa-twitter"></i></a></li>
                         <li data-animation="flipInY" data-animation-delay="300"><a href="#" class="facebook"><i class="fa fa-facebook"></i></a></li>
-                    </ul>                        
-                </div>  
+                    </ul>
+                </div>
                 <!-- <span class="copyright" data-animation="fadeInUp" data-animation-delay="100">&copy; 2018 Instituto Mexicano del Seguro Social.</span>-->
-                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 text-left">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-5 text-left">
                     <a href="#home" class="scroll-to">
                         <img src="<?php echo asset_url(); ?>img/logo-presidencia.png" class="img-responsive" />
                     </a>
                 </div>
-                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 text-center text-lg-center">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-2 text-center pull-centerr">
                     <!-- <span class="copyright" data-animation="fadeInUp" data-animation-delay="100">&copy; 2018 IMSS, <a href="#">Aviso legal</a>.</span> -->
                     <a href="#home" class="scroll-to">
                         <img src="<?php echo asset_url(); ?>img/logo-fundacion-imss.png" class="img-responsive"  />
                     </a>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 text-right">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-5 text-right">
                     <a href="#home" class="scroll-to">
                         <img src="<?php echo asset_url(); ?>img/logo-imss.png" class="img-responsive"  />
                     </a>

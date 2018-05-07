@@ -758,7 +758,7 @@ textarea {
 .boxed .header > .container {
     background-color: transparent;
     position: relative;
-    padding-top: 40px;
+    padding-top: 20px;
     padding-bottom: 40px;
 }
 .sub-page .header {
@@ -784,7 +784,8 @@ textarea {
 .boxed .header.shrink > .container {
     padding-top: 2px;
     padding-bottom: 2px;
-    background-color: rgba(129, 134, 140, .8);
+    /* background-color: rgba(88,89,91,1); */
+    background-color: #fff;
 }
 .header .header-wrapper {
     position: relative;
@@ -896,8 +897,8 @@ textarea {
 .sf-menu.nav > li > a:focus /* bs3 reset */ {background-color: transparent;}
 .sf-menu.nav > li > a, /*bs3 reset */ .sf-menu a {padding: 10px 15px;}
 
-.sf-menu a {color: #ffffff;}
-.sf-menu a:hover {color: #ffffff;}
+.sf-menu a {color: #333;}
+.sf-menu a:hover {color: #333;}
 .sf-menu li:hover,
 .sf-menu li.sfHover {}
 .sf-menu li.active {background-color: rgba(13, 29, 49, 0.30);}
@@ -1406,8 +1407,8 @@ textarea {
     top: 0; left: 0;
     height: 5px;
     width: 100%;
-    border-top: solid 1px #ffffff;
-    border-bottom: solid 1px #ffffff;
+    border-top: solid 1px #333;
+    border-bottom: solid 1px #333;
 }
 .text-holder:after {
     top: auto; bottom: 0;
@@ -3233,7 +3234,7 @@ body.body-dark {
 }
 
 .body-dark h1, h2, h3, h4, h5, h6 {
-    color: #ffffff;
+    color: #333;
 }
 
 .body-dark .section-title {
@@ -3530,3 +3531,8 @@ body.rtl .pagination > li > a {margin: 0 0 0 10px;}
     body.rtl .navigation.closed .menu-toggle {right: auto; left: 15px;}
     body.rtl .navigation.opened .menu-toggle {right: auto; left: 15px;}
 }
+
+.panel-default {
+    border-color: transparent;
+    background-color: #fff;
+  }
