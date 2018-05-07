@@ -58,9 +58,10 @@ class Inicio extends MY_Controller {
                         $params = array(
                             'where' => array('usuarios.username' => $post['usuario'], 'usuarios.email' => $post["usuario"]),
                             'where_funcion' => array('usuarios.username' => "where", 'usuarios.email' => "or_where"),
-                            'select' => array("usuarios.email",
+                            'select' => array("case when usuarios.username is null then usuarios.email else usuarios.username end username",
+                                "usuarios.email",
                                 "usuarios.id_usuario", "coalesce(inf.matricula, usuarios.username) matricula",
-                                "usuarios.clave_idioma language",
+                                "usuarios.clave_idioma lenguaje",
                                 "inf.id_informacion_usuario", "inf.nombre", "inf.apellido_paterno", "inf.apellido_materno",
                                 "uni.clave_unidad", "uni.nombre unidad", "inf.fecha_nacimiento",
                                 "dep.clave_departamental", "dep.nombre departamento",
@@ -131,7 +132,7 @@ class Inicio extends MY_Controller {
     public function inicio() {
         $foro_educacion = $this->session->userdata(En_datos_sesion::__INSTANCIA);
         //pr($foro_educacion);exit();
-        if (isset($foro_educacion['usuario']['niveles_acceso']['0']['clave_rol']) && $foro_educacion['usuario']['niveles_acceso']['0']['clave_rol']=='INV') {
+        if (isset($foro_educacion['usuario']['niveles_acceso']['0']['clave_rol']) && $foro_educacion['usuario']['niveles_acceso']['0']['clave_rol'] == 'INV') {
             redirect(site_url('/registro_investigacion/index'));
         } else {
             $output = [];
@@ -251,7 +252,7 @@ class Inicio extends MY_Controller {
                     'tipo_registro' => Inicio::EXTERNOS,
                     'idioma' => $this->obtener_idioma(),
                 );
-                 $output['registro_valido'] = $this->usuario->nuevo($data, $config['tipo_registro'], $this->language_text);
+                $output['registro_valido'] = $this->usuario->nuevo($data, $config['tipo_registro'], $this->language_text);
                 if ($output['registro_valido']['result'] == 'success') {
                     $data_session = ['username' => $data['matricula'], 'password' => $data['password']];
                     if ($data['tipo_registro'] == Inicio::EXTERNOS) {

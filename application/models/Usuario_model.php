@@ -57,7 +57,7 @@ class Usuario_model extends MY_Model {
         $token = $this->seguridad->folio_random(10, TRUE);
         $pass = $this->seguridad->encrypt_sha512($token . $parametros['password'] . $token);
         $params['where'] = array(
-            'email' => $parametros['email'],
+            'usuarios.email' => $parametros['email'],
         );
         $params['informacion_docente'] = false;
         $usuario_db = count($this->get_usuarios($params)) == 0;
@@ -363,8 +363,10 @@ class Usuario_model extends MY_Model {
             if (isset($params['select'])) {
                 $select = $params['select'];
             } else if ($params['informacion_docente']) {
-                $select = array("usuarios.email",
+                $select = array("case when usuarios.username is null then usuarios.email else usuarios.username end username",
+                    "usuarios.email",
                     "usuarios.id_usuario", "coalesce(inf.matricula, usuarios.username) matricula",
+                    "usuarios.clave_idioma lenguaje",
                     "inf.id_informacion_usuario", "inf.nombre", "inf.apellido_paterno", "inf.apellido_materno",
                     "uni.clave_unidad", "uni.nombre unidad", "inf.fecha_nacimiento",
                     "dep.clave_departamental", "dep.nombre departamento",
@@ -378,7 +380,7 @@ class Usuario_model extends MY_Model {
                 );
             }
         }
-        $this->db->select($select);
+        $this->db->select($select, false);
         $this->db->from('sistema.usuarios usuarios');
 //        if ($params['informacion_docente']) {
         $this->db->join('sistema.informacion_usuario inf', 'inf.id_usuario = usuarios.id_usuario', 'left');
