@@ -26,10 +26,10 @@
     		<div class="row">
 	    		<div class="col-sm-offset-2 col-sm-8">
 				    <div class="form-group">
-				      <label for="titulo" class="col-sm-3 control-label"><?php echo $language_text['registro_trabajo']['titulo_trabajo'];?>*:</label>
+				      <label for="titulo_trabajo" class="col-sm-3 control-label"><?php echo $language_text['registro_trabajo']['titulo_trabajo'];?>*:</label>
 				      <div class="col-sm-9">
-				      	<input type="text" class="form-control" id="titulo" name="titulo" <?php if(isset($trabajo['titulo'])) echo 'value="'.$trabajo['titulo'].'"';?>>
-				      <?php echo form_error_format('titulo');?>
+				      	<input type="text" class="form-control" id="titulo_trabajo" name="titulo_trabajo" <?php if(isset($trabajo['titulo_trabajo'])) echo 'value="'.$trabajo['titulo_trabajo'].'"';?>>
+				      <?php echo form_error_format('titulo_trabajo');?>
 				      </div>
 				    </div>
 				     <div class="form-group">
@@ -70,7 +70,7 @@
 				    <div class="form-group">
 				      <label for="tipo_metodologia" class="col-sm-3 control-label"><?php echo $language_text['registro_trabajo']['tipo_metodologia'];?>*:</label>
 				      <div class="col-sm-9">
-				      <select id="id_tipo_metodologia" name="id_tipo_metodologia" class="form-control">
+				      <select id="tipo_metodologia" name="tipo_metodologia" class="form-control">
 	  						<?php
 	  						echo '<option value="">'.$language_text['template_general']['sin_op'].'</option>';
 	  						foreach ($tipos_metodologias as $key => $value) {

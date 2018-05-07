@@ -74,7 +74,7 @@ $config['form_status_actividad_usuario'] = array(
 $config["form_registro_investigacion"] = array(
     
     array(
-        'field' => 'titulo',
+        'field' => 'titulo_trabajo',
         'label' => 'Titulo',
         'rules' => 'required'
     ),
