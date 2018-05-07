@@ -54,6 +54,7 @@ class Registro_investigacion extends MY_Controller {
             if($this->form_validation->run() == TRUE)
             {
             	$datos_sesion = $this->get_datos_sesion();
+                //spr($datos_sesion);
     			$id_informacion_usuario = $datos_sesion['id_informacion_usuario'];
     			$convocatoria = $this->convocatoria->get_activa()[0];
     			$id_convocatoria = $convocatoria['id_convocatoria'];
