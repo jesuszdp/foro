@@ -1,5 +1,5 @@
-<?php header('Content-type: text/html; charset=utf-8'); 
-//pr($language_text); 
+<?php header('Content-type: text/html; charset=utf-8');
+//pr($language_text);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -113,7 +113,7 @@
                             <li><a href="<?php echo site_url(); ?>/inicio/cerrar_sesion"><i class="fa fa-sign-out"></i> Cerrar sesión</a></li>
                         </ul>
                     </li>
-                    
+
                 <?php if(isset($this->session->userdata(En_datos_sesion::__INSTANCIA)['anterior']))
                 {
                     ?>
@@ -278,7 +278,7 @@
     <div class="col-md-2"></div>
 
     <div class="col-md-4">
-        <b>Mesa de ayuda</b>
+        <b class="text-center">Mesa de ayuda</b>
         <br>
         ¿Tienes alguna duda? Comunícate con nosotros:
         <br>

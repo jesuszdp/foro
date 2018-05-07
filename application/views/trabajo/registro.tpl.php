@@ -2,7 +2,7 @@
 <?php //pr($language_text); ?>
 
 <div class="panel panel-default">
-    <h1 class="page-head-line"><?php echo $language_text['registro_trabajo']['titulo_registro'];?></h1>
+    <h1 class="page-head-line text-center"><?php echo $language_text['registro_trabajo']['titulo_registro'];?></h1>
     <div class="panel-body">
     	<div class="container">
     		<div class="row">
@@ -177,14 +177,15 @@
 				</div><!--row-->
 			  <div class="row">
 			  	<div class="col-sm-offset-2 col-sm-8">
-			  	
+
 			  	</div>
 			  </div><!--row-->
 			  <div class="row">
+          <br><br>
 			  	<div class="col-sm-offset-2 col-sm-8">
 			  	<center>
-			  		<button class="btn btn-primary"><?php echo $language_text['registro_trabajo']['registrar_trabajo'];?></button>
-			  		<a href="<?php echo site_url('registro_investigacion');?>" class="btn btn-warning"><?php echo $language_text['template_general']['cancelar'];?></a>
+			  		<button class="btn btn-theme animated flipInY visible"><?php echo $language_text['registro_trabajo']['registrar_trabajo'];?></button>
+			  		<a href="<?php echo site_url('registro_investigacion');?>" class="btn btn-theme animated flipInY visible"><?php echo $language_text['template_general']['cancelar'];?></a>
 			  	</center>
 			  	</div>
 			  </div><!--row-->
