@@ -26,7 +26,7 @@
                         array('id' => 'activo' . $row['id_grupo'],
                             'type' => 'checkbox',
                             'attributes' => array('name' => 'activo' . $row['id_grupo'],
-                                'class' => 'form-control  form-control input-sm',
+                                'class' => 'input-sm',
                                 'data-toggle' => 'tooltip',
                                 'data-placement' => 'top',
                                 'title' => 'activo',

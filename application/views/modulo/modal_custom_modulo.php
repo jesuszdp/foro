@@ -112,7 +112,7 @@ echo form_open($form_url, array('id' => 'form_custom_modulo'));
                         'type' => 'checkbox',
                         'value' => 1,
                         'attributes' => array('name' => 'visible',
-                            'class' => 'form-control  form-control input-sm',
+                            'class' => 'input-sm',
                             'data-toggle' => 'tooltip',
                             'data-placement' => 'top',
                             'title' => 'visible')
