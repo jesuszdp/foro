@@ -81,8 +81,6 @@ $db['default'] = array(
     'password' => 'postgres',  
     'database' => 'foro',
     'dbdriver' => 'pdo',
-    'port' => '5432',
-
     'dbprefix' => '',
     'pconnect' => FALSE,
     'db_debug' => (ENVIRONMENT !== 'desarrollo'),

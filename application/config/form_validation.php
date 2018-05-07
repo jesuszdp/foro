@@ -72,19 +72,17 @@ $config['form_status_actividad_usuario'] = array(
 );
 
 $config["form_registro_investigacion"] = array(
-    /*
+    
     array(
-        'field' => 'titulo',
+        'field' => 'titulo_trabajo',
         'label' => 'Titulo',
         'rules' => 'required'
     ),
-    */
     array(
         'field' => 'tipo_metodologia',
         'label' => 'Tipo de metodología',
         'rules' => 'required'
-    )
-    /*,
+    ),
     array(
         'field' => 'metodologia',
         'label' => 'Metodología',
@@ -135,7 +133,6 @@ $config["form_registro_investigacion"] = array(
         'label' => 'Consideraciones éticas',
         'rules' => 'required'
     )
-    */
 );
 
 $config["login"] = array(
