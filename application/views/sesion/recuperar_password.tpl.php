@@ -44,22 +44,22 @@
               } else if (isset($form_recovery)) {
                   ?>
                   <div class="login-form">
-                      <p style="">Por favor indica cual será tu nueva contraseña</p>
+                      <label for="user" class="formulario"><?php echo $language_text['recuperar_contrasenia']['instruccion_rc']; ?></label>
                       <?php echo form_open('/inicio/recuperar_password/' . $code, array('id' => 'session_form')); ?>
                       <div class="sign-in-htm">
                           <div class="group">
-                              <label style="color:#000000" for="new_password" class="label">Contraseña:</label>
-                              <input id="new_password" name="new_password" type="password" class="input" data-type="password">
+                              <label for="new_password" class="formulario"><?php echo $language_text['recuperar_contrasenia']['contrasenia_rc']; ?>:</label><br>
+                              <input id="new_password" name="new_password" type="password" class="input form-control" data-type="password">
                           </div>
                           <?php echo form_error_format('new_password'); ?>
 
                           <div class="group">
-                              <label style="color:#000000" for="new_password_confirm" class="label">Confirmar Contraseña:</label>
-                              <input id="new_password_confirm" name="new_password_confirm" type="password" class="input" data-type="password">
+                              <label for="new_password_confirm" class="formulario"><?php echo $language_text['recuperar_contrasenia']['confirmar_contrasenia_rc']; ?>:</label><br>
+                              <input id="new_password_confirm" name="new_password_confirm" type="password" class="input form-control" data-type="password">
                           </div>
                           <?php echo form_error_format('new_password_confirm'); ?>
                           <div class="group">
-                              <input type="submit" class="btn btn-success btn-login" value="Restablecer contraseña">
+                              <input type="submit" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-login" value="<?php echo $language_text['recuperar_contrasenia']['restablecer_contrasenia_rc']; ?>">
                           </div>
                           <?php echo form_close(); ?>
                       </div>

@@ -77,17 +77,18 @@ class Sesion_model extends CI_Model {
     }
 
 
-    public function recuperar_password($username) {
-                $this->db->flush_cache();
+    public function recuperar_password($username, $texto_correo=null) {
+        $this->db->flush_cache();
         $this->db->reset_query();
         $this->db->select(array(
             'u.id_usuario', 'concat("D".nombre, $$ $$, "D".apellido_paterno, $$ $$, "D".apellido_materno) nombre', 'u.email', 'recovery_code'
         ));
         $this->db->join('sistema.informacion_usuario D', 'D.id_usuario = u.id_usuario', 'left');
-        $this->db->where('username', $username);
+        $this->db->where('u.username', $username);
+        $this->db->or_where('u.email', $username);
+        $this->db->or_where('D.email', $username);
         $this->db->limit(1);
         $resultado = $this->db->get('sistema.usuarios u')->result_array();
-
         if ($resultado)
         {
             $usuario = $resultado[0];
@@ -101,25 +102,46 @@ class Sesion_model extends CI_Model {
                 $this->db->update('sistema.usuarios');
                 //pr($this->db->last_query());
             }
-            $this->send_recovery_mail($usuario);
+            $res = true;
+            $this->send_recovery_mail($usuario, $texto_correo);
+        } else {
+            $res = false;
         }
+
+        //pr($this->db->last_query());
+        //pr($resultado); //exit();
+        return $res;
     }
 
-    private function send_recovery_mail($usuario)
+    private function send_recovery_mail($usuario, $texto_correo)
     {
         $this->load->config('email');
         $this->load->library('My_phpmailer');
         $mailStatus = $this->my_phpmailer->phpmailerclass();
-        $emailStatus = $this->load->view('sesion/mail_recovery_password.tpl.php', $usuario, true);
-//        $mailStatus->addAddress('zurgcom@gmail.com'); //pruebas chris
+        $mailStatus->SMTPOptions = array(
+            'ssl' => array(
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true
+            )
+        );
+        //$emailStatus = $this->load->view('sesion/mail_recovery_password.tpl.php', $usuario, true);
+        $emailStatus = $this->procesar_correo($texto_correo['correo']['cuerpo_recuperar_contrasenia'], array('{{$recovery_code}}'=>$usuario['recovery_code']));
+//        $mailStatus->addAddress('zurgcom@gmail.com'); //pruebas chris 
         $mailStatus->addAddress($usuario['email']);
-        $subject = 'Recuperación de contraseña para el Foro Nacional e Internacional de Educación en Salud';
-        $subject = ENVIRONMENT=='development'?'[Pruebas] '.$subject:$subject;
+        $subject = $texto_correo['correo']['asunto_recuperar_contrasenia'];
+        //$subject = ENVIRONMENT=='development'?'[Pruebas] '.$subject:$subject;
         $mailStatus->Subject = utf8_decode($subject);
         $mailStatus->msgHTML(utf8_decode($emailStatus));
+        //pr($mailStatus);
         $mailStatus->send();
     }
-
+    
+    private function procesar_correo($texto, $palabras)
+    {
+        return str_replace(array_keys($palabras), $palabras, $texto);
+    }
+    
     public function get_info_convocatoria($id_docente)
     {
         $this->db->flush_cache();

@@ -164,22 +164,26 @@ class Inicio extends MY_Controller {
             $usuario = $this->input->post("usuario", true);
             $this->form_validation->set_rules('usuario', $datos['language_text']['recuperar_contrasenia']['matricula_o_correo_rc'], 'required');
             if ($this->form_validation->run() == TRUE) {
-                $this->sesion->recuperar_password($usuario);
-                $datos['recovery'] = true;
+                $datos['recovery'] = $this->sesion->recuperar_password($usuario, $this->obtener_grupos_texto(array('correo'), $this->obtener_idioma()));
+                //$datos['recovery'] = true;
             }
         } else if ($this->input->post() && $code != null) {
             $this->form_validation->set_rules('new_password', 'Contraseña', 'required');
-            $this->form_validation->set_rules('new_password_confirm', 'Confirmar contraseña', 'required');
+            $this->form_validation->set_rules('new_password_confirm', 'Confirmar contraseña', 'required|matches[new_password]');
             if ($this->form_validation->run() == TRUE) {
                 $new_password = $this->input->post('new_password', true);
                 $datos['success'] = $this->sesion->update_password($code, $new_password);
+            } else {
+                $datos['code'] = $code;
+                $datos['form_recovery'] = true;
             }
         } else if ($code != null) {
             $datos['code'] = $code;
             $datos['form_recovery'] = true;
         }
+        //pr($datos);
         $main_content = $this->load->view("sesion/recuperar_password.tpl.php", $datos, TRUE);
-        $datos["texts"] = $this->lang->line('formulario'); //textos del formulario
+        //$datos["texts"] = $this->lang->line('formulario'); //textos del formulario
         //$datos['my_modal'] .= $this->load->view("sesion/login_modal.tpl.php", $datos, TRUE);
         //$this->load->view("sesion/login.tpl.php", $datos);
         //$main_content = $this->load->view('sesion/login_modal.tpl.php', $data, true);
