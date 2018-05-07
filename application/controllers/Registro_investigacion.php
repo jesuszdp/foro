@@ -27,10 +27,10 @@ class Registro_investigacion extends MY_Controller {
         $id_informacion_usuario = $datos_sesion['id_informacion_usuario'];
 
         $lang = $this->obtener_idioma();
+        $output['lang'] = $lang;
         $output['language_text'] = $this->obtener_grupos_texto(array('listado_trabajo'),$lang);
         $output['listado'] = $this->trabajo->listado_trabajos_autor($id_informacion_usuario,$lang);
 
-    	$this->template->setTitle('Trabajos de investigación registrados');
         $main_content = $this->load->view('trabajo/index.tpl.php', $output, true);
         $this->template->setMainContent($main_content);
         $this->template->getTemplate();
@@ -198,7 +198,6 @@ class Registro_investigacion extends MY_Controller {
             }
         }
     	
-    	$this->template->setTitle('Registrar trabajo de investigación');
         $main_content = $this->load->view('trabajo/registro.tpl.php', $output, true);
         $this->template->setMainContent($main_content);
         $this->template->getTemplate();
@@ -214,15 +213,6 @@ class Registro_investigacion extends MY_Controller {
 
         $output['language_text'] = $this->obtener_grupos_texto(array('listado_trabajo','registro_trabajo','detalle_trabajo'),$lang);
 
-        /*
-        $datos_sesion = $this->get_datos_sesion();
-        $id_informacion_usuario = $datos_sesion['id_informacion_usuario'];
-
-        $lang = $this->obtener_idioma();
-        $output['language_text'] = $this->obtener_grupos_texto(array('listado_trabajo'),$lang);
-        $output['listado'] = $this->trabajo->listado_trabajos_autor($id_informacion_usuario,$lang);
-        */
-        $this->template->setTitle('Trabajos de investigación registrados');
         $main_content = $this->load->view('trabajo/ver.tpl.php', $output, true);
         $this->template->setMainContent($main_content);
         $this->template->getTemplate();
