@@ -206,9 +206,3 @@
 	    </div><!--row-->
     </div>
 </div>
-
-<?php 
-pr($language_text);
-pr($datos);
-pr($autores);
-?>

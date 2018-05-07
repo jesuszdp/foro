@@ -71,50 +71,6 @@ class Registro_investigacion extends MY_Controller {
 
             if($num_caracteres <= 2500)
             {
-<<<<<<< HEAD
-            	$datos_sesion = $this->get_datos_sesion();
-                //spr($datos_sesion);
-    			$id_informacion_usuario = $datos_sesion['id_informacion_usuario'];
-    			$convocatoria = $this->convocatoria->get_activa()[0];
-    			$id_convocatoria = $convocatoria['id_convocatoria'];
-            	$post['id_convocatoria'] = $id_convocatoria;
-            	$num_registros = $this->trabajo->numero_trabajos();
-            	$secuencial = $num_padded = sprintf("%04d", ($num_registros+1));
-            	$anio = substr($convocatoria['anio'], 2, 2);
-            	$folio = "IMSS-CES-FNFIES-P-".$anio."-".$secuencial;
-            	$post['folio'] = $folio;
-            	$post['id_tipo_metodologia'] = $post['tipo_metodologia'];
-            	unset($post['tipo_metodologia']);
-
-                $status = true;
-                $autores = [];
-                $msg = null;
-                $msg_type = 'success';
-
-                //pr(count($post['autor_imss']));
-                
-                for ($i=0; $i < count($post['autor_imss']); $i++)
-                { 
-                    $autor_imss = ($post['autor_imss'][$i])?true:false;
-                    $autor_matricula = $post['autor_matricula'][$i];
-                    $autor_nombre = $post['autor_nombre'][$i];
-                    $autor_app = $post['autor_app'][$i];
-                    $autor_apm = $post['autor_apm'][$i];
-                    $autor_sexo = $post['autor_sexo'][$i];
-                    $autor_pais = $post['autor_pais'][$i];
-
-                    if(is_null($autor_nombre) || $autor_nombre == '' ||
-                        is_null($autor_app) || $autor_app == '' ||
-                        is_null($autor_apm) || $autor_apm == '' ||
-                        is_null($autor_sexo) || $autor_sexo == '' ||
-                        is_null($autor_pais) || $autor_pais == '')
-                    {
-                        if(count($post['autor_imss']) > 2){
-                            $status = false;
-                            $msg_type = 'danger';
-                            $msg = 'Ingrese la información de todos los campos marcados con *';
-                            $folio = '';
-=======
 
                 if($this->form_validation->run() == TRUE)
                 {
@@ -172,7 +128,6 @@ class Registro_investigacion extends MY_Controller {
                                 'sexo' => $autor_sexo,
                                 'clave_pais' => $autor_pais
                             );
->>>>>>> 10874f624602fe80a8cb375ee08967d6f0198a08
                         }
                     }
 
