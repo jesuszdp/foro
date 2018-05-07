@@ -28,37 +28,43 @@
 				    <div class="form-group">
 				      <label for="titulo" class="col-sm-3 control-label"><?php echo $language_text['registro_trabajo']['titulo_trabajo'];?>*:</label>
 				      <div class="col-sm-9">
-				      	<input type="text" class="form-control" id="titulo" name="titulo" <?php if(isset($trabajo['titulo'])) echo 'value="'.$trabajo['titulo'].'"';?> required>
+				      	<input type="text" class="form-control" id="titulo" name="titulo" <?php if(isset($trabajo['titulo'])) echo 'value="'.$trabajo['titulo'].'"';?>>
+				      <?php echo form_error_format('titulo');?>
 				      </div>
 				    </div>
 				     <div class="form-group">
 				      <label for="pregunta_investigacion" class="col-sm-3 control-label"><?php echo $language_text['registro_trabajo']['pregunta_investigacion'];?>*:</label>
 				      <div class="col-sm-9">
-				      	<textarea class="form-control" rows="3" id="pregunta_investigacion" name="pregunta_investigacion" required><?php if(isset($trabajo['pregunta_investigacion'])) echo $trabajo['pregunta_investigacion'];?></textarea>
+				      	<textarea class="form-control" rows="3" id="pregunta_investigacion" name="pregunta_investigacion" ><?php if(isset($trabajo['pregunta_investigacion'])) echo $trabajo['pregunta_investigacion'];?></textarea>
+				      	<?php echo form_error_format('pregunta_investigacion');?>
 				      </div>
 				    </div>
 				     <div class="form-group">
 				      <label for="problema" class="col-sm-3 control-label"><?php echo $language_text['registro_trabajo']['problema'];?>*:</label>
 				      <div class="col-sm-9">
-				      	<textarea class="form-control" rows="3" id="problema" name="problema" required><?php if(isset($trabajo['problema'])) echo $trabajo['problema'];?></textarea>
+				      	<textarea class="form-control" rows="3" id="problema" name="problema" ><?php if(isset($trabajo['problema'])) echo $trabajo['problema'];?></textarea>
+				      	<?php echo form_error_format('problema');?>
 				      </div>
 				      </div>
 				    <div class="form-group">
-				      <label for="objetivo" class="col-sm-3 control-label" required><?php echo $language_text['registro_trabajo']['objetivo'];?>*:</label>
+				      <label for="objetivo" class="col-sm-3 control-label" ><?php echo $language_text['registro_trabajo']['objetivo'];?>*:</label>
 				      <div class="col-sm-9">
-				      	<textarea class="form-control" rows="3" id="objetivo" name="objetivo" required><?php if(isset($trabajo['objetivo'])) echo $trabajo['objetivo'];?></textarea>
+				      	<textarea class="form-control" rows="3" id="objetivo" name="objetivo" ><?php if(isset($trabajo['objetivo'])) echo $trabajo['objetivo'];?></textarea>
+				      <?php echo form_error_format('objetivo');?>
 				      </div>
 				    </div>
 				     <div class="form-group">
 				      <label for="justificacion" class="col-sm-3 control-label"><?php echo $language_text['registro_trabajo']['justificacion'];?>*:</label>
 				      <div class="col-sm-9">
-				      	<textarea class="form-control" rows="3" id="justificacion" name="justificacion" required><?php if(isset($trabajo['justificacion'])) echo $trabajo['justificacion'];?></textarea>
+				      	<textarea class="form-control" rows="3" id="justificacion" name="justificacion" ><?php if(isset($trabajo['justificacion'])) echo $trabajo['justificacion'];?></textarea>
+				      <?php echo form_error_format('justificacion');?>
 				      </div>
 				    </div>
 				    <div class="form-group">
 				      <label for="antecedentes" class="col-sm-3 control-label"><?php echo $language_text['registro_trabajo']['antecedentes'];?>*:</label>
 				      <div class="col-sm-9">
-				      	<textarea class="form-control" rows="3" id="antecedentes" name="antecedentes" required><?php if(isset($trabajo['antecedentes'])) echo $trabajo['antecedentes'];?></textarea>
+				      	<textarea class="form-control" rows="3" id="antecedentes" name="antecedentes" ><?php if(isset($trabajo['antecedentes'])) echo $trabajo['antecedentes'];?></textarea>
+				      	<?php echo form_error_format('antecedentes');?>
 				      </div>
 				    </div>
 				    <div class="form-group">
@@ -72,36 +78,42 @@
 	  						}
 	  						?>
 	  					</select>
+	  					<?php echo form_error_format('tipo_metodologia');?>
 				      </div>
 				    </div>
 				     <div class="form-group">
 				      <label for="metodologia" class="col-sm-3 control-label"><?php echo $language_text['registro_trabajo']['metodologia'];?>*:</label>
 				      <div class="col-sm-9">
-				      	<textarea class="form-control" rows="3" id="metodologia" name="metodologia" required><?php if(isset($trabajo['metodologia'])) echo $trabajo['metodologia'];?></textarea>
+				      	<textarea class="form-control" rows="3" id="metodologia" name="metodologia" ><?php if(isset($trabajo['metodologia'])) echo $trabajo['metodologia'];?></textarea>
+				      	<?php echo form_error_format('metodologia');?>
 				      </div>
 				    </div>
 				    <div class="form-group">
 				    <div class="form-group">
 				      <label for="consideraciones_eticas" class="col-sm-3 control-label"><?php echo $language_text['registro_trabajo']['consideraciones_eticas'];?>*:</label>
 				      <div class="col-sm-9">
-				      	<textarea class="form-control" rows="3" id="consideraciones_eticas" name="consideraciones_eticas" required><?php if(isset($trabajo['consideraciones_eticas'])) echo $trabajo['consideraciones_eticas'];?></textarea>
+				      	<textarea class="form-control" rows="3" id="consideraciones_eticas" name="consideraciones_eticas" ><?php if(isset($trabajo['consideraciones_eticas'])) echo $trabajo['consideraciones_eticas'];?></textarea>
+				      	<?php echo form_error_format('consideraciones_eticas');?>
 				      </div>
 				    </div>
 				      <label for="hipotesis" class="col-sm-3 control-label"><?php echo $language_text['registro_trabajo']['hipotesis'];?>*:</label>
 				      <div class="col-sm-9">
-				      	<textarea class="form-control" rows="3" id="hipotesis" name="hipotesis" required><?php if(isset($trabajo['hipotesis'])) echo $trabajo['hipotesis'];?></textarea>
+				      	<textarea class="form-control" rows="3" id="hipotesis" name="hipotesis" ><?php if(isset($trabajo['hipotesis'])) echo $trabajo['hipotesis'];?></textarea>
+				      	<?php echo form_error_format('hipotesis');?>
 				      </div>
 				    </div>
 				    <div class="form-group">
 				      <label for="resultados" class="col-sm-3 control-label"><?php echo $language_text['registro_trabajo']['resultados'];?>*:</label>
 				      <div class="col-sm-9">
-				      	<textarea class="form-control" rows="3" id="resultados" name="resultados" required><?php if(isset($trabajo['resultados'])) echo $trabajo['resultados'];?></textarea>
+				      	<textarea class="form-control" rows="3" id="resultados" name="resultados" ><?php if(isset($trabajo['resultados'])) echo $trabajo['resultados'];?></textarea>
+				      	<?php echo form_error_format('resultados');?>
 				      </div>
 				    </div>
 				    <div class="form-group">
 				      <label for="conclusiones" class="col-sm-3 control-label"><?php echo $language_text['registro_trabajo']['conclusiones'];?>*:</label>
 				      <div class="col-sm-9">
-				      	<textarea class="form-control" rows="3" id="conclusiones" name="conclusiones" required><?php if(isset($trabajo['conclusiones'])) echo $trabajo['conclusiones'];?></textarea>
+				      	<textarea class="form-control" rows="3" id="conclusiones" name="conclusiones" ><?php if(isset($trabajo['conclusiones'])) echo $trabajo['conclusiones'];?></textarea>
+				      	<?php echo form_error_format('conclusiones');?>
 				      </div>
 				    </div>
 						<div class="form-group">

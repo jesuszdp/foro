@@ -53,7 +53,8 @@ class Registro_investigacion extends MY_Controller {
     		//pr($post);
     		$this->config->load('form_validation'); //Cargar archivo 
     		$validations = $this->config->item('form_registro_investigacion'); //Obtener validaciones de archivo general
-    		//pr($validations);
+            $this->set_textos_campos_validacion($validations, 'registro_trabajo');
+            //pr($validations);
             $this->form_validation->set_rules($validations); //Añadir validaciones
 
             $post_metodologia = $post['metodologia'];
