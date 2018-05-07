@@ -109,31 +109,42 @@ class Inicio extends MY_Controller {
     }
 
     public function registro_usuario() {
-        $data['language_text'] = $this->language_text; //Asigna textos de lenguaje para el template de login
+        $foro_educacion = $this->session->userdata(En_datos_sesion::__INSTANCIA);
+        if (isset($foro_educacion['usuario']['id_usuario'])) {
+            redirect(site_url('inicio/inicio'));
+        } else {//De inicio aquí es donde entra 
+            $data['language_text'] = $this->language_text; //Asigna textos de lenguaje para el template de login
 
-        $this->load->model('Catalogo_model', 'catalogo');
-        $data['delegaciones'] = dropdown_options($this->catalogo->get_delegaciones(null, array('oficinas_centrales' => true)), 'clave_delegacional', 'nombre');
-        $data['paises'] = dropdown_options($this->catalogo->get_paises(), "clave_pais", "lang", $this->obtener_idioma()); //Obtiene el idioma
-        $data['registro_externos'] = $this->load->view("sesion/registro_externos.php", $data, TRUE);
-        $data['registro_internos'] = $this->load->view("sesion/registro_internos.php", $data, TRUE);
-        $main_content = $this->load->view("sesion/registro_modal.tpl.php", $data, TRUE);
+            $this->load->model('Catalogo_model', 'catalogo');
+            $data['delegaciones'] = dropdown_options($this->catalogo->get_delegaciones(null, array('oficinas_centrales' => true)), 'clave_delegacional', 'nombre');
+            $data['paises'] = dropdown_options($this->catalogo->get_paises(), "clave_pais", "lang", $this->obtener_idioma()); //Obtiene el idioma
+            $data['registro_externos'] = $this->load->view("sesion/registro_externos.php", $data, TRUE);
+            $data['registro_internos'] = $this->load->view("sesion/registro_internos.php", $data, TRUE);
+            $main_content = $this->load->view("sesion/registro_modal.tpl.php", $data, TRUE);
 
-        $this->template->setTitle('XV Foro Nacional y I Foro Internacional de Educación en Salud');
-        $this->template->setMainContent($main_content);
-        $this->template->getTemplate(true, 'tc_template/index_login.tpl.php');
+            $this->template->setTitle('XV Foro Nacional y I Foro Internacional de Educación en Salud');
+            $this->template->setMainContent($main_content);
+            $this->template->getTemplate(true, 'tc_template/index_login.tpl.php');
+        }
     }
 
     public function inicio() {
-        $output = [];
-        $u_siap = $this->session->flashdata('die_sipimss_siap');
-        if (!is_null($u_siap) && $u_siap == 0) {
-            $output['usuario'] = $this->get_datos_sesion();
-            $output['modal_siap'] = $this->load->view('sesion/modal_siap.tpl.php', $output, true);
+        $foro_educacion = $this->session->userdata(En_datos_sesion::__INSTANCIA);
+        //pr($foro_educacion);exit();
+        if (isset($foro_educacion['usuario']['niveles_acceso']['0']['clave_rol']) && $foro_educacion['usuario']['niveles_acceso']['0']['clave_rol']=='INV') {
+            redirect(site_url('/registro_investigacion/index'));
+        } else {
+            $output = [];
+            $u_siap = $this->session->flashdata('die_sipimss_siap');
+            if (!is_null($u_siap) && $u_siap == 0) {
+                $output['usuario'] = $this->get_datos_sesion();
+                $output['modal_siap'] = $this->load->view('sesion/modal_siap.tpl.php', $output, true);
+            }
+            $this->template->setTitle('Inicio');
+            $main_content = $this->load->view('sesion/index.tpl.php', $output, true);
+            $this->template->setMainContent($main_content);
+            $this->template->getTemplate();
         }
-        $this->template->setTitle('Inicio');
-        $main_content = $this->load->view('sesion/index.tpl.php', $output, true);
-        $this->template->setMainContent($main_content);
-        $this->template->getTemplate();
     }
 
     function captcha() {
@@ -153,22 +164,26 @@ class Inicio extends MY_Controller {
             $usuario = $this->input->post("usuario", true);
             $this->form_validation->set_rules('usuario', $datos['language_text']['recuperar_contrasenia']['matricula_o_correo_rc'], 'required');
             if ($this->form_validation->run() == TRUE) {
-                $this->sesion->recuperar_password($usuario);
-                $datos['recovery'] = true;
+                $datos['recovery'] = $this->sesion->recuperar_password($usuario, $this->obtener_grupos_texto(array('correo'), $this->obtener_idioma()));
+                //$datos['recovery'] = true;
             }
         } else if ($this->input->post() && $code != null) {
             $this->form_validation->set_rules('new_password', 'Contraseña', 'required');
-            $this->form_validation->set_rules('new_password_confirm', 'Confirmar contraseña', 'required');
+            $this->form_validation->set_rules('new_password_confirm', 'Confirmar contraseña', 'required|matches[new_password]');
             if ($this->form_validation->run() == TRUE) {
                 $new_password = $this->input->post('new_password', true);
                 $datos['success'] = $this->sesion->update_password($code, $new_password);
+            } else {
+                $datos['code'] = $code;
+                $datos['form_recovery'] = true;
             }
         } else if ($code != null) {
             $datos['code'] = $code;
             $datos['form_recovery'] = true;
         }
+        //pr($datos);
         $main_content = $this->load->view("sesion/recuperar_password.tpl.php", $datos, TRUE);
-        $datos["texts"] = $this->lang->line('formulario'); //textos del formulario
+        //$datos["texts"] = $this->lang->line('formulario'); //textos del formulario
         //$datos['my_modal'] .= $this->load->view("sesion/login_modal.tpl.php", $datos, TRUE);
         //$this->load->view("sesion/login.tpl.php", $datos);
         //$main_content = $this->load->view('sesion/login_modal.tpl.php', $data, true);
@@ -236,14 +251,15 @@ class Inicio extends MY_Controller {
                     'tipo_registro' => Inicio::EXTERNOS,
                     'idioma' => $this->obtener_idioma(),
                 );
-                $output['registro_valido'] = $this->usuario->nuevo($data, $config['tipo_registro'], $this->language_text);
+                 $output['registro_valido'] = $this->usuario->nuevo($data, $config['tipo_registro'], $this->language_text);
                 if ($output['registro_valido']['result'] == 'success') {
-                    $data_session = ['username' => $data['matricula'], 'password'=> $data['password']];
+                    $data_session = ['username' => $data['matricula'], 'password' => $data['password']];
                     if ($data['tipo_registro'] == Inicio::EXTERNOS) {
                         $data_session['username'] = $data['email'];
                     }
                     $this->session->set_flashdata('inicio_registro', $data_session);
-                    redirect(site_url('inicio/index'));
+                    echo $this->load->view('sesion/registro_internos_externos_redireccionar.php', null, true);
+                    exit();
                 }
 //                pr($output['registro_valido']['msg']);
 //                

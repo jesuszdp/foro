@@ -82,7 +82,6 @@ $db['default'] = array(
     'database' => 'sipimss_bitacoras',
     'dbdriver' => 'pdo',
     'port' => '5433',
-    
 
     'dbprefix' => '',
     'pconnect' => FALSE,
@@ -103,7 +102,6 @@ $db['default'] = array(
 
 
 $db['bitacoras'] = array(
-
     'dsn' => 'pgsql:host=11.32.41.13;port=5433;dbname=foro_imss_2',
     'hostname' => '11.32.41.13',
     'username' => 'innovaedu',
@@ -111,7 +109,7 @@ $db['bitacoras'] = array(
     'database' => 'sipimss_bitacoras',
     'dbdriver' => 'pdo',
     'port' => '5433',
-    
+
     'dbprefix' => '',
     'pconnect' => FALSE,
     'db_debug' => (ENVIRONMENT !== 'desarrollo'),

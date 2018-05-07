@@ -1,4 +1,4 @@
-<?php // pr($language_text); ?>
+<?php //pr($language_text); ?>
 <?php
 if (isset($registro_valido)) {
     $tipo = $registro_valido['result'] ? 'success' : 'danger';
@@ -142,8 +142,6 @@ if (isset($registro_valido)) {
         $("#regform").on('click', function (e) {
             var tipoform = $(this).data('tpform');
             var div = "#r_" + tipoform;
-            console.log(div);
-            console.log(div);
             data_ajax(site_url + '/inicio/registro/' + tipoform, '#registro_form' + tipoform, div);
         });
     });
