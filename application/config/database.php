@@ -75,13 +75,13 @@ $active_group = 'default';
 $query_builder = TRUE;
 
 $db['default'] = array(
-    'dsn' => 'pgsql:host=11.32.41.13;port=5433;dbname=foro_imss_2',
-    'hostname' => '11.32.41.13',
-    'username' => 'innovaedu',
-    'password' => 'nPgEoXCqd/?gV.,',  
-    'database' => 'sipimss_bitacoras',
+    'dsn' => 'pgsql:host=localhost;port=5432;dbname=foro',
+    'hostname' => 'localhost',
+    'username' => 'postgres',
+    'password' => 'postgres',  
+    'database' => 'foro',
     'dbdriver' => 'pdo',
-    'port' => '5433',
+    'port' => '5432',
 
     'dbprefix' => '',
     'pconnect' => FALSE,
