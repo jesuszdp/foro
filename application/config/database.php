@@ -109,6 +109,7 @@ $db['bitacoras'] = array(
     'database' => 'sipimss_bitacoras',
     'dbdriver' => 'pdo',
     'port' => '5433',
+
     'dbprefix' => '',
     'pconnect' => FALSE,
     'db_debug' => (ENVIRONMENT !== 'desarrollo'),
