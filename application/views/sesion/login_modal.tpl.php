@@ -1,4 +1,4 @@
-<div class="col-md-6 col-lg-6">
+<div class="col-md-6 col-lg-12">
     <h1 class="section-title">
         <span data-animation="flipInY" data-animation-delay="300" class="icon-inner animated flipInY visible">
             <span class="fa-stack">
@@ -7,6 +7,8 @@
         </span>
         <span data-animation="fadeInRight" data-animation-delay="500" class="title-inner animated fadeInRight visible"><?php echo $language_text['inicio_sesion']['inicio_sesion']; ?></span>
     </h1>
+</div>
+<div class="col-md-6 col-lg-6">
     <!-- <div class="form-header color">
         <h1 class="section-title">
             <span class="icon-inner"><span class="fa-stack"><i class="fa rhex fa-stack-2x"></i><i class="fa fa-ticket fa-stack-1x"></i></span></span>
@@ -90,22 +92,14 @@
             </div>
             <br>                                    
             <div class="col-sm-12">
-                <div class="text-center col-sm-2 col-lg-6"></div>
-                <div class="text-center col-sm-8 col-lg-6">
-                    <button
-                        data-animation="flipInY" data-animation-delay="100"
-                        class="btn btn-theme btn-block submit-button" type="submit"
-                        > <?php echo $language_text['inicio_sesion']['inicio_sesion']; ?> <i class="fa fa-arrow-circle-right"></i></button>
-                </div>
+                <button
+                    data-animation="flipInY" data-animation-delay="100"
+                    class="btn btn-theme btn-block submit-button" type="submit"
+                    > <?php echo $language_text['inicio_sesion']['inicio_sesion']; ?> <i class="fa fa-arrow-circle-right"></i></button>
             </div>
             <div class="col-sm-12">                
                 <div class="text-center"><br><label for="user" class="formulario">¿Olvidó su contraseña? &nbsp;<a href="<?php echo site_url('inicio/recuperar_password'); ?>" class="liga-login">Solicitela aquí</a></label></div>
             </div>
-            <!-- <div class="col-sm-12">
-                <p><a href="#">¿Necesita ayuda? <span class="glyphicon glyphicon-question-sign"></span></a><br>
-                    ¿Olvidó su contraseña?<br>
-                    <a href="<?php echo site_url('inicio/recuperar_password'); ?>">Solicitela aquí</a></p>
-            </div> -->
         </div>
         <!-- </form> -->
         <?php echo form_close(); ?>
