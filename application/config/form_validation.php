@@ -72,7 +72,6 @@ $config['form_status_actividad_usuario'] = array(
 );
 
 $config["form_registro_investigacion"] = array(
-    
     array(
         'field' => 'titulo_trabajo',
         'label' => 'Titulo',
@@ -140,26 +139,26 @@ $config["login"] = array(
         'field' => 'usuario',
         'label' => 'Matrícula o correo electrónico',
         'rules' => 'required',
-        /*'errors' => array(
-            'required' => 'El campo %s es obligatorio, favor de ingresarlo.',
-        ),*/
+    /* 'errors' => array(
+      'required' => 'El campo %s es obligatorio, favor de ingresarlo.',
+      ), */
     ),
     array(
         'field' => 'password',
         'label' => 'Contraseña',
         'rules' => 'required',
-        /*'errors' => array(
-            'required' => 'El campo %s es obligatorio, favor de ingresarlo.',
-        ),*/
+    /* 'errors' => array(
+      'required' => 'El campo %s es obligatorio, favor de ingresarlo.',
+      ), */
     ),
     array(
         'field' => 'captcha',
         'label' => 'Código de verificación',
         'rules' => 'required|check_captcha',
-        /*'errors' => array(
-            'required' => 'El campo %s es obligatorio, favor de ingresarlo.',
-            'check_captcha' => "El texto no coincide con la imagen, favor de verificarlo."
-        ),*/
+    /* 'errors' => array(
+      'required' => 'El campo %s es obligatorio, favor de ingresarlo.',
+      'check_captcha' => "El texto no coincide con la imagen, favor de verificarlo."
+      ), */
     ),
 );
 
@@ -341,7 +340,12 @@ $config['form_registro_usuario_internos'] = array(
         'label' => 'Correo electrónico',
         'rules' => 'trim|required|valida_correo_electronico|is_unico_datos_usuarios[email]' //|callback_valid_pass
     ),
-   array(
+    array(
+        'field' => 'reg_password',
+        'label' => 'Contraseña',
+        'rules' => 'trim|required|min_length[8]' //|callback_valid_pass
+    ),
+    array(
         'field' => 'reg_repassword',
         'label' => 'Confirmación contraseña',
         'rules' => 'trim|required|matches[reg_password]'
@@ -507,78 +511,78 @@ $config['editar_convocatoria_censo'] = array(
 );
 
 $config['elemento_seccion'] = array(
-        array(
-            'field' => 'nombre',
-            'label' => 'nombre',
-            'rules' => 'required|not_space'
-        ),
-        array(
-            'field' => 'id_seccion',
-            'label' => 'id_seccion',
-            'rules' => 'required'
-        ),
-        array(
-            'field' => 'activo',
-            'label' => 'activo',
-            'rules' => 'required'
-        ),
-        array(
-            'field' => 'label',
-            'label' => 'label',
-            'rules' => 'required'
-        )
-    );
+    array(
+        'field' => 'nombre',
+        'label' => 'nombre',
+        'rules' => 'required|not_space'
+    ),
+    array(
+        'field' => 'id_seccion',
+        'label' => 'id_seccion',
+        'rules' => 'required'
+    ),
+    array(
+        'field' => 'activo',
+        'label' => 'activo',
+        'rules' => 'required'
+    ),
+    array(
+        'field' => 'label',
+        'label' => 'label',
+        'rules' => 'required'
+    )
+);
 
 $config['campos_formulario'] = array(
-        array(
-            'field' => 'id_campo',
-            'label' => 'Campo',
-            'rules' => 'required'
-        ),
-        array(
-            'field' => 'orden',
-            'label' => 'orden',
-            'rules' => 'required|integer'
-        ),
-        array(
-            'field' => 'display',
-            'label' => 'display',
-            'rules' => 'required'
-        ),
-        array(
-            'field' => 'activo',
-            'label' => 'activo',
-            'rules' => 'required'
-        ),
-        array(
-            'field' => 'nueva_linea',
-            'label' => 'Nueva línea',
-            'rules' => 'required'
-        )
-    );
+    array(
+        'field' => 'id_campo',
+        'label' => 'Campo',
+        'rules' => 'required'
+    ),
+    array(
+        'field' => 'orden',
+        'label' => 'orden',
+        'rules' => 'required|integer'
+    ),
+    array(
+        'field' => 'display',
+        'label' => 'display',
+        'rules' => 'required'
+    ),
+    array(
+        'field' => 'activo',
+        'label' => 'activo',
+        'rules' => 'required'
+    ),
+    array(
+        'field' => 'nueva_linea',
+        'label' => 'Nueva línea',
+        'rules' => 'required'
+    )
+);
 
 $config['formulario'] = array(
-        array(
-            'field' => 'nombre',
-            'label' => 'nombre',
-            'rules' => 'required|not_space'
-        ),
-        array(
-            'field' => 'label',
-            'label' => 'etiqueta',
-            'rules' => 'required'
-        ),
-        array(
-            'field' => 'id_elemento_seccion',
-            'label' => 'subsección',
-            'rules' => 'required'
-        ),
-        array(
-            'field' => 'activo',
-            'label' => 'activo',
-            'rules' => 'required'
-        )
-    );
+    array(
+        'field' => 'nombre',
+        'label' => 'nombre',
+        'rules' => 'required|not_space'
+    ),
+    array(
+        'field' => 'label',
+        'label' => 'etiqueta',
+        'rules' => 'required'
+    ),
+    array(
+        'field' => 'id_elemento_seccion',
+        'label' => 'subsección',
+        'rules' => 'required'
+    ),
+    array(
+        'field' => 'activo',
+        'label' => 'activo',
+        'rules' => 'required'
+    )
+);
 
 $config['nueva_unidad'] = array(
     array(

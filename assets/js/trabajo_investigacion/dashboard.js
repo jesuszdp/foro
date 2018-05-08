@@ -3,7 +3,6 @@ $(document).ready(function () {
     registros();
 });
 function registros() {
-
     var name_fields = obtener_cabeceras();
     grid = $('#jsDashboardInvestigadores').jsGrid({
         height: "600px",

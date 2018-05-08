@@ -118,7 +118,7 @@ class Gestion_idiomas extends MY_Controller {
      * @description Modifica el idioma actual de la aplicación
      * 
      */
-    function modifica_idioma($idioma = "ES") {
+    function modifica_idioma($idioma = "es") {
         $update = update_lenguaje($idioma);
         if ($update) {
             $id_user = $this->get_datos_sesion(En_datos_sesion::ID_USUARIO);

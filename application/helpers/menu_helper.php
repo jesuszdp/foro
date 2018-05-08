@@ -17,7 +17,7 @@ if (!function_exists('render_menu_no_sesion')) {
             <ul class="sf-menu nav">
                 <?php
                 foreach ($menu as $item) {
-    //                pr($item);
+                    //                pr($item);
                     $enlace = '#';
                     if (isset($item['link'])) {
                         if (startsWith($item['link'], 'http://') || startsWith($item['link'], 'https://')) {
@@ -29,7 +29,7 @@ if (!function_exists('render_menu_no_sesion')) {
                         }
                     }
                     ?>
-                    <li class="<?php echo (current_url()==$enlace) ? 'active' : ''; ?>">
+                    <li class="<?php echo (current_url() == $enlace) ? 'active' : ''; ?>">
                         <a href="<?php echo (isset($item['childs']) || $item['id_menu'] == 'CENSO' ? '#' : $enlace); ?>" <?php echo (isset($item['childs']) || $item['id_menu'] == 'CENSO' ? 'data-toggle="collapse" data-target="#menu' . $item['id_menu'] . '"' : ' id="tablero-menu-item-' . $item['id_menu'] . '" class="tablero-menu-item" '); ?>
                         <?php
                         if (isset($item['configurador'])) {
@@ -60,7 +60,7 @@ if (!function_exists('render_menu_no_sesion')) {
                             echo render_menu($item['childs'], 'menu' . $item['id_menu']);
                         }
                         if ($item['id_menu'] == 'CENSO') {
-    //                        render_elementos_censo($elementos_censo);
+                            //                        render_elementos_censo($elementos_censo);
                         }
                         ?>
                     </li>
@@ -72,9 +72,11 @@ if (!function_exists('render_menu_no_sesion')) {
         ob_get_clean();
         return $html;
     }
+
 }
 
 if (!function_exists('render_menu')) {
+
     function render_menu($menu = [], $dropdown = null) {
 //        pr($menu);
         $html = '';
@@ -131,13 +133,14 @@ if (!function_exists('render_menu')) {
                     }
                     ?>
                 </li>
-            <?php } ?>
+        <?php } ?>
         </ul>
         <?php
         $html = ob_get_contents();
         ob_get_clean();
         return $html;
     }
+
 }
 
 if (!function_exists('update_lenguaje')) {
@@ -148,9 +151,7 @@ if (!function_exists('update_lenguaje')) {
      */
     function update_lenguaje($clave_lenguaje = 'es') {
         $CI = & get_instance();
-        $session = $CI->session->userdata(En_datos_sesion::__INSTANCIA);
-        $session['language'] = $clave_lenguaje; //Agrega el lenguaje seleccionado
-        $CI->session->set_userdata(En_datos_sesion::__INSTANCIA, $session);
+        $CI->session->set_userdata(En_datos_sesion::LANGUAGE, $clave_lenguaje);
         update_lenguaje_sistema($clave_lenguaje);
         return TRUE;
     }
@@ -166,11 +167,9 @@ if (!function_exists('obtener_lenguaje_actual')) {
      */
     function obtener_lenguaje_actual($clave_lenguaje = 'es') {
         $CI = & get_instance();
-        if (isset($CI->session->userdata(En_datos_sesion::__INSTANCIA)[En_datos_sesion::LANGUAGE])) {
-            $clave_lenguaje = $CI->session->userdata(En_datos_sesion::__INSTANCIA)[En_datos_sesion::LANGUAGE];
+        if (!is_null($CI->session->userdata(En_datos_sesion::LANGUAGE))) {
+            $clave_lenguaje = $CI->session->userdata(En_datos_sesion::LANGUAGE);
         }
-        //pr($clave_lenguaje);
-        //$clave_lenguaje = 'en';
         return $clave_lenguaje;
     }
 

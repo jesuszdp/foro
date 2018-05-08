@@ -8,7 +8,6 @@ $(document).ready(function () {
 function language(element) {
     var objeto = $(element);
     var language = objeto.data('cvelanguage');
-    console.log('Saludos ' + language);
 
     $.ajax({
         type: "GET",
