@@ -20,7 +20,7 @@ class Registro_investigacion extends MY_Controller {
         $this->load->model('Convocatoria_model', 'convocatoria');
     }
     
-    public function index()
+    public function index($alerta=null)
     {
     	$output = [];
         $datos_sesion = $this->get_datos_sesion();
@@ -30,6 +30,10 @@ class Registro_investigacion extends MY_Controller {
         $output['lang'] = $lang;
         $output['language_text'] = $this->obtener_grupos_texto(array('listado_trabajo'),$lang);
         $output['listado'] = $this->trabajo->listado_trabajos_autor($id_informacion_usuario,$lang);
+        if(!is_null($alerta))
+        {
+            $output['alerta'] = $alerta;
+        }
 
         $main_content = $this->load->view('trabajo/index.tpl.php', $output, true);
         $this->template->setMainContent($main_content);
@@ -180,7 +184,7 @@ class Registro_investigacion extends MY_Controller {
                                 $datos_trabajo['clave_estado'] = 'revision';
                                 unset($datos_trabajo['titulo_trabajo']);
                                 $datos_trabajo['folio'] = $folio;
-                                
+
                                 $datos = array(
                                     'datos' => $datos_trabajo,
                                     'registrante' => $id_informacion_usuario,
@@ -193,8 +197,12 @@ class Registro_investigacion extends MY_Controller {
                                 
                                 if($status)
                                 {
-                                    $msg =  $lan_txt['registro_trabajo']['rti_success'];
-                                    $msg_type = 'success';
+                                    $output['msg'] =  $lan_txt['registro_trabajo']['rti_success'];
+                                    $output['msg_type'] = 'success';
+                                    $output['folio'] = $folio;
+                                    $this->index($output);
+                                    return;
+
                                 }else
                                 {
                                     $msg =  $lan_txt['registro_trabajo']['rti_error'];
@@ -214,6 +222,15 @@ class Registro_investigacion extends MY_Controller {
 
                         } else
                         {
+                            unset($post['autor_imss']);
+                            unset($post['autor_matricula']);
+                            unset($post['autor_nombre']);
+                            unset($post['autor_app']);
+                            unset($post['autor_apm']);
+                            unset($post['autor_sexo']);
+                            unset($post['autor_pais']);
+                            $output['trabajo'] = $post;
+                            
                             $error = array('error' => $this->upload->display_errors());
                             $output['msg'] = $error['error'];
                             $output['folio'] = '';

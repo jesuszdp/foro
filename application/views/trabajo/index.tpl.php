@@ -4,6 +4,23 @@
     <div class="panel-body">
     	<div>
     		<div class="row">
+    			<div class="col-sm-offset-1 col-sm-10">
+    				<?php
+    				if(isset($alerta))
+    				{
+    					echo '<div class="alert alert-'.$alerta['msg_type'].'">';
+    					echo $alerta['msg'].' <strong>'.$alerta['folio'].'</strong>';
+						?>
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					    <span aria-hidden="true">&times;</span>
+					  </button>
+					  <?php
+					  echo '</div>';
+						}
+					?>
+				</div>
+			</div>
+    		<div class="row">
     			<div class="col-sm-offset-8 col-md-4">
     				<a href="<?php echo site_url('registro_investigacion/nuevo');?>" class="btn btn-theme animated flipInY visible pull-right"><?php echo $language_text['listado_trabajo']['registrar_nuevo'];?></a>
     			</div>
