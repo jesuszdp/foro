@@ -27,9 +27,6 @@ label.formulario {
 	font-size: 28px;
 	color: #333;
 }
-.form-background{
-	background-color: rgba(13,29,49,0.8);
-}
 .nav-tabs > li.active > a {
 	color: #f15a29;
 	font-weight: 700;
@@ -49,6 +46,7 @@ label.formulario {
 	border-radius: 1px;
 }
 
+
 .sf-menu ul li a:hover {
 	color: #000;
 }
@@ -67,9 +65,7 @@ label {
 .sf-menu ul li a {
 	color: #FFF;
 }
-.form-background{
-	padding: 15px 10px;
-}
+
 .liga-login {
 	color: #f15a29;
 }
@@ -80,6 +76,11 @@ label {
 /*
 Elementos de formularios
 */
+.form-background{
+	background-color: rgba(13,29,49,0.8);
+	border-radius: 10px;
+	padding: 15px 10px;
+}
 .form-control {
 	height: 30px;
 	padding-left: 20px;
@@ -122,4 +123,30 @@ Elementos de formularios
 	padding: 15px 35px;
 	-webkit-transition: all 0.2s ease-in-out;
 	transition: all 0.2s ease-in-out;
+}
+
+.btn-theme:hover {
+    background-color: rgba(2, 2, 2, 0.5);
+    border-color: #435469;
+    color: #ffffff;
+}
+.color .btn-theme {
+    color: #f15a29;
+    /*color: #dc143c;*/
+    background-color: #ffffff;
+    border-color: #ffffff;
+}
+.color .btn-theme:hover {
+    background-color: #435469;
+    border-color: #435469;
+    color: #ffffff;
+}
+.panel-default {
+    border-color: transparent;
+    background-color: #eee;
+    border-radius: 10px;
+	padding: 15px 10px;
+}
+.area_registro label{
+	color: #fff;
 }
