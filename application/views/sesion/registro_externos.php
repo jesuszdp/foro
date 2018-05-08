@@ -9,18 +9,20 @@ if (isset($registro_valido)) {
     <?php echo form_open('inicio/registro/' . Inicio::INTERNOS, array('id' => 'registro_form' . Inicio::EXTERNOS, 'autocomplete' => 'off')); ?>
     <div class="sign-in-htm">
         <div class="form-group">
+          <label class="pull-left form-etiquetas pull-right col-sm-5">Nombre: </label>
             <?php
             echo $this->form_complete->create_element(array('id' => 'ext_nombre',
                 'type' => 'text',
                 'value' => isset($texto['ext_nombre']) ? $post['ext_nombre'] : '',
                 'attributes' => array(
-                    'class' => 'form-control',
+                    'class' => 'col-sm-3 form-control',
                     'placeholder' => $language_text['registro_usuario']['ext_nombre']
             )));
             echo form_error_format('ext_nombre');
             ?>
         </div>
         <div class="form-group">
+          <label class="pull-left form-etiquetas pull-right col-sm-5">Apellido paterno: </label>
             <?php
             echo $this->form_complete->create_element(array('id' => 'ext_ap',
                 'type' => 'text',
@@ -33,6 +35,7 @@ if (isset($registro_valido)) {
             ?>
         </div>
         <div class="form-group">
+          <label class="pull-left form-etiquetas pull-right col-sm-5">Apellido materno: </label>
             <?php
             echo $this->form_complete->create_element(array('id' => 'ext_am',
                 'type' => 'text',
@@ -65,6 +68,7 @@ if (isset($registro_valido)) {
             </div>
         </div>
         <div class="form-group">
+          <label class="pull-left form-etiquetas pull-right col-sm-5">Correo electrónico: </label>
             <?php
             echo $this->form_complete->create_element(array('id' => 'ext_mail',
                 'type' => 'email',
@@ -77,6 +81,7 @@ if (isset($registro_valido)) {
             ?>
         </div>
         <div class="form-group">
+          <label class="pull-left form-etiquetas pull-right col-sm-5">Teléfono personal: </label>
             <?php
             echo $this->form_complete->create_element(array('id' => 'telefono_personal',
                 'type' => 'numeric',
@@ -89,6 +94,7 @@ if (isset($registro_valido)) {
             ?>
         </div>
         <div class="form-group">
+          <label class="pull-left form-etiquetas pull-right col-sm-5">Teléfono de oficina: </label>
             <?php
             echo $this->form_complete->create_element(array('id' => 'telefono_oficina',
                 'type' => 'numeric',
@@ -101,6 +107,7 @@ if (isset($registro_valido)) {
             ?>
         </div>
         <div class="form-group">
+          <label class="pull-left form-etiquetas pull-right col-sm-5">País de origen: </label>
             <?php
             echo $this->form_complete->create_element(array('id' => 'pais_origen',
                 'type' => 'dropdown',
@@ -115,6 +122,7 @@ if (isset($registro_valido)) {
             ?>
         </div>
         <div class="form-group">
+          <label class="pull-left form-etiquetas pull-right col-sm-5">País donde labora: </label>
             <?php
             echo $this->form_complete->create_element(array('id' => 'pais_institucion',
                 'type' => 'dropdown',
@@ -129,6 +137,7 @@ if (isset($registro_valido)) {
             ?>
         </div>
         <div class="form-group">
+          <label class="pull-left form-etiquetas pull-right col-sm-5">Institución donde labora: </label>
             <?php
             echo $this->form_complete->create_element(array('id' => 'institucion',
                 'type' => 'text',
@@ -141,6 +150,7 @@ if (isset($registro_valido)) {
             ?>
         </div>
         <div class="form-group">
+          <label class="pull-left form-etiquetas pull-right col-sm-5">Contraseña: </label>
             <?php
             echo $this->form_complete->create_element(array('id' => 'reg_password',
                 'type' => 'password',
@@ -153,6 +163,7 @@ if (isset($registro_valido)) {
             ?>
         </div>
         <div class="form-group">
+          <label class="pull-left form-etiquetas pull-right col-sm-5">Repite tu contraseña: </label>
             <?php
             echo $this->form_complete->create_element(array('id' => 'reg_repassword',
                 'type' => 'password',
@@ -166,6 +177,7 @@ if (isset($registro_valido)) {
             ?>
         </div>
         <div class="form-group" style="text-align:center;">
+          <label class="pull-left form-etiquetas pull-right col-sm-5">Código de verificación: </label>
             <?php
             echo $this->form_complete->create_element(array('id' => 'reg_captcha',
                 'type' => 'text',
