@@ -50,8 +50,9 @@ if (isset($registro_valido)) {
         <div class="form-group">
             <div class="col-md-12">
 
-                <div class="col-md-3">
+                <div class="col-md-3 form-etiqueta">
                     <?php echo form_label($language_text['registro_usuario']['sexo'], 'sexo'); ?>
+
                 </div>
                 <div class="col-md-3">
                     <?php echo form_radio(array('name' => 'ext_sexo', 'value' => 'M', 'checked' => (isset($post['ext_sexo']) && $post['ext_sexo'] == 'M')?true:false, 'id' => 'ext_sexo')) . form_label($language_text['registro_usuario']['ext_sexo_m'], 'male'); ?>
