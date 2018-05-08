@@ -4,7 +4,7 @@ $(document).ready(function() {
         .find('td')
         //.append('<input type="button" value="Delete" class="del"/>')
         .parent() //traversing to 'tr' Element
-        .append('<td><a href="#" class="delrow">Quitar</a></td>');
+        .append('<td><a href="#" class="delrow"><i class="fa fa-times" aria-hidden="true"></i></a></td>');
 
 
     // Add row the table
