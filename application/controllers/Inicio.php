@@ -196,6 +196,9 @@ class Inicio extends MY_Controller {
         echo 'En mantenimiento';
     }
 
+    /**
+     * @deprecated since version 0.01
+     */
     public function dashboard() {
         $id_usuario = $this->get_datos_sesion(En_datos_sesion::ID_USUARIO);
         $this->load->model('Modulo_model', 'modulo');
