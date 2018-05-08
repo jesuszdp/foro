@@ -369,12 +369,12 @@ $config['form_registro_usuario_internos'] = array(
     array(
         'field' => 'telefono_oficina',
         'label' => '',
-        'rules' => 'max[50]|alpha_numeric'
+        'rules' => 'max[50]|alpha_numeric_spaces'
     ),
     array(
         'field' => 'telefono_personal',
         'label' => '',
-        'rules' => 'required|max[50]|alpha_numeric'
+        'rules' => 'required|max[50]|alpha_numeric_spaces'
     ),
     array(
         'field' => 'pais_origen',
@@ -391,12 +391,12 @@ $config['form_registro_usuario_externos'] = array(
     array(
         'field' => 'ext_ap',
         'label' => '',
-        'rules' => 'trim|required|max[100]' //|callback_valid_pass
+        'rules' => 'trim|required|max[100]|alpha_numeric_spaces' //|callback_valid_pass
     ),
     array(
         'field' => 'ext_am',
         'label' => '',
-        'rules' => 'trim|max[100]' //|callback_valid_pass
+        'rules' => 'trim|max[100]|alpha_numeric_spaces' //|callback_valid_pass
     ),
     array(
         'field' => 'ext_mail',
@@ -411,7 +411,7 @@ $config['form_registro_usuario_externos'] = array(
     array(
         'field' => 'reg_password',
         'label' => 'Contraseña',
-        'rules' => 'trim|required|min_length[8]|valida_password_estructura' //|callback_valid_pass
+        'rules' => 'trim|required|min_length[8]' //|callback_valid_pass
     ),
     array(
         'field' => 'reg_repassword',
@@ -436,12 +436,12 @@ $config['form_registro_usuario_externos'] = array(
     array(
         'field' => 'telefono_oficina',
         'label' => '',
-        'rules' => 'max[50]|alpha_numeric'
+        'rules' => 'max[50]|alpha_numeric_spaces'
     ),
     array(
         'field' => 'telefono_personal',
         'label' => '',
-        'rules' => 'required|max[50]|alpha_numeric'
+        'rules' => 'required|max[50]|alpha_numeric_spaces'
     ),
     array(
         'field' => 'pais_origen',
