@@ -42,6 +42,7 @@ class Registro_investigacion extends MY_Controller {
     	$this->load->library('form_validation');
     	$post = $this->input->post(null,true);
     	$output = [];
+        $folio = '';
 
         $lan_txt = $this->obtener_grupos_texto(array('registro_trabajo','template_general'),$this->obtener_idioma());
         $output['language_text'] = $lan_txt;
@@ -75,11 +76,21 @@ class Registro_investigacion extends MY_Controller {
 
                 if($this->form_validation->run() == TRUE)
                 {
-                    pr($post);
-                    pr($_FILES);
+                    //pr($post);
+                    //pr($_FILES);
+
+                    $archivo_original = $_FILES;
 
                 	$datos_sesion = $this->get_datos_sesion();
-        			$id_informacion_usuario = $datos_sesion['id_informacion_usuario'];
+                    $id_informacion_usuario = $datos_sesion['id_informacion_usuario'];
+                    $convocatoria = $this->convocatoria->get_activa()[0];
+                    $id_convocatoria = $convocatoria['id_convocatoria'];
+                    $post['id_convocatoria'] = $id_convocatoria;
+                	$post['folio'] = $folio;
+                    $num_registros = $this->trabajo->numero_trabajos();
+                    $secuencial = $num_padded = sprintf("%04d", ($num_registros+1));
+                    $anio = substr($convocatoria['anio'], 2, 2);
+                    $folio = "IMSS-CES-FNFIES-P-".$anio."-".$secuencial;
                     $ruta = './uploads/'.$id_informacion_usuario.'/';
 
                     if(crea_directorio($ruta))
@@ -90,122 +101,126 @@ class Registro_investigacion extends MY_Controller {
                         $config['allowed_types'] = 'pdf|docx|doc';
                         $config['remove_spaces'] = TRUE;
                         $config['max_size'] = 1024 * 15;
+                        $config['file_name'] = $folio;
                         $this->load->library('upload', $config);
                     
                         if ($this->upload->do_upload('trabajo_archivo'))
                         {
                             $upload_data = array('upload_data' => $this->upload->data());
 
-                            pr($upload_data);
+                            //pr($upload_data);
+                            $archivo = array(
+                                'nombre_fisico' => $upload_data['upload_data']['file_name'],
+                                'ruta' => $upload_data['upload_data']['file_path'],
+                                'folio_investigacion' => $folio
+                            );
+
+                            $post['id_tipo_metodologia'] = $post['tipo_metodologia'];
+                            unset($post['tipo_metodologia']);
+
+                            $status = true;
+                            $autores = [];
+                            $msg = null;
+                            $msg_type = 'success';
+
+                            //pr(count($post['autor_imss']));
+                            
+                            for ($i=0; $i < count($post['autor_imss']); $i++)
+                            { 
+                                $autor_imss = ($post['autor_imss'][$i])?true:false;
+                                $autor_matricula = $post['autor_matricula'][$i];
+                                $autor_nombre = $post['autor_nombre'][$i];
+                                $autor_app = $post['autor_app'][$i];
+                                $autor_apm = $post['autor_apm'][$i];
+                                $autor_sexo = $post['autor_sexo'][$i];
+                                $autor_pais = $post['autor_pais'][$i];
+
+                                if(is_null($autor_nombre) || $autor_nombre == '' ||
+                                    is_null($autor_app) || $autor_app == '' ||
+                                    is_null($autor_sexo) || $autor_sexo == '' ||
+                                    is_null($autor_pais) || $autor_pais == '')
+                                {
+                                    if(!((is_null($autor_nombre) || $autor_nombre == '') &&
+                                    (is_null($autor_app) || $autor_app == '') &&
+                                    (is_null($autor_sexo) || $autor_sexo == '') &&
+                                    (is_null($autor_pais) || $autor_pais == '')))
+                                    {
+                                        $status = false;
+                                        $msg_type = 'danger';
+                                        $msg = $lan_txt['registro_trabajo']['rti_autores'];
+                                        $folio = '';
+                                    }
+                                    break;
+                                }else
+                                {
+                                    $autores[$i] = array(
+                                        'es_imss' => $autor_imss,
+                                        'matricula' => $autor_matricula,
+                                        'nombre' => $autor_nombre,
+                                        'apellido_paterno' => $autor_app,
+                                        'apellido_materno' => $autor_apm,
+                                        'sexo' => $autor_sexo,
+                                        'clave_pais' => $autor_pais
+                                    );
+                                }
+                            }
+
+                            if($status)
+                            {
+                                unset($post['autor_imss']);
+                                unset($post['autor_matricula']);
+                                unset($post['autor_nombre']);
+                                unset($post['autor_app']);
+                                unset($post['autor_apm']);
+                                unset($post['autor_sexo']);
+                                unset($post['autor_pais']);
+                                
+                                $datos_trabajo = $post;
+                                $datos_trabajo['titulo'] = $datos_trabajo['titulo_trabajo'];
+                                $datos_trabajo['clave_estado'] = 'revision';
+                                unset($datos_trabajo['titulo_trabajo']);
+                                $datos_trabajo['folio'] = $folio;
+                                
+                                $datos = array(
+                                    'datos' => $datos_trabajo,
+                                    'registrante' => $id_informacion_usuario,
+                                    'autores' => $autores,
+                                    'archivo' => $archivo
+                                );
+                                //pr($datos);
+                                
+                                $status = $this->trabajo->nuevo($datos);
+                                
+                                if($status)
+                                {
+                                    $msg =  $lan_txt['registro_trabajo']['rti_success'];
+                                    $msg_type = 'success';
+                                }else
+                                {
+                                    $msg =  $lan_txt['registro_trabajo']['rti_error'];
+                                    $msg_type = 'danger';
+                                    $output['trabajo'] = $post;
+                                }
+                            }else
+                            {
+                                $output['trabajo'] = $post;
+                                $post['tipo_metodologia'] = $post['id_tipo_metodologia'];
+                            }
+
+                            $output['msg'] = $msg;
+                            $output['msg_type'] = $msg_type;
+                            $output['folio'] = $folio;
+                            //pr($datos);
+
                         } else
                         {
                             $error = array('error' => $this->upload->display_errors());
-                            pr($error);
+                            $output['msg'] = $error['error'];
+                            $output['folio'] = '';
+                            $output['msg_type'] = 'danger'; 
+                            //pr($output['msg']);
                         }
-                    }
-                    /*
-        			$convocatoria = $this->convocatoria->get_activa()[0];
-        			$id_convocatoria = $convocatoria['id_convocatoria'];
-                	$post['id_convocatoria'] = $id_convocatoria;
-                	$num_registros = $this->trabajo->numero_trabajos();
-                	$secuencial = $num_padded = sprintf("%04d", ($num_registros+1));
-                	$anio = substr($convocatoria['anio'], 2, 2);
-                	$folio = "IMSS-CES-FNFIES-P-".$anio."-".$secuencial;
-                	$post['folio'] = $folio;
-                	$post['id_tipo_metodologia'] = $post['tipo_metodologia'];
-                	unset($post['tipo_metodologia']);
-
-                    $status = true;
-                    $autores = [];
-                    $msg = null;
-                    $msg_type = 'success';
-
-                    //pr(count($post['autor_imss']));
-                    
-                    for ($i=0; $i < count($post['autor_imss']); $i++)
-                    { 
-                        $autor_imss = ($post['autor_imss'][$i])?true:false;
-                        $autor_matricula = $post['autor_matricula'][$i];
-                        $autor_nombre = $post['autor_nombre'][$i];
-                        $autor_app = $post['autor_app'][$i];
-                        $autor_apm = $post['autor_apm'][$i];
-                        $autor_sexo = $post['autor_sexo'][$i];
-                        $autor_pais = $post['autor_pais'][$i];
-
-                        if(is_null($autor_nombre) || $autor_nombre == '' ||
-                            is_null($autor_app) || $autor_app == '' ||
-                            is_null($autor_sexo) || $autor_sexo == '' ||
-                            is_null($autor_pais) || $autor_pais == '')
-                        {
-                            if(!((is_null($autor_nombre) || $autor_nombre == '') &&
-                            (is_null($autor_app) || $autor_app == '') &&
-                            (is_null($autor_sexo) || $autor_sexo == '') &&
-                            (is_null($autor_pais) || $autor_pais == '')))
-                            {
-                                $status = false;
-                                $msg_type = 'danger';
-                                $msg = $lan_txt['registro_trabajo']['rti_autores'];
-                                $folio = '';
-                            }
-                            break;
-                        }else
-                        {
-                            $autores[$i] = array(
-                                'es_imss' => $autor_imss,
-                                'matricula' => $autor_matricula,
-                                'nombre' => $autor_nombre,
-                                'apellido_paterno' => $autor_app,
-                                'apellido_materno' => $autor_apm,
-                                'sexo' => $autor_sexo,
-                                'clave_pais' => $autor_pais
-                            );
-                        }
-                    }
-
-                    if($status)
-                    {
-                        unset($post['autor_imss']);
-                        unset($post['autor_matricula']);
-                        unset($post['autor_nombre']);
-                        unset($post['autor_app']);
-                        unset($post['autor_apm']);
-                        unset($post['autor_sexo']);
-                        unset($post['autor_pais']);
-                        
-                        $datos_trabajo = $post;
-                        $datos_trabajo['titulo'] = $datos_trabajo['titulo_trabajo'];
-                        $datos_trabajo['clave_estado'] = 'revision';
-                        unset($datos_trabajo['titulo_trabajo']);
-
-                    	$datos = array(
-                    		'datos' => $datos_trabajo,
-                    		'registrante' => $id_informacion_usuario,
-                            'autores' => $autores
-                    	);
-                    	
-                    	$status = $this->trabajo->nuevo($datos);
-                    	
-                        if($status)
-                    	{
-                    		$msg =  $lan_txt['registro_trabajo']['rti_success'];
-                            $msg_type = 'success';
-                    	}else
-                    	{
-                    		$msg =  $lan_txt['registro_trabajo']['rti_error'];
-                            $msg_type = 'danger';
-                    		$output['trabajo'] = $post;
-                    	}
-                    }else
-                    {
-                        $output['trabajo'] = $post;
-                        $post['tipo_metodologia'] = $post['id_tipo_metodologia'];
-                    }
-
-                    $output['msg'] = $msg;
-                    $output['msg_type'] = $msg_type;
-                    $output['folio'] = $folio;
-                    //pr($datos);
-                    */
+                    } //directorio
                 }
                 else
                 {
