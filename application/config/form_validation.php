@@ -341,15 +341,15 @@ $config['form_registro_usuario_internos'] = array(
         'label' => 'Correo electrónico',
         'rules' => 'trim|required|valida_correo_electronico|is_unico_datos_usuarios[email]' //|callback_valid_pass
     ),
-    array(
-        'field' => 'reg_password',
-        'label' => 'Contraseña',
-        'rules' => 'required' //|callback_valid_pass
-    ),
-    array(
+   array(
         'field' => 'reg_repassword',
         'label' => 'Confirmación contraseña',
-        'rules' => 'required|matches[reg_password]'
+        'rules' => 'trim|required|matches[reg_password]'
+    ),
+    array(
+        'field' => 'reg_captcha',
+        'label' => 'Captcha',
+        'rules' => 'required|check_captcha'
     ),
     array(
         'field' => 'reg_captcha',
@@ -369,12 +369,12 @@ $config['form_registro_usuario_internos'] = array(
     array(
         'field' => 'telefono_oficina',
         'label' => '',
-        'rules' => 'numeric|max[11]'
+        'rules' => 'max[50]|alpha_numeric_spaces'
     ),
     array(
         'field' => 'telefono_personal',
         'label' => '',
-        'rules' => 'required|numeric|max[11]'
+        'rules' => 'required|max[50]|alpha_numeric_spaces'
     ),
     array(
         'field' => 'pais_origen',
@@ -386,17 +386,17 @@ $config['form_registro_usuario_externos'] = array(
     array(
         'field' => 'ext_nombre',
         'label' => 'Nombre',
-        'rules' => 'required'
+        'rules' => 'trim|required|max[100]|alpha_numeric_spaces'
     ),
     array(
         'field' => 'ext_ap',
         'label' => '',
-        'rules' => 'required' //|callback_valid_pass
+        'rules' => 'trim|required|max[100]|alpha_numeric_spaces' //|callback_valid_pass
     ),
     array(
         'field' => 'ext_am',
         'label' => '',
-        'rules' => 'trim|required' //|callback_valid_pass
+        'rules' => 'trim|max[100]|alpha_numeric_spaces' //|callback_valid_pass
     ),
     array(
         'field' => 'ext_mail',
@@ -411,12 +411,12 @@ $config['form_registro_usuario_externos'] = array(
     array(
         'field' => 'reg_password',
         'label' => 'Contraseña',
-        'rules' => 'required' //|callback_valid_pass
+        'rules' => 'trim|required|min_length[8]' //|callback_valid_pass
     ),
     array(
         'field' => 'reg_repassword',
         'label' => 'Confirmación contraseña',
-        'rules' => 'required|matches[reg_password]'
+        'rules' => 'trim|required|matches[reg_password]'
     ),
     array(
         'field' => 'reg_captcha',
@@ -431,17 +431,17 @@ $config['form_registro_usuario_externos'] = array(
     array(
         'field' => 'institucion',
         'label' => '',
-        'rules' => 'required'
+        'rules' => 'required|max[100]'
     ),
     array(
         'field' => 'telefono_oficina',
         'label' => '',
-        'rules' => 'numeric|max[11]'
+        'rules' => 'max[50]|alpha_numeric_spaces'
     ),
     array(
         'field' => 'telefono_personal',
         'label' => '',
-        'rules' => 'required|numeric|max[11]'
+        'rules' => 'required|max[50]|alpha_numeric_spaces'
     ),
     array(
         'field' => 'pais_origen',

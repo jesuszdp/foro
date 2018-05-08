@@ -27,10 +27,10 @@ class Registro_investigacion extends MY_Controller {
         $id_informacion_usuario = $datos_sesion['id_informacion_usuario'];
 
         $lang = $this->obtener_idioma();
+        $output['lang'] = $lang;
         $output['language_text'] = $this->obtener_grupos_texto(array('listado_trabajo'),$lang);
         $output['listado'] = $this->trabajo->listado_trabajos_autor($id_informacion_usuario,$lang);
 
-    	$this->template->setTitle('Trabajos de investigación registrados');
         $main_content = $this->load->view('trabajo/index.tpl.php', $output, true);
         $this->template->setMainContent($main_content);
         $this->template->getTemplate();
@@ -110,10 +110,14 @@ class Registro_investigacion extends MY_Controller {
                             is_null($autor_sexo) || $autor_sexo == '' ||
                             is_null($autor_pais) || $autor_pais == '')
                         {
-                            if(count($post['autor_imss']) > 2){
+                            if(!((is_null($autor_nombre) || $autor_nombre == '') &&
+                            (is_null($autor_app) || $autor_app == '') &&
+                            (is_null($autor_sexo) || $autor_sexo == '') &&
+                            (is_null($autor_pais) || $autor_pais == '')))
+                            {
                                 $status = false;
                                 $msg_type = 'danger';
-                                $msg = 'Ingrese la información de todos los campos marcados con * para la información de los coautores.';
+                                $msg = $lan_txt['registro_trabajo']['rti_autores'];
                                 $folio = '';
                             }
                             break;
@@ -156,14 +160,18 @@ class Registro_investigacion extends MY_Controller {
                     	
                         if($status)
                     	{
-                    		$msg = 'El trabajo se registró correctamente con folio ';
+                    		$msg =  $lan_txt['registro_trabajo']['rti_success'];
                             $msg_type = 'success';
                     	}else
                     	{
-                    		$msg = 'El trabajo no se pudo registrar, intentelo más tarde.';
+                    		$msg =  $lan_txt['registro_trabajo']['rti_error'];
                             $msg_type = 'danger';
                     		$output['trabajo'] = $post;
                     	}
+                    }else
+                    {
+                        $output['trabajo'] = $post;
+                        $post['tipo_metodologia'] = $post['id_tipo_metodologia'];
                     }
 
                     $output['msg'] = $msg;
@@ -183,7 +191,7 @@ class Registro_investigacion extends MY_Controller {
                 }
         	}else //validacion de caracteres
             {
-                $output['msg'] = 'Validación de carácteres';
+                $output['msg'] = $lan_txt['registro_trabajo']['rti_caracteres'];
                 $output['msg_type'] = 'danger';
                 $output['folio'] = '';
 
@@ -198,7 +206,6 @@ class Registro_investigacion extends MY_Controller {
             }
         }
     	
-    	$this->template->setTitle('Registrar trabajo de investigación');
         $main_content = $this->load->view('trabajo/registro.tpl.php', $output, true);
         $this->template->setMainContent($main_content);
         $this->template->getTemplate();
@@ -206,23 +213,21 @@ class Registro_investigacion extends MY_Controller {
 
     public function ver($folio)
     {
+        $this->load->model('Modulo_model', 'modulo');
+        $datos_sesion = $this->get_datos_sesion();
+        $this->load->library('LNiveles_acceso');
+        $niveles = $this->modulo->get_niveles_acceso($datos_sesion['id_usuario']);
+        
         $output = [];
         $lang = $this->obtener_idioma();
-        
+        $output['lang'] = $lang;
         $output['datos'] = $this->trabajo->trabajo_investigacion_folio($folio,$lang)[0];
-        $output['autores'] = $this->trabajo->autores_trabajo_folio($folio,$lang);
-
+        $autores = $this->trabajo->autores_trabajo_folio($folio,$lang);
+        $output['autor_principal'] = $autores[0];
+        unset($autores[0]);
+        $output['autores'] = $autores;
         $output['language_text'] = $this->obtener_grupos_texto(array('listado_trabajo','registro_trabajo','detalle_trabajo'),$lang);
 
-        /*
-        $datos_sesion = $this->get_datos_sesion();
-        $id_informacion_usuario = $datos_sesion['id_informacion_usuario'];
-
-        $lang = $this->obtener_idioma();
-        $output['language_text'] = $this->obtener_grupos_texto(array('listado_trabajo'),$lang);
-        $output['listado'] = $this->trabajo->listado_trabajos_autor($id_informacion_usuario,$lang);
-        */
-        $this->template->setTitle('Trabajos de investigación registrados');
         $main_content = $this->load->view('trabajo/ver.tpl.php', $output, true);
         $this->template->setMainContent($main_content);
         $this->template->getTemplate();

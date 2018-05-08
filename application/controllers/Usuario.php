@@ -56,13 +56,13 @@ class Usuario extends MY_Controller
            'usuarios.id_usuario' => $usuario
         );
         $params['select'] = array(
-           'usuarios.id_usuario', 'docentes.matricula', 'docentes.nombre',
-           'docentes.apellido_p', 'docentes.apellido_m', 'sexo',
-           'docentes.fecha_nacimiento', 'D.id_departamento_instituto', 'D.nombre departamento',
-           'F.id_categoria', 'F.nombre categoria', 'C.cve_tipo_contratacion',
-           'docentes.curp', 'docentes.rfc', 'docentes.telefono_particular',
-           'docentes.telefono_laboral', 'docentes.email', 'usuarios.activo usuario_activo',
-           'D.clave_departamental', 'F.clave_categoria'
+           'usuarios.id_usuario', 'inf.matricula', 'inf.nombre',
+           'inf.apellido_paterno', 'inf.apellido_materno', 'sexo',
+           'inf.fecha_nacimiento', 'dep.nombre departamento', //'dep.id_departamento_instituto', 
+           'cat.id_categoria', 'cat.nombre categoria', //'C.cve_tipo_contratacion',
+           'inf.curp', 'inf.rfc', 'inf.telefono_personal',
+           'inf.telefono_oficina', 'inf.email', 'usuarios.activo usuario_activo',
+           'dep.clave_departamental', 'cat.clave_categoria'
         );
         $resultado = $this->usuario->get_usuarios($params);
         if (count($resultado) == 1)
@@ -193,12 +193,12 @@ class Usuario extends MY_Controller
             'usuarios.id_usuario' => $id_usuario
         );
         $params['select'] = array(
-            'usuarios.id_usuario', 'docentes.matricula', 'docentes.nombre',
-            'docentes.apellido_p', 'docentes.apellido_m', 'sexo',
-            'docentes.fecha_nacimiento', 'D.id_departamento_instituto', 'D.nombre departamento',
-            'F.id_categoria', 'F.nombre categoria', 'C.cve_tipo_contratacion',
-            'docentes.curp', 'docentes.rfc', 'docentes.telefono_particular',
-            'docentes.telefono_laboral', 'docentes.email', 'D.clave_departamental', 'F.clave_categoria'
+            'usuarios.id_usuario', 'inf.matricula', 'inf.nombre',
+            'inf.apellido_paterno', 'inf.apellido_materno', 'sexo',
+            'inf.fecha_nacimiento', 'dep.nombre departamento', //'dep.id_departamento_instituto', 
+            'cat.id_categoria', 'cat.nombre categoria', //'C.cve_tipo_contratacion',
+            'inf.curp', 'inf.rfc', 'inf.telefono_personal',
+            'inf.telefono_oficina', 'inf.email', 'dep.clave_departamental', 'cat.clave_categoria'
         );
         $resultado = $this->usuario->get_usuarios($params);
         if (count($resultado) == 1)

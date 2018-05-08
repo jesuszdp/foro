@@ -67,3 +67,12 @@ label {
     font-weight: 300;
     text-align: left !important;
 }
+.sf-menu ul li a {
+	color: #FFF;
+}
+.form-background{
+	padding: 15px 10px;
+}
+.liga-login {
+	color: #000;
+}

@@ -18,7 +18,7 @@ class Inicio extends MY_Controller {
     const INTERNOS = 'internos', EXTERNOS = 'externos', REGISTRO_USUARIO = "registro_usuario";
 
     public function __construct() {
-        $this->grupo_language_text = ['registro_usuario', 'inicio_sesion', 'mensajes']; //Grupo de idiomas para el controlador actual
+        $this->grupo_language_text = ['registro_usuario', 'inicio_sesion', 'mensajes', "listado_trabajo", "dashboard"]; //Grupo de idiomas para el controlador actual
         parent::__construct();
         $this->load->library('form_complete');
         $this->load->library('form_validation');
@@ -129,24 +129,55 @@ class Inicio extends MY_Controller {
         }
     }
 
+    /**
+     * @author LEAS
+     * @fecha 08/05/2018
+     */
     public function inicio() {
-        $foro_educacion = $this->session->userdata(En_datos_sesion::__INSTANCIA);
-        //pr($foro_educacion);exit();
-        if (isset($foro_educacion['usuario']['niveles_acceso']['0']['clave_rol']) && $foro_educacion['usuario']['niveles_acceso']['0']['clave_rol'] == 'INV') {
-            redirect(site_url('/registro_investigacion/index'));
-        } else {
-            $output = [];
-            $u_siap = $this->session->flashdata('die_sipimss_siap');
-            if (!is_null($u_siap) && $u_siap == 0) {
-                $output['usuario'] = $this->get_datos_sesion();
-                $output['modal_siap'] = $this->load->view('sesion/modal_siap.tpl.php', $output, true);
-            }
-            $this->template->setTitle('Inicio');
-            $main_content = $this->load->view('sesion/index.tpl.php', $output, true);
-            $this->template->setMainContent($main_content);
-            $this->template->getTemplate();
-        }
+        $output = [];
+        $datos_sesion = $this->get_datos_sesion();
+        $id_informacion_usuario = $datos_sesion['id_informacion_usuario'];
+
+        $lang = $this->obtener_idioma();
+        $output['language_text'] = $this->language_text; //obtiene textos del lenguaje
+//        $output['listado'] = $this->trabajo->listado_trabajos_autor($id_informacion_usuario, $lang);
+        $output['lang'] = $this->obtener_idioma();
+//        pr($this->language_text);
+        $main_content = $this->load->view('dashboard/index.tpl.php', $output, true);
+        $this->template->setMainContent($main_content);
+        $this->template->getTemplate();
     }
+
+    /**
+     * @author LEAS
+     * @fecha 08/05/2018
+     */
+    function informacion($tipo = 'lista') {
+        $this->load->model('Trabajo_model', 'trabajo');
+        $output['data'] = $this->trabajo->listado_trabajos_autor_general();
+//        pr($output['data']);
+        header('Content-Type: application/json; charset=utf-8;');
+        echo json_encode($output);
+    }
+
+//    public function inicio() {
+//        $foro_educacion = $this->session->userdata(En_datos_sesion::__INSTANCIA);
+//        //pr($foro_educacion);exit();
+//        if (isset($foro_educacion['usuario']['niveles_acceso']['0']['clave_rol']) && $foro_educacion['usuario']['niveles_acceso']['0']['clave_rol'] == 'INV') {
+//            redirect(site_url('/registro_investigacion/index'));
+//        } else {
+//            $output = [];
+//            $u_siap = $this->session->flashdata('die_sipimss_siap');
+//            if (!is_null($u_siap) && $u_siap == 0) {
+//                $output['usuario'] = $this->get_datos_sesion();
+//                $output['modal_siap'] = $this->load->view('sesion/modal_siap.tpl.php', $output, true);
+//            }
+//            $this->template->setTitle('Inicio');
+//            $main_content = $this->load->view('sesion/index.tpl.php', $output, true);
+//            $this->template->setMainContent($main_content);
+//            $this->template->getTemplate();
+//        }
+//    }
 
     function captcha() {
         new_captcha();
@@ -196,6 +227,9 @@ class Inicio extends MY_Controller {
         echo 'En mantenimiento';
     }
 
+    /**
+     * @deprecated since version 0.01
+     */
     public function dashboard() {
         $id_usuario = $this->get_datos_sesion(En_datos_sesion::ID_USUARIO);
         $this->load->model('Modulo_model', 'modulo');

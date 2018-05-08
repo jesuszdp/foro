@@ -28,13 +28,15 @@
 	    						echo '<tr>';
 	    						echo '<td>'.$value['folio'].'</td>';
 	    						echo '<td>'.$value['titulo'].'</td>';
-	    						echo '<td>'.$value['nombre_metodologia'].'</td>';
+	    						echo '<td>'.json_decode($value['nombre_metodologia'],true)[$lang].'</td>';
 	    						echo '<td>'.$value['fecha'].'</td>';
-	    						echo '<td>'.$value['estado'].'</td>';
+	    						echo '<td>'.json_decode($value['estado'],true)[$lang].'</td>';
 	    						$site = site_url('registro_investigacion/ver/'.$value['folio']);
 	    						echo '<td><a href="'.$site.'" class="btn btn-theme animated flipInY visible pull-right"><i class="fa fa-eye" aria-hidden="true"></i></a></td>';
 	    						echo '</tr>';
 	    					}
+	    				}else{
+	    					echo '<tr><td colspan="6"><center>'. $language_text['listado_trabajo']['sin_datos_detalle'].'</center></td></tr>';
 	    				}
 	    				?>
 	    				</table>

@@ -245,7 +245,7 @@ class Usuario_model extends MY_Model {
         $this->db->flush_cache();
         $this->db->reset_query();
         $this->db->where('clave_departamental', $clave);
-        $query = $this->db->get('catalogo.departamentos_instituto');
+        $query = $this->db->get('catalogo.departamento');
         $resultado = $query->result_array();
         if ($resultado) {
             $categoria = $resultado[0];
@@ -505,31 +505,31 @@ class Usuario_model extends MY_Model {
                 'rfc' => $params['rfc'],
                 'email' => $params['email'],
                 'nombre' => $params['nombre'],
-                'apellido_p' => $params['apellido_p'],
-                'apellido_m' => $params['apellido_m'],
-                'telefono_particular' => $params['telefono_particular'],
-                'telefono_laboral' => $params['telefono_laboral'],
+                'apellido_paterno' => $params['apellido_paterno'],
+                'apellido_materno' => $params['apellido_materno'],
+                'telefono_personal' => $params['telefono_personal'],
+                'telefono_oficina' => $params['telefono_oficina'],
                 'fecha_nacimiento' => ($params['fecha_nacimiento'] != '') ? $params['fecha_nacimiento'] : null
             );
             $this->db->start_cache();
-            $this->db->where('id_docente', $usuario['id_docente']);
+            $this->db->where('id_informacion_usuario', $usuario['id_informacion_usuario']);
             $this->db->stop_cache();
-            $this->db->update('censo.docente', $docente);
+            $this->db->update('sistema.informacion_usuario', $docente);
             $this->db->reset_query();
-            $this->db->set('actual', 0);
-            $this->db->update('censo.historico_datos_docente');
+            $this->db->set('actual', false);
+            $this->db->update('sistema.historico_informacion_usuario');
             //pr($this->db->last_query());
             $this->db->flush_cache();
             $this->db->reset_query();
             $categoria = $this->get_categoria($params['categoria_texto'])['id_categoria'];
-            $departamento = $this->get_departamento($params['departamento_texto'])['id_departamento_instituto'];
+            $departamento = $this->get_departamento($params['departamento_texto'])['clave_departamental'];
             $historico = array(
-                'id_docente' => $usuario['id_docente'],
-                'actual' => 1,
+                'id_informacion_usuario' => $usuario['id_informacion_usuario'],
+                'actual' => true,
                 'id_categoria' => $categoria,
-                'id_departamento_instituto' => $departamento
+                'clave_departamental' => $departamento
             );
-            $this->db->insert('censo.historico_datos_docente', $historico);
+            $this->db->insert('sistema.historico_informacion_usuario', $historico);
         }
         if ($this->db->trans_status() === FALSE) {
             $this->db->trans_rollback();
