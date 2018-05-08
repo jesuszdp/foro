@@ -16,9 +16,10 @@ if (isset($registro_valido)) {
                 'type' => 'text',
                 'value' => isset($post['matricula']) ? $post['matricula'] : '',
                 'attributes' => array(
-                    'class' => 'col-sm-3 form-control',
+                    'class' => ' form-control',
                     'placeholder' => $language_text['registro_usuario']['matricula']
             )));
+
             echo form_error_format('matricula');
             ?>
         </div>
@@ -31,9 +32,10 @@ if (isset($registro_valido)) {
                 'options' => $delegaciones,
                 'value' => isset($post['cve_delegacion']) ? $post['cve_delegacion'] : '',
                 'attributes' => array(
-                    'class' => 'col-sm-3 form-control',
+                    'class' => 'form-control',
                     'placeholder' => $language_text['registro_usuario']['cve_delegacion']
             )));
+
             echo form_error_format('cve_delegacion');
             ?>
         </div>
@@ -44,9 +46,10 @@ if (isset($registro_valido)) {
                 'type' => 'email',
                 'value' => isset($post['ext_mail']) ? $post['ext_mail'] : '',
                 'attributes' => array(
-                    'class' => 'col-sm-3 form-control',
+                    'class' => 'form-control',
                     'placeholder' => $language_text['registro_usuario']['ext_mail']
             )));
+
             echo form_error_format('ext_mail');
             ?>
         </div>
@@ -58,9 +61,10 @@ if (isset($registro_valido)) {
                 'type' => 'numeric',
                 'value' => isset($post['telefono_personal']) ? $post['telefono_personal'] : '',
                 'attributes' => array(
-                    'class' => 'col-sm-3 input form-control',
+                    'class' => 'input form-control',
                     'placeholder' => $language_text['registro_usuario']['telefono_personal']
             )));
+
             echo form_error_format('telefono_personal');
             ?>
         </div>
@@ -72,9 +76,10 @@ if (isset($registro_valido)) {
                 'type' => 'numeric',
                 'value' => isset($post['telefono_oficina']) ? $post['telefono_oficina'] : '',
                 'attributes' => array(
-                    'class' => 'col-sm-3 input form-control',
+                    'class' => ' input form-control',
                     'placeholder' => $language_text['registro_usuario']['telefono_oficina']
             )));
+
             echo form_error_format('telefono_oficina');
             ?>
         </div>
@@ -87,7 +92,7 @@ if (isset($registro_valido)) {
                 'options' => $paises,
                 'value' => isset($post['pais_origen']) ? $post['pais_origen'] : 'MX',
                 'attributes' => array(
-                    'class' => 'col-sm-3 form-control',
+                    'class' => 'form-control',
                     'placeholder' => $language_text['registro_usuario']['pais_origen']
             )));
             echo form_error_format('pais_origen');
@@ -100,9 +105,10 @@ if (isset($registro_valido)) {
                 'type' => 'password',
                 'value' => isset($post['reg_password']) ? $post['reg_password'] : '',
                 'attributes' => array(
-                    'class' => 'col-sm-3 input form-control',
+                    'class' => 'input form-control',
                     'placeholder' => $language_text['registro_usuario']['reg_password']
             )));
+
             echo form_error_format('reg_password');
             ?>
         </div>
@@ -113,9 +119,10 @@ if (isset($registro_valido)) {
                 'type' => 'password',
                 'value' => isset($post['reg_repassword']) ? $post['reg_repassword'] : '',
                 'attributes' => array(
-                    'class' => 'col-sm-3 input form-control',
+                    'class' => 'input form-control',
                     'placeholder' => $language_text['registro_usuario']['reg_repassword']
             )));
+
             echo form_error_format('reg_repassword');
             ?>
         </div>
@@ -129,6 +136,7 @@ if (isset($registro_valido)) {
                     'class' => 'form-control',
                     'placeholder' => $language_text['registro_usuario']['reg_captcha']
             )));
+
             echo form_error_format('reg_captcha');
             ?>
             <br>
