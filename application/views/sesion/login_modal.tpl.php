@@ -23,7 +23,7 @@
             <div class="col-sm-12">
                 <div class="form-group">
                     <div class="col-lg-5">
-                        <label for="user" class="pull-right formulario text-right">&nbsp;<?php echo $language_text['inicio_sesion']['matricula_o_correo']; ?>:</label>
+                        <label for="user" class="formulario">&nbsp;<?php echo $language_text['inicio_sesion']['matricula_o_correo']; ?>:</label>
                     </div>
                     <div class="col-lg-7">
                         <input id="usuario" name="usuario"
@@ -40,7 +40,7 @@
             <div class="col-sm-12">
                 <div class="form-group">
                     <div class="col-lg-5">
-                        <label for="user" class="pull-right formulario text-right">&nbsp;<?php echo $language_text['inicio_sesion']['contrasenia']; ?>:</label>
+                        <label for="user" class="formulario">&nbsp;<?php echo $language_text['inicio_sesion']['contrasenia']; ?>:</label>
                     </div>
                     <div class="col-lg-7">
                         <input id="password" name="password"
@@ -56,7 +56,7 @@
             <div class="col-sm-12">
                 <div class="form-group">
                     <div class="col-lg-5">
-                        <label for="user" class="pull-right formulario text-right">&nbsp;<?php echo $language_text['inicio_sesion']['captcha']; ?>:</label>
+                        <label for="user" class="formulario">&nbsp;<?php echo $language_text['inicio_sesion']['captcha']; ?>:</label>
                     </div>
                     <div class="col-lg-7">
                         <input id="captcha" name="captcha"
@@ -92,10 +92,15 @@
             </div>
             <br>                                    
             <div class="col-sm-12">
-                <button
+                <div class="col-sm-2"></div>
+                <div class="col-sm-8">
+                    <button
                     data-animation="flipInY" data-animation-delay="100"
                     class="btn btn-theme btn-block submit-button" type="submit"
                     > <?php echo $language_text['inicio_sesion']['inicio_sesion']; ?> <i class="fa fa-arrow-circle-right"></i></button>
+                </div>
+                <div class="col-sm-2"></div>
+                
             </div>
             <div class="col-sm-12">                
                 <div class="text-center"><br><label for="user" class="formulario">¿Olvidó su contraseña? &nbsp;<a href="<?php echo site_url('inicio/recuperar_password'); ?>" class="liga-login">Solicitela aquí</a></label></div>

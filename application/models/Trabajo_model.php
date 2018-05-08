@@ -45,6 +45,8 @@ class Trabajo_model extends CI_Model
             }
         }
 
+        $this->db->insert('public.archivos',$datos['archivo']);
+
     	if ($this->db->trans_status() === FALSE)
         {
             $this->db->trans_rollback();
