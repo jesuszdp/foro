@@ -92,8 +92,10 @@ if (isset($registro_valido)) {
                 'options' => $paises,
                 'value' => isset($post['pais_origen']) ? $post['pais_origen'] : 'MX',
                 'attributes' => array(
-                    'class' => 'form-control',
-                    'placeholder' => $language_text['registro_usuario']['pais_origen']
+                'class' => 'form-control',
+                'placeholder' => $language_text['registro_usuario']['pais_origen'],
+                'style' => 'max-width:210px' 
+
             )));
             echo form_error_format('pais_origen');
             ?>

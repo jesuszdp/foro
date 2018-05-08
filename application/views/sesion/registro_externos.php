@@ -117,7 +117,8 @@ if (isset($registro_valido)) {
                 'value' => isset($post['pais_origen']) ? $post['pais_origen'] : 'MX',
                 'attributes' => array(
                     'class' => 'form-control',
-                    'placeholder' => $language_text['registro_usuario']['pais_origen']
+                    'placeholder' => $language_text['registro_usuario']['pais_origen'],
+                    'style' => 'max-width:210px'
             )));
             echo form_error_format('pais_origen');
             ?>
@@ -132,7 +133,8 @@ if (isset($registro_valido)) {
                 'value' => isset($post['pais_institucion']) ? $post['pais_institucion'] : 'MX',
                 'attributes' => array(
                     'class' => 'form-control',
-                    'placeholder' => $language_text['registro_usuario']['pais_institucion']
+                    'placeholder' => $language_text['registro_usuario']['pais_institucion'],
+                    'style' => 'max-width:210px'
             )));
             echo form_error_format('pais_institucion');
             ?>
@@ -200,7 +202,7 @@ if (isset($registro_valido)) {
         </div>
         <br>
         <div class="">
-            <input type="button" id="regform_ext" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" value="<?php echo $language_text['registro_usuario']['registrar']; ?>" data-tpform="<?php echo Inicio::EXTERNOS; ?>">
+            <input type="button" id="regform_ext" data-animation="flipInY" data-animation-delay="100"  class="btn btn-theme btn-block submit-button" value="<?php echo $language_text['registro_usuario']['registrar']; ?>" data-tpform="<?php echo Inicio::EXTERNOS; ?>">
         </div>
 
     </div>
