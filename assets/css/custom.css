@@ -62,3 +62,12 @@ label.formulario {
 .form-control {
 	font-size: 16px;
 }
+.sf-menu ul li a {
+	color: #FFF;
+}
+.form-background{
+	padding: 15px 10px;
+}
+.liga-login {
+	color: #000;
+}
