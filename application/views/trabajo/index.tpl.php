@@ -35,6 +35,8 @@
 	    						echo '<td><a href="'.$site.'" class="btn btn-primary pull-right"><i class="fa fa-eye" aria-hidden="true"></i></a></td>';
 	    						echo '</tr>';
 	    					}
+	    				}else{
+	    					echo '<tr><td colspan="6"><center>'. $language_text['listado_trabajo']['sin_datos_detalle'].'</center></td></tr>';
 	    				}
 	    				?>
 	    				</table>

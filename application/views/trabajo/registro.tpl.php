@@ -11,7 +11,7 @@
     				if(isset($msg))
     				{
     					echo '<div class="alert alert-'.$msg_type.'">';
-    					echo $msg.'<strong>'.$folio.'</strong>';
+    					echo $msg.' <strong>'.$folio.'</strong>';
 						?>
 						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 					    <span aria-hidden="true">&times;</span>
@@ -153,9 +153,9 @@
 				  		</thead>
 				  		<tbody>
 				  			<tr>
-				  				<td><input type="text" name="autor_nombre[]"></td>
-				  				<td><input type="text" name="autor_app[]"></td>
-				  				<td><input type="text" name="autor_apm[]"></td>
+				  				<td><input type="text" name="autor_nombre[]" maxlength="100"></td>
+				  				<td><input type="text" name="autor_app[]" maxlength="100"></td>
+				  				<td><input type="text" name="autor_apm[]" maxlength="100"></td>
 				  				<td>
 				  					<select name="autor_sexo[]">
 				  						<option value=""><?php echo $language_text['template_general']['sin_op'];?></option>
@@ -180,7 +180,7 @@
 				  						<option value="1"><?php echo $language_text['template_general']['si_op'];?></option>
 				  					</select>
 				  				</td>
-				  				<td><input type="text" name="autor_matricula[]"></td>
+				  				<td><input type="text" name="autor_matricula[]" maxlength="15"></td>
 				  			</tr>
 				  		</tbody>
 				  	</table>

@@ -105,16 +105,24 @@ class Trabajo_model extends CI_Model
         return $res->result_array();
     }
 
-    public function autores_trabajo_folio($folio,$lang)
+    public function autores_trabajo_folio($folio,$lang,$autor=null)
     {
         $this->db->flush_cache();
         $this->db->reset_query();
 
-        $this->db->where('a.folio_investigacion',$folio);
+        if(!is_null($autor))
+        {
+            $where = array('a.folio_investigacion'=>$folio,'a.id_informacion_usuario'=>$autor);
+        }else
+        {
+            $where = array('a.folio_investigacion'=>$folio);
+        }
+        $this->db->where($where);
 
-        $this->db->select(array('iu.*','p.*','a.*',"p.lang::json->'".$lang."' pais_nombre"));
+        $this->db->select(array('iu.*','p.*','a.*',"p.lang pais_nombre"));
         $this->db->join('sistema.informacion_usuario iu','a.id_informacion_usuario = iu.id_informacion_usuario');
         $this->db->join('catalogo.pais p','p.clave_pais=iu.clave_pais','left');
+        $this->db->order_by('a.registro','desc');
         $res = $this->db->get('foro.autor a');
 
         $this->db->flush_cache();
@@ -128,7 +136,7 @@ class Trabajo_model extends CI_Model
         $this->db->flush_cache();
         $this->db->reset_query();
 
-        $this->db->select(array('ti.*',"et.lang::json->'".$lang."' estado_nombre","m.lang::json->'".$lang."' tipo_metodologia"));
+        $this->db->select(array('ti.*',"et.lang estado_nombre","m.lang tipo_metodologia"));
         $this->db->where(array('ti.folio'=>$folio));
         $this->db->join('foro.tipo_metodologia m','m.id_tipo_metodologia = ti.id_tipo_metodologia', 'left');
         $this->db->join('foro.estado_trabajo et','ti.clave_estado = et.clave_estado');

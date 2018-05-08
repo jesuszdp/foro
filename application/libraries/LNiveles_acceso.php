@@ -14,10 +14,10 @@
 class LNiveles_acceso
 {
 
-    const Super = 1,
-            Admin = 2,
-            N1 = 3, 
-            Nivel_central = 4;
+    const Super = 'SUPERADMIN',
+            Admin = 'ADMIN',
+            Mesa = 'MESA_AYUDA', 
+            Investigador = 'INV';
     
       //put your code here
     public function __construct()
