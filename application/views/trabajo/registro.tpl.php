@@ -145,7 +145,7 @@
 				    </div>
 
 				    <div class="form-group">
-							<label for="trabajo_archivo"> Tarjeton </label>
+							<label for="trabajo_archivo" class="col-sm-3 control-label"><?php echo $language_text['registro_trabajo']['rt_archivo'];?></label>
 							<input type="file" id="trabajo_archivo" name="trabajo_archivo" accept="application/pdf, application/msword">
 						</div>
 
