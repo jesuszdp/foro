@@ -77,32 +77,25 @@ label {
 	margin: 10px 0 20px 0;
   font-weight: normal;
 }
-<<<<<<< HEAD
+/*
+Elementos de formularios
+*/
 .form-control {
 	height: 30px;
 	padding-left: 20px;
 	padding-right: 20px;
 	border-radius: 10px;
-	border: 1px solid #c8cdd2;
 	font-size: 13px;
 	color: #6d7a83;
-	width: auto;
 	-webkit-appearance: none;
 	-webkit-box-shadow: none;
 	box-shadow: none;
-}
-.form-etiquetas{
-	color: #fff;
-}
-=======
-/*
-Elementos de formularios
-*/
-.form-control {
 	color: #fff;
 	border-color: #fff;
 	background-color: rgba(2, 2, 2, 0.2);
-	font-size: 13px;
+}
+.form-etiquetas{
+	color: #fff;
 }
 
 .form-control:focus {
@@ -110,4 +103,7 @@ Elementos de formularios
 	border-color: #fff;
 	background-color: rgba(2, 2, 2, 0.5);
 }
->>>>>>> 134fe212794785a22b319919bf3c649da24e5fbc
+
+.frm-auto{
+	width: auto;
+}
