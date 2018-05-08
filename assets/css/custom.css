@@ -59,9 +59,6 @@ label.formulario {
 	color: #000;
 	font-weight: 600;
 }
-.form-control {
-	font-size: 13px;
-}
 
 label {
     font-weight: 300;
@@ -79,4 +76,19 @@ label {
 .section-title {
 	margin: 10px 0 20px 0;
   font-weight: normal;
+}
+/*
+Elementos de formularios
+*/
+.form-control {
+	color: #fff;
+	border-color: #fff;
+	background-color: rgba(2, 2, 2, 0.2);
+	font-size: 13px;
+}
+
+.form-control:focus {
+	color: #fff;
+	border-color: #fff;
+	background-color: rgba(2, 2, 2, 0.5);
 }
