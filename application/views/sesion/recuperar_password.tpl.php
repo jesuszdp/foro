@@ -71,9 +71,15 @@
                   <label for="user" class="formulario"><?php echo $language_text['recuperar_contrasenia']['msg_exito_rc']; ?></label>
                   <?php
               } else {
-                  ?>
-                  <label for="user" class="formulario"><?php echo $language_text['recuperar_contrasenia']['msg_correo_enviado_rc']; ?></label>
-                  <?php
+                  if(isset($recovery) && $recovery==false) {
+                      ?>
+                      <label for="user" class="formulario"><?php echo $language_text['mensajes']['msg_usuario_no_existe_rc']; ?></label>
+                      <?php
+                  } else {
+                      ?>
+                      <label for="user" class="formulario"><?php echo $language_text['recuperar_contrasenia']['msg_correo_enviado_rc']; ?></label>
+                      <?php
+                  }
               }
               ?>
             </div>

@@ -73,9 +73,9 @@ if (isset($status) && $status)
           </span>
           <?php
           echo $this->form_complete->create_element(array(
-              'id' => 'apellido_p',
+              'id' => 'apellido_paterno',
               'type' => 'text',
-              'value' => $usuario['apellido_p'],
+              'value' => $usuario['apellido_paterno'],
               'attributes' => array('class' => 'form-control', 'required' => true)));
           ?>
 
@@ -94,9 +94,9 @@ if (isset($status) && $status)
                 </span>
                 <?php
                 echo $this->form_complete->create_element(array(
-                    'id' => 'apellido_m',
+                    'id' => 'apellido_materno',
                     'type' => 'text',
-                    'value' => $usuario['apellido_m'],
+                    'value' => $usuario['apellido_materno'],
                     'attributes' => array('class' => 'form-control')));
                 ?>
               </div>
@@ -183,7 +183,7 @@ if (isset($status) && $status)
                 <span class="input-group-addon">
                     <span class="fa fa-female"> </span>
                 </span>
-                <input type="hidden" name="departamento" id="departamento" value="<?php echo $usuario['id_departamento_instituto']; ?>">
+                <input type="hidden" name="departamento" id="departamento" value="<?php echo $usuario['clave_departamental']; ?>">
                 <?php
                 echo $this->form_complete->create_element(array(
                     'id' => 'departamento_texto',
@@ -230,7 +230,7 @@ if (isset($status) && $status)
           </ul>
         </div>
     </div>
-    <div class="col-md-6">
+    <!-- <div class="col-md-6">
         <div class="row">
           <div class="col-md-4">
               <label for="materno" class="control-label">
@@ -251,7 +251,7 @@ if (isset($status) && $status)
               </div>
             </div>
         </div>
-    </div>
+    </div> -->
 </div>
 <br>
 <div class="row">
@@ -313,9 +313,9 @@ if (isset($status) && $status)
           </span>
           <?php
           echo $this->form_complete->create_element(array(
-              'id' => 'telefono_laboral',
+              'id' => 'telefono_oficina',
               'type' => 'text',
-              'value' => $usuario['telefono_laboral'],
+              'value' => $usuario['telefono_oficina'],
               'attributes' => array('class' => 'form-control')));
           ?>
       </div>
@@ -334,9 +334,9 @@ if (isset($status) && $status)
                 </span>
                 <?php
                 echo $this->form_complete->create_element(array(
-                    'id' => 'telefono_particular',
+                    'id' => 'telefono_personal',
                     'type' => 'text',
-                    'value' => $usuario['telefono_particular'],
+                    'value' => $usuario['telefono_personal'],
                     'attributes' => array('class' => 'form-control')));
                 ?>
               </div>
