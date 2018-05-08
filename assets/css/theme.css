@@ -697,6 +697,7 @@ p.btn-row .btn {margin-top: 10px; margin-right: 10px;}
     -webkit-appearance: none; /* ios */
     -webkit-box-shadow: none;
     box-shadow: none;
+    width: auto;
 }
 .form-control:focus {
     border-color: #ea032d;
