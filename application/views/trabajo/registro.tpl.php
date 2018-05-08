@@ -1,7 +1,7 @@
 <?php echo js('trabajo_investigacion/registro.js'); ?>
 <?php //pr($language_text); ?>
 
-<div class="panel panel-default">
+<div class="panel panel-default from-trabajos">
     <h3 class="page-head-line text-center"><?php echo $language_text['registro_trabajo']['titulo_registro'];?></h3>
     <div class="panel-body">
     	<div class="container">
@@ -22,6 +22,12 @@
 					?>
     			</div>
     		</div><!--row-->
+    		<div class="row">
+    			<div class="col-sm-offset-2 col-sm-8">
+    				<strong><?php echo $language_text['registro_trabajo']['rt_leyenda_au'];?></strong>
+    			</div>
+    		</div><!--row-->
+    		<br>
     		<?php echo form_open_multipart('registro_investigacion/nuevo', array('id' => 'form_registro_investigacion', 'class'=>'form-horizontal', 'data-toggle'=>"validator", 'role'=>"form")); ?>
     		<div class="row">
     			<div class="col-sm-offset-2 col-sm-8">
