@@ -45,7 +45,7 @@ function registros() {
 
                 $.ajax({
                     type: "GET",
-                    url: site_url + "/dashboard/informacion/lista",
+                    url: site_url + "/inicio/informacion/lista",
                     dataType: "json"
                 })
                         .done(function (result) {
