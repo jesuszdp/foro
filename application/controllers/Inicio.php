@@ -49,6 +49,7 @@ class Inicio extends MY_Controller {
             $this->config->load('form_validation'); //Cargar archivo con validaciones
             $validations = $this->config->item('login'); //Obtener validaciones de archivo general
             $this->form_validation->set_data($post);
+            //$this->set_textos_campos_validacion($validations, $data['language_text']['inicio_sesion']);
             $this->form_validation->set_rules($validations);
             if ($this->form_validation->run() == TRUE) {
                 $valido = $this->sesion->validar_usuario($post["usuario"], $post["password"]);
@@ -330,8 +331,10 @@ class Inicio extends MY_Controller {
     }
 
     public function mesa_ayuda() {
-        $this->template->set_titulo_modal('<h4><span class="glyphicon glyphicon-lock"></span>Mesa de ayuda</h4>');
-        $view = $this->load->view('sesion/mesa_ayuda.tpl.php', [], true);
+        $this->language_text += $this->obtener_grupos_texto(array('template_general'), $this->obtener_idioma()); //textos del formulario
+        $datos['language_text'] = $this->language_text;
+        $this->template->set_titulo_modal('<h4><span class="glyphicon glyphicon-lock"></span>'.$datos['language_text']['template_general']['mesa_ayuda_titulo'].'</h4>');
+        $view = $this->load->view('sesion/mesa_ayuda.tpl.php', $datos, true);
         $this->template->set_cuerpo_modal($view);
         $this->template->get_modal();
     }

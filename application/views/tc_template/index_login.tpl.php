@@ -85,7 +85,7 @@
                 <!-- /Logo -->
                 <div class="col-sm-8 col-md-8 col-lg-8 pull-right text-right">
                     <a href="#" class="languaje_catalogo" data-cvelanguage="es">
-                        <img img-responsive src="<?php echo asset_url(); ?>img/language/Spain.png"
+                        <img img-responsive src="<?php echo asset_url(); ?>img/language/mx.png"
                         class="logos"
                         alt="<?php echo $language_text['template_general']['espaniol']; ?>"
                         title="<?php echo $language_text['template_general']['espaniol']; ?>"
@@ -94,7 +94,7 @@
                     </a>
                     <!-- <a href="#"><img img-responsive class"logos" height="70px" src="assets/img/sipimss.png" alt=""></a> -->
                     <a href="#" class="languaje_catalogo" data-cvelanguage="en">
-                        <img img-responsive src="<?php echo asset_url(); ?>img/language/England.png"
+                        <img img-responsive src="<?php echo asset_url(); ?>img/language/us.png"
                         class="logos"
                         alt="<?php echo $language_text['template_general']['ingles']; ?>"
                         title="<?php echo $language_text['template_general']['ingles']; ?>"

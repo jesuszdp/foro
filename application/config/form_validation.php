@@ -138,28 +138,28 @@ $config["form_registro_investigacion"] = array(
 $config["login"] = array(
     array(
         'field' => 'usuario',
-        'label' => 'Usuario',
+        'label' => 'Matrícula o correo electrónico',
         'rules' => 'required',
-        'errors' => array(
+        /*'errors' => array(
             'required' => 'El campo %s es obligatorio, favor de ingresarlo.',
-        ),
+        ),*/
     ),
     array(
         'field' => 'password',
         'label' => 'Contraseña',
         'rules' => 'required',
-        'errors' => array(
+        /*'errors' => array(
             'required' => 'El campo %s es obligatorio, favor de ingresarlo.',
-        ),
+        ),*/
     ),
     array(
         'field' => 'captcha',
-        'label' => 'Imagen de seguridad',
+        'label' => 'Código de verificación',
         'rules' => 'required|check_captcha',
-        'errors' => array(
+        /*'errors' => array(
             'required' => 'El campo %s es obligatorio, favor de ingresarlo.',
             'check_captcha' => "El texto no coincide con la imagen, favor de verificarlo."
-        ),
+        ),*/
     ),
 );
 
