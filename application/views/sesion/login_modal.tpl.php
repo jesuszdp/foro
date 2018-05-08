@@ -23,7 +23,7 @@
             <div class="col-sm-12">
                 <div class="form-group">
                     <div class="col-lg-5">
-                        <label for="user" class="pull-right formulario text-right">&nbsp;<?php echo $language_text['inicio_sesion']['matricula_o_correo']; ?>:</label>
+                        <label for="user" class="formulario">&nbsp;<?php echo $language_text['inicio_sesion']['matricula_o_correo']; ?>:</label>
                     </div>
                     <div class="col-lg-7">
                         <input id="usuario" name="usuario"
@@ -40,7 +40,7 @@
             <div class="col-sm-12">
                 <div class="form-group">
                     <div class="col-lg-5">
-                        <label for="user" class="pull-right formulario text-right">&nbsp;<?php echo $language_text['inicio_sesion']['contrasenia']; ?>:</label>
+                        <label for="user" class="formulario">&nbsp;<?php echo $language_text['inicio_sesion']['contrasenia']; ?>:</label>
                     </div>
                     <div class="col-lg-7">
                         <input id="password" name="password"
@@ -56,7 +56,7 @@
             <div class="col-sm-12">
                 <div class="form-group">
                     <div class="col-lg-5">
-                        <label for="user" class="pull-right formulario text-right">&nbsp;<?php echo $language_text['inicio_sesion']['captcha']; ?>:</label>
+                        <label for="user" class="formulario">&nbsp;<?php echo $language_text['inicio_sesion']['captcha']; ?>:</label>
                     </div>
                     <div class="col-lg-7">
                         <input id="captcha" name="captcha"

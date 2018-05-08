@@ -24,6 +24,7 @@ class Inicio extends MY_Controller {
         $this->load->library('form_validation');
         $this->load->library('seguridad');
         $this->load->library('empleados_siap');
+        $this->load->library('LNiveles_acceso');
         $this->load->helper(array('secureimage'));
         $this->load->model('Sesion_model', 'sesion');
         $this->load->model('Usuario_model', 'usuario');
@@ -76,7 +77,8 @@ class Inicio extends MY_Controller {
                         $foro_educacion['language'] = $foro_educacion['usuario']['language'];
 //                        $die_sipimss['usuario']['workflow'] = $this->sesion->get_info_convocatoria($die_sipimss['usuario']['id_docente']);
                         $this->session->set_userdata(En_datos_sesion::__INSTANCIA, $foro_educacion);
-                        redirect(site_url() . '/inicio/inicio');
+                        //redirect(site_url() . '/inicio/inicio');
+                        $this->redireccion_inicio($foro_educacion);
                         break;
                     case 2:
                         $data['errores'] = $data['language_text']['mensajes']['msg_contrasenia_incorrecta'];
@@ -97,7 +99,7 @@ class Inicio extends MY_Controller {
 
         $foro_educacion = $this->session->userdata(En_datos_sesion::__INSTANCIA);
         if (isset($foro_educacion['usuario']['id_usuario'])) {
-            redirect(site_url('inicio/inicio'));
+            $this->redireccion_inicio($foro_educacion);
         } else {//De inicio aquí es donde entra 
             $this->load->model('Catalogo_model', 'catalogo');
 
@@ -106,6 +108,21 @@ class Inicio extends MY_Controller {
             $main_content = $this->load->view('sesion/login_modal.tpl.php', $data, true);
             $this->template->setMainContent($main_content);
             $this->template->getTemplate(true, 'tc_template/index_login.tpl.php');
+        }
+    }
+
+    private function redireccion_inicio(&$foro_educacion){
+        //pr($foro_educacion); pr(count($foro_educacion['usuario']['niveles_acceso']));
+        //pr(LNiveles_acceso::Investigador); pr($foro_educacion['usuario']['niveles_acceso']['0']['clave_rol']);
+        //pr($foro_educacion['usuario']['niveles_acceso']['0']['clave_rol'] == LNiveles_acceso::Investigador);
+        ///Redirección de investigador
+        if (isset($foro_educacion['usuario']['niveles_acceso']['0']['clave_rol']) && $foro_educacion['usuario']['niveles_acceso']['0']['clave_rol'] == LNiveles_acceso::Investigador && count($foro_educacion['usuario']['niveles_acceso'])==1) {
+            redirect(site_url('/registro_investigacion/index'));
+        ////Redirección de revisor
+        } else if (isset($foro_educacion['usuario']['niveles_acceso']['0']['clave_rol']) && $foro_educacion['usuario']['niveles_acceso']['0']['clave_rol'] == LNiveles_acceso::Mesa && count($foro_educacion['usuario']['niveles_acceso'])==1) {
+            redirect(site_url('/registro_investigacion/index'));
+        } else {
+            redirect(site_url('inicio/inicio')); //Redirección de moderador
         }
     }
 
