@@ -9,7 +9,7 @@ if (isset($registro_valido)) {
     <?php echo form_open('inicio/registro/' . Inicio::INTERNOS, array('id' => 'registro_form' . Inicio::EXTERNOS, 'autocomplete' => 'off')); ?>
     <div class="sign-in-htm">
         <div class="form-group">
-          <label class="pull-left form-etiquetas pull-right col-sm-5"><?php echo $language_text['registro_usuario']['ext_nombre']; ?></label>
+            <label class="pull-left form-etiquetas pull-right col-sm-5"><?php echo $language_text['registro_usuario']['ext_nombre']; ?></label>
             <?php
             echo $this->form_complete->create_element(array('id' => 'ext_nombre',
                 'type' => 'text',
@@ -21,7 +21,7 @@ if (isset($registro_valido)) {
             ?>
         </div>
         <div class="form-group">
-          <label class="pull-left form-etiquetas pull-right col-sm-5"><?php echo $language_text['registro_usuario']['ext_ap']; ?></label>
+            <label class="pull-left form-etiquetas pull-right col-sm-5"><?php echo $language_text['registro_usuario']['ext_ap']; ?></label>
             <?php
             echo $this->form_complete->create_element(array('id' => 'ext_ap',
                 'type' => 'text',
@@ -33,7 +33,7 @@ if (isset($registro_valido)) {
             ?>
         </div>
         <div class="form-group">
-          <label class="pull-left form-etiquetas pull-right col-sm-5"><?php echo $language_text['registro_usuario']['ext_am']; ?></label>
+            <label class="pull-left form-etiquetas pull-right col-sm-5"><?php echo $language_text['registro_usuario']['ext_am']; ?></label>
             <?php
             echo $this->form_complete->create_element(array('id' => 'ext_am',
                 'type' => 'text',
@@ -52,13 +52,13 @@ if (isset($registro_valido)) {
 
                 </div>
                 <div class="col-md-3">
-                    <?php echo form_radio(array('name' => 'ext_sexo', 'value' => 'M', 'checked' => (isset($post['ext_sexo']) && $post['ext_sexo'] == 'M')?true:false, 'id' => 'ext_sexo')) . form_label($language_text['registro_usuario']['ext_sexo_m'], 'male'); ?>
+                    <?php echo form_radio(array('name' => 'ext_sexo', 'value' => 'M', 'checked' => (isset($post['ext_sexo']) && $post['ext_sexo'] == 'M') ? true : false, 'id' => 'ext_sexo')) . form_label($language_text['registro_usuario']['ext_sexo_m'], 'male'); ?>
                 </div>
                 <div class="col-md-3">
-                    <?php echo form_radio(array('name' => 'ext_sexo', 'value' => 'F', 'checked' => (isset($post['ext_sexo']) && $post['ext_sexo'] == 'F')?true:false, 'id' => 'ext_sexo')) . form_label($language_text['registro_usuario']['ext_sexo_f'], 'female'); ?>
+                    <?php echo form_radio(array('name' => 'ext_sexo', 'value' => 'F', 'checked' => (isset($post['ext_sexo']) && $post['ext_sexo'] == 'F') ? true : false, 'id' => 'ext_sexo')) . form_label($language_text['registro_usuario']['ext_sexo_f'], 'female'); ?>
                 </div>
                 <div class="col-md-3">
-                    <?php echo form_radio(array('name' => 'ext_sexo', 'value' => 'O', 'checked' => (isset($post['ext_sexo']) && $post['ext_sexo'] == 'O')?true:false, 'id' => 'ext_sexo')) . form_label($language_text['registro_usuario']['ext_sexo_o'], 'otro'); ?>
+                    <?php echo form_radio(array('name' => 'ext_sexo', 'value' => 'O', 'checked' => (isset($post['ext_sexo']) && $post['ext_sexo'] == 'O') ? true : false, 'id' => 'ext_sexo')) . form_label($language_text['registro_usuario']['ext_sexo_o'], 'otro'); ?>
                 </div>
             </div>
             <div class="col-md-12">
@@ -66,7 +66,7 @@ if (isset($registro_valido)) {
             </div>
         </div>
         <div class="form-group">
-          <label class="pull-left form-etiquetas pull-right col-sm-5"><?php echo $language_text['registro_usuario']['ext_mail']; ?></label>
+            <label class="pull-left form-etiquetas pull-right col-sm-5"><?php echo $language_text['registro_usuario']['ext_mail']; ?></label>
             <?php
             echo $this->form_complete->create_element(array('id' => 'ext_mail',
                 'type' => 'email',
@@ -78,7 +78,7 @@ if (isset($registro_valido)) {
             ?>
         </div>
         <div class="form-group">
-          <label class="pull-left form-etiquetas pull-right col-sm-5"><?php echo $language_text['registro_usuario']['telefono_personal']; ?></label>
+            <label class="pull-left form-etiquetas pull-right col-sm-5"><?php echo $language_text['registro_usuario']['telefono_personal']; ?></label>
             <?php
             echo $this->form_complete->create_element(array('id' => 'telefono_personal',
                 'type' => 'numeric',
@@ -90,7 +90,7 @@ if (isset($registro_valido)) {
             ?>
         </div>
         <div class="form-group">
-          <label class="pull-left form-etiquetas pull-right col-sm-5"><?php echo $language_text['registro_usuario']['telefono_oficina']; ?></label>
+            <label class="pull-left form-etiquetas pull-right col-sm-5"><?php echo $language_text['registro_usuario']['telefono_oficina']; ?></label>
             <?php
             echo $this->form_complete->create_element(array('id' => 'telefono_oficina',
                 'type' => 'numeric',
@@ -102,7 +102,7 @@ if (isset($registro_valido)) {
             ?>
         </div>
         <div class="form-group">
-          <label class="pull-left form-etiquetas pull-right col-sm-5"><?php echo $language_text['registro_usuario']['pais_origen']; ?></label>
+            <label class="pull-left form-etiquetas pull-right col-sm-5"><?php echo $language_text['registro_usuario']['pais_origen']; ?></label>
             <?php
             echo $this->form_complete->create_element(array('id' => 'pais_origen',
                 'type' => 'dropdown',
@@ -117,7 +117,7 @@ if (isset($registro_valido)) {
             ?>
         </div>
         <div class="form-group">
-          <label class="pull-left form-etiquetas pull-right col-sm-5"><?php echo $language_text['registro_usuario']['pais_institucion']; ?></label>
+            <label class="pull-left form-etiquetas pull-right col-sm-5"><?php echo $language_text['registro_usuario']['pais_institucion']; ?></label>
             <?php
             echo $this->form_complete->create_element(array('id' => 'pais_institucion',
                 'type' => 'dropdown',
@@ -132,7 +132,7 @@ if (isset($registro_valido)) {
             ?>
         </div>
         <div class="form-group">
-          <label class="pull-left form-etiquetas pull-right col-sm-5"><?php echo $language_text['registro_usuario']['institucion']; ?></label>
+            <label class="pull-left form-etiquetas pull-right col-sm-5"><?php echo $language_text['registro_usuario']['institucion']; ?></label>
             <?php
             echo $this->form_complete->create_element(array('id' => 'institucion',
                 'type' => 'text',
@@ -144,7 +144,7 @@ if (isset($registro_valido)) {
             ?>
         </div>
         <div class="form-group">
-          <label class="pull-left form-etiquetas pull-right col-sm-5"><?php echo $language_text['registro_usuario']['reg_password']; ?></label>
+            <label class="pull-left form-etiquetas pull-right col-sm-5"><?php echo $language_text['registro_usuario']['reg_password']; ?></label>
             <?php
             echo $this->form_complete->create_element(array('id' => 'reg_password',
                 'type' => 'password',
@@ -156,7 +156,7 @@ if (isset($registro_valido)) {
             ?>
         </div>
         <div class="form-group">
-          <label class="pull-left form-etiquetas pull-right col-sm-5"><?php echo $language_text['registro_usuario']['reg_repassword']; ?></label>
+            <label class="pull-left form-etiquetas pull-right col-sm-5"><?php echo $language_text['registro_usuario']['reg_repassword']; ?></label>
             <?php
             echo $this->form_complete->create_element(array('id' => 'reg_repassword',
                 'type' => 'password',
@@ -169,7 +169,7 @@ if (isset($registro_valido)) {
             ?>
         </div>
         <div class="form-group" style="text-align:center;">
-          <label class="pull-left form-etiquetas pull-right col-sm-5"><?php echo $language_text['registro_usuario']['reg_captcha']; ?></label>
+            <label class="pull-left form-etiquetas pull-right col-sm-5"><?php echo $language_text['registro_usuario']['reg_captcha']; ?></label>
             <?php
             echo $this->form_complete->create_element(array('id' => 'reg_captcha',
                 'type' => 'text',
@@ -189,12 +189,17 @@ if (isset($registro_valido)) {
             </div>
         </div>
         <br>
-        <div class="">
-            <input type="button" id="regform_ext" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" value="<?php echo $language_text['registro_usuario']['registrar']; ?>" data-tpform="<?php echo Inicio::EXTERNOS; ?>">
+        <div class="col-sm-12">
+            <div class="col-sm-2">
+            </div>
+            <div class="col-sm-8">
+                <input type="button" id="regform_ext" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" value="<?php echo $language_text['registro_usuario']['registrar']; ?>" data-tpform="<?php echo Inicio::EXTERNOS; ?>">
+            </div>
         </div>
 
     </div>
     <?php echo form_close(); ?>
+    <br><br>
 </div>
 
 <script type="text/javascript">
