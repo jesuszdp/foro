@@ -13,9 +13,7 @@ label.formulario {
 	color: #FFF;
 }
 .page-section.background-img{
-	/* background: transparent url("../img/preview/background-img-slider.jpg") 50% 0 repeat !important; */
-	/* background: transparent url("../img/preview/Img_1_head.png") 50% 0 repeat !important; */
-	background-color: #fff;
+	background: transparent url("../img/preview/background-img-slider.jpg") 50% 0 repeat !important;
 	background-position: 50% 0 !important;
 	background-size: cover !important;
 }
@@ -25,7 +23,7 @@ label.formulario {
 }
 .caption-title{
 	font-size: 28px;
-	color: #333;
+	color: #FFF;
 }
 .form-background{
 	background-color: rgba(13,29,49,0.8);
@@ -60,10 +58,5 @@ label.formulario {
 	font-weight: 600;
 }
 .form-control {
-	font-size: 13px;
-}
-
-label {
-    font-weight: 300;
-    text-align: left !important;
+	font-size: 16px;
 }

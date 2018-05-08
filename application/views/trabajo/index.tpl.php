@@ -32,7 +32,7 @@
 	    						echo '<td>'.$value['fecha'].'</td>';
 	    						echo '<td>'.$value['estado'].'</td>';
 	    						$site = site_url('registro_investigacion/ver/'.$value['folio']);
-	    						echo '<td><a href="'.$site.'" class="btn btn-primary pull-right"><i class="fa fa-eye" aria-hidden="true"></i></a></td>';
+	    						echo '<td><a href="'.$site.'" class="btn btn-theme animated flipInY visible pull-right"><i class="fa fa-eye" aria-hidden="true"></i></a></td>';
 	    						echo '</tr>';
 	    					}
 	    				}

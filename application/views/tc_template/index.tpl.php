@@ -31,6 +31,7 @@
     <?php echo css("datepicker.less"); ?>
 
     <?php echo css('template_foro/apprise.css'); ?>
+    <?php echo css('custom.css') ?>
 
 
     <?php echo js("jquery.js"); ?>

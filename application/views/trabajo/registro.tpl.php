@@ -2,7 +2,7 @@
 <?php //pr($language_text); ?>
 
 <div class="panel panel-default">
-    <h1 class="page-head-line text-center"><?php echo $language_text['registro_trabajo']['titulo_registro'];?></h1>
+    <h3 class="page-head-line text-center"><?php echo $language_text['registro_trabajo']['titulo_registro'];?></h3>
     <div class="panel-body">
     	<div class="container">
     		<div class="row">
