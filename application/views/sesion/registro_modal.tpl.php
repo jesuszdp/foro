@@ -33,8 +33,8 @@
         </div>
     </div>
 </div>
-<div class="col-md-6 col-lg-4">
-  <br><br><br><br>  
+<div class="col-md-6 col-lg-6">
+  <br><br><br><br>
     <?php echo $language_text['registro_usuario']['convocatoria_registro']; ?>
 </div>
 <!-- </div>
