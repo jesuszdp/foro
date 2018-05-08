@@ -1,7 +1,7 @@
 <!-- <section class="page-section color">
     <div class="container">
         <div class="container"> -->
-<div class="col-md-6 col-lg-8">
+<div class="col-md-6 col-lg-6">
     <div class="form-background">
         <div class="form-header color">
             <h1 class="section-title">
