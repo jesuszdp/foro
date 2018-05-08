@@ -2,14 +2,13 @@
     <div class="container">
         <div class="container"> -->
 <div class="col-md-6 col-lg-6">
+  <h1 class="section-title">
+      <span class="icon-inner"><span class="fa-stack"><i class="fa rhex fa-stack-2x"></i><i class="fa fa-ticket fa-stack-1x"></i></span></span>
+      <span class="title-inner"><?php echo $language_text['registro_usuario']['registro_usuario_titulo']; ?></span>
+  </h1>
     <div class="form-background">
-        <div class="form-header color">
-            <h1 class="section-title">
-                <span class="icon-inner"><span class="fa-stack"><i class="fa rhex fa-stack-2x"></i><i class="fa fa-ticket fa-stack-1x"></i></span></span>
-                <span class="title-inner"><?php echo $language_text['registro_usuario']['registro_usuario_titulo']; ?></span>
-            </h1>
-        </div>
-
+        <!-- <div class="form-header color">
+        </div> -->
         <div class="login-page">
             <ul class="nav nav-tabs">
                 <li class="active"><a data-toggle="tab" href="#r_internos"><?php echo $language_text['registro_usuario']['tab_interno']; ?></a></li>
@@ -35,6 +34,7 @@
     </div>
 </div>
 <div class="col-md-6 col-lg-4">
+  <br><br><br><br>  
     <?php echo $language_text['registro_usuario']['convocatoria_registro']; ?>
 </div>
 <!-- </div>
