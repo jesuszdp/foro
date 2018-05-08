@@ -218,8 +218,8 @@ class Inicio extends MY_Controller {
                 //$datos['recovery'] = true;
             }
         } else if ($this->input->post() && $code != null) {
-            $this->form_validation->set_rules('new_password', 'Contraseña', 'required');
-            $this->form_validation->set_rules('new_password_confirm', 'Confirmar contraseña', 'required|matches[new_password]');
+            $this->form_validation->set_rules('new_password', 'Contraseña', 'trim|required|min_length[8]');
+            $this->form_validation->set_rules('new_password_confirm', 'Confirmar contraseña', 'trim|required|matches[new_password]');
             if ($this->form_validation->run() == TRUE) {
                 $new_password = $this->input->post('new_password', true);
                 $datos['success'] = $this->sesion->update_password($code, $new_password);
