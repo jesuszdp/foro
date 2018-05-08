@@ -18,7 +18,7 @@ class Inicio extends MY_Controller {
     const INTERNOS = 'internos', EXTERNOS = 'externos', REGISTRO_USUARIO = "registro_usuario";
 
     public function __construct() {
-        $this->grupo_language_text = ['registro_usuario', 'inicio_sesion', 'mensajes', "listado_trabajo", "dashboard"]; //Grupo de idiomas para el controlador actual
+        $this->grupo_language_text = ['registro_usuario', 'inicio_sesion', 'mensajes', "listado_trabajo", "dashboard", "jsgrid_elementos"]; //Grupo de idiomas para el controlador actual
         parent::__construct();
         $this->load->library('form_complete');
         $this->load->library('form_validation');

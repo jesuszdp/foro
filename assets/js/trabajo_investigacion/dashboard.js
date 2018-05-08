@@ -22,15 +22,15 @@ function registros() {
         },
         pageButtonCount: 5,
         pagerFormat: "Páginas: {pageIndex} de {pageCount}    {first} {prev} {pages} {next} {last}   Total: {itemCount}",
-        pagePrevText: "Anterior",
-        pageNextText: "Siguiente",
-        pageFirstText: "Primero",
-        pageLastText: "Último",
+        pagePrevText: language_text.jsgrid_elementos.anterior_pag_js,
+        pageNextText: language_text.jsgrid_elementos.siguiente_pag_js,
+        pageFirstText: language_text.jsgrid_elementos.primero_pag_js,
+        pageLastText: language_text.jsgrid_elementos.ultimo_pag_js,
         pageNavigatorNextText: "...",
         pageNavigatorPrevText: "...",
-        noDataContent: "No se encontraron datos",
+        noDataContent: language_text.jsgrid_elementos.datos_no_encontrados_js,
         invalidMessage: "",
-        loadMessage: "Por favor espere",
+        loadMessage: language_text.jsgrid_elementos.esperar_js,
         onItemUpdating: function (args) {
         },
         onItemEditing: function (args) {
@@ -49,11 +49,6 @@ function registros() {
                     dataType: "json"
                 })
                         .done(function (result) {
-                            console.log(result);
-//                            var depuracion = get_depurar_totales(result.data);
-//                            update_reporte_indicador(depuracion);
-//                            console.log(depuracion);
-//                            console.log(result.data);
                             var estado_tmp;
                             var nombre_metodologia_tmp;
                             var contadores = {total_delegacion: 0, total_umae: 0, total_externos: 0, total_internos: 0};
@@ -116,14 +111,18 @@ function registros() {
             {name: "fecha", title: name_fields.fecha, type: "text", inserting: false, editing: false},
             {name: "estado", title: name_fields.estado, type: "text", inserting: false, editing: false},
             {name: "es_imss", title: name_fields.es_imss, type: "text", inserting: false, editing: false},
-//            {type: "control", editButton: false, deleteButton: false,
-//                searchModeButtonTooltip: "Cambiar a modo búsqueda", // tooltip of switching filtering/inserting button in inserting mode
-//                editButtonTooltip: "Editar", // tooltip of edit item button
-//                searchButtonTooltip: "Buscar", // tooltip of search button
-//                clearFilterButtonTooltip: "Limpiar filtros de búsqueda", // tooltip of clear filter button
-//                updateButtonTooltip: "Actualizar", // tooltip of update item button
-//                cancelEditButtonTooltip: "Cancelar", // tooltip of cancel editing button
-//            }
+            {type: "control", editButton: false, deleteButton: false, width: 40,
+                searchModeButtonTooltip: language_text.jsgrid_elementos.cambio_busqueda, // tooltip of switching filtering/inserting button in inserting mode
+                editButtonTooltip: language_text.jsgrid_elementos.editar, // tooltip of edit item button
+                searchButtonTooltip: language_text.jsgrid_elementos.limpiar_filtros_busqueda, // tooltip of search button
+                clearFilterButtonTooltip: language_text.jsgrid_elementos.actualizar_js, // tooltip of clear filter button
+                updateButtonTooltip: language_text.jsgrid_elementoscancelar_js, // tooltip of update item button
+                cancelEditButtonTooltip: language_text.jsgrid_elementos.buscar_js, // tooltip of cancel editing button
+                itemTemplate: function (value, item) {
+                    var result = get_detalle(item);
+                    return result;
+                }
+            }
         ]
     });
 }
@@ -165,4 +164,13 @@ function tablero_contador(contadores) {
     $("#internos").html(contadores.total_internos);
     $("#delegacion").html(contadores.total_delegacion);
     $("#umae").html(contadores.total_umae);
+}
+
+function get_detalle(item) {
+    console.log(item);
+    var ruta = site_url + "/registro_investigacion/ver/" + item.folio;
+    var liga = '<a href="' + ruta + '" class="btn btn-primary pull-right" title="'+ language_text.listado_trabajo.accion_ver_detalle_inv +'">' +
+            '<i class="fa fa-eye" aria-hidden="true"></i>' +
+            '</a>';
+    return liga;
 }
