@@ -22,9 +22,10 @@
 					?>
     			</div>
     		</div><!--row-->
-    		<?php echo form_open('registro_investigacion/nuevo', array('id' => 'form_registro_investigacion', 'class'=>'form-horizontal', 'data-toggle'=>"validator", 'role'=>"form")); ?>
+    		<?php echo form_open_multipart('registro_investigacion/nuevo', array('id' => 'form_registro_investigacion', 'class'=>'form-horizontal', 'data-toggle'=>"validator", 'role'=>"form")); ?>
     		<div class="row">
-	    		<div class="col-sm-offset-2 col-sm-8">
+    			<div class="col-sm-offset-2 col-sm-8">
+    			
 				    <div class="form-group">
 				      <label for="titulo_trabajo" class="col-sm-3 control-label"><?php echo $language_text['registro_trabajo']['titulo_trabajo'];?>*:</label>
 				      <div class="col-sm-9">
@@ -32,6 +33,7 @@
 				      <?php echo form_error_format('titulo_trabajo');?>
 				      </div>
 				    </div>
+
 				     <div class="form-group">
 				      <label for="pregunta_investigacion" class="col-sm-3 control-label"><?php echo $language_text['registro_trabajo']['pregunta_investigacion'];?>*:</label>
 				      <div class="col-sm-9">
@@ -39,13 +41,15 @@
 				      	<?php echo form_error_format('pregunta_investigacion');?>
 				      </div>
 				    </div>
+
 				     <div class="form-group">
 				      <label for="problema" class="col-sm-3 control-label"><?php echo $language_text['registro_trabajo']['problema'];?>*:</label>
 				      <div class="col-sm-9">
 				      	<textarea class="form-control" rows="3" id="problema" name="problema" ><?php if(isset($trabajo['problema'])) echo $trabajo['problema'];?></textarea>
 				      	<?php echo form_error_format('problema');?>
 				      </div>
-				      </div>
+				     </div>
+
 				    <div class="form-group">
 				      <label for="objetivo" class="col-sm-3 control-label" ><?php echo $language_text['registro_trabajo']['objetivo'];?>*:</label>
 				      <div class="col-sm-9">
@@ -53,6 +57,7 @@
 				      <?php echo form_error_format('objetivo');?>
 				      </div>
 				    </div>
+
 				     <div class="form-group">
 				      <label for="justificacion" class="col-sm-3 control-label"><?php echo $language_text['registro_trabajo']['justificacion'];?>*:</label>
 				      <div class="col-sm-9">
@@ -60,6 +65,7 @@
 				      <?php echo form_error_format('justificacion');?>
 				      </div>
 				    </div>
+
 				    <div class="form-group">
 				      <label for="antecedentes" class="col-sm-3 control-label"><?php echo $language_text['registro_trabajo']['antecedentes'];?>*:</label>
 				      <div class="col-sm-9">
@@ -67,6 +73,7 @@
 				      	<?php echo form_error_format('antecedentes');?>
 				      </div>
 				    </div>
+
 				    <div class="form-group">
 				      <label for="tipo_metodologia" class="col-sm-3 control-label"><?php echo $language_text['registro_trabajo']['tipo_metodologia'];?>*:</label>
 				      <div class="col-sm-9">
@@ -81,6 +88,7 @@
 	  					<?php echo form_error_format('tipo_metodologia');?>
 				      </div>
 				    </div>
+
 				     <div class="form-group">
 				      <label for="metodologia" class="col-sm-3 control-label"><?php echo $language_text['registro_trabajo']['metodologia'];?>*:</label>
 				      <div class="col-sm-9">
@@ -88,7 +96,7 @@
 				      	<?php echo form_error_format('metodologia');?>
 				      </div>
 				    </div>
-				    <div class="form-group">
+
 				    <div class="form-group">
 				      <label for="consideraciones_eticas" class="col-sm-3 control-label"><?php echo $language_text['registro_trabajo']['consideraciones_eticas'];?>*:</label>
 				      <div class="col-sm-9">
@@ -96,12 +104,15 @@
 				      	<?php echo form_error_format('consideraciones_eticas');?>
 				      </div>
 				    </div>
+
+				    <div class="form-group">
 				      <label for="hipotesis" class="col-sm-3 control-label"><?php echo $language_text['registro_trabajo']['hipotesis'];?>*:</label>
 				      <div class="col-sm-9">
 				      	<textarea class="form-control" rows="3" id="hipotesis" name="hipotesis" ><?php if(isset($trabajo['hipotesis'])) echo $trabajo['hipotesis'];?></textarea>
 				      	<?php echo form_error_format('hipotesis');?>
 				      </div>
 				    </div>
+
 				    <div class="form-group">
 				      <label for="resultados" class="col-sm-3 control-label"><?php echo $language_text['registro_trabajo']['resultados'];?>*:</label>
 				      <div class="col-sm-9">
@@ -109,6 +120,7 @@
 				      	<?php echo form_error_format('resultados');?>
 				      </div>
 				    </div>
+
 				    <div class="form-group">
 				      <label for="conclusiones" class="col-sm-3 control-label"><?php echo $language_text['registro_trabajo']['conclusiones'];?>*:</label>
 				      <div class="col-sm-9">
@@ -116,6 +128,7 @@
 				      	<?php echo form_error_format('conclusiones');?>
 				      </div>
 				    </div>
+
 						<div class="form-group">
 							<label for="publicado" class="col-sm-3 control-label"><?php echo $language_text['registro_trabajo']['publicado'];?>*</label>
 							<div class="col-sm-9">
@@ -123,13 +136,20 @@
 	  						<input type="radio" name="publicado" value="false" checked><?php echo $language_text['template_general']['no_op'];?><br>
 							</div>
 						</div>
+
 						<div class="form-group">
 				      <label for="referencia" class="col-sm-3 control-label"><?php echo $language_text['registro_trabajo']['referencia'];?></label>
 				      <div class="col-sm-9">
 				      	<textarea class="form-control" rows="4" id="referencia" name="referencia" disabled><?php if(isset($trabajo['referencia'])) echo $trabajo['referencia'];?></textarea>
 				      </div>
 				    </div>
-					</div>
+
+				    <div class="form-group">
+							<label for="trabajo_archivo"> Tarjeton </label>
+							<input type="file" id="trabajo_archivo" name="trabajo_archivo" accept="application/pdf, application/msword">
+						</div>
+
+					</div><!--col-->
 				</div> <!--row-->
 				<div class="row">
 					<div class="col-sm-12">
@@ -196,7 +216,7 @@
           <br><br>
 			  	<div class="col-sm-offset-2 col-sm-8">
 			  	<center>
-			  		<button class="btn btn-theme animated flipInY visible"><?php echo $language_text['registro_trabajo']['registrar_trabajo'];?></button>
+			  		<button class="btn btn-theme animated flipInY visible" type="submit"><?php echo $language_text['registro_trabajo']['registrar_trabajo'];?></button>
 			  		<a href="<?php echo site_url('registro_investigacion');?>" class="btn btn-theme animated flipInY visible"><?php echo $language_text['template_general']['cancelar'];?></a>
 			  	</center>
 			  	</div>

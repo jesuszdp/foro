@@ -75,8 +75,35 @@ class Registro_investigacion extends MY_Controller {
 
                 if($this->form_validation->run() == TRUE)
                 {
+                    pr($post);
+                    pr($_FILES);
+
                 	$datos_sesion = $this->get_datos_sesion();
         			$id_informacion_usuario = $datos_sesion['id_informacion_usuario'];
+                    $ruta = './uploads/'.$id_informacion_usuario.'/';
+
+                    if(crea_directorio($ruta))
+                    {
+
+                        //Archivo
+                        $config['upload_path'] = $ruta;
+                        $config['allowed_types'] = 'pdf|docx|doc';
+                        $config['remove_spaces'] = TRUE;
+                        $config['max_size'] = 1024 * 15;
+                        $this->load->library('upload', $config);
+                    
+                        if ($this->upload->do_upload('trabajo_archivo'))
+                        {
+                            $upload_data = array('upload_data' => $this->upload->data());
+
+                            pr($upload_data);
+                        } else
+                        {
+                            $error = array('error' => $this->upload->display_errors());
+                            pr($error);
+                        }
+                    }
+                    /*
         			$convocatoria = $this->convocatoria->get_activa()[0];
         			$id_convocatoria = $convocatoria['id_convocatoria'];
                 	$post['id_convocatoria'] = $id_convocatoria;
@@ -178,7 +205,9 @@ class Registro_investigacion extends MY_Controller {
                     $output['msg_type'] = $msg_type;
                     $output['folio'] = $folio;
                     //pr($datos);
-                }else
+                    */
+                }
+                else
                 {
                     unset($post['autor_imss']);
                     unset($post['autor_matricula']);
