@@ -103,7 +103,7 @@
                 
             </div>
             <div class="col-sm-12">                
-                <div class="text-center"><br><label for="user" class="formulario">¿Olvidó su contraseña? &nbsp;<a href="<?php echo site_url('inicio/recuperar_password'); ?>" class="liga-login">Solicitela aquí</a></label></div>
+                <div class="text-center"><br><label for="user" class="formulario"><?php echo $language_text['inicio_sesion']['recuperar_contrasenia_is']; ?></label></div>
             </div>
         </div>
         <!-- </form> -->

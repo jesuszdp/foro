@@ -1,3 +1,6 @@
+<?php // pr($datos);
+$controlador = $this->uri->rsegment(1);
+?> 
 <style type="text/css">
 	.titulo{
 		font-weight: 500;
@@ -37,6 +40,15 @@
 	    		</div>
 	    	</div>
     	</div> <!--row-->
+        <div class="row">
+	    	<div class="col-sm-12">
+	    		<div class="div-borde">
+	    		<strong><?php echo $language_text['detalle_trabajo']['ver_archivo_detalle'];?>:</strong>
+                        <?php echo '<a href="' . site_url($controlador . '/ver_archivo/' . encrypt_base64($datos['id_archivo'])) . '" target="_blank"><span class="fa fa-search"></span> ' . $datos['nombre_fisico'] . '</a><br>';?>
+                        <?php // echo '<a href="' . site_url($controlador . '/ver_archivo/' . $datos['id_archivo']) . '" target="_blank"><span class="fa fa-search"></span> ' . $language_text['detalle_trabajo']['ver_archivo_detalle'] . '</a><br>';?>
+	    		</div>
+	    	</div>
+	    </div>
     	<div class="row">
     		<div class="col-sm-12">
     			<h2 class="titulo"><?php echo $language_text['detalle_trabajo']['autp_detalle'];?></h2>
@@ -257,5 +269,6 @@
 	    		</div>
 	    	</div>
 	    </div><!--row-->
+	    <!--row-->
     </div>
 </div>

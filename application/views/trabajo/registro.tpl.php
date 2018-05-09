@@ -1,8 +1,8 @@
 <?php echo js('trabajo_investigacion/registro.js'); ?>
-<?php //pr($language_text); ?>
+<?php //pr($language_text);  ?>
 
 <div class="panel panel-default from-trabajos">
-    <h3 class="page-head-line text-center"><?php echo $language_text['registro_trabajo']['titulo_registro'];?></h3>
+    <h3 class="page-head-line text-center"><?php echo $language_text['registro_trabajo']['titulo_registro']; ?></h3>
     <div class="panel-body">
     	<div class="container">
     		<div class="row">

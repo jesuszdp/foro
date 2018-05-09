@@ -40,7 +40,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['form_validation_is_unico_datos_usuarios'] = 'The {field} field must contain a unique value.';
 $lang['form_validation_check_captcha'] = 'Please enter the characters correctly';
-
+$lang['form_validation_valida_correo_electronico'] = 'The {field} field must contain a valid email address.';
 /*
 
 alpha_accent_space_dot_quot

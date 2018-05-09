@@ -73,13 +73,10 @@ class Inicio extends MY_Controller {
                             )
                         );
                         $foro_educacion['usuario'] = $this->usuario->get_usuarios($params)[0];
-//                        pr($foro_educacion);
                         $foro_educacion['usuario']['niveles_acceso'] = $this->sesion->get_niveles_acceso($foro_educacion['usuario']['id_usuario']);
-                        $foro_educacion['language'] = $foro_educacion['usuario']['language'];
-//                        $die_sipimss['usuario']['workflow'] = $this->sesion->get_info_convocatoria($die_sipimss['usuario']['id_docente']);
+                        update_lenguaje($foro_educacion['usuario']['lenguaje']);
                         $this->session->set_userdata(En_datos_sesion::__INSTANCIA, $foro_educacion);
-                        //redirect(site_url() . '/inicio/inicio');
-                        $this->redireccion_inicio($foro_educacion);
+//                        $this->redireccion_inicio($foro_educacion);
                         break;
                     case 2:
                         $data['errores'] = $data['language_text']['mensajes']['msg_contrasenia_incorrecta'];
@@ -202,7 +199,9 @@ class Inicio extends MY_Controller {
     }
 
     public function cerrar_sesion() {
+        $idioma = $this->obtener_idioma();
         $this->session->sess_destroy();
+        update_lenguaje($idioma);//Agrega el último idioma
         redirect(site_url());
     }
 
@@ -218,8 +217,8 @@ class Inicio extends MY_Controller {
                 //$datos['recovery'] = true;
             }
         } else if ($this->input->post() && $code != null) {
-            $this->form_validation->set_rules('new_password', 'Contraseña', 'required');
-            $this->form_validation->set_rules('new_password_confirm', 'Confirmar contraseña', 'required|matches[new_password]');
+            $this->form_validation->set_rules('new_password', 'Contraseña', 'trim|required|min_length[8]');
+            $this->form_validation->set_rules('new_password_confirm', 'Confirmar contraseña', 'trim|required|matches[new_password]');
             if ($this->form_validation->run() == TRUE) {
                 $new_password = $this->input->post('new_password', true);
                 $datos['success'] = $this->sesion->update_password($code, $new_password);
@@ -326,6 +325,7 @@ class Inicio extends MY_Controller {
             $output['delegaciones'] = dropdown_options($this->catalogo->get_delegaciones(null, null /* array('oficinas_centrales' => false) */), 'clave_delegacional', 'nombre');
             $output['paises'] = dropdown_options($this->catalogo->get_paises(), "clave_pais", "lang", $this->obtener_idioma());
             $output['language_text'] = $this->language_text;
+            $output['post'] = $this->input->post(null, TRUE) ;
             $this->load->view($config['ruta_registro'], $output);
         }
     }
