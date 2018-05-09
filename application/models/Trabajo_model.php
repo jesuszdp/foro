@@ -174,12 +174,14 @@ class Trabajo_model extends CI_Model
         $this->db->flush_cache();
         $this->db->reset_query();
 
-        $this->db->select(array('ti.*',"et.lang estado_nombre","m.lang tipo_metodologia"));
+        $this->db->select(array('ti.*',"et.lang estado_nombre","m.lang tipo_metodologia", "f.id_archivo", "f.nombre_fisico"));
         $this->db->where(array('ti.folio'=>$folio));
-        $this->db->join('foro.tipo_metodologia m','m.id_tipo_metodologia = ti.id_tipo_metodologia', 'left');
-        $this->db->join('foro.estado_trabajo et','ti.clave_estado = et.clave_estado');
+        $this->db->join('foro.tipo_metodologia m','m.id_tipo_metodologia = ti.id_tipo_metodologia');
+        $this->db->join('foro.estado_trabajo et','ti.clave_estado = et.clave_estado', 'left');
+        $this->db->join('public.archivos f','f.folio_investigacion = ti.folio', 'left');
         $res = $this->db->get('foro.trabajo_investigacion ti');
 
+//        pr($this->db->last_query());
         $this->db->flush_cache();
         $this->db->reset_query();    
         
