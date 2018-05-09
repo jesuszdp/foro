@@ -113,11 +113,13 @@ $config["form_registro_investigacion"] = array(
         'label' => 'Objetivo',
         'rules' => 'required'
     ),
+    /*
     array(
         'field' => 'hipotesis',
         'label' => 'Hipotesis',
         'rules' => 'required'
     ),
+    */
     array(
         'field' => 'resultados',
         'label' => 'Resultados',

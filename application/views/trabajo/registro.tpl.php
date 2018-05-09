@@ -115,7 +115,6 @@
 				      <label for="hipotesis" class="col-sm-3 control-label"><?php echo $language_text['registro_trabajo']['hipotesis'];?>*:</label>
 				      <div class="col-sm-9">
 				      	<textarea class="form-control" rows="3" id="hipotesis" name="hipotesis" ><?php if(isset($trabajo['hipotesis'])) echo $trabajo['hipotesis'];?></textarea>
-				      	<?php echo form_error_format('hipotesis');?>
 				      </div>
 				    </div>
 
