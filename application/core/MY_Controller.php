@@ -36,7 +36,6 @@ class MY_Controller extends CI_Controller {
             }
             $menu['lateral'] = $this->menu->get_tree($menu['lateral'], null, $this->obtener_idioma());
             $this->template->setNav($menu);
-            $this->carga_imagen();
         } else {
             $menu = $this->menu->get_menu_no_sesion();
             $menu['lateral_no_sesion'] = $this->menu->get_tree($menu['lateral_no_sesion'], null, $this->obtener_idioma());
@@ -58,14 +57,7 @@ class MY_Controller extends CI_Controller {
 
     private function carga_imagen() {
         //carga datos de imagen del docente
-        $id_docente = $this->get_datos_sesion(En_datos_sesion::ID_DOCENTE); //Carga identificador del docente
-        if (!is_null($id_docente)) {
-            $this->load->model("Docente_model", "dm");
-            /* Cargar imagen de perfil */
-//            set_datos_imagen_perfil
-            $imagen_perfil = $this->dm->get_imagen_perfil($id_docente);
-            $this->template->set_datos_imagen_perfil($imagen_perfil); //Obtener imagen del docente
-        }
+       
     }
 
     protected function genera_menu() {
@@ -217,7 +209,7 @@ class MY_Controller extends CI_Controller {
         $result_file = $this->fm->get_file($file_id); //Se valida que exista registro en base de datos
         if (!empty($result_file)) {
 
-            $ruta_archivo = '.' . $result_file[0]['ruta'] . $result_file[0]['nombre_fisico'];
+            $ruta_archivo =$result_file[0]['ruta'] . $result_file[0]['nombre_fisico'];
             if (file_exists($ruta_archivo)) {
 //                pr('entra');
                 //$main_content = $this->load->view('template/pdfjs/viewer', array('ruta_archivo'=>$ruta_archivo), true);
