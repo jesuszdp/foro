@@ -115,7 +115,8 @@ class Registro_investigacion extends MY_Controller {
                             //pr($upload_data);
                             $archivo = array(
                                 'nombre_fisico' => $upload_data['upload_data']['file_name'],
-                                'ruta' => $upload_data['upload_data']['file_path'],
+//                                'ruta' => $upload_data['upload_data']['file_path'],
+                                'ruta' => $ruta,
                                 'folio_investigacion' => $folio
                             );
 
