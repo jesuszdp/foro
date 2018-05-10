@@ -14,8 +14,10 @@ class En_datos_sesion {
             LANGUAGE_DEFAULT = 'es',
             MATRICULA = 'matricula',
             ID_USUARIO = 'id_usuario',
-            ID_DOCENTE = 'id_docente',
-            NOMBRE_DOCENTE = 'nombre_docente'
+            ID_DOCENTE = 'id_informacion_usuario',
+            NOMBRE_DOCENTE = 'nombre',
+            ES_IMSS = 'es_imss',
+            EMAIL = 'email'
 
     ;
 }

@@ -87,20 +87,20 @@ class Gestion_idiomas extends MY_Controller {
 
         $this->db->schema = 'idiomas';
         $crud = $this->new_crud();
-        $crud->set_table('tipo_etiqueta');
+        $crud->set_table('tipo');
         $crud->set_subject('Tipo de etiquetas');
-        $crud->set_primary_key('clave_tipo_etiqueta');
+        $crud->set_primary_key('clave_tipo');
 
-        $crud->columns("clave_tipo_etiqueta", "nombre", "descripcion");
-        $crud->fields("clave_tipo_etiqueta", "nombre", "descripcion");
+        $crud->columns("clave_tipo", "nombre", "descripcion");
+        $crud->fields("clave_tipo", "nombre", "descripcion");
 
-        $crud->required_fields("clave_tipo_etiqueta", "nombre");
-        $crud->display_as("clave_tipo_etiqueta", 'Clave del tipo etiqueta');
+        $crud->required_fields("clave_tipo", "nombre");
+        $crud->display_as("clave_tipo", 'Clave del tipo etiqueta');
         $crud->display_as('nombre', 'Nombre del tipo etiqueta');
         $crud->display_as('descripcion', 'Descripción');
 
         $crud->edit_fields('nombre', 'descripcion');
-        $crud->add_fields('clave_tipo_etiqueta', 'nombre', 'descripcion');
+        $crud->add_fields('clave_tipo', 'nombre', 'descripcion');
 
         $data_view['output'] = $crud->render();
         $data_view['title'] = "Tipo de etiquetas";

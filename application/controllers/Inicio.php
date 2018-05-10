@@ -61,7 +61,7 @@ class Inicio extends MY_Controller {
                             'where' => array('usuarios.username' => $post['usuario'], 'usuarios.email' => $post["usuario"]),
                             'where_funcion' => array('usuarios.username' => "where", 'usuarios.email' => "or_where"),
                             'select' => array("case when usuarios.username is null then usuarios.email else usuarios.username end username",
-                                "usuarios.email",
+                                "usuarios.email", "inf.es_imss",
                                 "usuarios.id_usuario", "coalesce(inf.matricula, usuarios.username) matricula",
                                 "usuarios.clave_idioma lenguaje",
                                 "inf.id_informacion_usuario", "inf.nombre", "inf.apellido_paterno", "inf.apellido_materno",
@@ -109,15 +109,15 @@ class Inicio extends MY_Controller {
         }
     }
 
-    private function redireccion_inicio(&$foro_educacion){
+    private function redireccion_inicio(&$foro_educacion) {
         //pr($foro_educacion); pr(count($foro_educacion['usuario']['niveles_acceso']));
         //pr(LNiveles_acceso::Investigador); pr($foro_educacion['usuario']['niveles_acceso']['0']['clave_rol']);
         //pr($foro_educacion['usuario']['niveles_acceso']['0']['clave_rol'] == LNiveles_acceso::Investigador);
         ///Redirección de investigador
-        if (isset($foro_educacion['usuario']['niveles_acceso']['0']['clave_rol']) && $foro_educacion['usuario']['niveles_acceso']['0']['clave_rol'] == LNiveles_acceso::Investigador && count($foro_educacion['usuario']['niveles_acceso'])==1) {
+        if (isset($foro_educacion['usuario']['niveles_acceso']['0']['clave_rol']) && $foro_educacion['usuario']['niveles_acceso']['0']['clave_rol'] == LNiveles_acceso::Investigador && count($foro_educacion['usuario']['niveles_acceso']) == 1) {
             redirect(site_url('/registro_investigacion/index'));
-        ////Redirección de revisor
-        } else if (isset($foro_educacion['usuario']['niveles_acceso']['0']['clave_rol']) && $foro_educacion['usuario']['niveles_acceso']['0']['clave_rol'] == LNiveles_acceso::Mesa && count($foro_educacion['usuario']['niveles_acceso'])==1) {
+            ////Redirección de revisor
+        } else if (isset($foro_educacion['usuario']['niveles_acceso']['0']['clave_rol']) && $foro_educacion['usuario']['niveles_acceso']['0']['clave_rol'] == LNiveles_acceso::Mesa && count($foro_educacion['usuario']['niveles_acceso']) == 1) {
             redirect(site_url('/registro_investigacion/index'));
         } else {
             redirect(site_url('inicio/inicio')); //Redirección de moderador
@@ -134,7 +134,9 @@ class Inicio extends MY_Controller {
             $this->load->model('Catalogo_model', 'catalogo');
             $data['delegaciones'] = dropdown_options($this->catalogo->get_delegaciones(null, array('oficinas_centrales' => true)), 'clave_delegacional', 'nombre');
             $data['paises'] = dropdown_options($this->catalogo->get_paises(), "clave_pais", "lang", $this->obtener_idioma()); //Obtiene el idioma
+            $data['tipo_registro'] = Inicio::EXTERNOS;
             $data['registro_externos'] = $this->load->view("sesion/registro_externos.php", $data, TRUE);
+            $data['tipo_registro'] = Inicio::INTERNOS;
             $data['registro_internos'] = $this->load->view("sesion/registro_internos.php", $data, TRUE);
             $main_content = $this->load->view("sesion/registro_modal.tpl.php", $data, TRUE);
 
@@ -201,7 +203,7 @@ class Inicio extends MY_Controller {
     public function cerrar_sesion() {
         $idioma = $this->obtener_idioma();
         $this->session->sess_destroy();
-        update_lenguaje($idioma);//Agrega el último idioma
+        update_lenguaje($idioma); //Agrega el último idioma
         redirect(site_url());
     }
 
@@ -325,7 +327,8 @@ class Inicio extends MY_Controller {
             $output['delegaciones'] = dropdown_options($this->catalogo->get_delegaciones(null, null /* array('oficinas_centrales' => false) */), 'clave_delegacional', 'nombre');
             $output['paises'] = dropdown_options($this->catalogo->get_paises(), "clave_pais", "lang", $this->obtener_idioma());
             $output['language_text'] = $this->language_text;
-            $output['post'] = $this->input->post(null, TRUE) ;
+            $output['tipo_registro'] = $tipo_registro;
+            $output['post'] = $this->input->post(null, TRUE);
             $this->load->view($config['ruta_registro'], $output);
         }
     }
@@ -333,7 +336,7 @@ class Inicio extends MY_Controller {
     public function mesa_ayuda() {
         $this->language_text += $this->obtener_grupos_texto(array('template_general'), $this->obtener_idioma()); //textos del formulario
         $datos['language_text'] = $this->language_text;
-        $this->template->set_titulo_modal('<h4><span class="glyphicon glyphicon-lock"></span>'.$datos['language_text']['template_general']['mesa_ayuda_titulo'].'</h4>');
+        $this->template->set_titulo_modal('<h4><span class="glyphicon glyphicon-lock"></span>' . $datos['language_text']['template_general']['mesa_ayuda_titulo'] . '</h4>');
         $view = $this->load->view('sesion/mesa_ayuda.tpl.php', $datos, true);
         $this->template->set_cuerpo_modal($view);
         $this->template->get_modal();

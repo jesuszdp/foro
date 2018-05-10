@@ -5,8 +5,8 @@ if (isset($registro_valido)) {
 }
 ?>
 
-<div id="area_registro_<?php echo Inicio::INTERNOS; ?>" class="form area_registro">
-    <?php echo form_open('inicio/registro/' . Inicio::INTERNOS, array('id' => 'registro_form' . Inicio::EXTERNOS, 'autocomplete' => 'off')); ?>
+<div id="area_registro_<?php echo $tipo_registro; ?>" class="form area_registro">
+    <?php echo form_open('inicio/registro/' . $tipo_registro, array('id' => 'registro_form' . $tipo_registro, 'autocomplete' => 'off')); ?>
     <div class="sign-in-htm">
         <div class="form-group">
             <label class="pull-left form-etiquetas pull-right col-sm-5"><?php echo $language_text['registro_usuario']['ext_nombre']; ?></label>
@@ -193,7 +193,7 @@ if (isset($registro_valido)) {
             <div class="col-sm-2">
             </div>
             <div class="col-sm-8">
-                <input type="button" id="regform_ext" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" value="<?php echo $language_text['registro_usuario']['registrar']; ?>" data-tpform="<?php echo Inicio::EXTERNOS; ?>">
+                <input type="button" id="regform_ext" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" value="<?php echo $language_text['registro_usuario']['registrar']; ?>" data-tpform="<?php echo $tipo_registro; ?>">
             </div>
         </div>
 

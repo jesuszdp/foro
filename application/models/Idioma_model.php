@@ -118,5 +118,148 @@ class Idioma_model extends CI_Model {
         $this->db->reset_query();
         return $salida;
     }
+	
+	 /**
+     * @author LIMA
+     * @fecha 27/04/2018
+     * @param  $params = []
+     * @return $salida
+     * Obtiene los Datos del Grid y de la Busqueda que Hace por Filtros
+     */
+    public function obten_grupo_etiquetas($params = []) 
+    {
+        $this->db->flush_cache();
+        $this->db->reset_query();
+        $usuarios = [];
+        if(isset($params['total'])) 
+           {
+              $select = 'count(*) total';
+           } else {
+              $select = $params['select'];
+           }
+        $this->db->select($select);
+        $this->db->from('idiomas.grupo');    
+        if(isset($params['where']))
+           {
+             foreach($params['where'] as $key => $value)
+              {
+                $this->db->where($key, $value);
+              }
+           }
+        if(isset($params['like'])) 
+           {
+             foreach ($params['like'] as $key => $value)
+              {
+                $this->db->like($key, $value);
+              }
+           }
+        if(isset($params['limit']) && isset($params['offset']) && !isset($params['total'])) 
+           {
+               $this->db->limit($params['limit'], $params['offset']);
+           } else if (isset($params['limit']) && !isset($params['total'])) 
+           {
+               $this->db->limit($params['limit']);
+           }
+        if(isset($params['order_by']) && !isset($params['total'])) 
+           {
+              $order = $params['order_by'] == 'desc' ? $params['order_by'] : 'asc';
+              $this->db->order_by('clave_grupo', $order);
+            }
+        $query = $this->db->get();
+        if ($query) {
+            $usuarios = $query->result_array();
+            $query->free_result(); //Libera la memoria
+        }
+        //pr($this->db->last_query());
+        $this->db->flush_cache();
+        $this->db->reset_query();
+        return $usuarios;
+    }
 
+	 /**
+     * @author LIMA
+     * @fecha 27/04/2018
+     * @param type $tipo = Idiomas::GE, $params = []
+     * @return $salida
+     * Regresa un Verdadero o Falso segun el proceso
+     */
+    public function actualizar_grupo_etiqueta($tipo = Idiomas::GE, $params = []) {
+        $salida = false;
+        switch ($tipo) {
+                case Idiomas::GE:
+                $salida = $this->actualiza_tabla_grupos_etiquetas($params);
+                break;
+        }
+        return $salida;
+    }
+	
+	  /**
+     * @author LIMA
+     * @fecha 27/04/2018
+     * @param  $params = []
+     * @return $salida
+     * Regresa un Verdadero o Falso segun el proceso
+     */
+    private function actualiza_tabla_grupos_etiquetas($params = []) {
+   
+        $grupo_etiqueta_datos = array('clave_grupo' => $params['clave_grupo'],
+                                                    'nombre' => $params['nombre'],
+                                               'descripcion' => $params['descripcion']);
+        $this->db->trans_begin();
+        $this->db->where('clave_grupo',$params['clave_grupo']);
+        $this->db->update('idiomas.grupo', $grupo_etiqueta_datos);
+        if ($this->db->trans_status() === FALSE) 
+           {
+                $this->db->trans_rollback();
+                $salida = false;
+            } else {
+                $this->db->trans_commit();
+                $salida = true;
+           }
+        $this->db->flush_cache();
+        $this->db->reset_query();
+        return $salida;
+    }
+	
+	 public function insertar_grupos_etiquetas($datos_nuevos)
+    {
+        $this->db->insert('idiomas.grupo', $datos_nuevos);
+    }
+  
+
+    public function obtener_claves_grupos($params = null) {
+        $opciones = array();
+
+        if (isset($params['callback'])) {
+            $this->db->where_in('clave_grupo', $params['rules']);
+        }
+
+        $this->db->order_by('nombre', 'asc');
+        $resultado = $this->db->get('idiomas.grupo');
+        $resultado = $resultado->result_array();
+
+        foreach ($resultado as $key => $value) {
+            $opciones[$value['clave_grupo']] = $value['nombre'];
+        }
+
+        return $opciones;
+    }
+
+    public function obtener_tipo_componente($params = null) {
+        $opciones = array();
+
+        if (isset($params['callback'])) {
+            $this->db->where_in('clave_tipo', $params['rules']);
+        }
+
+        $this->db->order_by('nombre', 'asc');
+        $resultado = $this->db->get('idiomas.tipo');
+        $resultado = $resultado->result_array();
+
+        foreach ($resultado as $key => $value) {
+            $opciones[$value['clave_tipo']] = $value['nombre'];
+        }
+
+        return $opciones;
+    }
 }
