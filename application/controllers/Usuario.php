@@ -82,16 +82,17 @@ class Usuario extends MY_Controller
     private function lista_usuarios(&$params = [])
     {
 
+        $filtros = $this->genera_filtros($params);
         $filtros['limit'] = isset($params['pageSize'])? $params['pageSize']:Usuario::LIMIT;
         $filtros['offset'] = isset($params['pageIndex'])?  ($filtros['limit']*($params['pageIndex']-1)):0;
 
         $filtros['select'] = array(
             'usuarios.id_usuario', 'coalesce(inf.matricula, usuarios.username) matricula',
             'concat(inf.nombre, $$ $$, inf.apellido_paterno, $$ $$, inf.apellido_materno) nombre',
-            'del.nombre delegacion', 'uni.nombre unidad'
+            'del.nombre delegacion', 'uni.nombre unidad', 'inf.es_imss', 'usuarios.activo', 
+            '(select array_agg(nombre) from sistema.roles R join sistema.usuario_rol UR on R.clave_rol=UR.clave_rol and UR.id_usuario=usuarios.id_usuario and UR.activo=true) as rol'
         );
-        $filtros['like'] = $this->genera_filtros($params);
-        $usuarios['data'] = $this->usuario->get_usuarios($filtros);
+        $usuarios['data'] = $this->usuario->get_usuarios($filtros); //exit();
         $filtros['total'] = true;
         $total = $this->usuario->get_usuarios($filtros)[0]['total'];
         $usuarios['length'] = $total;
@@ -110,16 +111,22 @@ class Usuario extends MY_Controller
                 switch ($key)
                 {
                     case 'matricula':
-                        $filtros['usuarios.username'] = $value;
+                        $filtros['like']['usuarios.username'] = $value;
                         break;
                     case 'delegacion':
-                        $filtros['G.nombre'] = $value;
+                        $filtros['like']['del.nombre'] = $value;
                         break;
                     case 'unidad':
-                        $filtros['E.nombre'] = $value;
+                        $filtros['like']['uni.nombre'] = $value;
                         break;
                     case 'nombre':
-                        $filtros['nombre'] = $value;
+                        $filtros['like']['inf.nombre'] = $value;
+                        break;
+                    case 'es_imss':
+                        $filtros['where']['inf.es_imss'] = $value;
+                        break;
+                    case 'activo':
+                        $filtros['where']['usuarios.activo'] = $value;
                         break;
                     default:
                         # code...
@@ -211,6 +218,7 @@ class Usuario extends MY_Controller
     private function get_niveles($id_usuario = 0)
     {
         $output['grupos_usuario'] = $this->usuario->get_niveles_acceso($id_usuario);
+        //pr($output);
         $output['view_grupos_usuario'] = $this->load->view('usuario/tabla_niveles.tpl.php', $output, true);
         return $this->load->view('usuario/niveles_acceso.tpl.php', $output, true);
     }

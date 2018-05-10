@@ -421,12 +421,13 @@ class Usuario_model extends MY_Model {
             $order = $params['order_by'] == 'desc' ? $params['order_by'] : 'asc';
             $this->db->order_by('usuarios.username', $order);
         }
+        //pr($this->db->get_compiled_select());
         $query = $this->db->get();
+        //pr($this->db->last_query()); exit();
         if ($query) {
             $usuarios = $query->result_array();
             $query->free_result(); //Libera la memoria
         }
-//        pr($this->db->last_query());
         $this->db->flush_cache();
         $this->db->reset_query();
         return $usuarios;

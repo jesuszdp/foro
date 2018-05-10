@@ -56,6 +56,9 @@ $(function(){
                     {name: 'nombre', title: 'Nombre completo', type: 'text'},
                     {name: 'delegacion', title: 'Delegación', type: 'text'},
                     {name: 'unidad', title: 'Unidad', type: 'text'},
+                    {name: 'es_imss', title: 'Interno', type: 'checkbox', sorting: false},
+                    {name: 'activo', title: 'Activo', type: 'checkbox', sorting: false},
+                    {name: 'rol', title: 'Roles', sorting: false, filtering: false},
                     {type: "control", editButton: false, deleteButton: false, width: "10%",
                      itemTemplate: function (value, item) {
 			 var enlace_editar = '<a href="'+site_url+'/usuario/get_usuarios/'+item.id_usuario+'">Editar</a>';
