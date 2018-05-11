@@ -1,5 +1,5 @@
 <?php echo js('trabajo_investigacion/registro.js'); ?>
-<?php //pr($language_text);  ?>
+<?php // pr($language_text);  ?>
 
 <div class="panel panel-default from-trabajos">
     <h3 class="page-head-line text-center"><?php echo $language_text['registro_trabajo']['titulo_registro']; ?></h3>
@@ -191,9 +191,9 @@
 				  			?>
 				  					<td>
 				  					<select name="autor_sexo[]">
-				  						<option value="H" <?php if($trabajo['autor_sexo'][$i]=='H') echo 'selected';?>>Masculino</option>
-				  						<option value="M" <?php if($trabajo['autor_sexo'][$i]=='M') echo 'selected';?>>Femenino</option>
-				  						<option value="O" <?php if($trabajo['autor_sexo'][$i]=='O') echo 'selected';?>>Otro</option>
+				  						<option value="H" <?php if($trabajo['autor_sexo'][$i]=='H') echo 'selected';?>><?php echo $language_text['registro_usuario']['ext_sexo_m'];?></option>
+				  						<option value="M" <?php if($trabajo['autor_sexo'][$i]=='M') echo 'selected';?>><?php echo $language_text['registro_usuario']['ext_sexo_f'];?></option>
+				  						<option value="O" <?php if($trabajo['autor_sexo'][$i]=='O') echo 'selected';?>><?php echo $language_text['registro_usuario']['ext_sexo_o'];?></option>
 				  					</select>
 				  					</td>
 				  					<td>
@@ -231,9 +231,9 @@
 				  				<td>
 				  					<select name="autor_sexo[]">
 				  						<option value=""><?php echo $language_text['template_general']['sin_op'];?></option>
-				  						<option value="H">Masculino</option>
-				  						<option value="M">Femenino</option>
-				  						<option value="O">Otro</option>
+				  						<option value="H"><?php echo $language_text['registro_usuario']['ext_sexo_m'];?></option>
+				  						<option value="M"><?php echo $language_text['registro_usuario']['ext_sexo_f'];?></option>
+				  						<option value="O"><?php echo $language_text['registro_usuario']['ext_sexo_o'];?></option>
 				  					</select>
 				  				</td>
 				  				<td>

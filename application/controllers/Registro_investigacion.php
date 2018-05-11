@@ -57,7 +57,7 @@ class Registro_investigacion extends MY_Controller {
 
       //Obtenemos textos con respecto al idioma
       $idioma = $this->obtener_idioma();
-      $lan_txt = $this->obtener_grupos_texto(array('registro_trabajo','template_general'),$idioma);
+      $lan_txt = $this->obtener_grupos_texto(array('registro_trabajo','template_general', 'registro_usuario'),$idioma);
       $output['language_text'] = $lan_txt;
 
       //Catalogo de paises y tipos de metodologias tomando el idioma
@@ -267,7 +267,7 @@ class Registro_investigacion extends MY_Controller {
         $output['autor_principal'] = $autores[0];
         unset($autores[0]);
         $output['autores'] = $autores;
-        $output['language_text'] = $this->obtener_grupos_texto(array('listado_trabajo','registro_trabajo','detalle_trabajo'),$lang);
+        $output['language_text'] = $this->obtener_grupos_texto(array('listado_trabajo','registro_trabajo','detalle_trabajo','registro_usuario'),$lang);
 
         $main_content = $this->load->view('trabajo/ver.tpl.php', $output, true);
         $this->template->setMainContent($main_content);

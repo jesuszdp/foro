@@ -35,7 +35,7 @@ class MY_Form_validation extends CI_Form_validation {
     /**/
 
     public function alpha_accent_space_dot_quot($str) {
-        $exp = '/^[\p{L}-,.\s]*$/u';
+        $exp = '/^[\p{L}-.\s]*$/u';
         return (!preg_match($exp, $str)) ? FALSE : TRUE;
     }
 
