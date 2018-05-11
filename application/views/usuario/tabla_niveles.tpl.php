@@ -19,14 +19,14 @@ if (isset($status) && $status)
     {
         ?>
         <tr>
-            <td><?php echo $row['nombre']; ?></td>
-            <td>
+            <td ><?php echo $row['nombre']; ?></td>
+            <td class="text-center">
                 <?php
                 echo $this->form_complete->create_element(
                         array('id' => 'activo' . $row['id_rol'],
                             'type' => 'checkbox',
                             'attributes' => array('name' => 'activo' . $row['id_rol'],
-                                'class' => 'form-control  form-control input-sm',
+//                                'class' => 'text-center',
                                 'data-toggle' => 'tooltip',
                                 'data-placement' => 'top',
                                 'title' => 'activo',

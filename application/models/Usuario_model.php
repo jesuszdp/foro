@@ -19,7 +19,7 @@ class Usuario_model extends MY_Model {
      * @return boolean
      */
     public function nuevo(&$parametros = null, $tipo = Usuario_model::SIAP, $language_text = null) {
-        $salida['msg'] = 'Error';
+        $salida['msg'] = $language_text['registro_usuario']['user_registro_problem'];
         $salida['result'] = false;
         switch ($tipo) {
             case Usuario_model::SIAP:
@@ -155,12 +155,12 @@ class Usuario_model extends MY_Model {
 //                }
                 $salida['siap'] = $data;
             } else {
-                $salida['msg'] = 'Adcripción no localizada en la base de datos';
+                $salida['msg'] = $language_text['registro_usuario']['adscripcion_no_encontrada'];
             }
         } else if (!$usuario_db) {
-            $salida['msg'] = 'Usuario ya registrado';
+            $salida['msg'] = $language_text['registro_usuario']['user_ya_registrado'];
         } else if (!$usuario) {
-            $salida['msg'] = 'Usuario no registrado en SIAP';
+            $salida['msg'] = $language_text['registro_usuario']['user_no_encontrado_siap'];
         }
     }
 
@@ -205,10 +205,10 @@ class Usuario_model extends MY_Model {
                 }
                 $salida['siap'] = $data;
             } else {
-                $salida['msg'] = 'Adcripción no localizada en la base de datos';
+                $salida['msg'] = $language_text['registro_usuario']['adscripcion_no_encontrada'];
             }
         } else if (!$usuario_db) {
-            $salida['msg'] = 'Usuario ya registrado';
+            $salida['msg'] = $language_text['registro_usuario']['user_ya_registrado'];
         }
     }
 
@@ -307,11 +307,11 @@ class Usuario_model extends MY_Model {
         if ($this->db->trans_status() === FALSE) {
             $this->db->trans_rollback();
             $resultado['result'] = FALSE;
-            $resultado['msg'] = "Ocurrió un error durante el guardado, por favor intentelo de nuevo más tarde.";
+            $resultado['msg'] = $language_text['registro_usuario']['user_registro_problem'];
             $resultado['id_usuario'] = null;
         } else {
             $this->db->trans_commit();
-            $resultado['msg'] = 'Usuario almacenado con éxito';
+            $resultado['msg'] = $language_text['registro_usuario']['user_registro_succes'];
             $resultado['result'] = TRUE;
             $resultado['id_usuario'] = $id_usuario;
         }

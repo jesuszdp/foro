@@ -170,16 +170,13 @@ if (isset($registro_valido)) {
         </div>
         <div class="form-group" style="text-align:center;">
             <label class="pull-left form-etiquetas pull-right col-sm-5"><?php echo $language_text['registro_usuario']['reg_captcha']; ?></label>
-            <?php
-            echo $this->form_complete->create_element(array('id' => 'reg_captcha',
-                'type' => 'text',
-                'value' => '',
-                'attributes' => array(
-                    'class' => 'form-control',
-                    'required' => true,
-            )));
-            echo form_error_format('reg_captcha');
-            ?>
+            <input id="reg_captcha"
+                   name="reg_captcha"
+                   type="text"
+                   class="form-control">
+                   <?php
+                   echo form_error_format('reg_captcha');
+                   ?>
             <br>
             <div class="captcha-container" id="captcha_first">
                 <img id="captcha_img" class="captcha" src="<?php echo site_url(); ?>/inicio/captcha" alt="CAPTCHA Image" />

@@ -330,7 +330,8 @@ $config['form_registro_usuario_internos'] = array(
     array(
         'field' => 'matricula',
         'label' => 'Matrícula',
-        'rules' => 'trim|required|max_length[18]|alpha_dash|is_unico_datos_usuarios[username]'
+//        'rules' => 'trim|required|max_length[18]|alpha_dash|is_unico_datos_usuarios[username]'
+        'rules' => 'trim|required|max_length[18]|alpha_dash'
     ),
     array(
         'field' => 'cve_delegacion',
