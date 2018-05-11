@@ -1,7 +1,7 @@
 <?php
 // pr($datos);
 $controlador = $this->uri->rsegment(1);
-$array_sexo = ['M' => En_sexo::FEMENINO, 'H' => En_sexo::MASCULINO, 'O' => En_sexo::OTRO];
+//$array_sexo = ['M' => En_sexo::FEMENINO, 'H' => En_sexo::MASCULINO, 'O' => En_sexo::OTRO];
 ?> 
 <style type="text/css">
     .titulo{
@@ -87,7 +87,7 @@ $array_sexo = ['M' => En_sexo::FEMENINO, 'H' => En_sexo::MASCULINO, 'O' => En_se
                     <?php echo json_decode($autor_principal['pais_nombre'], true)[$lang]; ?>
                 </div>
             </div>
-            <?php $sexo = 'ext_sexo_' . strtolower($array_sexo[$autor_principal['sexo']]); ?>
+            <?php $sexo = 'ext_sexo_' . strtolower($autor_principal['sexo']); ?>
             <div class="col-sm-2">
                 <div class="div-borde">
                     <strong><?php echo $language_text['registro_trabajo']['autor_genero']; ?>:</strong>
@@ -112,7 +112,7 @@ $array_sexo = ['M' => En_sexo::FEMENINO, 'H' => En_sexo::MASCULINO, 'O' => En_se
         <?php
         //pr($autores);
         foreach ($autores as $key => $value) {
-            $sexo = 'ext_sexo_' . strtolower($array_sexo[$value['sexo']]); 
+            $sexo = 'ext_sexo_' . strtolower($value['sexo']); 
             ?>
             <div class="row">
                 <div class="col-sm-4">	

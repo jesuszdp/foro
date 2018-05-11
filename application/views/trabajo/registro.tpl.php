@@ -191,9 +191,9 @@
 				  			?>
 				  					<td>
 				  					<select name="autor_sexo[]">
-				  						<option value="H" <?php if($trabajo['autor_sexo'][$i]=='H') echo 'selected';?>><?php echo $language_text['registro_usuario']['ext_sexo_m'];?></option>
-				  						<option value="M" <?php if($trabajo['autor_sexo'][$i]=='M') echo 'selected';?>><?php echo $language_text['registro_usuario']['ext_sexo_f'];?></option>
-				  						<option value="O" <?php if($trabajo['autor_sexo'][$i]=='O') echo 'selected';?>><?php echo $language_text['registro_usuario']['ext_sexo_o'];?></option>
+				  						<option value="<?php echo En_sexo::MASCULINO; ?>" <?php if($trabajo['autor_sexo'][$i]=='H') echo 'selected';?>><?php echo $language_text['registro_usuario']['ext_sexo_m'];?></option>
+                                                                                <option value="<?php echo En_sexo::FEMENINO; ?>" <?php if($trabajo['autor_sexo'][$i]=='M') echo 'selected';?>><?php echo $language_text['registro_usuario']['ext_sexo_f'];?></option>
+				  						<option value="<?php echo En_sexo::OTRO; ?>" <?php if($trabajo['autor_sexo'][$i]=='O') echo 'selected';?>><?php echo $language_text['registro_usuario']['ext_sexo_o'];?></option>
 				  					</select>
 				  					</td>
 				  					<td>
@@ -231,9 +231,9 @@
 				  				<td>
 				  					<select name="autor_sexo[]">
 				  						<option value=""><?php echo $language_text['template_general']['sin_op'];?></option>
-				  						<option value="H"><?php echo $language_text['registro_usuario']['ext_sexo_m'];?></option>
-				  						<option value="M"><?php echo $language_text['registro_usuario']['ext_sexo_f'];?></option>
-				  						<option value="O"><?php echo $language_text['registro_usuario']['ext_sexo_o'];?></option>
+				  						<option value="<?php echo En_sexo::MASCULINO; ?>"><?php echo $language_text['registro_usuario']['ext_sexo_m'];?></option>
+				  						<option value="<?php echo En_sexo::FEMENINO; ?>"><?php echo $language_text['registro_usuario']['ext_sexo_f'];?></option>
+				  						<option value="<?php echo En_sexo::OTRO; ?>"><?php echo $language_text['registro_usuario']['ext_sexo_o'];?></option>
 				  					</select>
 				  				</td>
 				  				<td>
