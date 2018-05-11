@@ -14,7 +14,7 @@ class Gestion_idiomas extends MY_Controller {
             EXPORTAR = 'exportar';
 
     function __construct() {
-        $this->grupo_language_text = ['generales']; //Grupo de idiomas para el controlador actual
+        $this->grupo_language_text = ['generales','cat_paises']; //Grupo de idiomas para el controlador actual
         parent::__construct();
     }
 
@@ -57,25 +57,25 @@ class Gestion_idiomas extends MY_Controller {
 
     function paises() {
         $data_view = array();
-        $this->db->schema = 'idiomas';
+        $this->db->schema = 'catalogo';
         $crud = $this->new_crud();
         $crud->set_table('pais');
-        $crud->set_subject($this->language_text['cat_paises']['titulo']);
+        $crud->set_subject("Países");
         $crud->set_primary_key('clave_pais');
 
-        $crud->columns("clave_pais", "nombre", "descripcion", "clave_control_idioma");
-        $crud->fields("clave_pais", "nombre", "descripcion", "clave_control_idioma");
+        $crud->columns("clave_pais", "lang");
+        $crud->fields("clave_pais", "lang");
 
-        $crud->required_fields("clave_pais", "nombre");
+        $crud->required_fields("clave_pais", "lang");
         $crud->display_as("clave_pais", 'Clave del país');
-        $crud->display_as('nombre', 'Nombre del país');
-        $crud->display_as('descripcion', 'Descripción');
+        $crud->display_as('lang', 'Nombre del país');
 
-        $crud->edit_fields('nombre', 'descripcion');
-        $crud->add_fields('clave_pais', 'nombre', 'descripcion');
+        $crud->edit_fields('lang', 'descripcion');
+        $crud->add_fields('clave_pais', 'lang');
 
         $data_view['output'] = $crud->render();
-        $data_view['title'] = $this->language_text['cat_paises']['titulo'];
+//        $data_view['title'] = $this->language_text['cat_paises']['titulo'];
+        $data_view['title'] = "Países";
 
         $vista = $this->load->view('admin/admin.tpl.php', $data_view, true);
         $this->template->setMainContent($vista);
