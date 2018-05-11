@@ -133,6 +133,11 @@ $config["form_registro_investigacion"] = array(
         'field' => 'consideraciones_eticas',
         'label' => 'Consideraciones éticas',
         'rules' => 'required'
+    ),
+    array(
+        'field' => 'autor_nombre',
+        'label' => 'Nombre de coautores',
+        'rules' => 'trim|alpha_accent_space_dot_quot'
     )
 );
 
@@ -393,17 +398,17 @@ $config['form_registro_usuario_externos'] = array(
     array(
         'field' => 'ext_nombre',
         'label' => 'Nombre',
-        'rules' => 'trim|required|max[100]|alpha_numeric_spaces'
+        'rules' => 'trim|required|max[100]|alpha_accent_space_dot_quot'
     ),
     array(
         'field' => 'ext_ap',
         'label' => '',
-        'rules' => 'trim|required|max[100]|alpha_numeric_spaces' //|callback_valid_pass
+        'rules' => 'trim|required|max[100]|alpha_accent_space_dot_quot' //|callback_valid_pass
     ),
     array(
         'field' => 'ext_am',
         'label' => '',
-        'rules' => 'trim|max[100]|alpha_numeric_spaces' //|callback_valid_pass
+        'rules' => 'trim|max[100]|alpha_accent_space_dot_quot' //|callback_valid_pass
     ),
     array(
         'field' => 'ext_mail',

@@ -369,7 +369,8 @@ class MY_Controller extends CI_Controller {
 //        pr($array_textos);
         foreach ($array_validacion as &$value) {
             if (isset($array_textos[$value[$field]])) {
-                $value[$label] = $array_textos[$value[$field]]; //Modifica el texto de las validaciones
+                $campo = str_replace(":", "", $array_textos[$value[$field]]);//Elimina caracteres de dos puntos
+                $value[$label] = $campo; //Modifica el texto de las validaciones
             }
         }
     }
