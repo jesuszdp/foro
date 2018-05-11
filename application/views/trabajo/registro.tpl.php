@@ -177,6 +177,53 @@
 				  			</tr>
 				  		</thead>
 				  		<tbody>
+				  			<?php
+				  			if(isset($trabajo['autor_imss']) && isset($trabajo['autor_matricula']) &&
+	                  			isset($trabajo['autor_nombre']) && isset($trabajo['autor_app']) &&
+	                  			isset($trabajo['autor_apm']) && isset($trabajo['autor_sexo']) &&
+	                  			isset($trabajo['autor_pais']))
+				  			{
+				  				for ($i=0; $i < count($trabajo['autor_imss']); $i++) { 
+				  					echo '<tr>';
+				  					echo '<td><input type="text" name="autor_nombre[]" maxlength="100" value="'.$trabajo['autor_nombre'][$i].'"></td>';
+				  					echo '<td><input type="text" name="autor_app[]" maxlength="100" value="'.$trabajo['autor_app'][$i].'"></td>';
+				  					echo '<td><input type="text" name="autor_apm[]" maxlength="100" value="'.$trabajo['autor_apm'][$i].'"></td>';
+				  			?>
+				  					<td>
+				  					<select name="autor_sexo[]">
+				  						<option value="H" <?php if($trabajo['autor_sexo'][$i]=='H') echo 'selected';?>>Masculino</option>
+				  						<option value="M" <?php if($trabajo['autor_sexo'][$i]=='M') echo 'selected';?>>Femenino</option>
+				  						<option value="O" <?php if($trabajo['autor_sexo'][$i]=='O') echo 'selected';?>>Otro</option>
+				  					</select>
+				  					</td>
+				  					<td>
+				  					<select name="autor_pais[]">
+				  						<?php
+				  						foreach ($paises as $key => $value) {
+				  							if($key == $trabajo['autor_pais'][$i]){
+				  								echo '<option value="'.$key.'" selected>'.$value.'</option>';
+				  							}else{
+				  								echo '<option value="'.$key.'">'.$value.'</option>';
+				  							}
+				  						}
+				  						?>
+				  					</select>
+				  					</td>
+				  					<td>
+				  					<select name="autor_imss[]">
+				  						<option value="0" <?php if($trabajo['autor_imss'][$i]=='0') echo 'selected';?>><?php echo $language_text['template_general']['no_op'];?></option>
+				  						<option value="1" <?php if($trabajo['autor_imss'][$i]=='1') echo 'selected';?>><?php echo $language_text['template_general']['si_op'];?></option>
+				  					</select>
+				  					</td>
+				  			<?php
+				  					echo '<td><input type="text" name="autor_matricula[]" maxlength="15" value="'.$trabajo['autor_matricula'][$i].'"></td>';
+				  					echo '</tr>';
+				  				}
+				  			?>
+				  			<?php
+				  			}else
+				  			{
+				  			?>
 				  			<tr>
 				  				<td><input type="text" name="autor_nombre[]" maxlength="100"></td>
 				  				<td><input type="text" name="autor_app[]" maxlength="100"></td>
@@ -207,6 +254,9 @@
 				  				</td>
 				  				<td><input type="text" name="autor_matricula[]" maxlength="15"></td>
 				  			</tr>
+				  			<?php 
+				  			}
+				  			?>
 				  		</tbody>
 				  	</table>
 				  	</div>
