@@ -208,9 +208,12 @@
 				  					<td>
 				  					<select name="autor_pais[]">
 				  						<?php
+				  						$status_paises = true;
 				  						foreach ($paises as $key => $value) {
-				  							if($trabajo['autor_pais'][$i]==0)
+				  							if($trabajo['autor_pais'][$i]==0 && $status_paises){
 				  								echo '<option value="">'.$language_text['template_general']['sin_op'].'</option>';
+				  								$status_paises = false;
+				  							}
 				  							if($key == $trabajo['autor_pais'][$i]){
 				  								echo '<option value="'.$key.'" selected>'.$value.'</option>';
 				  							}else{
