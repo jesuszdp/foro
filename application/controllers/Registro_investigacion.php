@@ -212,7 +212,7 @@ class Registro_investigacion extends MY_Controller {
                   if($status)
                   {
                     //Enviamos un correo notificando que se registro el trabajo
-                    //$this->enviar_correo_registro($datos_sesion['email'],$folio,$post['titulo_trabajo'],$lan_txt['correo']['asunto_nuevo_trabajo'],$lan_txt['correo']['cuerpo_nuevo_trabajo']);
+                    $this->enviar_correo_registro($datos_sesion['email'],$folio,$post['titulo_trabajo'],$lan_txt['correo']['asunto_nuevo_trabajo'],$lan_txt['correo']['cuerpo_nuevo_trabajo']);
 
                     $output['msg'] =  $lan_txt['registro_trabajo']['rti_success'];
                     $output['msg_type'] = 'success';
@@ -266,6 +266,7 @@ class Registro_investigacion extends MY_Controller {
       $this->load->config('email');
       $this->load->library('My_phpmailer');
       $mailStatus = $this->my_phpmailer->phpmailerclass();
+      /*
       $mailStatus->SMTPOptions = array(
           'ssl' => array(
               'verify_peer' => false,
@@ -273,11 +274,11 @@ class Registro_investigacion extends MY_Controller {
               'allow_self_signed' => true
           )
       );
-
-      //$mailStatus->SMTPAuth = false;
+  */
+      $mailStatus->SMTPAuth = false;
       $emailStatus = $this->procesar_correo($texto, array('{{$folio}}'=>$folio, '{{$titulo}}'=>$titulo));
       $mailStatus->addAddress($email);
-      $mailStatus->Subject = $asunto;
+      $mailStatus->Subject = utf8_decode($asunto);
       $mailStatus->msgHTML($emailStatus);
       $mailStatus->send();
     }
