@@ -90,7 +90,7 @@ class Trabajo_model extends CI_Model
         $this->db->flush_cache();
         $this->db->reset_query();
 
-        $this->db->select(array('ti.folio','ti.titulo','ti.id_tipo_metodologia',"m.lang nombre_metodologia",'ti.fecha','ti.clave_estado',"et.lang estado"));
+        $this->db->select(array('ti.folio','ti.titulo','ti.id_tipo_metodologia',"m.lang nombre_metodologia",'date(ti.fecha) fecha','ti.clave_estado',"et.lang estado"));
         $this->db->where(array(
             'a.id_informacion_usuario'=>$id_informacion_usuario,
             'a.registro' => 'true'
