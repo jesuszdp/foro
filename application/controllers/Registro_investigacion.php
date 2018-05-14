@@ -46,6 +46,8 @@ class Registro_investigacion extends MY_Controller {
     	$this->load->library('form_validation');
     	$post = $this->input->post(null,true);
 
+      //pr($this->get_datos_sesion());
+
     	$output = [];
       $folio = null;
       $msg = null;
@@ -57,7 +59,8 @@ class Registro_investigacion extends MY_Controller {
 
       //Obtenemos textos con respecto al idioma
       $idioma = $this->obtener_idioma();
-      $lan_txt = $this->obtener_grupos_texto(array('registro_trabajo','template_general', 'registro_usuario'),$idioma);
+      $lan_txt = $this->obtener_grupos_texto(array('registro_trabajo','template_general', 'registro_usuario','correo'),$idioma);
+      //pr($lan_txt);
       $output['language_text'] = $lan_txt;
 
       //Catalogo de paises y tipos de metodologias tomando el idioma
@@ -67,7 +70,7 @@ class Registro_investigacion extends MY_Controller {
     	if($post)
     	{
         $trabajo = $post;
-        pr($post);
+        //pr($post);
         
         //Validaciones 
     		$this->config->load('form_validation'); //Cargar archivo 
@@ -206,6 +209,9 @@ class Registro_investigacion extends MY_Controller {
                   $status = $this->trabajo->nuevo($datos);
                   if($status)
                   {
+                    //Enviamos un correo notificando que se registro el trabajo
+                    //$this->enviar_correo_registro($datos_sesion['email'],$folio,$lan_txt['correo']['asunto_nuevo_trabajo'],$lan_txt['correo']['cuerpo_nuevo_trabajo']);
+
                     $output['msg'] =  $lan_txt['registro_trabajo']['rti_success'];
                     $output['msg_type'] = 'success';
                     $output['folio'] = $folio;
@@ -241,7 +247,7 @@ class Registro_investigacion extends MY_Controller {
           
       } //post 
 
-      pr($post);
+      //pr($post);
       $output['msg'] = $msg;
       $output['msg_type'] = $msg_type;
       $output['folio'] = '';
@@ -251,6 +257,30 @@ class Registro_investigacion extends MY_Controller {
       $main_content = $this->load->view('trabajo/registro.tpl.php', $output, true);
       $this->template->setMainContent($main_content);
       $this->template->getTemplate();
+    }
+
+    private function enviar_correo_registro($email, $folio, $asunto, $texto)
+    {
+      $this->load->config('email');
+      $this->load->library('My_phpmailer');
+      $mailStatus = $this->my_phpmailer->phpmailerclass();
+      $mailStatus->SMTPOptions = array(
+          'ssl' => array(
+              'verify_peer' => false,
+              'verify_peer_name' => false,
+              'allow_self_signed' => true
+          )
+      );
+      $emailStatus = $this->procesar_correo($texto, array('{{$folio}}'=>$folio));
+      $mailStatus->addAddress($email);
+      $mailStatus->Subject = utf8_decode($asunto);
+      $mailStatus->msgHTML(utf8_decode($emailStatus));
+      $mailStatus->send();
+    }
+
+    private function procesar_correo($texto, $palabras)
+    {
+        return str_replace(array_keys($palabras), $palabras, $texto);
     }
 
     public function ver($folio)

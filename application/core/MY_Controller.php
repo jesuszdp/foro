@@ -380,6 +380,7 @@ class MY_Controller extends CI_Controller {
 //        $catalogo_idiomas = ['es' => 'Español', 'en' => 'Inglish'];
 //        return $catalogo_idiomas;
 //    }
+
 }
 
 /*include_once APPPATH . 'core/Informacion_docente.php';*/
