@@ -75,6 +75,7 @@ $active_group = 'default';
 $query_builder = TRUE;
 
 $db['default'] = array(
+  /*
     'dsn' => 'pgsql:host=11.32.41.13;port=5433;dbname=foro_imss_2',
     'hostname' => '11.32.41.13',
     'username' => 'innovaedu',
@@ -82,6 +83,14 @@ $db['default'] = array(
     'database' => 'sipimss_bitacoras',
     'dbdriver' => 'pdo',
     'port' => '5433',
+    */
+    'dsn' => 'pgsql:host=localhost;port=5432;dbname=foro_limpio',
+    'hostname' => 'localhost',
+    'username' => 'clapas_imss',
+    'password' => 'logan',  
+    'database' => 'foro_limpio',
+    'dbdriver' => 'pdo',
+    'port' => '5432',
     
     'dbprefix' => '',
     'pconnect' => FALSE,
@@ -102,6 +111,7 @@ $db['default'] = array(
 
 
 $db['bitacoras'] = array(
+  /*
     'dsn' => 'pgsql:host=11.32.41.13;port=5433;dbname=foro_imss_2',
     'hostname' => '11.32.41.13',
     'username' => 'innovaedu',
@@ -109,6 +119,14 @@ $db['bitacoras'] = array(
     'database' => 'sipimss_bitacoras',
     'dbdriver' => 'pdo',
     'port' => '5433',
+*/
+    'dsn' => 'pgsql:host=localhost;port=5432;dbname=foro_limpio',
+    'hostname' => 'localhost',
+    'username' => 'clapas_imss',
+    'password' => 'logan',  
+    'database' => 'foro_limpio',
+    'dbdriver' => 'pdo',
+    'port' => '5432',
 
     'dbprefix' => '',
     'pconnect' => FALSE,
