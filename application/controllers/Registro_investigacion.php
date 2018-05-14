@@ -212,8 +212,8 @@ class Registro_investigacion extends MY_Controller {
                   if($status)
                   {
                     //Enviamos un correo notificando que se registro el trabajo
-                    $this->enviar_correo_registro($datos_sesion['email'],$folio,$post['titulo_trabajo'],$lan_txt['correo']['asunto_nuevo_trabajo'],$lan_txt['correo']['cuerpo_nuevo_trabajo']);
-
+                    //$this->enviar_correo_registro($datos_sesion['email'],$folio,$post['titulo_trabajo'],$lan_txt['correo']['asunto_nuevo_trabajo'],$lan_txt['correo']['cuerpo_nuevo_trabajo']);
+                    
                     $output['msg'] =  $lan_txt['registro_trabajo']['rti_success'];
                     $output['msg_type'] = 'success';
                     $output['folio'] = $folio;
