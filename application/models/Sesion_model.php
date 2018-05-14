@@ -118,13 +118,14 @@ class Sesion_model extends CI_Model {
         $this->load->config('email');
         $this->load->library('My_phpmailer');
         $mailStatus = $this->my_phpmailer->phpmailerclass();
-        $mailStatus->SMTPOptions = array(
+        /*$mailStatus->SMTPOptions = array(
             'ssl' => array(
                 'verify_peer' => false,
                 'verify_peer_name' => false,
                 'allow_self_signed' => true
             )
-        );
+        );*/
+        $mailStatus->SMTPAuth = false;
         //$emailStatus = $this->load->view('sesion/mail_recovery_password.tpl.php', $usuario, true);
         $emailStatus = $this->procesar_correo($texto_correo['correo']['cuerpo_recuperar_contrasenia'], array('{{$recovery_code}}'=>$usuario['recovery_code']));
 //        $mailStatus->addAddress('zurgcom@gmail.com'); //pruebas chris 
