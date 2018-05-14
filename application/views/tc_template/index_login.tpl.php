@@ -171,14 +171,21 @@
             <div class="container">
                 <div class="clearfix text-center">
                     <ul class="social-line list-inline">
+                        <li><img src="<?php echo asset_url(); ?>img/Logo_SaberIMSS.png" alt="..." width="70" height="70"></li>
                         <li data-animation="flipInY" data-animation-delay="100"><a href="#" class="twitter"><i class="fa fa-twitter"></i></a></li>
                         <li data-animation="flipInY" data-animation-delay="300"><a href="#" class="facebook"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="https://www.youtube.com/channel/UCvlda6Uw7N_pZAH_fxE9ZYA" target="_blank" class="youtube"><i class="fa fa-youtube"></i></a></li>
                     </ul>
                 </div>
                 <!-- <span class="copyright" data-animation="fadeInUp" data-animation-delay="100">&copy; 2018 Instituto Mexicano del Seguro Social.</span>-->
-                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-5 text-left">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 text-left">
                     <a href="#home" class="scroll-to">
                         <img src="<?php echo asset_url(); ?>img/logo-presidencia.png" class="img-responsive" />
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-2 text-left">
+                    <a href="#home" class="scroll-to">
+                        <img src="<?php echo asset_url(); ?>img/logo-Cancun.png" class="img-responsive" />
                     </a>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-2 text-center pull-centerr">
@@ -187,7 +194,7 @@
                         <img src="<?php echo asset_url(); ?>img/logo-fundacion-imss.png" class="img-responsive"  />
                     </a>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-5 text-right">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 text-right">
                     <a href="#home" class="scroll-to">
                         <img src="<?php echo asset_url(); ?>img/logo-imss.png" class="img-responsive"  />
                     </a>
