@@ -61,6 +61,8 @@ class Registro_investigacion extends MY_Controller {
       $idioma = $this->obtener_idioma();
       $lan_txt = $this->obtener_grupos_texto(array('registro_trabajo','template_general', 'registro_usuario','correo'),$idioma);
       //pr($lan_txt);
+      //pr(utf8_decode($this->procesar_correo($lan_txt['correo']['cuerpo_nuevo_trabajo'], array('{{$folio}}'=>$folio, '{{$titulo}}'=>'hhasih'))));
+      //pr($this->procesar_correo($lan_txt['correo']['cuerpo_nuevo_trabajo'], array('{{$folio}}'=>$folio, '{{$titulo}}'=>'hhasih')));
       $output['language_text'] = $lan_txt;
 
       //Catalogo de paises y tipos de metodologias tomando el idioma
@@ -259,24 +261,24 @@ class Registro_investigacion extends MY_Controller {
       $this->template->getTemplate();
     }
 
-    private function enviar_correo_registro($email, $folio, $titulo $asunto, $texto)
+    private function enviar_correo_registro($email, $folio, $titulo, $asunto, $texto)
     {
       $this->load->config('email');
       $this->load->library('My_phpmailer');
       $mailStatus = $this->my_phpmailer->phpmailerclass();
-      /*$mailStatus->SMTPOptions = array(
+      $mailStatus->SMTPOptions = array(
           'ssl' => array(
               'verify_peer' => false,
               'verify_peer_name' => false,
               'allow_self_signed' => true
           )
-      );*/
+      );
 
-      $mailStatus->SMTPAuth = false;
+      //$mailStatus->SMTPAuth = false;
       $emailStatus = $this->procesar_correo($texto, array('{{$folio}}'=>$folio, '{{$titulo}}'=>$titulo));
       $mailStatus->addAddress($email);
-      $mailStatus->Subject = utf8_decode($asunto);
-      $mailStatus->msgHTML(utf8_decode($emailStatus));
+      $mailStatus->Subject = $asunto;
+      $mailStatus->msgHTML($emailStatus);
       $mailStatus->send();
     }
 
