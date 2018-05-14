@@ -381,12 +381,12 @@ $config['form_registro_usuario_internos'] = array(
     array(
         'field' => 'telefono_oficina',
         'label' => '',
-        'rules' => 'max[50]|alpha_numeric_spaces'
+        'rules' => 'max[50]|alpha_numeric_accent_space_dot'
     ),
     array(
         'field' => 'telefono_personal',
         'label' => '',
-        'rules' => 'required|max[50]|alpha_numeric_spaces'
+        'rules' => 'required|max[50]|alpha_numeric_accent_space_dot'
     ),
     array(
         'field' => 'pais_origen',
@@ -448,12 +448,12 @@ $config['form_registro_usuario_externos'] = array(
     array(
         'field' => 'telefono_oficina',
         'label' => '',
-        'rules' => 'max[50]|alpha_numeric_spaces'
+        'rules' => 'max[50]|alpha_numeric_accent_space_dot'
     ),
     array(
         'field' => 'telefono_personal',
         'label' => '',
-        'rules' => 'required|max[50]|alpha_numeric_spaces'
+        'rules' => 'required|max[50]|alpha_numeric_accent_space_dot'
     ),
     array(
         'field' => 'pais_origen',
