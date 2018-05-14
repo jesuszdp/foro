@@ -42,7 +42,7 @@ class Usuario extends MY_Controller {
                 $this->template->getTemplate();
                 break;
             default:
-                pr($output);
+                //pr($output);
                 $this->muestra_usuario($usuario);
                 break;
         }
