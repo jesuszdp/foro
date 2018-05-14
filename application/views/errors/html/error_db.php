@@ -217,8 +217,8 @@ p {
                 <div class="clearfix text-center">
                     <ul class="social-line list-inline">
                         <li><img src="<?php echo asset_url(); ?>img/Logo_SaberIMSS.png" alt="..." width="70" height="70"></li>
-                        <li data-animation="flipInY" data-animation-delay="100"><a href="#" class="twitter"><i class="fa fa-twitter"></i></a></li>
-                        <li data-animation="flipInY" data-animation-delay="300"><a href="#" class="facebook"><i class="fa fa-facebook"></i></a></li>
+                        <li data-animation="flipInY" data-animation-delay="100"><a href="https://twitter.com/Saber_IMSS" class="twitter"><i class="fa fa-twitter"></i></a></li>
+                        <li data-animation="flipInY" data-animation-delay="300"><a href="https://www.facebook.com/SaberIMSS/" class="facebook"><i class="fa fa-facebook"></i></a></li>
                         <li><a href="https://www.youtube.com/channel/UCvlda6Uw7N_pZAH_fxE9ZYA" target="_blank" class="youtube"><i class="fa fa-youtube"></i></a></li>
                     </ul>
                 </div>
