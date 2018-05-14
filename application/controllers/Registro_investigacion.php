@@ -67,6 +67,7 @@ class Registro_investigacion extends MY_Controller {
     	if($post)
     	{
         $trabajo = $post;
+        pr($post);
         
         //Validaciones 
     		$this->config->load('form_validation'); //Cargar archivo 
@@ -240,7 +241,7 @@ class Registro_investigacion extends MY_Controller {
           
       } //post 
 
-      //pr($post);
+      pr($post);
       $output['msg'] = $msg;
       $output['msg_type'] = $msg_type;
       $output['folio'] = '';

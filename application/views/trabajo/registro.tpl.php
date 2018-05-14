@@ -87,7 +87,15 @@
 	  						<?php
 	  						echo '<option value="">'.$language_text['template_general']['sin_op'].'</option>';
 	  						foreach ($tipos_metodologias as $key => $value) {
-	  							echo '<option value="'.$key.'">'.$value.'</option>';
+	  							if(isset($trabajo)){
+	  								if($trabajo['tipo_metodologia'] == $key){
+	  									echo '<option value="'.$key.'" selected>'.$value.'</option>';
+	  								} else {
+	  									echo '<option value="'.$key.'">'.$value.'</option>';		
+	  								}
+	  							} else {
+	  								echo '<option value="'.$key.'">'.$value.'</option>';
+	  							}
 	  						}
 	  						?>
 	  					</select>
@@ -137,15 +145,15 @@
 						<div class="form-group">
 							<label for="publicado" class="col-sm-3 control-label"><?php echo $language_text['registro_trabajo']['publicado'];?>*</label>
 							<div class="col-sm-9">
-								<input type="radio" name="publicado" value="true"><?php echo $language_text['template_general']['si_op'];?><br>
-	  						<input type="radio" name="publicado" value="false" checked><?php echo $language_text['template_general']['no_op'];?><br>
+								<input type="radio" name="publicado" value="true" <?php if(isset($trabajo)){ if($trabajo['publicado']=='true') echo 'checked';}?>><?php echo $language_text['template_general']['si_op'];?><br>
+	  						<input type="radio" name="publicado" value="false" <?php if(isset($trabajo)){ if($trabajo['publicado']=='false') echo 'checked';} else { echo 'checked'; }?>><?php echo $language_text['template_general']['no_op'];?><br>
 							</div>
 						</div>
 
 						<div class="form-group">
 				      <label for="referencia" class="col-sm-3 control-label"><?php echo $language_text['registro_trabajo']['referencia'];?></label>
 				      <div class="col-sm-9">
-				      	<textarea class="form-control" rows="4" id="referencia" name="referencia" disabled><?php if(isset($trabajo['referencia'])) echo $trabajo['referencia'];?></textarea>
+				      	<textarea class="form-control" rows="4" id="referencia" name="referencia" <?php if(isset($trabajo)){ if($trabajo['publicado']=='false') echo 'disabled';} else { echo 'disabled'; }?>><?php if(isset($trabajo['referencia'])) echo $trabajo['referencia'];?></textarea>
 				      </div>
 				    </div>
 
@@ -191,8 +199,9 @@
 				  			?>
 				  					<td>
 				  					<select name="autor_sexo[]">
+				  						<option value=""><?php echo $language_text['template_general']['sin_op'];?></option>
 				  						<option value="<?php echo En_sexo::MASCULINO; ?>" <?php if($trabajo['autor_sexo'][$i]=='H') echo 'selected';?>><?php echo $language_text['registro_usuario']['ext_sexo_m'];?></option>
-                                                                                <option value="<?php echo En_sexo::FEMENINO; ?>" <?php if($trabajo['autor_sexo'][$i]=='M') echo 'selected';?>><?php echo $language_text['registro_usuario']['ext_sexo_f'];?></option>
+                      <option value="<?php echo En_sexo::FEMENINO; ?>" <?php if($trabajo['autor_sexo'][$i]=='M') echo 'selected';?>><?php echo $language_text['registro_usuario']['ext_sexo_f'];?></option>
 				  						<option value="<?php echo En_sexo::OTRO; ?>" <?php if($trabajo['autor_sexo'][$i]=='O') echo 'selected';?>><?php echo $language_text['registro_usuario']['ext_sexo_o'];?></option>
 				  					</select>
 				  					</td>
@@ -200,6 +209,8 @@
 				  					<select name="autor_pais[]">
 				  						<?php
 				  						foreach ($paises as $key => $value) {
+				  							if($trabajo['autor_pais'][$i]==0)
+				  								echo '<option value="">'.$language_text['template_general']['sin_op'].'</option>';
 				  							if($key == $trabajo['autor_pais'][$i]){
 				  								echo '<option value="'.$key.'" selected>'.$value.'</option>';
 				  							}else{
