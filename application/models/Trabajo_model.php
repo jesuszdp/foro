@@ -119,7 +119,7 @@ class Trabajo_model extends CI_Model
 
         $this->db->select(array(
             "ti.folio", "ti.titulo", "ti.id_tipo_metodologia", "m.lang nombre_metodologia",
-            "ti.fecha", "ti.clave_estado", "et.lang estado"
+            "date(ti.fecha) fecha", "ti.clave_estado", "et.lang estado"
             , "a.id_informacion_usuario", "iu.es_imss", "uni.nivel_atencion"
             , "uni.nivel_atencion", "concat(iu.nombre, ' ', iu.apellido_paterno, ' ', iu.apellido_materno) nombre_investigador"
         ));
