@@ -52,13 +52,13 @@ if (isset($registro_valido)) {
 
                 </div>
                 <div class="col-md-3">
-                    <?php echo form_radio(array('name' => 'ext_sexo', 'value' => 'M', 'checked' => (isset($post['ext_sexo']) && $post['ext_sexo'] == 'M') ? true : false, 'id' => 'ext_sexo')) . form_label($language_text['registro_usuario']['ext_sexo_m'], 'male'); ?>
+                    <?php echo form_radio(array('name' => 'ext_sexo', 'value' => En_sexo::MASCULINO, 'checked' => (isset($post['ext_sexo']) && $post['ext_sexo'] == 'M') ? true : false, 'id' => 'ext_sexo')) . form_label($language_text['registro_usuario']['ext_sexo_m'], 'male'); ?>
                 </div>
                 <div class="col-md-3">
-                    <?php echo form_radio(array('name' => 'ext_sexo', 'value' => 'F', 'checked' => (isset($post['ext_sexo']) && $post['ext_sexo'] == 'F') ? true : false, 'id' => 'ext_sexo')) . form_label($language_text['registro_usuario']['ext_sexo_f'], 'female'); ?>
+                    <?php echo form_radio(array('name' => 'ext_sexo', 'value' => En_sexo::FEMENINO, 'checked' => (isset($post['ext_sexo']) && $post['ext_sexo'] == 'F') ? true : false, 'id' => 'ext_sexo')) . form_label($language_text['registro_usuario']['ext_sexo_f'], 'female'); ?>
                 </div>
                 <div class="col-md-3">
-                    <?php echo form_radio(array('name' => 'ext_sexo', 'value' => 'O', 'checked' => (isset($post['ext_sexo']) && $post['ext_sexo'] == 'O') ? true : false, 'id' => 'ext_sexo')) . form_label($language_text['registro_usuario']['ext_sexo_o'], 'otro'); ?>
+                    <?php echo form_radio(array('name' => 'ext_sexo', 'value' => En_sexo::OTRO, 'checked' => (isset($post['ext_sexo']) && $post['ext_sexo'] == 'O') ? true : false, 'id' => 'ext_sexo')) . form_label($language_text['registro_usuario']['ext_sexo_o'], 'otro'); ?>
                 </div>
             </div>
             <div class="col-md-12">

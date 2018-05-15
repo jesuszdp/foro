@@ -122,7 +122,7 @@ if (isset($status) && $status)
               'id' => 'sexo',
               'type' => 'dropdown',
               'value' => $usuario['sexo'],
-              'options' => array(1=>'Hombre', 2=>'Mujer'),
+              'options' => array(En_sexo::MASCULINO=>$language_text['registro_usuario']['ext_sexo_m'], En_sexo::FEMENINO=>$language_text['registro_usuario']['ext_sexo_f'], En_sexo::OTRO=>$language_text['registro_usuario']['ext_sexo_o']),
               'attributes' => array('class' => 'form-control', 'required' => true)));
           ?>
 
