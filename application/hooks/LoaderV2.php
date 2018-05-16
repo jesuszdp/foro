@@ -39,7 +39,7 @@ class LoaderV2
             $modulo = $this->CI->modulo->get_modulos($filtros, false);
         //    pr($modulo);
             if(empty($modulo)){
-                show_404();
+                redirect('/');
                 // pr('error 404');
                 // exit(0);
             }else{
@@ -73,14 +73,14 @@ class LoaderV2
                     $acceso = $this->CI->modulo->check_acceso($this->modulo['url'], $ds['id_usuario']);
                     if(!$acceso)
                     {
-                        show_404();
+                        redirect('/');
                     }else
                     {
                         $permitir_acceso = $this->checa_permisos_workflow();
                     }
                 }else
                 {
-                    show_404();
+                    redirect('/');
                     $permitir_acceso = false;
                 }
                 break;
@@ -118,7 +118,7 @@ class LoaderV2
         }
         if(!$acceso)
         {
-            show_404();
+            redirect('/');
         }
         return $acceso;
     }

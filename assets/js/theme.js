@@ -38,10 +38,10 @@ var theme = function () {
     // superfish menu
     // ---------------------------------------------------------------------------------------
     function handleSuperFish() {
-        /*$('ul.sf-menu').superfish();
-        $('ul.sf-menu a').click(function() {
-            $('body').scrollspy('refresh');
-        });
+        // $('ul.sf-menu').superfish();
+        // $('ul.sf-menu a').click(function() {
+        //     $('body').scrollspy('refresh');
+        // });
         // fixed menu toggle
         $('.menu-toggle').on('click', function(){
             if($('.navigation').hasClass('opened')) {
@@ -58,7 +58,7 @@ var theme = function () {
         });
         $('ul.sf-menu a').click(function() {
             $('ul.sf-menu li').removeClass('mobile-submenu-open');
-        });*/
+        });
     }
 
     // Smooth scrolling

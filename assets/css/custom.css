@@ -150,3 +150,13 @@ Elementos de formularios
 .area_registro label{
 	color: #fff;
 }
+
+.imss-foro-gris{
+	color: #6d7a83 !important;
+}
+
+@media (max-width: 991px) {
+	.sf-menu.nav > li > a, .sf-menu a{
+		color: white;
+	}
+}

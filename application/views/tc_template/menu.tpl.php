@@ -22,7 +22,7 @@ if (isset($datos_imagen) and ! empty($datos_imagen)) {
 
 <div id="mobile-menu"></div>
 <nav class="navigation closed clearfix">
-    <a href="#" class="menu-toggle btn"><i class="fa fa-bars"></i></a>
+    <a href="#" class="menu-toggle btn"><i class="fa fa-bars imss-foro-gris"></i></a>
     <ul class="sf-menu nav">
         <li class="active"><a href="#home">Inicio</a></li>
     </ul>
