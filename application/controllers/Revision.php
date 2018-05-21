@@ -7,7 +7,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @version 	: 1.0.0
  * @author      : JZDP AND LEAS
  * */
-class Revision extends MY_Controller {
+class Revision extends General_revisiones {
 
     const LISTA = 'lista', NUEVA = 'agregar', EDITAR = 'editar',
             CREAR = 'crear', LEER = 'leer', ACTUALIZAR = 'actualizar', ELIMINAR = 'eliminar',
