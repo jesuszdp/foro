@@ -3,18 +3,41 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * Clase que contiene la gestion de catálogos
+ * Clase que contiene la revisión de los trabajos de investigación
  * @version 	: 1.0.0
- * @author      : JZDP AND LEAS
+ * @author      : LEAS
  * */
-class Revision extends General_revisiones {
-
-    const LISTA = 'lista', NUEVA = 'agregar', EDITAR = 'editar',
-            CREAR = 'crear', LEER = 'leer', ACTUALIZAR = 'actualizar', ELIMINAR = 'eliminar',
-            EXPORTAR = 'exportar';
+class Revision extends General_revision {
 
     function __construct() {
+        $this->grupo_language_text = ['generales']; //Grupo de idiomas para el controlador actual
         parent::__construct();
     }
-    
+
+    /**
+     * @author LEAS
+     * @Fecha 21/05/2018
+     * @param type $folio
+     * @description genera el espacio de la evaluación
+     * 
+     */
+    public function trabajos_investigacion_evaluacion() {
+        
+    }
+
+    /**
+     * @author LEAS
+     * @Fecha 21/05/2018
+     * @param type $folio
+     * @description genera el espacio de la evaluación
+     * 
+     */
+    public function nueva_evaluacion_revision() {
+        $data = NULL;
+        $main = $this->load->view('revision_trabajo_investigacion/evaluacion_trabajo_investigacion.php', $data, true);
+//        echo $main;
+        $this->template->setMainContent($main);
+        $this->template->getTemplate();
+    }
+
 }

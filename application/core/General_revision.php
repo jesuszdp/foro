@@ -8,14 +8,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @version 	: 1.0.0
  * @author      : LEAS
  * */
-class General_revisiones extends MY_Controller {
+class General_revision extends MY_Controller {
 
     const LISTA = 'lista', NUEVA = 'agregar', EDITAR = 'editar',
             CREAR = 'crear', LEER = 'leer', ACTUALIZAR = 'actualizar', ELIMINAR = 'eliminar',
             EXPORTAR = 'exportar';
 
     function __construct() {
-        $this->grupo_language_text = ['generales']; //Grupo de idiomas para el controlador actual
         parent::__construct();
     }
 
@@ -30,7 +29,7 @@ class General_revisiones extends MY_Controller {
     
         
     }
-    
+
     /**
      * @author 
      * @Fecha 21/05/2018
@@ -39,7 +38,7 @@ class General_revisiones extends MY_Controller {
      * 
      */
     function get_detalle_investigacion($folio) {
-        
+       
     }
     
     
