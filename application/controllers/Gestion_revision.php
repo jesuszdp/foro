@@ -24,7 +24,7 @@ class Gestion_revision extends General_revision {
         switch ($tipo) {
             case Gestion_revision::SN_COMITE:
                 $this->sn_comite();
-                $main_content = $this->load->view('trabajo/listas_gestor.tpl.php', $output, true);
+                $main_content = $this->load->view('revision_trabajo_investigacion/listas_gestor.php', $output, true);
                 $this->template->setMainContent($main_content);
                 $this->template->getTemplate();
                 break;
