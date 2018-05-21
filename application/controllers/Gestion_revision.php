@@ -17,13 +17,16 @@ class Gestion_revision extends General_revision {
      * @Fecha 21/05/2018
      * @param type $folio
      * @description genera el espacio de la evaluación
-     * 
+     *
      */
     public function listado_control($tipo = null) {
 
         switch ($tipo) {
             case Gestion_revision::SN_COMITE:
                 $this->sn_comite();
+                $main_content = $this->load->view('trabajo/listas_gestor.tpl.php', $output, true);
+                $this->template->setMainContent($main_content);
+                $this->template->getTemplate();
                 break;
             case Gestion_revision::REQ_ATENCION:
                 $this->requiere_atencion();
@@ -45,7 +48,7 @@ class Gestion_revision extends General_revision {
     }
 
     private function sn_comite() {
-        return [];
+      return [];
     }
 
     private function requiere_atencion() {

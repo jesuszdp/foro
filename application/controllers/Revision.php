@@ -19,10 +19,12 @@ class Revision extends General_revision {
      * @Fecha 21/05/2018
      * @param type $folio
      * @description genera el espacio de la evaluación
-     * 
+     *
      */
     public function trabajos_investigacion_evaluacion() {
-        
+      $main_content = $this->load->view('trabajo/lista_revisor.tpl.php', $output, true);
+      $this->template->setMainContent($main_content);
+      $this->template->getTemplate();
     }
 
     /**
@@ -30,7 +32,7 @@ class Revision extends General_revision {
      * @Fecha 21/05/2018
      * @param type $folio
      * @description genera el espacio de la evaluación
-     * 
+     *
      */
     public function nueva_evaluacion_revision() {
         pr("sss");
