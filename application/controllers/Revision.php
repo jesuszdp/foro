@@ -22,9 +22,6 @@ class Revision extends General_revision {
      *
      */
     public function trabajos_investigacion_evaluacion() {
-      $main_content = $this->load->view('revision_trabajo_investigacion/lista_revisor.php', $output, true);
-      $this->template->setMainContent($main_content);
-      $this->template->getTemplate();
     }
 
     /**
@@ -41,6 +38,12 @@ class Revision extends General_revision {
 //        echo $main;
         $this->template->setMainContent($main);
         $this->template->getTemplate();
+    }
+
+    public function finalizar_evaluacion(){
+      $main_content = $this->load->view('revision_trabajo_investigacion/mensaje_evaluacion_terminada.php', $output, true);
+      $this->template->setMainContent($main_content);
+      $this->template->getTemplate();
     }
 
 }

@@ -47,6 +47,8 @@ class Gestion_revision extends General_revision {
         }
     }
 
+
+
     private function sn_comite() {
       return [];
     }
@@ -69,6 +71,12 @@ class Gestion_revision extends General_revision {
 
     private function rechazados() {
         return [];
+    }
+
+    public function ver_resumen(){
+      $main_content = $this->load->view('revision_trabajo_investigacion/resumen_trabajo_investigacion.php', $output, true);
+      $this->template->setMainContent($main_content);
+      $this->template->getTemplate();
     }
 
 }
