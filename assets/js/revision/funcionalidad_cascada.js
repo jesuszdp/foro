@@ -125,15 +125,34 @@ $(function () {
     }
   });
 
-  $('#b_finalizar').click(function() {
-    console.log("CALIDAD DE RESUMEN: ", $('input[name=calidad]:checked').val());
-    console.log("ORIGINALIDAD: ", $('input[name=originalidad]:checked').val());
-    console.log("CUANTITATIVAS: ", $('input[name=cuantitativas]:checked').val());
-    console.log("CUALITATIVAS: ", $('input[name=cualitativas]:checked').val());
-    console.log("MIXTAS: ", $('input[name=mixtas]:checked').val());
-    console.log("TRASCENDENCIA: ", $('input[name=trascendencia]:checked').val());
-    console.log("ASPECTOS ETNICOS: ", $('input[name=aspectos]:checked').val());
-  });
+  var down10 = false;
+  $("#secResTrabajoInv").click(function(){
+    down10 = !down10;
+    if(down10){
+      $("#hideResumen").show(1000, function(){
+      })
+    }else{
+      $("#hideResumen").hide(1000, function(){
+      })
+    }
+  })
+
+  if($('input[value=educativo]:checked, input[value=conflicto]:checked').length == 2){
+    $( "#seccionesEva" ).show( 1000, function() {
+    });
+  }else{
+    $( "#seccionesEva" ).hide( 1000, function() {
+    });
+  }
+  // $('#b_finalizar').click(function() {
+  //   console.log("CALIDAD DE RESUMEN: ", $('input[name=calidad]:checked').val());
+  //   console.log("ORIGINALIDAD: ", $('input[name=originalidad]:checked').val());
+  //   console.log("CUANTITATIVAS: ", $('input[name=cuantitativas]:checked').val());
+  //   console.log("CUALITATIVAS: ", $('input[name=cualitativas]:checked').val());
+  //   console.log("MIXTAS: ", $('input[name=mixtas]:checked').val());
+  //   console.log("TRASCENDENCIA: ", $('input[name=trascendencia]:checked').val());
+  //   console.log("ASPECTOS ETNICOS: ", $('input[name=aspectos]:checked').val());
+  // });
 })
 
 function cambio(obj){
@@ -280,5 +299,15 @@ function cambio(obj){
       break;
     default:
 
+  }
+}
+
+function cambioEvaluacion(check){
+  if($('input[value=educativo]:checked, input[value=conflicto]:checked').length == 2){
+    $( "#seccionesEva" ).show( 1000, function() {
+    });
+  }else{
+    $( "#seccionesEva" ).hide( 1000, function() {
+    });
   }
 }
