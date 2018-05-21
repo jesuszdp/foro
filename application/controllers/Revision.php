@@ -33,6 +33,7 @@ class Revision extends General_revision {
      * 
      */
     public function nueva_evaluacion_revision() {
+        pr("sss");
         $data = NULL;
         $main = $this->load->view('revision_trabajo_investigacion/evaluacion_trabajo_investigacion.php', $data, true);
 //        echo $main;
