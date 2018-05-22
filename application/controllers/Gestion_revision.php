@@ -19,11 +19,7 @@ class Gestion_revision extends General_revision {
      * @description genera el espacio de la evaluación
      *
      */
-
-
     public function listado_control($tipo = null) {
-
-
         switch ($tipo) {
             case Gestion_revision::SN_COMITE:
                 $this->sn_comite();
@@ -88,6 +84,7 @@ class Gestion_revision extends General_revision {
       $this->template->setMainContent($main_content);
       $this->template->getTemplate();
     }
+
 
     public function trabajos_investigacion_evaluacion_gestor() {
       $main_content = $this->load->view('revision_trabajo_investigacion/listas_gestor.php', $output, true);
