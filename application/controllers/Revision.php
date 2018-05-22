@@ -27,6 +27,7 @@ class Revision extends General_revision {
       $this->template->getTemplate();
     }
 
+
     /**
      * @author LEAS
      * @Fecha 21/05/2018
