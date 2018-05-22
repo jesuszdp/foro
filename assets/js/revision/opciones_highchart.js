@@ -35,9 +35,16 @@ function chart(id_chart, tabla, titulo, ytext, color) {
             table: tabla
         },
         chart: {
-            type: 'column'
+            type: 'column',
+            backgroundColor: '#3e4b5a'
         },
-        colors: color,
+        //colors: color,
+        plotOptions: {
+          series: {
+            colorByPoint: true,
+            animation: false
+          }
+        },
         title: {
             text: titulo
         },

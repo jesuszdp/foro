@@ -445,7 +445,7 @@
                         </select>
                       </div>
                       <section id="sec_b">
-                        <a href="evaluacion_terminada.html" class="btn btn-theme btn-block submit-button animated flipInY visible">Finalizar evaluación </a>  <i class="fa fa-arrow-circle-right"></i></button>
+                        <a href="finalizar_evaluacion" class="btn btn-theme btn-block submit-button animated flipInY visible">Finalizar evaluación </a>  <i class="fa fa-arrow-circle-right"></i></button>
                       </section>
                     </form>
                   </div>

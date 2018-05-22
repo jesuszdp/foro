@@ -73,7 +73,13 @@ class Gestion_revision extends General_revision {
         return [];
     }
 
-    public function ver_resumen(){
+    /**
+     * @author Cheko
+     * @date 21/05/2018
+     * @param type $id - identificador del trabajo de investigación
+     * @description Función que muestra la vista del resumen de un trabajo de investigación
+     */
+    public function ver_resumen($id=NULL){
       $main_content = $this->load->view('revision_trabajo_investigacion/resumen_trabajo_investigacion.php', $output, true);
       $this->template->setMainContent($main_content);
       $this->template->getTemplate();

@@ -43,7 +43,13 @@ class Revision extends General_revision {
         $this->template->getTemplate();
     }
 
-    public function finalizar_evaluacion(){
+    /**
+     * @author Cheko
+     * @date 21/05/2018
+     * @param type $id identificador del trabajo de investigación
+     * @description Muestra la vista de finalizar evaluación
+     */
+    public function finalizar_evaluacion($id=NULL){
       $main_content = $this->load->view('revision_trabajo_investigacion/mensaje_evaluacion_terminada.php', $output, true);
       $this->template->setMainContent($main_content);
       $this->template->getTemplate();
