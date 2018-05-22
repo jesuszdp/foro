@@ -26,11 +26,7 @@ class Revision extends General_revision {
       $this->template->setMainContent($main_content);
       $this->template->getTemplate();
     }
-    public function trabajos_investigacion_evaluacion_gestor() {
-      $main_content = $this->load->view('revision_trabajo_investigacion/listas_gestor.php', $output, true);
-      $this->template->setMainContent($main_content);
-      $this->template->getTemplate();
-    }
+
 
     /**
      * @author LEAS
