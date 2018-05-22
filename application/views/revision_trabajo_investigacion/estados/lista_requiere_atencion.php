@@ -56,3 +56,12 @@
   </tbody>
 </table>
 <!-- END lista_requiere_atencion -->
+
+<script>
+  $("#comite").removeClass()
+  $("#atencion").addClass("active")
+  $("#revision").removeClass()
+  $("#revisados").removeClass()
+  $("#aceptados").removeClass()
+  $("#rechazados").removeClass()
+</script>

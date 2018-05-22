@@ -22,7 +22,7 @@ class Gestion_revision extends General_revision {
     public function listado_control($tipo = null) {
         switch ($tipo) {
             case Gestion_revision::SN_COMITE:
-                $datos['data_sn_comite'] = $this->sn_comite();
+                $datos['data_sn_comite'] = $this->requiere_atencion();
                 $output['list_sn_comite'] = $this->load->view('revision_trabajo_investigacion/estados/lista_sin_comite.php',$datos,true);
                 break;
             case Gestion_revision::REQ_ATENCION:
@@ -55,31 +55,28 @@ class Gestion_revision extends General_revision {
         $this->template->getTemplate();
     }
 
-
-
     private function sn_comite() {
-
       return [];
     }
 
     private function requiere_atencion() {
-        return [];
+      return [];
     }
 
     private function en_revision() {
-        return [];
+      return [];
     }
 
     private function revisados() {
-        return [];
+      return [];
     }
 
     private function aceptados() {
-        return [];
+      return [];
     }
 
     private function rechazados() {
-        return [];
+      return [];
     }
 
     /**

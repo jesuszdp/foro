@@ -3,125 +3,45 @@
 <div class="schedule-wrapper clear" data-animation="fadeIn" data-animation-delay="200">
   <div class="schedule-tabs lv1">
     <ul id="tabs-lv1"  class="nav nav-justified">
-      <li class="active"><a href="#tab-sin-comite" data-toggle="tab"><strong>Sin comité</strong> <br/></a></li>
-      <li><a href="#tab-atencion" data-toggle="tab"><strong>Requiere atención</strong> <br/></a></li>
-      <li><a href="#tab-en-revision" data-toggle="tab"><strong>En revisión</strong> <br/></a></li>
-      <li><a href="#tab-revisados" data-toggle="tab"><strong>Revisados</strong></a></li>
-      <li><a href="#tab-aceptados" data-toggle="tab"><strong>Aceptados</strong> <br/></a></li>
-      <li><a href="#tab-rechazados" data-toggle="tab"><strong>Rechazados</strong> <br/></a></li>
+      <li id="comite" onclick="ponerActivo(this)"> <a href="1"><strong>Sin comité</strong> <br/></a></li>
+      <li id="atencion" onclick="ponerActivo(this)"> <a href="2" ><strong>Requiere atención</strong> <br/></a></li>
+      <li id="revision" onclick="ponerActivo(this)"> <a href="3"><strong>En revisión</strong> <br/></a></li>
+      <li id="revisados" onclick="ponerActivo(this)"> <a href="4"><strong>Revisados</strong></a></li>
+      <li id="aceptados" onclick="ponerActivo(this)"> <a href="5"><strong>Aceptados</strong> <br/></a></li>
+      <li id="rechazados" onclick="ponerActivo(this)"> <a href="6"><strong>Rechazados</strong> <br/></a></li>
     </ul>
   </div>
-
   <div class="tab-content lv1">
     <!-- tab-sin-comite sin comité -->
     <div id="tab-sin-comite" class="tab-pane fade in active">
       <div class="tab-content lv2">
         <div id="tab-lv21-comite" class="tab-pane fade in active">
           <div class="timeline">
-            <?php
-              if(isset($list_sn_comite))
-              {
-                echo $list_sn_comite;
-              }
-            ?>
+              <?php
+                if(isset($list_sn_comite)){
+                  echo $list_sn_comite;
+                }
+                if(isset($list_req_atencion)){
+                  echo $list_req_atencion;
+                }
+                if(isset($list_en_revision)){
+                  echo $list_en_revision;
+                }
+                if(isset($list_revisados)){
+                  echo $list_revisados;
+                }
+                if(isset($lista_aceptados)){
+                  echo $lista_aceptados;
+                }
+                if(isset($list_rechazados)){
+                  echo $list_rechazados;
+                }
+              ?>
           </div>
         </div>
       </div>
     </div>
     <!-- END tab-sin-comite sin comité -->
-
-    <!-- tab-atencion requiere atencion -->
-    <div id="tab-atencion" class="tab-pane fade">
-      <div class="tab-content lv2">
-        <div id="tab-lv22-atencion" class="tab-pane fade in active">
-          <div class="timeline">
-            <?php
-              if(isset($list_req_atencion))
-              {
-                echo $list_req_atencion;
-              }
-            ?>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!--END tab-atencion requiere atencion -->
-
-    <!-- tab-en-revision en revisión -->
-    <div id="tab-en-revision" class="tab-pane fade">
-      <div class="tab-content lv2">
-        <div id="tab-lv23-en-revision" class="tab-pane fade in active">
-          <div class="timeline">
-            <?php
-              if(isset($list_en_revision))
-              {
-                echo $list_en_revision;
-              }
-            ?>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- END tab-en-revision en revisión -->
-
-
-      <!-- tab-revisados revisados -->
-      <div id="tab-revisados" class="tab-pane fade">
-        <div class="tab-content lv2">
-          <div id="tab-lv24-last" class="tab-pane fade in active">
-            <div class="timeline">
-              <?php
-                if(isset($list_revisados))
-                {
-                  echo $list_revisados;
-                }
-              ?>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- END lista_revisados -->
-
-      <!-- tab-aceptados aceptados -->
-      <div id="tab-aceptados" class="tab-pane fade">
-        <div class="tab-content lv2">
-          <div id="tab-lv24-aceptados" class="tab-pane fade in active">
-            <div class="timeline">
-              <!-- Tabla de aceptados -->
-              <?php
-                if(isset($lista_aceptados))
-                {
-                  echo $lista_aceptados;
-                }
-              ?>
-              <!-- Aquí va -->
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- END tab-aceptados aceptados -->
-
-
-      <!-- tab-rechazados rechazados-->
-      <div id="tab-rechazados" class="tab-pane fade">
-        <div class="tab-content lv2">
-          <div id="tab-lv23-rechazados" class="tab-pane fade in active">
-            <div class="timeline">
-              <?php
-                if(isset($list_rechazados))
-                {
-                  echo $list_rechazados;
-                }
-              ?>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!--END tab-rechazados rechazados-->
-    </div>
-  </div>
-  <!-- END listas de estados -->
-
   <!-- Modal -->
       <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered"  role="document">
@@ -254,3 +174,32 @@
         </div>
       </div>
       <!-- Modal -->
+
+      <script>
+        function ponerActivo(obj){
+          console.log(obj)
+          console.log(obj.id)
+          switch (obj.id) {
+            case 'comite':
+              //$("#comite").addClass("active")
+              break;
+            case 'atencion':
+              //$("#atencion").addClass("active")
+              break;
+            case 'revision':
+              //$("#revision").addClass("active")
+              break;
+            case 'revisados':
+              //$("#revisados").addClass("active")
+              break;
+            case 'aceptados':
+              //$("#aceptados").addClass("active")
+              break;
+            case 'rechazados':
+              //$("#rechazados").addClass("active")
+              break;
+            default:
+
+          }
+        }
+      </script>
