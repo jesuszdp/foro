@@ -124,7 +124,7 @@
                   <td>Se agotó el tiempo</td>
                   <td>5</td>
                   <td>
-                    <button type="button" data-animation="flipInY" data-animation-delay="100" class="col-sm-1 btn btn-theme btn-block submit-button">Ver trabajo</button>
+                    <button type="button" data-animation="flipInY" data-animation-delay="100" class="col-sm-1 btn btn-theme btn-block submit-button"> <a href="ver"></a>  Ver trabajo</button>
                     <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal">Asignar</button>
                   </td>
                 </tr>
@@ -277,7 +277,7 @@
                     <td>90</td>
                     <td>Aceptado para exposición con cartel</td>
                     <td>
-                      <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button"> <a href="detalle_trabajo_gestor.html" style="color:#fff;">Ver detalle</a> </button>
+                      <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button"> <a href="ver_resumen" style="color:#fff;">Ver detalle</a> </button>
                     </td>
                   </tr>
                   <tr>
@@ -289,7 +289,7 @@
                     <td>N/A</td>
                     <td>95</td>
                     <td>Aceptado para oratoria</td>
-                    <td><button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button"> <a href="detalle_trabajo_gestor.html" style="color:#fff;">Ver detalle</a> </button>
+                    <td><button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button"> <a href="ver_resumen" style="color:#fff;">Ver detalle</a> </button>
                     </td>
                   </tr>
                   <tr>
@@ -302,7 +302,7 @@
                     <td>N/A</td>
                     <td>80</td>
                     <td>Aceptado para oratoria</td>
-                    <td><button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button"> <a href="detalle_trabajo_gestor.html" style="color:#fff;">Ver detalle</a> </button>
+                    <td><button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button"> <a href="ver_resumen" style="color:#fff;">Ver detalle</a> </button>
                     </td>
                   </tr>
                   <tr>
@@ -314,7 +314,7 @@
                     <td>N/A</td>
                     <td>50</td>
                     <td>Aceptado para oratoria</td>
-                    <td><button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button"> <a href="detalle_trabajo_gestor.html" style="color:#fff;">Ver detalle</a> </button>
+                    <td><button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button"> <a href="ver_resumen" style="color:#fff;">Ver detalle</a> </button>
                     </td>
                   </tr>
                   <tr>
@@ -326,7 +326,7 @@
                     <td>N/A</td>
                     <td>20</td>
                     <td>Aceptado para oratoria</td>
-                    <td><button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button"> <a href="detalle_trabajo_gestor.html" style="color:#fff;">Ver detalle</a> </button>
+                    <td><button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button"> <a href="ver_resumen" style="color:#fff;">Ver detalle</a> </button>
                     </td>
                   </tr>
                   <tr>
@@ -338,7 +338,7 @@
                     <td>N/A</td>
                     <td>100</td>
                     <td>Rechazado</td>
-                    <td><button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button"> <a href="detalle_trabajo_gestor.html" style="color:#fff;">Ver detalle</a> </button>
+                    <td><button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button"> <a href="ver_resumen" style="color:#fff;">Ver detalle</a> </button>
                     </td>
                   </tr>
                 </tbody>
@@ -374,7 +374,7 @@
                     <td>cualitativo</td>
                     <td>Oratoria</td>
                     <td>90</td>
-                    <td><a class="col-sm-1 btn btn-theme btn-block submit-button" href="ver_resumen">Ver</a>
+                    <td><a class="col-sm-1 btn btn-theme btn-block submit-button" href="ver_resumen">Ver detalle</a>
                       <!-- <a href="#">Evaluar</a> -->
                     </td>
                   </tr>
@@ -385,7 +385,7 @@
                     <td>Oratoria</td>
 
                     <td>95</td>
-                    <td><a class="col-sm-1 btn btn-theme btn-block submit-button" href="ver_resumen">Ver</a>
+                    <td><a class="col-sm-1 btn btn-theme btn-block submit-button" href="ver_resumen">Ver detalle</a>
                       <!-- <a href="#">Evaluar</a> -->
                     </td>
                   </tr>
@@ -397,7 +397,7 @@
 
                     <!-- <td>Mario Perez</td> -->
                     <td>80</td>
-                    <td><a class="col-sm-1 btn btn-theme btn-block submit-button" href="ver_resumen">Ver</a>
+                    <td><a class="col-sm-1 btn btn-theme btn-block submit-button" href="ver_resumen">Ver detalle</a>
                       <!-- <a href="#">Evaluar</a> -->
                     </td>
                   </tr>
@@ -438,7 +438,7 @@
                     <td>90</td>
                     <td>Tema relacionado</td>
                     <td>
-                      <a class="col-sm-1 btn btn-theme btn-block submit-button" href="resumen_revision_ti_view.html">Ver</a>
+                      <a class="col-sm-1 btn btn-theme btn-block submit-button" href="ver_resumen">Ver detalle</a>
                     </td>
                   </tr>
                   <tr>
@@ -449,7 +449,7 @@
                     <td>95</td>
                     <td>Tema relacionado</td>
                     <td>
-                      <a class="col-sm-1 btn btn-theme btn-block submit-button" href="resumen_revision_ti_view.html">Ver</a>
+                      <a class="col-sm-1 btn btn-theme btn-block submit-button" href="ver_resumen">Ver detalle</a>
                     </td>
                   </tr>
                   <tr>
@@ -460,7 +460,7 @@
                     <td>80</td>
                     <td>Tema relacionado</td>
                     <td>
-                      <a class="col-sm-1 btn btn-theme btn-block submit-button" href="resumen_revision_ti_view.html">Ver</a>
+                      <a class="col-sm-1 btn btn-theme btn-block submit-button" href="ver_resumen">Ver detalle</a>
                     </td>
                   </tr>
                 </tbody>
@@ -474,3 +474,136 @@
     </div>
   </div>
   <!-- END listas de estados -->
+
+  <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered"  role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title" id="exampleModalLabel">Asignar revisor(es)</h3>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Nombre</th>
+                      <th scope="col">Especialidad</th>
+                      <th scope="col">Opciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">Juan Cuadros </th>
+                      <td>Diabetes</td>
+                      <td><button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal">Asignar</button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Mariana Reyes</th>
+                      <td>Medicina general</td>
+                      <td><button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal">Asignar</button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Cristina Pacheco</th>
+                      <td>Neurocirugia</td>
+                      <td><button type="button" data-animation="flipInY" data-animation-delay="100" class="col-sm-1 btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal">Asignar</button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Cristina Pacheco</th>
+                      <td>Neurocirugia</td>
+                      <td><button type="button" data-animation="flipInY" data-animation-delay="100" class="col-sm-1 btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal">Asignar</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                  </table>
+            </div>
+            <div class="modal-footer">
+              <!-- <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-dismiss="modal">cerrar</button> -->
+              <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block" class="btn btn-primary">Guardar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Modal -->
+
+      <!-- Modal 2 -->
+      <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered"  role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title" id="exampleModalLabel2">Dictamen</h3>
+
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+
+              <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Nombre del trabajo</th>
+                      <!-- <th scope="col">Puntua</th>
+                      <th scope="col">Opciones</th> -->
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">Lorem Ipsum ... </th>
+                      <!-- <td>Diabetes</td> -->
+                      <td>
+                        <!-- <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal">Asignar</button> -->
+                           <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="dropdown">Cartel
+                           </button>
+                           <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="dropdown">Ponencia
+                           </button>
+
+
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Lorem Ipsum ...</th>
+                      <!-- <td>Medicina general</td> -->
+                      <td>
+                        <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="dropdown">Cartel
+                        </button>
+                        <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="dropdown">Ponencia
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Lorem Ipsum ...</th>
+                      <!-- <td>Neurocirugia</td> -->
+                      <td>
+                        <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="dropdown">Cartel
+                        </button>
+                        <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="dropdown">Ponencia
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Lorem Ipsum ...</th>
+                      <!-- <td>Neurocirugia</td> -->
+                      <td>
+                        <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="dropdown">Cartel
+                        </button>
+                        <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="dropdown">Ponencia
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                  </table>
+            </div>
+            <div class="modal-footer">
+              <!-- <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-dismiss="modal">cerrar</button> -->
+              <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block" class="btn btn-primary">Guardar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Modal -->
