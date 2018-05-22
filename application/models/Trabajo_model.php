@@ -46,6 +46,13 @@ class Trabajo_model extends CI_Model
         }
 
         $this->db->insert('public.archivos',$datos['archivo']);
+        $this->db->insert('foro.historico_revision',
+            array(
+                'folio' => $datos['datos']['folio'],
+                'clave_estado' => 'sin_asignacion',
+                'actual' => 'true'
+                )
+            );
 
     	if ($this->db->trans_status() === FALSE)
         {
@@ -90,20 +97,22 @@ class Trabajo_model extends CI_Model
         $this->db->flush_cache();
         $this->db->reset_query();
 
-        $this->db->select(array('ti.folio','ti.titulo','ti.id_tipo_metodologia',"m.lang nombre_metodologia",'date(ti.fecha) fecha','ti.clave_estado',"et.lang estado"));
+        $this->db->select(array('ti.folio','ti.titulo','ti.id_tipo_metodologia',"m.lang nombre_metodologia",'date(ti.fecha) fecha','hr.clave_estado',"et.lang estado"));
         $this->db->where(array(
             'a.id_informacion_usuario'=>$id_informacion_usuario,
-            'a.registro' => 'true'
+            'a.registro' => 'true',
+            'hr.actual' => true
             ));
         $this->db->join('foro.autor a', 'a.folio_investigacion = ti.folio','left');
         $this->db->join('foro.tipo_metodologia m','m.id_tipo_metodologia = ti.id_tipo_metodologia', 'left');
-        $this->db->join('foro.estado_trabajo et','ti.clave_estado = et.clave_estado');
+        $this->db->join('foro.historico_revision hr','ti.folio = hr.folio','inner');
+        $this->db->join('foro.estado_trabajo et','hr.clave_estado = et.clave_estado');
         $this->db->order_by('ti.folio','desc');
         $res = $this->db->get('foro.trabajo_investigacion ti');
 
         $this->db->flush_cache();
         $this->db->reset_query();    
-        
+
         return $res->result_array();
     }
     
@@ -119,16 +128,18 @@ class Trabajo_model extends CI_Model
 
         $this->db->select(array(
             "ti.folio", "ti.titulo", "ti.id_tipo_metodologia", "m.lang nombre_metodologia",
-            "date(ti.fecha) fecha", "ti.clave_estado", "et.lang estado"
+            "date(ti.fecha) fecha", "hr.clave_estado", "et.lang estado"
             , "a.id_informacion_usuario", "iu.es_imss", "uni.nivel_atencion"
             , "uni.nivel_atencion", "concat(iu.nombre, ' ', iu.apellido_paterno, ' ', iu.apellido_materno) nombre_investigador"
         ));
         $this->db->where(array(
-            'a.registro' => true
+            'a.registro' => true,
+            'hr.actual' => true
         ));
         $this->db->join('foro.autor a', 'a.folio_investigacion = ti.folio', 'inner');
         $this->db->join('foro.tipo_metodologia m', 'm.id_tipo_metodologia = ti.id_tipo_metodologia', 'inner');
-        $this->db->join('foro.estado_trabajo et', 'ti.clave_estado = et.clave_estado', 'left');
+        $this->db->join('foro.historico_revision hr','ti.folio = hr.folio', 'left');
+        $this->db->join('foro.estado_trabajo et', 'hr.clave_estado = et.clave_estado', 'left');
         $this->db->join('sistema.informacion_usuario iu', 'iu.id_informacion_usuario = a.id_informacion_usuario', 'inner');
         $this->db->join('sistema.historico_informacion_usuario h', 'h.actual = true and h.id_informacion_usuario = iu.id_informacion_usuario', 'left', FALSE);
         $this->db->join('catalogo.departamento dep', 'dep.clave_departamental = h.clave_departamental', 'left');
@@ -174,10 +185,11 @@ class Trabajo_model extends CI_Model
         $this->db->flush_cache();
         $this->db->reset_query();
 
-        $this->db->select(array('ti.*',"et.lang estado_nombre","m.lang tipo_metodologia", "f.id_archivo", "f.nombre_fisico"));
+        $this->db->select(array('ti.*',"m.lang tipo_metodologia", "f.id_archivo", "f.nombre_fisico"));
         $this->db->where(array('ti.folio'=>$folio));
         $this->db->join('foro.tipo_metodologia m','m.id_tipo_metodologia = ti.id_tipo_metodologia');
-        $this->db->join('foro.estado_trabajo et','ti.clave_estado = et.clave_estado', 'left');
+        //$this->db->join('foro.historico_revision hr','ti.folio = hr.folio','inner');
+        //$this->db->join('foro.estado_trabajo et','hr.clave_estado = et.clave_estado', 'left');
         $this->db->join('public.archivos f','f.folio_investigacion = ti.folio', 'left');
         $res = $this->db->get('foro.trabajo_investigacion ti');
 

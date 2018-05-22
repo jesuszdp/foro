@@ -171,8 +171,15 @@ class Inicio extends MY_Controller {
      */
     function informacion($tipo = 'lista') {
         $this->load->model('Trabajo_model', 'trabajo');
-        $output['data'] = $this->trabajo->listado_trabajos_autor_general();
+        $lang = $this->obtener_idioma();
+        $listado = $this->trabajo->listado_trabajos_autor_general();
+        foreach ($listado as $key => $value) {
+            $json = json_decode($value['estado'], true);
+            $value['estado'] = $json['investigador'][$lang];
+            $listado[$key] = $value;
+        }
 //        pr($output['data']);
+        $output['data'] = $listado;
         header('Content-Type: application/json; charset=utf-8;');
         echo json_encode($output);
     }
