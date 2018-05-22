@@ -54,3 +54,11 @@
   </tbody>
 </table>
 <!-- END lista sin comité -->
+<script>
+  $("#comite").addClass("active")
+  $("#atencion").removeClass()
+  $("#revision").removeClass()
+  $("#revisados").removeClass()
+  $("#aceptados").removeClass()
+  $("#rechazados").removeClass()
+</script>

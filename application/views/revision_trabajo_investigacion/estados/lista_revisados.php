@@ -123,3 +123,12 @@
   </tbody>
 </table>
 <!-- END lista_revisados -->
+
+<script>
+  $("#comite").removeClass()
+  $("#atencion").removeClass()
+  $("#revision").removeClass()
+  $("#revisados").addClass("active")
+  $("#aceptados").removeClass()
+  $("#rechazados").removeClass()
+</script>

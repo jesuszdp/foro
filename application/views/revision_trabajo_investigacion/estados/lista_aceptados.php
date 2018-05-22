@@ -47,3 +47,11 @@
   </tbody>
 </table>
 <!-- END aceptados -->
+<script>
+$("#comite").removeClass()
+$("#atencion").removeClass()
+$("#revision").removeClass()
+$("#revisados").removeClass()
+$("#aceptados").addClass("active")
+$("#rechazados").removeClass()
+</script>

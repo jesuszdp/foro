@@ -48,3 +48,11 @@
     </tbody>
   </table>
   <!-- END lista_en_revision -->
+  <script>
+  $("#comite").removeClass()
+  $("#atencion").removeClass()
+  $("#revision").addClass("active")
+  $("#revisados").removeClass()
+  $("#aceptados").removeClass()
+  $("#rechazados").removeClass()
+  </script>
