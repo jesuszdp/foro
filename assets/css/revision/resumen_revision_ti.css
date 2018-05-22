@@ -39,7 +39,7 @@
   background-color: rgba(13,29,49,0.8);
   padding-left: 20px;
   padding-right: 20px;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
 }
 
 #column3{

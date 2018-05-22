@@ -30,8 +30,8 @@
                   <td>La medicina general?</td>
                   <td>cualitativo</td>
                   <td>05/06/2018</td>
-                  <td><a href="evaluacion_terminada.html">Ver</a> &nbsp &nbsp
-                    <a href="evaluacion.html">Evaluar</a>
+                  <td><a href="finalizar_evaluacion">Ver</a> &nbsp &nbsp
+                    <a href="nueva_evaluacion_revision">Evaluar</a>
                   </td>
                 </tr>
                 <tr>
@@ -39,8 +39,8 @@
                   <td>La medicina general</td>
                   <td>cualitativo</td>
                   <td>05/06/2018</td>
-                  <td><a href="evaluacion_terminada.html">Ver</a> &nbsp &nbsp
-                    <a href="evaluacion.html">Evaluar</a>
+                  <td><a href="finalizar_evaluacion">Ver</a> &nbsp &nbsp
+                    <a href="nueva_evaluacion_revision">Evaluar</a>
                   </td>
                 </tr>
                 <tr>
@@ -48,8 +48,8 @@
                   <td>La medicina general</td>
                   <td>cualitativo</td>
                   <td>05/06/2018</td>
-                  <td><a href="evaluacion_terminada.html">Ver</a> &nbsp &nbsp
-                    <a href="evaluacion.html">Evaluar</a>
+                  <td><a href="finalizar_evaluacion">Ver</a> &nbsp &nbsp
+                    <a href="nueva_evaluacion_revision">Evaluar</a>
                   </td>
                 </tr>
               </tbody>
