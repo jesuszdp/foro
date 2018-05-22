@@ -19,9 +19,12 @@
       <div class="tab-content lv2">
         <div id="tab-lv21-comite" class="tab-pane fade in active">
           <div class="timeline">
-
-
-
+            <?php
+              if(isset($list_sn_comite))
+              {
+                echo $list_sn_comite;
+              }
+            ?>
           </div>
         </div>
       </div>
@@ -33,64 +36,12 @@
       <div class="tab-content lv2">
         <div id="tab-lv22-atencion" class="tab-pane fade in active">
           <div class="timeline">
-
-            <!-- lista_requiere_atencion -->
-            <table class="table">
-              <thead>
-                <tr>
-                  <th scope="col">Folio</th>
-                  <th scope="col">Título</th>
-                  <th scope="col">Metodología</th>
-                  <th scope="col">Estatus R1</th>
-                  <th scope="col">Estatus R2</th>
-                  <th scope="col">Estatus R3</th>
-                  <th scope="col">Número de revisiones</th>
-                  <th scope="col">Opciones</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">12285311F1</th>
-                  <td>La medicina general?</td>
-                  <td>cualitativo</td>
-                  <td>Se agotó el tiempo</td>
-                  <td>Se agotó el tiempo</td>
-                  <td>Se agotó el tiempo</td>
-                  <td>2</td>
-                  <td>
-                    <button type="button" data-animation="flipInY" data-animation-delay="100" class="col-sm-1 btn btn-theme btn-block submit-button">Ver trabajo</button>
-                    <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal">Asignar</button>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">12285311F2</th>
-                  <td>La medicina general</td>
-                  <td>cualitativo</td>
-                  <td>Discrepancia</td>
-                  <td>Conflicto de interes</td>
-                  <td>Se agotó el tiempo</td>
-                  <td>5</td>
-                  <td>
-                    <button type="button" data-animation="flipInY" data-animation-delay="100" class="col-sm-1 btn btn-theme btn-block submit-button"> <a href="ver"></a>  Ver trabajo</button>
-                    <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal">Asignar</button>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">12285311F3</th>
-                  <td>La medicina general</td>
-                  <td>cualitativo</td>
-                  <td>Conflicto de interés</td>
-                  <td>Se agotó el tiempo</td>
-                  <td>Se agotó el tiempo</td>
-                  <td>8</td>
-                  <td>
-                    <button type="button" data-animation="flipInY" data-animation-delay="100" class="col-sm-1 btn btn-theme btn-block submit-button">Ver trabajo</button> <br>
-                    <button type="button" data-animation="flipInY" data-animation-delay="100" class="col-sm-1 btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal">Asignar</button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <!-- END lista_requiere_atencion -->
+            <?php
+              if(isset($list_req_atencion))
+              {
+                echo $list_req_atencion;
+              }
+            ?>
           </div>
         </div>
       </div>
@@ -102,63 +53,17 @@
       <div class="tab-content lv2">
         <div id="tab-lv23-en-revision" class="tab-pane fade in active">
           <div class="timeline">
-            <h4> <b>Nota:</b> La fecha debajo del nombre del revisor es la fecha límite de evaluación. </h4>
-            <br>
-
-            <!-- lista_en_revision -->
-            <table class="table">
-              <thead>
-                <tr>
-                  <th scope="col">Folio</th>
-                  <th scope="col">Título</th>
-                  <th scope="col">Metodología</th>
-                  <th scope="col">R1</th>
-                  <th scope="col">R2</th>
-                  <th scope="col">R3</th>
-                  <th scope="col">Opciones</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">12285311F1</th>
-                  <td>La medicina general?</td>
-                  <td>cualitativo</td>
-                  <td>Luis Eduardo <br> 05/06/2018</td>
-                  <td>Jesus Zoe <br> Concluido</td>
-                  <td>MArio Perez <br> 05/06/2018</td>
-                  <td>
-                    <a class="col-sm-1 btn btn-theme btn-block submit-button" href="detalle_trabajo_gestor.html">Ver trabajo</a>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">12285311F2</th>
-                  <td>La medicina general</td>
-                  <td>cualitativo</td>
-                  <td>Luis Eduardo <br> 05/06/2018</td>
-                  <td>Jesus Zoe <br> Concluido</td>
-                  <td>MArio Perez <br> 05/06/2018</td>
-                  <td>
-                    <a class="col-sm-1 btn btn-theme btn-block submit-button" href="detalle_trabajo_gestor.html">Ver trabajo</a>
-                  </tr>
-                  <tr>
-                    <th scope="row">12285311F3</th>
-                    <td>La medicina general</td>
-                    <td>cualitativo</td>
-                    <td>Luis Eduardo <br> 05/06/2018</td>
-                    <td>Jesus Zoe <br> Concluido</td>
-                    <td>MArio Perez <br> 05/06/2018</td>
-                    <td><a class="col-sm-1 btn btn-theme btn-block submit-button" href="detalle_trabajo_gestor.html">Ver trabajo</a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-              <!-- END lista_en_revision -->
-            </div>
+            <?php
+              if(isset($list_en_revision))
+              {
+                echo $list_en_revision;
+              }
+            ?>
           </div>
-
         </div>
       </div>
-      <!-- END tab-en-revision en revisión -->
+    </div>
+    <!-- END tab-en-revision en revisión -->
 
 
       <!-- tab-revisados revisados -->
@@ -166,131 +71,12 @@
         <div class="tab-content lv2">
           <div id="tab-lv24-last" class="tab-pane fade in active">
             <div class="timeline">
-              <!-- contadores de lugares para oratoria y lugares para cartel -->
-              <div class="col-sm-12">
-                <div class="col-sm-3">
-                  <h3> Lugares para Oratoria</h3><br>
-                  <h3>10 / 20</h3>
-                </div>
-                <div class="col-sm-3">
-                  <h3> Lugares para Oratoria</h3><br>
-                  <h3>10 / 20</h3>
-                </div>
-              </div>
-              <!-- END contadores de lugares para oratoria y lugares para cartel -->
-
-
-              <!-- botones cerrar proceso, guardar cambios y sugerir dictamen -->
-              <div class="col-sm-12">
-                <div class="col-sm-1">
-                </div>
-                <div class="col-sm-3">
-                  <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal2"> <a  style="color:#fff;">Sugerir dictamen</a> </button>
-                </div>
-                <div class="col-sm-3">
-                  <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal2"> <a  style="color:#fff;">Guardar cambio</a> </button>
-                </div>
-                <div class="col-sm-3">
-                  <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal2"> <a  style="color:#fff;">Cerrar proceso</a> </button>
-                </div>
-              </div>
-              <!-- END botones cerrar proceso, guardar cambios y sugerir dictamen -->
-              <br><br>
-
-              <!--  lista_revisados -->
-              <table class="table">
-                <thead>
-                  <tr>
-                    <!-- <th scope="col"></th> -->
-                    <th scope="col">Folio</th>
-                    <th scope="col">Título</th>
-                    <th scope="col">Metodología</th>
-                    <th scope="col">R1</th>
-                    <th scope="col">R2</th>
-                    <th scope="col">R3</th>
-                    <th scope="col">Puntaje</th>
-                    <th>Propuesta de dictamen</th>
-                    <th scope="col">Opciones</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td scope="row">12285311F1</td>
-                    <td>La medicina general?</td>
-                    <td>cualitativo</td>
-                    <td>Juan Cuadros< <br> Cartel </td>
-                    <td>Maria Juarez <br> Cartel </td>
-                    <td>Mario Perez <br> Cartel</td>
-                    <td>90</td>
-                    <td>Aceptado para exposición con cartel</td>
-                    <td>
-                      <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button"> <a href="ver_resumen" style="color:#fff;">Ver detalle</a> </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">12285311F2</th>
-                    <td>La medicina general</td>
-                    <td>cualitativo</td>
-                    <td>Juan Cuadros< <br> Cartel </td>
-                    <td>Maria Juarez <br> Cartel</td>
-                    <td>N/A</td>
-                    <td>95</td>
-                    <td>Aceptado para oratoria</td>
-                    <td><button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button"> <a href="ver_resumen" style="color:#fff;">Ver detalle</a> </button>
-                    </td>
-                  </tr>
-                  <tr>
-
-                    <th scope="row">12285311F3</th>
-                    <td>La medicina general</td>
-                    <td>cualitativo</td>
-                    <td>Santiago valladolid <br> Cartel </td>
-                    <td>Mario Juarez <br> Cartel</td>
-                    <td>N/A</td>
-                    <td>80</td>
-                    <td>Aceptado para oratoria</td>
-                    <td><button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button"> <a href="ver_resumen" style="color:#fff;">Ver detalle</a> </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">12285311F3</th>
-                    <td>La medicina general</td>
-                    <td>cualitativo</td>
-                    <td>Antonio Flores <br> Cartel</td>
-                    <td>Cristian Matias <br> Cartel</td>
-                    <td>N/A</td>
-                    <td>50</td>
-                    <td>Aceptado para oratoria</td>
-                    <td><button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button"> <a href="ver_resumen" style="color:#fff;">Ver detalle</a> </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">12285311F3</th>
-                    <td>La medicina general</td>
-                    <td>cualitativo</td>
-                    <td>Antonio Flores</td>
-                    <td>Cristian Matias</td>
-                    <td>N/A</td>
-                    <td>20</td>
-                    <td>Aceptado para oratoria</td>
-                    <td><button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button"> <a href="ver_resumen" style="color:#fff;">Ver detalle</a> </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">12285311F3</th>
-                    <td>La medicina general</td>
-                    <td>cualitativo</td>
-                    <td>Antonio Flores</td>
-                    <td>Cristian Matias</td>
-                    <td>N/A</td>
-                    <td>100</td>
-                    <td>Rechazado</td>
-                    <td><button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button"> <a href="ver_resumen" style="color:#fff;">Ver detalle</a> </button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-              <!-- END lista_revisados -->
+              <?php
+                if(isset($list_revisados))
+                {
+                  echo $list_revisados;
+                }
+              ?>
             </div>
           </div>
         </div>
@@ -302,55 +88,14 @@
         <div class="tab-content lv2">
           <div id="tab-lv24-aceptados" class="tab-pane fade in active">
             <div class="timeline">
-              <!-- aceptados -->
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th scope="col">Folio</th>
-                    <th scope="col">Título</th>
-                    <th scope="col">Metodología</th>
-                    <th scope="col">Tipo de exposición</th>
-                    <th scope="col">Puntaje</th>
-                    <th scope="col">Opciones</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">12285311F1</th>
-                    <td>La medicina general?</td>
-                    <td>cualitativo</td>
-                    <td>Oratoria</td>
-                    <td>90</td>
-                    <td><a class="col-sm-1 btn btn-theme btn-block submit-button" href="ver_resumen">Ver detalle</a>
-                      <!-- <a href="#">Evaluar</a> -->
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">12285311F2</th>
-                    <td>La medicina general</td>
-                    <td>cualitativo</td>
-                    <td>Oratoria</td>
-
-                    <td>95</td>
-                    <td><a class="col-sm-1 btn btn-theme btn-block submit-button" href="ver_resumen">Ver detalle</a>
-                      <!-- <a href="#">Evaluar</a> -->
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">12285311F3</th>
-                    <td>La medicina general</td>
-                    <td>cualitativo</td>
-                    <td>Oratoria</td>
-
-                    <!-- <td>Mario Perez</td> -->
-                    <td>80</td>
-                    <td><a class="col-sm-1 btn btn-theme btn-block submit-button" href="ver_resumen">Ver detalle</a>
-                      <!-- <a href="#">Evaluar</a> -->
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-              <!-- END aceptados -->
+              <!-- Tabla de aceptados -->
+              <?php
+                if(isset($lista_aceptados))
+                {
+                  echo $lista_aceptados;
+                }
+              ?>
+              <!-- Aquí va -->
             </div>
           </div>
         </div>
@@ -363,56 +108,12 @@
         <div class="tab-content lv2">
           <div id="tab-lv23-rechazados" class="tab-pane fade in active">
             <div class="timeline">
-              <!-- lista_rechazados -->
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th scope="col">Folio</th>
-                    <th scope="col">Título</th>
-                    <th scope="col">Metodología</th>
-                    <th scope="col">Tipo de exposición</th>
-                    <th scope="col">Puntaje</th>
-                    <th scope="col">Motivo</th>
-                    <th scope="col">Opciones</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">12285311F1</th>
-                    <td>La medicina general?</td>
-                    <td>cualitativo</td>
-                    <td>Oratoria</td>
-                    <td>90</td>
-                    <td>Tema relacionado</td>
-                    <td>
-                      <a class="col-sm-1 btn btn-theme btn-block submit-button" href="ver_resumen">Ver detalle</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">12285311F2</th>
-                    <td>La medicina general</td>
-                    <td>cualitativo</td>
-                    <td>Oratoria</td>
-                    <td>95</td>
-                    <td>Tema relacionado</td>
-                    <td>
-                      <a class="col-sm-1 btn btn-theme btn-block submit-button" href="ver_resumen">Ver detalle</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">12285311F3</th>
-                    <td>La medicina general</td>
-                    <td>cualitativo</td>
-                    <td>Oratoria</td>
-                    <td>80</td>
-                    <td>Tema relacionado</td>
-                    <td>
-                      <a class="col-sm-1 btn btn-theme btn-block submit-button" href="ver_resumen">Ver detalle</a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-              <!-- END lista_rechazados -->
+              <?php
+                if(isset($list_rechazados))
+                {
+                  echo $list_rechazados;
+                }
+              ?>
             </div>
           </div>
         </div>

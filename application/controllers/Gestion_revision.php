@@ -22,31 +22,35 @@ class Gestion_revision extends General_revision {
     public function listado_control($tipo = null) {
         switch ($tipo) {
             case Gestion_revision::SN_COMITE:
-                $this->sn_comite();
-                $main_content = $this->load->view('revision_trabajo_investigacion/estados/lista_sin_comite.php', $output, true);
+                $datos['data_sn_comite'] = $this->sn_comite();
+                $output['list_sn_comite'] = $this->load->view('revision_trabajo_investigacion/estados/lista_sin_comite.php',$datos,true);
                 break;
             case Gestion_revision::REQ_ATENCION:
-                $this->requiere_atencion();
-                $main_content = $this->load->view('revision_trabajo_investigacion/estados/lista_requiere_atencion.php', $output, true);
+                $datos['data_req_atencion'] = $this->requiere_atencion();
+                $output['list_req_atencion'] = $this->load->view('revision_trabajo_investigacion/estados/lista_requiere_atencion.php', $datos, true);
                 break;
             case Gestion_revision::EN_REVISION:
-                $this->en_revision();
-                $main_content = $this->load->view('revision_trabajo_investigacion/estados/lista_en_revision.php', $output, true);
+                $datos['data_en_revision'] = $this->en_revision();
+                $output['list_en_revision'] = $this->load->view('revision_trabajo_investigacion/estados/lista_en_revision.php', $datos, true);
                 break;
             case Gestion_revision::REVISADOS:
-                $this->revisados();
-                $main_content = $this->load->view('revision_trabajo_investigacion/estados/lista_revisados.php', $output, true);
+                $datos['data_revisados'] = $this->revisados();
+                $output['list_revisados'] = $this->load->view('revision_trabajo_investigacion/estados/lista_revisados.php', $datos, true);
                 break;
             case Gestion_revision::ACEPTADOS:
-                $this->aceptados();
-                $main_content = $this->load->view('revision_trabajo_investigacion/estados/lista_aceptados.php', $output, true);
+                $datos['data_aceptados'] = $this->aceptados();
+                $output['lista_aceptados'] = $this->load->view('revision_trabajo_investigacion/estados/lista_aceptados.php', $datos, true);
                 break;
             case Gestion_revision::RECHAZADOS:
-                $this->rechazados();
-                $main_content = $this->load->view('revision_trabajo_investigacion/estados/lista_rechazados.php', $output, true);
+                $datos['data_rechazados'] = $this->rechazados();
+                $output['list_rechazados'] = $this->load->view('revision_trabajo_investigacion/estados/lista_rechazados.php', $output, true);
                 break;
             default :
+                $datos['data_sn_comite'] = $this->sn_comite();
+                $output['list_sn_comite'] = $this->load->view('revision_trabajo_investigacion/estados/lista_sin_comite.php',$datos,true);
+                break;
         }
+        $main_content = $this->load->view('revision_trabajo_investigacion/listas_gestor.php', $output, true);
         $this->template->setMainContent($main_content);
         $this->template->getTemplate();
     }
@@ -98,7 +102,8 @@ class Gestion_revision extends General_revision {
 
 
     public function trabajos_investigacion_evaluacion_gestor() {
-      $main_content = $this->load->view('revision_trabajo_investigacion/listas_gestor.php', $output, true);
+      $this->listado_control('SN_COMITE');
+
       $this->template->setMainContent($main_content);
       $this->template->getTemplate();
     }
