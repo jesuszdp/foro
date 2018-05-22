@@ -23,22 +23,27 @@ class Gestion_revision extends General_revision {
         switch ($tipo) {
             case Gestion_revision::SN_COMITE:
                 $this->sn_comite();
-                $main_content = $this->load->view('revision_trabajo_investigacion/lista_sin_comite.php', $output, true);
+                $main_content = $this->load->view('revision_trabajo_investigacion/estados/lista_sin_comite.php', $output, true);
                 break;
             case Gestion_revision::REQ_ATENCION:
                 $this->requiere_atencion();
+                $main_content = $this->load->view('revision_trabajo_investigacion/estados/lista_requiere_atencion.php', $output, true);
                 break;
             case Gestion_revision::EN_REVISION:
                 $this->en_revision();
+                $main_content = $this->load->view('revision_trabajo_investigacion/estados/lista_en_revision.php', $output, true);
                 break;
             case Gestion_revision::REVISADOS:
                 $this->revisados();
+                $main_content = $this->load->view('revision_trabajo_investigacion/estados/lista_revisados.php', $output, true);
                 break;
             case Gestion_revision::ACEPTADOS:
                 $this->aceptados();
+                $main_content = $this->load->view('revision_trabajo_investigacion/estados/lista_aceptados.php', $output, true);
                 break;
             case Gestion_revision::RECHAZADOS:
                 $this->rechazados();
+                $main_content = $this->load->view('revision_trabajo_investigacion/estados/lista_rechazados.php', $output, true);
                 break;
             default :
         }
@@ -84,6 +89,12 @@ class Gestion_revision extends General_revision {
       $this->template->setMainContent($main_content);
       $this->template->getTemplate();
     }
+    /**
+     * @author AleSpock
+     * @date 21/05/2018
+     * @param
+     * @description Función que muestra la vista de los estados en la administracion de gestor de revisores
+     */
 
 
     public function trabajos_investigacion_evaluacion_gestor() {
