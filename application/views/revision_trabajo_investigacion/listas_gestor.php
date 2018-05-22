@@ -374,7 +374,7 @@
                     <td>cualitativo</td>
                     <td>Oratoria</td>
                     <td>90</td>
-                    <td><a class="col-sm-1 btn btn-theme btn-block submit-button" href="resumen_revision_ti_view.html">Ver</a>
+                    <td><a class="col-sm-1 btn btn-theme btn-block submit-button" href="ver_resumen">Ver</a>
                       <!-- <a href="#">Evaluar</a> -->
                     </td>
                   </tr>
@@ -385,7 +385,7 @@
                     <td>Oratoria</td>
 
                     <td>95</td>
-                    <td><a class="col-sm-1 btn btn-theme btn-block submit-button" href="resumen_revision_ti_view.html">Ver</a>
+                    <td><a class="col-sm-1 btn btn-theme btn-block submit-button" href="ver_resumen">Ver</a>
                       <!-- <a href="#">Evaluar</a> -->
                     </td>
                   </tr>
@@ -397,7 +397,7 @@
 
                     <!-- <td>Mario Perez</td> -->
                     <td>80</td>
-                    <td><a class="col-sm-1 btn btn-theme btn-block submit-button" href="resumen_revision_ti_view.html">Ver</a>
+                    <td><a class="col-sm-1 btn btn-theme btn-block submit-button" href="ver_resumen">Ver</a>
                       <!-- <a href="#">Evaluar</a> -->
                     </td>
                   </tr>

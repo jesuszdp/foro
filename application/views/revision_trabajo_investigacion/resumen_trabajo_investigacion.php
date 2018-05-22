@@ -24,23 +24,21 @@
 <body id="home" class="wide body-light">
 
 <!-- Preloader -->
-<div id="preloader">
+<!-- <div id="preloader">
     <div id="status">
         <div class="spinner"></div>
     </div>
-</div>
+</div> -->
 
     <!-- Content area -->
     <div class="content-area">
         <div id="main">
-          <section class="page-section othercss" id="about">
-              <div class="container">
-                  <h1 class="section-title">
-                      <span data-animation="flipInY" data-animation-delay="300" class="icon-inner"><span class="fa-stack"><i class="fa rhex fa-stack-2x"></i><i class="fa fa-star fa-stack-1x"></i></span></span>
-                      <span data-animation="fadeInRight" data-animation-delay="500" class="title-inner">Resumen de revisión de trabajo de investigación</span>
-                  </h1>
-              <div>
-          </section>
+          <div class="container">
+              <h1 class="section-title">
+                  <span data-animation="flipInY" data-animation-delay="300" class="icon-inner"><span class="fa-stack"><i class="fa rhex fa-stack-2x"></i><i class="fa fa-star fa-stack-1x"></i></span></span>
+                  <span data-animation="fadeInRight" data-animation-delay="500" class="title-inner">Resumen de revisión de trabajo de investigación</span>
+              </h1>
+          <div>
           <section id="resumen">
             <div class="container">
               <div class="sectionEvaluacion" id="secTrabajoInv">
@@ -241,10 +239,8 @@
                   <section id="column3">
                     <h3>Trabajos de investigación por las evaluaciones</h3>
                     <br>
-                    <section id="graficas">
-
-
-                    </section>
+                    <div id="graficas">
+                    </div>
                     <br>
                     <table class="table" id="table">
                       <thead>
@@ -298,13 +294,13 @@
 
 <script type="text/javascript">
     jQuery(document).ready(function () {
-        theme.init();
+        //theme.init();
         chart("graficas", "table", null, null, ['#0095bc','#98c56e']);
     });
 
-    jQuery(document).ready(function () { theme.onResize(); });
-    jQuery(window).load(function(){ theme.onResize(); });
-    jQuery(window).resize(function(){ theme.onResize(); });
+    // jQuery(document).ready(function () { theme.onResize(); });
+    // jQuery(window).load(function(){ theme.onResize(); });
+    // jQuery(window).resize(function(){ theme.onResize(); });
 
 </script>
 
