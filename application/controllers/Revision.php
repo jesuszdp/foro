@@ -12,19 +12,28 @@ class Revision extends General_revision {
     function __construct() {
         $this->grupo_language_text = ['generales']; //Grupo de idiomas para el controlador actual
         parent::__construct();
+        $this->load->model('Revision_model','revision');
     }
 
     /**
-     * @author LEAS
+     * @author Alespock
      * @Fecha 21/05/2018
      * @param type $folio
      * @description genera el espacio de la evaluación
      *
      */
     public function trabajos_investigacion_evaluacion() {
+      $output['data_revisar']= $this->lista_revisar();
       $main_content = $this->load->view('revision_trabajo_investigacion/listas_revisor.php', $output, true);
       $this->template->setMainContent($main_content);
       $this->template->getTemplate();
+    }
+
+    private function lista_revisar() {
+      //echo "hi";
+      $resp_m = $this->revision->get_listado_revisores();
+      pr($resp_m);
+      return $resp_m;
     }
 
 
