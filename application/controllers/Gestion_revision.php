@@ -72,7 +72,8 @@ class Gestion_revision extends General_revision {
     }
 
     private function en_revision() {
-      return [];
+      $respuesta_model = $this->gestion_revision->get_en_revision();
+      return $respuesta_model;
     }
 
     private function revisados() {

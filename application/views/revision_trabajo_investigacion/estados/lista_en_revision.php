@@ -1,53 +1,73 @@
-<h4> <b>Nota:</b> La fecha debajo del nombre del revisor es la fecha límite de evaluación. </h4>
-<br>
-<!-- lista_en_revision -->
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Folio</th>
-      <th scope="col">Título</th>
-      <th scope="col">Metodología</th>
-      <th scope="col">R1</th>
-      <th scope="col">R2</th>
-      <th scope="col">R3</th>
-      <th scope="col">Opciones</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">12285311F1</th>
-      <td>La medicina general?</td>
-      <td>cualitativo</td>
-      <td>Luis Eduardo <br> 05/06/2018</td>
-      <td>Jesus Zoe <br> Concluido</td>
-      <td>MArio Perez <br> 05/06/2018</td>
-      <td>
-        <a class="col-sm-1 btn btn-theme btn-block submit-button" href="detalle_trabajo_gestor.html">Ver trabajo</a>
-      </td>
-    </tr>
-    <tr>
-      <th scope="row">12285311F2</th>
-      <td>La medicina general</td>
-      <td>cualitativo</td>
-      <td>Luis Eduardo <br> 05/06/2018</td>
-      <td>Jesus Zoe <br> Concluido</td>
-      <td>MArio Perez <br> 05/06/2018</td>
-      <td>
-        <a class="col-sm-1 btn btn-theme btn-block submit-button" href="detalle_trabajo_gestor.html">Ver trabajo</a>
-      </tr>
+<?php
+  if(isset($data_en_revision))
+  {
+?>
+  <h4> <b>Nota:</b> La fecha debajo del nombre del revisor es la fecha límite de evaluación. </h4>
+  <br>
+  <table class="table">
+    <thead>
       <tr>
-        <th scope="row">12285311F3</th>
-        <td>La medicina general</td>
-        <td>cualitativo</td>
-        <td>Luis Eduardo <br> 05/06/2018</td>
-        <td>Jesus Zoe <br> Concluido</td>
-        <td>MArio Perez <br> 05/06/2018</td>
-        <td><a class="col-sm-1 btn btn-theme btn-block submit-button" href="detalle_trabajo_gestor.html">Ver trabajo</a>
-        </td>
+        <th scope="col">Folio</th>
+        <th scope="col">Título</th>
+        <th scope="col">Metodología</th>
+        <th scope="col">R1</th>
+        <th scope="col">R2</th>
+        <th scope="col">R3</th>
+        <th scope="col">Opciones</th>
       </tr>
+    </thead>
+    <tbody>
+<?php
+      if($data_en_revision['success'])
+      {
+          if(count($data_en_revision['result']) > 0)
+          {
+              $lenguaje = obtener_lenguaje_actual();
+              foreach ($data_en_revision['result'] as $row)
+              {
+?>
+                  <tr>
+                    <td scope="row"><?php echo $row['folio'];?></td>
+                    <td><?php echo $row['titulo'];?></td>
+                    <td><?php echo $row['metodologia'];?></td>
+                    <td><?php echo "ESTATUS R1";?></td>
+                    <td><?php echo "ESTATUS R2";?></td>
+                    <td><?php echo "ESTATUS R3";?></td>
+                    <td>
+                      <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal">Ver trabajo</button>
+                    </td>
+                  </tr>
+<?php
+              }
+          }
+          else
+          {
+?>
+          <h3>No hay trabajos sin comite!</h3>
+<?php
+
+          }
+      }
+      else
+      {
+?>
+      <h3><?php echo $data_en_revision['msg'];?></h3>
+<?php
+      }
+?>
+
     </tbody>
   </table>
-  <!-- END lista_en_revision -->
+<?php
+  }
+  else
+  {
+?>
+    <h3>Algo salió mal, vuelve a intentarlo más tarde!</h3>
+<?php
+  }
+?>
+
   <script>
   $("#comite").removeClass()
   $("#atencion").removeClass()
