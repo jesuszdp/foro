@@ -13,36 +13,18 @@
   </thead>
   <tbody>
     <tr>
-      <th scope="row">12285311F1</th>
-      <td>La medicina general?</td>
-      <td>cualitativo</td>
-      <td>Oratoria</td>
-      <td>90</td>
-      <td>Tema relacionado</td>
+      <td scope="row"><?php echo $row['folio'];?></td>
+      <td><?php echo $row['titulo'];?></td>
       <td>
-        <a class="col-sm-1 btn btn-theme btn-block submit-button" href="ver_resumen">Ver detalle</a>
+          <?php
+              $metodologia = json_decode($row['metodologia'],true);
+              echo $metodologia[$lenguaje];
+          ?>
       </td>
-    </tr>
-    <tr>
-      <th scope="row">12285311F2</th>
-      <td>La medicina general</td>
-      <td>cualitativo</td>
-      <td>Oratoria</td>
-      <td>95</td>
-      <td>Tema relacionado</td>
+      <td><?php echo $row['tipo_exposicion'];?></td>
+      <td><?php echo $row['promedio_revision'];?></td>
       <td>
-        <a class="col-sm-1 btn btn-theme btn-block submit-button" href="ver_resumen">Ver detalle</a>
-      </td>
-    </tr>
-    <tr>
-      <th scope="row">12285311F3</th>
-      <td>La medicina general</td>
-      <td>cualitativo</td>
-      <td>Oratoria</td>
-      <td>80</td>
-      <td>Tema relacionado</td>
-      <td>
-        <a class="col-sm-1 btn btn-theme btn-block submit-button" href="ver_resumen">Ver detalle</a>
+        <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal">Ver trabajo</button>
       </td>
     </tr>
   </tbody>
