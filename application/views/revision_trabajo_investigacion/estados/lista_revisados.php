@@ -62,7 +62,12 @@
                   <tr>
                     <td scope="row"><?php echo $row['folio'];?></td>
                     <td><?php echo $row['titulo'];?></td>
-                    <td><?php echo $row['metodologia'];?></td>
+                    <td>
+                        <?php
+                            $metodologia = json_decode($row['metodologia'],true);
+                            echo $metodologia[$lenguaje];
+                        ?>
+                    </td>
                     <td><?php echo $row['revisor'];?></td>
                     <td><?php echo $row['revisor'];?></td>
                     <td><?php echo $row['revisor'];?></td>

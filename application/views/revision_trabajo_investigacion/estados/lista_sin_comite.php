@@ -21,6 +21,8 @@
               </thead>
               <tbody>
 <?php
+              $lenguaje = obtener_lenguaje_actual();
+              echo $lenguaje;
               foreach ($data_sn_comite['result'] as $row)
               {
   ?>
@@ -32,7 +34,12 @@
                     </td>
                     <td scope="row"><?php echo $row['folio'];?></td>
                     <td><?php echo $row['titulo'];?></td>
-                    <td><?php echo $row['metodologia'];?></td>
+                    <td>
+                      <?php
+                          $metodologia = json_decode($row['metodologia'],true);
+                          echo $metodologia[$lenguaje];
+                      ?>
+                    </td>
                     <td>
                       <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal">Asignar</button>
                     </td>
