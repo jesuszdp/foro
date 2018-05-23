@@ -14,45 +14,53 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th scope="row">12285311F1</th>
-      <td>La medicina general?</td>
-      <td>cualitativo</td>
-      <td>Se agotó el tiempo</td>
-      <td>Se agotó el tiempo</td>
-      <td>Se agotó el tiempo</td>
-      <td>2</td>
-      <td>
-        <button type="button" data-animation="flipInY" data-animation-delay="100" class="col-sm-1 btn btn-theme btn-block submit-button">Ver trabajo</button>
-        <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal">Asignar</button>
-      </td>
-    </tr>
-    <tr>
-      <th scope="row">12285311F2</th>
-      <td>La medicina general</td>
-      <td>cualitativo</td>
-      <td>Discrepancia</td>
-      <td>Conflicto de interes</td>
-      <td>Se agotó el tiempo</td>
-      <td>5</td>
-      <td>
-        <button type="button" data-animation="flipInY" data-animation-delay="100" class="col-sm-1 btn btn-theme btn-block submit-button"> <a href="ver"></a>  Ver trabajo</button>
-        <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal">Asignar</button>
-      </td>
-    </tr>
-    <tr>
-      <th scope="row">12285311F3</th>
-      <td>La medicina general</td>
-      <td>cualitativo</td>
-      <td>Conflicto de interés</td>
-      <td>Se agotó el tiempo</td>
-      <td>Se agotó el tiempo</td>
-      <td>8</td>
-      <td>
-        <button type="button" data-animation="flipInY" data-animation-delay="100" class="col-sm-1 btn btn-theme btn-block submit-button">Ver trabajo</button> <br>
-        <button type="button" data-animation="flipInY" data-animation-delay="100" class="col-sm-1 btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal">Asignar</button>
-      </td>
-    </tr>
+    <?php
+      if(isset($data_req_atencion))
+      {
+          if($data_req_atencion['success'])
+          {
+              if(count($data_req_atencion['result']) > 0)
+              {
+                  foreach ($data_req_atencion['result'] as $row)
+                  {
+    ?>
+                      <tr>
+                        <td>
+                          <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="">
+                          </div>
+                        </td>
+                        <td scope="row"><?php echo $row['folio'];?></td>
+                        <td><?php echo $row['titulo'];?></td>
+                        <td><?php echo $row['metodologia'];?></td>
+                        <td>
+                          <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal">Asignar</button>
+                        </td>
+                      </tr>
+    <?php
+                  }
+              }
+              else
+              {
+    ?>
+              <h3>No hay trabajos sin comite!</h3>
+    <?php
+
+              }
+          }
+          else
+          {
+    ?>
+          <h3><?php echo $data_req_atencion['msg'];?></h3>
+    <?php
+          }
+      }else
+      {
+    ?>
+        <h3>Algo salió mal, vuelve a intentarlo más tarde!</h3>
+    <?php
+      }
+    ?>
   </tbody>
 </table>
 <!-- END lista_requiere_atencion -->

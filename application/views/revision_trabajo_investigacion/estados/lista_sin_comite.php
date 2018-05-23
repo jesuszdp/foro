@@ -12,45 +12,53 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>
-        <div class="form-check">
-          <input type="checkbox" class="form-check-input" id="">
-        </div>
-      </td>
-      <td scope="row">12285311F1</td>
-      <td>La medicina general?</td>
-      <td>cualitativo</td>
-      <td>
-        <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal">Asignar</button>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <div class="form-check">
-          <input type="checkbox" class="form-check-input" id="">
-        </div>
-      </td>
-      <th scope="row">12285311F2</th>
-      <td>La medicina general</td>
-      <td>cualitativo</td>
-      <td>
-        <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal">Asignar</button>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <div class="form-check">
-          <input type="checkbox" class="form-check-input" id="">
-        </div>
-      </td>
-      <th scope="row">12285311F3</th>
-      <td>La medicina general</td>
-      <td>cualitativo</td>
-      <td>
-        <button type="button" data-animation="flipInY" data-animation-delay="100" class="col-sm-1 btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal">Asignar</button>
-      </td>
-    </tr>
+    <?php
+      if(isset($data_sn_comite))
+      {
+          if($data_sn_comite['success'])
+          {
+              if(count($data_sn_comite['result']) > 0)
+              {
+                  foreach ($data_sn_comite['result'] as $row)
+                  {
+    ?>
+                      <tr>
+                        <td>
+                          <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="">
+                          </div>
+                        </td>
+                        <td scope="row"><?php echo $row['folio'];?></td>
+                        <td><?php echo $row['titulo'];?></td>
+                        <td><?php echo $row['metodologia'];?></td>
+                        <td>
+                          <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal">Asignar</button>
+                        </td>
+                      </tr>
+    <?php
+                  }
+              }
+              else
+              {
+    ?>
+              <h3>No hay trabajos sin comite!</h3>
+    <?php
+
+              }
+          }
+          else
+          {
+    ?>
+          <h3><?php echo $data_sn_comite['msg'];?></h3>
+    <?php
+          }
+      }else
+      {
+    ?>
+        <h3>Algo salió mal, vuelve a intentarlo más tarde!</h3>
+    <?php
+      }
+    ?>
   </tbody>
 </table>
 <!-- END lista sin comité -->

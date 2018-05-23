@@ -12,6 +12,12 @@ class Gestion_revision extends General_revision {
     const SN_COMITE = 1, REQ_ATENCION = 2, EN_REVISION = 3,
             REVISADOS = 4, ACEPTADOS = 5, RECHAZADOS = 6;
 
+
+    function __construct() {
+        parent::__construct();
+        $this->load->model('Gestor_revision_model','gestion_revision');
+    }
+
     /**
      * @author LEAS
      * @Fecha 21/05/2018
@@ -22,7 +28,7 @@ class Gestion_revision extends General_revision {
     public function listado_control($tipo = null) {
         switch ($tipo) {
             case Gestion_revision::SN_COMITE:
-                $datos['data_sn_comite'] = $this->requiere_atencion();
+                $datos['data_sn_comite'] = $this->sn_comite();
                 $output['list_sn_comite'] = $this->load->view('revision_trabajo_investigacion/estados/lista_sin_comite.php',$datos,true);
                 break;
             case Gestion_revision::REQ_ATENCION:
@@ -56,11 +62,13 @@ class Gestion_revision extends General_revision {
     }
 
     private function sn_comite() {
-      return [];
+      $respuesta_model = $this->gestion_revision->get_sn_comite();
+      return $respuesta_model;
     }
 
     private function requiere_atencion() {
-      return [];
+      $respuesta_model = $this->gestion_revision->get_requiere_atencion();
+      return $respuesta_model;
     }
 
     private function en_revision() {
