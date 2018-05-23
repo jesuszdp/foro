@@ -1,4 +1,4 @@
-<div class="col-md-6 col-lg-12">
+<div class="col-md-12 col-lg-12">
     <h1 class="section-title">
         <span data-animation="flipInY" data-animation-delay="300" class="icon-inner animated flipInY visible">
             <span class="fa-stack">
