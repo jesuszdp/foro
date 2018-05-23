@@ -137,6 +137,9 @@ if (isset($registro_valido)) {
                 </a>
             </div>
         </div>
+        <div class="col-sm-12 text-justify">
+            <label><?php echo $language_text['registro_usuario']['reg_nota']; ?></label>
+        </div>
         <br>
         <div class="col-sm-12">
             <div class="col-sm-2">
@@ -145,9 +148,9 @@ if (isset($registro_valido)) {
                 <input id="regform" type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" value="<?php echo $language_text['registro_usuario']['registrar']; ?>" data-tpform="<?php echo $tipo_registro; ?>">
             </div>
         </div>
+        <div style="clear:both;" ></div>
     </div>
     <?php echo form_close(); ?>
-    <br><br>
 </div>
 
 <script type="text/javascript">
@@ -155,7 +158,47 @@ if (isset($registro_valido)) {
         $("#regform").on('click', function (e) {
             var tipoform = $(this).data('tpform');
             var div = "#r_" + tipoform;
-            data_ajax(site_url + '/inicio/registro/' + tipoform, '#registro_form' + tipoform, div);
+            data_ajax_modificada(site_url + '/inicio/registro/' + tipoform, '#registro_form' + tipoform, div);
         });
     });
+
+    function data_ajax_modificada(path, form_recurso, elemento_resultado, callback, is_json, parametros) {
+        var dataSend = $(form_recurso).serialize();
+        $.ajax({
+            url: path,
+            data: dataSend,
+            method: 'POST',
+            beforeSend: function (xhr) {
+    //            $(elemento_resultado).html(create_loader());
+                mostrar_loader();
+            }
+        }).done(function (response) {
+            var html = response;
+            var json = null;
+            if (typeof is_json !== 'undefined' && is_json) {
+                json = JSON.parse(response);
+                console.log(json);
+                if (typeof json.html !== 'undefined') {
+                    html = json.html;
+                }
+            }
+            if (typeof callback !== 'undefined' && typeof callback === 'function') {
+                if (typeof parametros !== 'undefined') {
+                    if (is_json !== 'undefined' && is_json) {
+                        parametros.object = json;
+                    }
+                    $(elemento_resultado).html(html).promise().done(callback(parametros));
+                } else {
+                    $(elemento_resultado).html(html).promise().done(callback());
+                }
+            } else {
+                $(elemento_resultado).html(html);
+            }
+        }).fail(function (jqXHR, textStatus) {
+            $(elemento_resultado).html("<div class='alert alert-danger'><?php echo $language_text['registro_usuario']['reg_mensaje_error']; ?></div>");
+        }).always(function () {
+            remove_loader();
+            ocultar_loader();
+        });
+    }
 </script>

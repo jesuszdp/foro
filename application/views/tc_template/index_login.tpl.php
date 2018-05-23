@@ -196,25 +196,25 @@
                     </ul>
                 </div>
                 <!-- <span class="copyright" data-animation="fadeInUp" data-animation-delay="100">&copy; 2018 Instituto Mexicano del Seguro Social.</span>-->
-                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 text-left">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 text-center">
                     <a href="https://www.gob.mx/presidencia/" class="scroll-to">
-                        <img src="<?php echo asset_url(); ?>img/logo-presidencia.png" class="img-responsive" />
+                        <img src="<?php echo asset_url(); ?>img/logo-presidencia.png" />
                     </a>
                 </div>
-                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-2 text-left">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-2 text-center">
                     <a href="http://www.qroo.gob.mx/sedetur" class="scroll-to">
-                        <img src="<?php echo asset_url(); ?>img/logo-Cancun.png" class="img-responsive" />
+                        <img src="<?php echo asset_url(); ?>img/logo-Cancun.png" />
                     </a>
                 </div>
-                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-2 text-center pull-centerr">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-2 text-center">
                     <!-- <span class="copyright" data-animation="fadeInUp" data-animation-delay="100">&copy; 2018 IMSS, <a href="#">Aviso legal</a>.</span> -->
                     <a href="http://www.fundacionimss.org.mx/" class="scroll-to">
-                        <img src="<?php echo asset_url(); ?>img/logo-fundacion-imss.png" class="img-responsive"  />
+                        <img src="<?php echo asset_url(); ?>img/logo-fundacion-imss.png" />
                     </a>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 text-right">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 text-center">
                     <a href="http://www.imss.gob.mx/" class="scroll-to">
-                        <img src="<?php echo asset_url(); ?>img/logo-imss.png" class="img-responsive"  />
+                        <img src="<?php echo asset_url(); ?>img/logo-imss.png" />
                     </a>
                 </div>
             </div>

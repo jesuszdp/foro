@@ -45,9 +45,9 @@
 	    						echo '<tr>';
 	    						echo '<td>'.$value['folio'].'</td>';
 	    						echo '<td>'.$value['titulo'].'</td>';
-	    						echo '<td>'.json_decode($value['nombre_metodologia'],true)[$lang].'</td>';
+	    						echo '<td>'.$value['nombre_metodologia'].'</td>';
 	    						echo '<td>'.$value['fecha'].'</td>';
-	    						echo '<td>'.json_decode($value['estado'],true)[$lang].'</td>';
+	    						echo '<td>'.$value['estado_trabajo'].'</td>';
 	    						$site = site_url('registro_investigacion/ver/'.$value['folio']);
 	    						echo '<td><a href="'.$site.'" class="btn btn-theme animated flipInY visible pull-right"><i class="fa fa-eye" aria-hidden="true"></i></a></td>';
 	    						echo '</tr>';

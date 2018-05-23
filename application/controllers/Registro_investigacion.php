@@ -29,12 +29,21 @@ class Registro_investigacion extends MY_Controller {
         $lang = $this->obtener_idioma();
         $output['lang'] = $lang;
         $output['language_text'] = $this->obtener_grupos_texto(array('listado_trabajo'),$lang);
-        $output['listado'] = $this->trabajo->listado_trabajos_autor($id_informacion_usuario,$lang);
+        $listado_trabajos = $this->trabajo->listado_trabajos_autor($id_informacion_usuario,$lang);
+
+        foreach ($listado_trabajos as $key => $value) {
+          $json = json_decode($value['estado'], true);
+          $value['estado_trabajo'] = $json['investigador'][$lang];
+          $value['nombre_metodologia'] = json_decode($value['nombre_metodologia'],true)[$lang];
+
+          $listado_trabajos[$key] = $value;
+        }
+
+        $output['listado'] = $listado_trabajos;
         if(!is_null($alerta))
         {
             $output['alerta'] = $alerta;
         }
-
         $main_content = $this->load->view('trabajo/index.tpl.php', $output, true);
         $this->template->setMainContent($main_content);
         $this->template->getTemplate();
@@ -60,9 +69,7 @@ class Registro_investigacion extends MY_Controller {
       //Obtenemos textos con respecto al idioma
       $idioma = $this->obtener_idioma();
       $lan_txt = $this->obtener_grupos_texto(array('registro_trabajo','template_general', 'registro_usuario','correo'),$idioma);
-      //pr($lan_txt);
-      //pr(utf8_decode($this->procesar_correo($lan_txt['correo']['cuerpo_nuevo_trabajo'], array('{{$folio}}'=>$folio, '{{$titulo}}'=>'hhasih'))));
-      //pr($this->procesar_correo($lan_txt['correo']['cuerpo_nuevo_trabajo'], array('{{$folio}}'=>$folio, '{{$titulo}}'=>'hhasih')));
+     
       $output['language_text'] = $lan_txt;
 
       //Catalogo de paises y tipos de metodologias tomando el idioma
@@ -191,7 +198,6 @@ class Registro_investigacion extends MY_Controller {
                   $trabajo['titulo'] = $trabajo['titulo_trabajo'];
                   unset($trabajo['titulo_trabajo']);
                   $trabajo['folio'] = $folio;
-                  $trabajo['clave_estado'] = 'revision';
                   
                   unset($trabajo['autor_imss']);
                   unset($trabajo['autor_matricula']);
