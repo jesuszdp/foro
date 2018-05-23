@@ -74,18 +74,6 @@ class Gestor_revision_model extends MY_Model {
      * @return array
      */
     public function get_aceptados($param) {
-
-        $resut = [];
-        return $resut;
-    }
-
-    /**
-     * Devuelve la información de los registros de la tabla catalogos
-     * @author AlesSpock
-     * @date 22/05/2018
-     * @return array
-     */
-    public function get_rechazados($param) {
         $this->db->flush_cache();
         $this->db->reset_query();
         $this->db->select(array(
@@ -105,6 +93,17 @@ class Gestor_revision_model extends MY_Model {
         $this->db->where("actual", TRUE);
         $result = $this->db->get();
         return $resut->result_array();
+
+    }
+
+    /**
+     * Devuelve la información de los registros de la tabla catalogos
+     * @author AlesSpock
+     * @date 22/05/2018
+     * @return array
+     */
+    public function get_rechazados($param) {
+
     }
 
     /**
