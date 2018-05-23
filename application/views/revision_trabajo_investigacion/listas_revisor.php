@@ -1,3 +1,4 @@
+
 <!-- listado de revisores -->
 <div class="schedule-wrapper clear" data-animation="fadeIn" data-animation-delay="200">
   <div class="schedule-tabs lv1">
@@ -24,51 +25,33 @@
                 </tr>
               </thead>
               <tbody>
-                <?php
-                if(isset($data_revisar))
-                {
-                    if($data_revisar['success'])
-                    {
-                        if(count($data_revisar['result']) > 0)
-                        {
-                            foreach ($data_revisar['result'] as $row)
-                            {
-                ?>
                 <tr>
-                  <td scope="row"><?php echo $row['folio'];?></td>
-                  <td><?php echo $row['titulo'];?></td>
-                  <td><?php echo $row['metodologia'];?></td>
-                  <td><?php echo $row['fecha_limite_revision'];?> </td>
-                  <td>
-                    <a href="" type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button">Evaluar</a>
+                  <th scope="row">12285311F1</th>
+                  <td>La medicina general?</td>
+                  <td>cualitativo</td>
+                  <td>05/06/2018</td>
+                  <td><a href="finalizar_evaluacion">Ver</a> &nbsp &nbsp
+                    <a href="nueva_evaluacion_revision">Evaluar</a>
                   </td>
                 </tr>
-                <?php
-                              }
-                          }
-                          else
-                          {
-                ?>
-                          <h3>No hay trabajos sin comite!</h3>
-                <?php
-
-                          }
-                      }
-                      else
-                      {
-                ?>
-                      <h3><?php echo $data_revisar['msg'];?></h3>
-                <?php
-                      }
-                  }else
-                  {
-                ?>
-                    <h3>Algo salió mal, vuelve a intentarlo más tarde!</h3>
-                <?php
-                  }
-                ?>
-
-
+                <tr>
+                  <th scope="row">12285311F2</th>
+                  <td>La medicina general</td>
+                  <td>cualitativo</td>
+                  <td>05/06/2018</td>
+                  <td><a href="finalizar_evaluacion">Ver</a> &nbsp &nbsp
+                    <a href="nueva_evaluacion_revision">Evaluar</a>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">12285311F3</th>
+                  <td>La medicina general</td>
+                  <td>cualitativo</td>
+                  <td>05/06/2018</td>
+                  <td><a href="finalizar_evaluacion">Ver</a> &nbsp &nbsp
+                    <a href="nueva_evaluacion_revision">Evaluar</a>
+                  </td>
+                </tr>
               </tbody>
             </table>
             <!-- END lista nuevos trabajos a revisar -->

@@ -84,8 +84,7 @@ class Gestion_revision extends General_revision {
     }
 
     private function rechazados() {
-      $respuesta_model = $this->gestion_revision->get_rechazados();
-      return $respuesta_model;
+      return [];
     }
 
     /**

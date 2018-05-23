@@ -1,4 +1,3 @@
-
 <!-- listas de estados -->
 <div class="schedule-wrapper clear" data-animation="fadeIn" data-animation-delay="200">
   <div class="schedule-tabs lv1">
