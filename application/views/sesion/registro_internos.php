@@ -138,7 +138,7 @@ if (isset($registro_valido)) {
             </div>
         </div>
         <div class="col-sm-12 text-justify">
-            <label><?php echo $language_text['registro_usuario']['reg_nota']; ?></label>
+            <label><?php echo isset($language_text['registro_usuario']['reg_nota'])?$language_text['registro_usuario']['reg_nota']:''; ?></label>
         </div>
         <br>
         <div class="col-sm-12">
@@ -194,8 +194,12 @@ if (isset($registro_valido)) {
             } else {
                 $(elemento_resultado).html(html);
             }
-        }).fail(function (jqXHR, textStatus) {
-            $(elemento_resultado).html("<div class='alert alert-danger'><?php echo $language_text['registro_usuario']['reg_mensaje_error']; ?></div>");
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            $(elemento_resultado).html("<div class='alert alert-danger'><?php echo isset($language_text['registro_usuario']['reg_mensaje_error'])?$language_text['registro_usuario']['reg_mensaje_error']:''; ?></div>");
+            // console.log(jqXHR);
+            if(jqXHR.responseText.indexOf('<script') > -1){
+                document.location.href = site_url + '/inicio/index';
+            }
         }).always(function () {
             remove_loader();
             ocultar_loader();

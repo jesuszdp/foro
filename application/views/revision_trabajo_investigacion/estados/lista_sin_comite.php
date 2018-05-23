@@ -75,7 +75,7 @@
 <!-- END lista sin comité -->
 
       <!-- Modal 2 -->
-      <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <!-- <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered"  role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -91,16 +91,13 @@
                   <thead>
                     <tr>
                       <th scope="col">Nombre del trabajo</th>
-                      <!-- <th scope="col">Puntua</th>
-                      <th scope="col">Opciones</th> -->
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
                       <th scope="row">Lorem Ipsum ... </th>
-                      <!-- <td>Diabetes</td> -->
                       <td>
-                        <!-- <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal">Asignar</button> -->
+                      
                            <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="dropdown">Cartel
                            </button>
                            <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="dropdown">Ponencia
@@ -111,7 +108,6 @@
                     </tr>
                     <tr>
                       <th scope="row">Lorem Ipsum ...</th>
-                      <!-- <td>Medicina general</td> -->
                       <td>
                         <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="dropdown">Cartel
                         </button>
@@ -121,7 +117,6 @@
                     </tr>
                     <tr>
                       <th scope="row">Lorem Ipsum ...</th>
-                      <!-- <td>Neurocirugia</td> -->
                       <td>
                         <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="dropdown">Cartel
                         </button>
@@ -131,7 +126,7 @@
                     </tr>
                     <tr>
                       <th scope="row">Lorem Ipsum ...</th>
-                      <!-- <td>Neurocirugia</td> -->
+                      
                       <td>
                         <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="dropdown">Cartel
                         </button>
@@ -143,27 +138,35 @@
                   </table>
             </div>
             <div class="modal-footer">
-              <!-- <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-dismiss="modal">cerrar</button> -->
               <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block" class="btn btn-primary">Guardar</button>
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
       <!-- Modal -->
 
       <script type="text/javascript">
-          $('#myModal').on('shown.bs.modal', function () {
+          /*$('#myModal').on('shown.bs.modal', function () {
           $('#myInput').trigger('focus')
-          })
+          })*/
       </script>
 
 
 
 <script>
-  $("#comite").addClass("active")
-  $("#atencion").removeClass()
-  $("#revision").removeClass()
-  $("#revisados").removeClass()
-  $("#aceptados").removeClass()
-  $("#rechazados").removeClass()
+$(document).ready(function(){
+    $(document).ready(function () {
+        $(".btn-asignar").on('click', function (e) {
+            var f = $(this).data('f');
+            //console.log('hola'+f);
+            data_ajax(site_url + '/gestion_revision/asignar_revisor/' + f, null, "#modal_contenido");
+        });
+    });
+});
+  $("#comite").addClass("active");
+  $("#atencion").removeClass();
+  $("#revision").removeClass();
+  $("#revisados").removeClass();
+  $("#aceptados").removeClass();
+  $("#rechazados").removeClass();
 </script>

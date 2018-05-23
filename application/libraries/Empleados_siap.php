@@ -10,7 +10,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Empleados_siap {
 
     public function __construct() {
-        $this->CI = & get_instance();
+        $this->CI = & get_instance();        
     }
 
     /*     * *********Buscar usuario siap
@@ -23,21 +23,32 @@ class Empleados_siap {
         $return_info = false;
         $result = array('resp_info' => null, 'resultado' => 'false');
         $params = array("Delegacion" => "{$delegacion}", "Matricula" => "{$matricula}", "RFC" => '');
+        try{
+            // $client = new SoapClient("http://172.26.18.156/ServiciosWeb/wsSIED.asmx?WSDL", ['trace' => 1, 'exceptions' => true]);
+            $client = new SoapClient("http://172.26.18.15/ServiciosWeb/wsSIED.asmx?WSDL", ['trace' => 1, 'exceptions' => true]);
+            $resultado_siap = $client->__soapCall("ConsultaSIED", array($params));
+            $resultado = simplexml_load_string($resultado_siap->ConsultaSIEDResult->any); //obtenemos la consulta xml
+            $res_json = json_encode($resultado); // la codificamos en json
+            $array_result = json_decode($res_json); // y la decodificamos en un arreglo compatible php
 
-        $client = new SoapClient("http://172.26.18.156/ServiciosWeb/wsSIED.asmx?WSDL");
-        $resultado_siap = $client->__soapCall("ConsultaSIED", array($params));
-        $resultado = simplexml_load_string($resultado_siap->ConsultaSIEDResult->any); //obtenemos la consulta xml
-        $res_json = json_encode($resultado); // la codificamos en json
-        $array_result = json_decode($res_json); // y la decodificamos en un arreglo compatible php
-
-        $return_info['empleado'] = array();
-        $return_info['tp_msg'] = En_tpmsg::DANGER;
-        if (isset($resultado->EMPLEADOS)) {
-            $result['resultado'] = true;
-            $result['resp_info'] = $resultado;
-            $return_info['empleado'] = $this->regresa_datos($result, $delegacion);
-            $return_info['tp_msg'] = En_tpmsg::SUCCESS;
+            $return_info['empleado'] = array();
+            $return_info['tp_msg'] = En_tpmsg::DANGER;
+            if (isset($resultado->EMPLEADOS)) {
+                $result['resultado'] = true;
+                $result['resp_info'] = $resultado;
+                $return_info['empleado'] = $this->regresa_datos($result, $delegacion);
+                $return_info['tp_msg'] = En_tpmsg::SUCCESS;
+            }
+        }catch (Exception $fault) {
+            //trigger_error("SOAP Fault: (faultcode: {$fault->faultcode}, faultstring: {$fault->faultstring})", E_USER_ERROR);
+            $return_info['empleado'] = $this->busca_nomina($delegacion, $matricula);
+            if($return_info !== FALSE){
+                $return_info['tp_msg'] = En_tpmsg::SUCCESS;
+            }
+            // pr('catch');
+            // pr($return_info);
         }
+
         return $return_info;
     }
 
@@ -95,6 +106,50 @@ class Empleados_siap {
         } else {
             return false;
         }
+    }
+
+    private function busca_nomina($delegacion, $matricula){
+        // pr($delegacion);
+        // pr($matricula);
+        $this->CI = & get_instance();
+        $this->db = $this->CI->load->database('default', true);
+        $this->db->flush_cache();
+        $this->db->reset_query();
+        $select = array(
+            'emp_keyemp matricula',
+            'emp_emppat paterno',
+            'emp_empmat materno',
+            'emp_empnom nombre',
+            'emp_recurp curp',
+            'emp_regrfc rfc',
+            'emp_keypue',
+            'pue_despue',
+            'emp_keydep adscripcion',
+            'dep_desdep descripcion',
+            'emp_fecing fecha_ingreso',
+            'emp_cvesex sexo',
+            'emp_fecnac nacimiento',
+            'substring(clave_delegacional, 1, 2) delegacion'
+        );
+        $this->db->select($select);
+        $this->db->join('catalogo.delegaciones DEL', "substring(emp_keydep, 1, 2) = clave_delegacional", 'inner');
+        $this->db->where('emp_keyemp', $matricula);
+        $this->db->where('clave_delegacional', $delegacion);
+        $resultado = $this->db->get('nomina')->result_array();
+        // pr($this->db->last_query());
+        if(count($resultado)>0){
+            $resultado = $resultado[0];
+            $resultado['paterno'] = array($resultado['paterno']);
+            $resultado['materno'] = array($resultado['materno']);
+            $resultado['nombre'] = array($resultado['nombre']);
+            $resultado['rfc'] = array($resultado['rfc']);
+            $resultado['adscripcion'] = array($resultado['adscripcion']);
+            $resultado['emp_keypue'] = array($resultado['emp_keypue']);
+            $resultado['status'] = array(0);
+        }else{
+            $resultado = false;
+        }
+        return $resultado;
     }
 
 }

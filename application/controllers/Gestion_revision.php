@@ -124,5 +124,16 @@ class Gestion_revision extends General_revision {
       $this->template->setMainContent($main_content);
       $this->template->getTemplate();
     }
+    
+    /**
+     * @author JZDP
+     * @Fecha 23/05/2018
+     * @param string $folio Identificador del trabajo de investigación
+     * @description Genera el listado de revisores disponibles para la asignación de trabajo de investigación
+     *
+     */
+    public function asignar_revisor($folio){
+
+    }
 
 }

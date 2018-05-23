@@ -226,6 +226,61 @@
 </div>
 <!-- /Wrap all content -->
 
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered"  role="document">
+      <div class="modal-content">
+        <!-- <div class="modal-header">
+          <h3 class="modal-title" id="exampleModalLabel">Asignar revisor(es)</h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div> -->
+        <div id="modal_contenido" class="modal-body">
+            <!-- <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Especialidad</th>
+                  <th scope="col">Opciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Juan Cuadros </th>
+                  <td>Diabetes</td>
+                  <td><button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal">Asignar</button>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Mariana Reyes</th>
+                  <td>Medicina general</td>
+                  <td><button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal">Asignar</button>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Cristina Pacheco</th>
+                  <td>Neurocirugia</td>
+                  <td><button type="button" data-animation="flipInY" data-animation-delay="100" class="col-sm-1 btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal">Asignar</button>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Cristina Pacheco</th>
+                  <td>Neurocirugia</td>
+                  <td><button type="button" data-animation="flipInY" data-animation-delay="100" class="col-sm-1 btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal">Asignar</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table> -->
+        </div>
+        <!-- <div class="modal-footer">
+          <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block" class="btn btn-primary">Guardar</button>
+        </div> -->  
+      </div>
+    </div>
+</div>
+  <!-- Modal -->
+
 <!-- JS Global -->
 <script src="<?php echo asset_url(); ?>plugins/modernizr.custom.js"></script>
 <script src="<?php echo asset_url(); ?>plugins/bootstrap/js/bootstrap.min.js"></script>

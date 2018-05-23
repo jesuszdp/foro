@@ -160,3 +160,7 @@ Elementos de formularios
 		color: white;
 	}
 }
+
+.modal-dialog {
+	margin-top: 140px;
+}
