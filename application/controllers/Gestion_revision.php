@@ -77,11 +77,13 @@ class Gestion_revision extends General_revision {
     }
 
     private function revisados() {
-      return [];
+      $respuesta_model = $this->gestion_revision->get_revisados();
+      return $respuesta_model;
     }
 
     private function aceptados() {
-      return [];
+      $respuesta_model = $this->gestion_revision->get_aceptados();
+      return $respuesta_model;
     }
 
     private function rechazados() {

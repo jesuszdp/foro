@@ -1,26 +1,26 @@
 <?php
   if(isset($data_sn_comite))
   {
-?>
-    <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal"> <a  style="color:#fff;">Asignar</a> </button>
-    <br>
-    <!-- lista sin comité -->
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col"></th>
-          <th scope="col">Folio</th>
-          <th scope="col">Título</th>
-          <th scope="col">Metodología</th>
-          <th scope="col">Opciones</th>
-        </tr>
-      </thead>
-      <tbody>
-<?php
       if($data_sn_comite['success'])
       {
           if(count($data_sn_comite['result']) > 0)
           {
+?>
+            <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal"> <a  style="color:#fff;">Asignar</a> </button>
+            <br>
+            <!-- lista sin comité -->
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col">Folio</th>
+                  <th scope="col">Título</th>
+                  <th scope="col">Metodología</th>
+                  <th scope="col">Opciones</th>
+                </tr>
+              </thead>
+              <tbody>
+<?php
               foreach ($data_sn_comite['result'] as $row)
               {
   ?>
