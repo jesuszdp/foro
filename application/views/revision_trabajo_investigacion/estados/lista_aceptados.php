@@ -10,12 +10,12 @@
             <table class="table">
               <thead>
                 <tr>
-                  <th scope="col">Folio</th>
-                  <th scope="col">Título</th>
-                  <th scope="col">Metodología</th>
-                  <th scope="col">Tipo de exposición</th>
-                  <th scope="col">Puntaje</th>
-                  <th scope="col">Opciones</th>
+                  <th scope="col"><?php echo $opciones_secciones['col_folio'];?></th>
+                  <th scope="col"><?php echo $opciones_secciones['col_titulo'];?></th>
+                  <th scope="col"><?php echo $opciones_secciones['col_metodologia'];?></th>
+                  <th scope="col"><?php echo $opciones_secciones['col_tipo'];?></th>
+                  <th scope="col"><?php echo $opciones_secciones['col_puntaje'];?></th>
+                  <th scope="col"><?php echo $opciones_secciones['col_opciones'];?></th>
                 </tr>
               </thead>
               <tbody>
@@ -36,7 +36,7 @@
                     <td><?php echo $row['tipo_exposicion'];?></td>
                     <td><?php echo $row['promedio_revision'];?></td>
                     <td>
-                      <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal">Ver trabajo</button>
+                      <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal"><?php echo $opciones_secciones['btn_revision'];?></button>
                     </td>
                   </tr>
 <?php

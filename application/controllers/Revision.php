@@ -10,7 +10,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Revision extends General_revision {
 
     function __construct() {
-        $this->load->l('Form_complete');
         $this->grupo_language_text = ['generales', 'evaluacion']; //Grupo de idiomas para el controlador actual
         parent::__construct();
     }

@@ -10,14 +10,14 @@
               <table class="table">
                 <thead>
                   <tr>
-                    <th scope="col">Folio</th>
-                    <th scope="col">Título</th>
-                    <th scope="col">Metodología</th>
-                    <th scope="col">Estatus R1</th>
-                    <th scope="col">Estatus R2</th>
-                    <th scope="col">Estatus R3</th>
-                    <th scope="col">Número de revisiones</th>
-                    <th scope="col">Opciones</th>
+                    <th scope="col"><?php echo $opciones_secciones['col_folio'];?></th>
+                    <th scope="col"><?php echo $opciones_secciones['col_titulo'];?></th>
+                    <th scope="col"><?php echo $opciones_secciones['col_metodologia'];?></th>
+                    <th scope="col"><?php echo $opciones_secciones['col_r1'];?></th>
+                    <th scope="col"><?php echo $opciones_secciones['col_r2'];?></th>
+                    <th scope="col"><?php echo $opciones_secciones['col_r3'];?></th>
+                    <th scope="col"><?php echo $opciones_secciones['col_num_asignaciones'];?></th>
+                    <th scope="col"><?php echo $opciones_secciones['col_opciones'];?></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -40,8 +40,8 @@
                     <td><?php echo "ESTATUS R3";?></td>
                     <td><?php echo $row['numero_revisiones'];?></td>
                     <td>
-                      <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal">Ver trabajo</button>
-                      <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal">Asignar</button>
+                      <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal"><?php echo $opciones_secciones['btn_ver'];?></button>
+                      <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal"><?php echo $opciones_secciones['btn_asignar'];?></button>
                     </td>
                   </tr>
 <?php

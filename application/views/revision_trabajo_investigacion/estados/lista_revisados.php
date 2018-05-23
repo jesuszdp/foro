@@ -9,11 +9,11 @@
               <!-- contadores de lugares para oratoria y lugares para cartel -->
               <div class="col-sm-12">
                 <div class="col-sm-3">
-                  <h3> Lugares para Oratoria</h3><br>
+                  <h3> <?php echo $opciones_secciones['lbl_oral'];?></h3><br>
                   <h3>10 / 20</h3>
                 </div>
                 <div class="col-sm-3">
-                  <h3> Lugares para Oratoria</h3><br>
+                  <h3> <?php echo $opciones_secciones['lbl_cartel'];?></h3><br>
                   <h3>10 / 20</h3>
                 </div>
               </div>
@@ -25,13 +25,13 @@
                 <div class="col-sm-1">
                 </div>
                 <div class="col-sm-3">
-                  <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal2"> <a  style="color:#fff;">Sugerir dictamen</a> </button>
+                  <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal2"> <a  style="color:#fff;"><?php echo $opciones_secciones['btn_sugerir'];?></a> </button>
                 </div>
                 <div class="col-sm-3">
-                  <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal2"> <a  style="color:#fff;">Guardar cambio</a> </button>
+                  <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal2"> <a  style="color:#fff;"><?php echo $opciones_secciones['btn_guardar'];?></a> </button>
                 </div>
                 <div class="col-sm-3">
-                  <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal2"> <a  style="color:#fff;">Cerrar proceso</a> </button>
+                  <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal2"> <a  style="color:#fff;"><?php echo $opciones_secciones['btn_cerrar'];?></a> </button>
                 </div>
               </div>
               <!-- END botones cerrar proceso, guardar cambios y sugerir dictamen -->
@@ -42,20 +42,21 @@
                 <thead>
                   <tr>
                     <!-- <th scope="col"></th> -->
-                    <th scope="col">Folio</th>
-                    <th scope="col">Título</th>
-                    <th scope="col">Metodología</th>
-                    <th scope="col">R1</th>
-                    <th scope="col">R2</th>
-                    <th scope="col">R3</th>
-                    <th scope="col">Puntaje</th>
-                    <th>Propuesta de dictamen</th>
-                    <th scope="col">Opciones</th>
+                    <th scope="col"><?php echo $opciones_secciones['col_folio'];?></th>
+                    <th scope="col"><?php echo $opciones_secciones['col_titulo'];?></th>
+                    <th scope="col"><?php echo $opciones_secciones['col_metodologia'];?></th>
+                    <th scope="col"><?php echo $opciones_secciones['col_r1'];?></th>
+                    <th scope="col"><?php echo $opciones_secciones['col_r2'];?></th>
+                    <th scope="col"><?php echo $opciones_secciones['col_r3'];?></th>
+                    <th scope="col"><?php echo $opciones_secciones['col_puntaje'];?></th>
+                    <th><?php echo $opciones_secciones['col_sugerencia'];?></th>
+                    <th scope="col"><?php echo $opciones_secciones['col_opciones'];?></th>
                   </tr>
                 </thead>
                 <tbody>
 <?php
               $lenguaje = obtener_lenguaje_actual();
+              
               foreach ($data_revisados['result'] as $row)
               {
 ?>
@@ -74,7 +75,7 @@
                     <td><?php echo $row['promedio_revision'];?></td>
                     <td><?php echo $row['propuesta_dictamen'];?></td>
                     <td>
-                      <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button"> <a href="ver_resumen" style="color:#fff;">Ver detalle</a> </button>
+                      <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button"> <a href="ver_resumen" style="color:#fff;">FALTA IDIOMA</a> </button>
                     </td>
                   </tr>
 <?php
@@ -107,3 +108,12 @@
 <?php
   }
 ?>
+
+<script>
+    $("#comite").removeClass()
+    $("#atencion").removeClass()
+    $("#revision").removeClass()
+    $("#revisados").addClass("active")
+    $("#aceptados").removeClass()
+    $("#rechazados").removeClass()
+</script>

@@ -6,23 +6,22 @@
           if(count($data_sn_comite['result']) > 0)
           {
 ?>
-            <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal"> <a  style="color:#fff;">Asignar</a> </button>
+            <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal"> <a  style="color:#fff;"><?php echo $opciones_secciones['btn_asignar'];?></a> </button>
             <br>
             <!-- lista sin comité -->
             <table class="table">
               <thead>
                 <tr>
                   <th scope="col"></th>
-                  <th scope="col">Folio</th>
-                  <th scope="col">Título</th>
-                  <th scope="col">Metodología</th>
-                  <th scope="col">Opciones</th>
+                  <th scope="col"><?php echo $opciones_secciones['col_folio'];?></th>
+                  <th scope="col"><?php echo $opciones_secciones['col_titulo'];?></th>
+                  <th scope="col"><?php echo $opciones_secciones['col_metodologia'];?></th>
+                  <th scope="col"><?php echo $opciones_secciones['col_opciones'];?></th>
                 </tr>
               </thead>
               <tbody>
 <?php
               $lenguaje = obtener_lenguaje_actual();
-              echo $lenguaje;
               foreach ($data_sn_comite['result'] as $row)
               {
   ?>
@@ -41,7 +40,8 @@
                       ?>
                     </td>
                     <td>
-                      <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal">Asignar</button>
+                      <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal"><?php echo $opciones_secciones['btn_asignar'];?></button>
+                      <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal"><?php echo $opciones_secciones['btn_ver'];?></button>
                     </td>
                   </tr>
   <?php

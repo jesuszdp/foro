@@ -6,18 +6,18 @@
           if(count($data_en_revision['result']) > 0)
           {
 ?>
-            <h4> <b>Nota:</b> La fecha debajo del nombre del revisor es la fecha límite de evaluación. </h4>
+            <h4> <?php echo $opciones_secciones['nota_fecha_limite'];?> </h4>
             <br>
             <table class="table">
               <thead>
                 <tr>
-                  <th scope="col">Folio</th>
-                  <th scope="col">Título</th>
-                  <th scope="col">Metodología</th>
-                  <th scope="col">R1</th>
-                  <th scope="col">R2</th>
-                  <th scope="col">R3</th>
-                  <th scope="col">Opciones</th>
+                  <th scope="col"><?php echo $opciones_secciones['col_folio'];?></th>
+                  <th scope="col"><?php echo $opciones_secciones['col_titulo'];?></th>
+                  <th scope="col"><?php echo $opciones_secciones['col_metodologia'];?></th>
+                  <th scope="col"><?php echo $opciones_secciones['col_r1'];?></th>
+                  <th scope="col"><?php echo $opciones_secciones['col_r2'];?></th>
+                  <th scope="col"><?php echo $opciones_secciones['col_r3'];?></th>
+                  <th scope="col"><?php echo $opciones_secciones['col_opciones'];?></th>
                 </tr>
               </thead>
               <tbody>
@@ -39,7 +39,7 @@
                     <td><?php echo $row['revisor'];?></td>
                     <td><?php echo $row['revisor'];?></td>
                     <td>
-                      <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal">Ver trabajo</button>
+                      <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal"><?php echo $opciones_secciones['btn_ver'];?></button>
                     </td>
                   </tr>
 <?php
