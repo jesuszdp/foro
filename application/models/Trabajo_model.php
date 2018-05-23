@@ -176,7 +176,7 @@ class Trabajo_model extends CI_Model
 
         $this->db->flush_cache();
         $this->db->reset_query();    
-        
+        pr($this->db->last_query());
         return $res->result_array();
     }
 

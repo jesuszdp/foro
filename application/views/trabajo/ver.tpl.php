@@ -51,89 +51,32 @@ $controlador = $this->uri->rsegment(1);
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <h2 class="titulo"><?php echo $language_text['detalle_trabajo']['autp_detalle']; ?></h2>
-            </div>
-        </div><!--row-->
-        <div class="row">
-            <div class="col-sm-4">	
-                <div class="div-borde">
-                    <strong><?php echo $language_text['registro_trabajo']['autor_nombre']; ?>:</strong>
-                    <br>
-                    <?php echo $autor_principal['nombre']; ?>
+        <?php if (isset($autor_principal)) {//Valida que exista um autor principal, si es el caso, muestra la información ?>
+            <div class="row">
+                <div class="col-sm-12">
+                    <h2 class="titulo"><?php echo $language_text['detalle_trabajo']['autp_detalle']; ?></h2>
                 </div>
-            </div>
-            <div class="col-sm-4">	
-                <div class="div-borde">
-                    <strong><?php echo $language_text['registro_trabajo']['autor_app']; ?>:</strong>
-                    <br>
-                    <?php echo $autor_principal['apellido_paterno']; ?>
-                </div>
-            </div>
-            <div class="col-sm-4">	
-                <div class="div-borde">
-                    <strong><?php echo $language_text['registro_trabajo']['autor_apm']; ?>:</strong>
-                    <br>
-                    <?php echo $autor_principal['apellido_materno']; ?>
-                </div>
-            </div>
-        </div> <!--row-->
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="div-borde">
-                    <strong><?php echo $language_text['registro_trabajo']['autor_pais']; ?>:</strong>
-                    <br>
-                    <?php echo json_decode($autor_principal['pais_nombre'], true)[$lang]; ?>
-                </div>
-            </div>
-            <?php $sexo = 'ext_sexo_' . strtolower($autor_principal['sexo']); ?>
-            <div class="col-sm-2">
-                <div class="div-borde">
-                    <strong><?php echo $language_text['registro_trabajo']['autor_genero']; ?>:</strong>
-                    <br>
-                    <?php echo (isset($language_text['registro_usuario'][$sexo])) ? $language_text['registro_usuario'][$sexo] : ''; ?>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="div-borde">
-                    <strong><?php echo $language_text['registro_trabajo']['autor_matricula']; ?>:</strong>
-                    <br>
-                    <?php echo $autor_principal['matricula']; ?>
-                </div>
-            </div>
-        </div><!--row-->
-        <br>
-        <div class="row">
-            <div class="col-sm-12">
-                <h2 class="titulo"><?php echo $language_text['detalle_trabajo']['autc_detalle']; ?></h2>
-            </div>
-        </div><!--row-->
-        <?php
-        //pr($autores);
-        foreach ($autores as $key => $value) {
-            $sexo = 'ext_sexo_' . strtolower($value['sexo']); 
-            ?>
+            </div><!--row-->
             <div class="row">
                 <div class="col-sm-4">	
                     <div class="div-borde">
                         <strong><?php echo $language_text['registro_trabajo']['autor_nombre']; ?>:</strong>
                         <br>
-                        <?php echo $value['nombre']; ?>
+                        <?php echo $autor_principal['nombre']; ?>
                     </div>
                 </div>
                 <div class="col-sm-4">	
                     <div class="div-borde">
                         <strong><?php echo $language_text['registro_trabajo']['autor_app']; ?>:</strong>
                         <br>
-                        <?php echo $value['apellido_paterno']; ?>
+                        <?php echo $autor_principal['apellido_paterno']; ?>
                     </div>
                 </div>
                 <div class="col-sm-4">	
                     <div class="div-borde">
                         <strong><?php echo $language_text['registro_trabajo']['autor_apm']; ?>:</strong>
                         <br>
-                        <?php echo $value['apellido_materno']; ?>
+                        <?php echo $autor_principal['apellido_materno']; ?>
                     </div>
                 </div>
             </div> <!--row-->
@@ -142,9 +85,10 @@ $controlador = $this->uri->rsegment(1);
                     <div class="div-borde">
                         <strong><?php echo $language_text['registro_trabajo']['autor_pais']; ?>:</strong>
                         <br>
-                        <?php echo json_decode($value['pais_nombre'], true)[$lang]; ?>
+                        <?php echo json_decode($autor_principal['pais_nombre'], true)[$lang]; ?>
                     </div>
                 </div>
+                <?php $sexo = 'ext_sexo_' . strtolower($autor_principal['sexo']); ?>
                 <div class="col-sm-2">
                     <div class="div-borde">
                         <strong><?php echo $language_text['registro_trabajo']['autor_genero']; ?>:</strong>
@@ -156,14 +100,72 @@ $controlador = $this->uri->rsegment(1);
                     <div class="div-borde">
                         <strong><?php echo $language_text['registro_trabajo']['autor_matricula']; ?>:</strong>
                         <br>
-                        <?php echo $value['matricula']; ?>
+                        <?php echo $autor_principal['matricula']; ?>
                     </div>
                 </div>
-            </div>
+            </div><!--row-->
             <br>
+            <div class="row">
+                <div class="col-sm-12">
+                    <h2 class="titulo"><?php echo $language_text['detalle_trabajo']['autc_detalle']; ?></h2>
+                </div>
+            </div><!--row-->
             <?php
-        }
-        ?>
+            //pr($autores);
+            foreach ($autores as $key => $value) {
+                $sexo = 'ext_sexo_' . strtolower($value['sexo']);
+                ?>
+                <div class="row">
+                    <div class="col-sm-4">	
+                        <div class="div-borde">
+                            <strong><?php echo $language_text['registro_trabajo']['autor_nombre']; ?>:</strong>
+                            <br>
+                            <?php echo $value['nombre']; ?>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">	
+                        <div class="div-borde">
+                            <strong><?php echo $language_text['registro_trabajo']['autor_app']; ?>:</strong>
+                            <br>
+                            <?php echo $value['apellido_paterno']; ?>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">	
+                        <div class="div-borde">
+                            <strong><?php echo $language_text['registro_trabajo']['autor_apm']; ?>:</strong>
+                            <br>
+                            <?php echo $value['apellido_materno']; ?>
+                        </div>
+                    </div>
+                </div> <!--row-->
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="div-borde">
+                            <strong><?php echo $language_text['registro_trabajo']['autor_pais']; ?>:</strong>
+                            <br>
+                            <?php echo json_decode($value['pais_nombre'], true)[$lang]; ?>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="div-borde">
+                            <strong><?php echo $language_text['registro_trabajo']['autor_genero']; ?>:</strong>
+                            <br>
+                            <?php echo (isset($language_text['registro_usuario'][$sexo])) ? $language_text['registro_usuario'][$sexo] : ''; ?>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="div-borde">
+                            <strong><?php echo $language_text['registro_trabajo']['autor_matricula']; ?>:</strong>
+                            <br>
+                            <?php echo $value['matricula']; ?>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <?php
+            }
+            ?>
+        <?php }//Cierra vista de autores y coautores ?>
         <div class="row">
             <div class="col-sm-12">
                 <h2 class="titulo"><?php echo $language_text['detalle_trabajo']['problema_detalle']; ?></h2>
