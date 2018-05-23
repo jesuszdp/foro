@@ -22,6 +22,9 @@ class MY_Controller extends CI_Controller {
         $this->load->config('general');
         $this->load->model('Idioma_model', 'idioma');
 
+        if(!is_null($this->session->flashdata('limpiar_post_update_lenguaje')) && $this->session->flashdata('limpiar_post_update_lenguaje')){
+            $_POST = array();//Limpiar post
+        }
         $usuario = $this->get_datos_sesion(En_datos_sesion::ID_USUARIO);
 //        $usuario_ = $this->get_datos_sesion();
 //        pr($usuario_);

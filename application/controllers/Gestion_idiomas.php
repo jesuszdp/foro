@@ -122,6 +122,7 @@ class Gestion_idiomas extends MY_Controller {
         $update = update_lenguaje($idioma);
         if ($update) {
             $id_user = $this->get_datos_sesion(En_datos_sesion::ID_USUARIO);
+            $this->session->set_flashdata('limpiar_post_update_lenguaje', true);
             $this->load->model('Idioma_model', 'idioma');
             $correct = $this->idioma->insert_user_idioma($id_user, $idioma);
             $result = ['success' => $correct];
