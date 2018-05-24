@@ -113,12 +113,12 @@ $config["form_registro_investigacion"] = array(
         'rules' => 'required'
     ),
     /*
-    array(
-        'field' => 'hipotesis',
-        'label' => 'Hipotesis',
-        'rules' => 'required'
-    ),
-    */
+      array(
+      'field' => 'hipotesis',
+      'label' => 'Hipotesis',
+      'rules' => 'required'
+      ),
+     */
     array(
         'field' => 'resultados',
         'label' => 'Resultados',
@@ -790,6 +790,29 @@ $config['catalogo_detalle_dependencias_catalogos'] = array(
         'label' => 'Elemento hijo',
         'rules' => 'required|is_numeric'
     )
+);
+
+$config["valida_evaluacion_revision"] = array(
+    "seleccion_opcion_evaluacion_" => array(
+        'field' => 'seleccion_opcion_evaluacion_',
+        'label' => 'seccion',
+        'rules' => 'required|numeric'
+    ),
+    "evaluacion_calificacion_" => array(
+        'field' => 'evaluacion_calificacion_',
+        'label' => 'Calificación',
+        'rules' => 'required|numeric|is_valido_rango_calificacion[{seccion}]'
+    ),
+    "tipo_exposicion_eval" => array(
+        'field' => 'tipo_exposicion_eval',
+        'label' => 'Tipo de exposicón',
+        'rules' => 'required|numeric'
+    ),
+    "observaciones_eval" => array(
+        'field' => 'observaciones_eval',
+        'label' => 'Observaciones',
+        'rules' => 'required'
+    ),
 );
 
 // VALIDACIONES

@@ -111,6 +111,7 @@ $lang['form_validation_folio_comprobante_unico_docente_seccion'] = 'El campo {fi
 $lang['form_validation_anio_menor_actual'] = 'El campo {field} debe ser menor o igual que el actual. ';
 $lang['form_validation_fecha_menor_actual'] = 'El campo {field} debe ser menor o igual que la actual. ';
 $lang['form_validation_is_unico_datos_usuarios'] = 'El campo {field} ya ha sido registrado.';
+$lang['form_validation_is_valido_rango_calificacion'] = 'La calificación  del campo {field} no se encuentra en el rango seleccionado.';
 
 /*
 

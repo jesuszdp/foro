@@ -42,6 +42,7 @@ $lang['form_validation_is_unico_datos_usuarios'] = 'The {field} field has alread
 $lang['form_validation_check_captcha'] = 'Please enter the characters correctly';
 $lang['form_validation_valida_correo_electronico'] = 'The {field} field must contain a valid email address.';
 $lang['form_validation_alpha_accent_space_dot_quot'] = 'The {field} field only can contain alpha characters, dots and spaces.';
+$lang['form_validation_is_valido_rango_calificacion'] = 'The qualification of {field} field option selected out of range';
 /*
 
 alpha_accent_space_dot_quot

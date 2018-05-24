@@ -165,7 +165,7 @@ class MY_Form_validation extends CI_Form_validation {
         $exp = '/^[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(\.[a-z]{2,4})$/';
         return (!preg_match($exp, $str)) ? FALSE : TRUE;
     }
-    
+
     public function valida_password_estructura($str) {
         $exp = '/^[A-Za-z0-9-]';
         return (!preg_match($exp, $str)) ? FALSE : TRUE;
@@ -371,13 +371,22 @@ class MY_Form_validation extends CI_Form_validation {
         $fecha_actual = date('dmY', now());
         return ($fecha_actual >= $fecha_c);
     }
-    
+
     public function is_unico_datos_usuarios($str, $field) {
 //        pr($field);
 //        pr($str);
         $this->CI = & get_instance();
         $this->CI->load->model('Usuario_model', 'us');
         $result = $this->CI->us->is_unico_datos_usuarios($field, $str);
+        return $result;
+    }
+
+    public function is_valido_rango_calificacion($str, $field) {
+        $opcion = $_POST['seleccion_opcion_evaluacion_' . $field];
+        $this->CI = & get_instance();
+        $this->CI->load->model('Evaluacion_revision_model', 'eval');
+        $result = $this->CI->eval->is_valido_rango_calificacion($opcion, $str);
+
         return $result;
     }
 

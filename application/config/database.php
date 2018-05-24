@@ -75,18 +75,14 @@ $active_group = 'default';
 $query_builder = TRUE;
 
 $db['default'] = array(
-    // 'dsn' => 'pgsql:host=11.32.41.13;port=5433;dbname=foro_imss_2',
-    // 'hostname' => '11.32.41.13',
-    // 'username' => 'innovaedu',
-    // 'password' => 'nPgEoXCqd/?gV.,',
-    // 'database' => 'sipimss_bitacoras',
-    'dsn' => 'pgsql:host=localhost;port=5432;dbname=foro',
+    'dsn' => 'pgsql:host=localhost;port=5432;dbname=foro_imss',
     'hostname' => 'localhost',
     'username' => 'postgres',
-    'password' => '11M5user',
-    'database' => 'foro',
+    'password' => 'postgresql',  
+    'database' => 'foro_imss',
     'dbdriver' => 'pdo',
     'port' => '5433',
+
     'dbprefix' => '',
     'pconnect' => FALSE,
     'db_debug' => (ENVIRONMENT !== 'desarrollo'),
@@ -95,7 +91,7 @@ $db['default'] = array(
     'char_set' => 'utf8',
     'dbcollat' => 'utf8_general_ci',
     'swap_pre' => '',
-    'schema' => 'sistema,catalogo,ui,censo,idiomas,foro',
+    'schema' => 'sistema,catalogo,idiomas',
     'encrypt' => FALSE,
     'compress' => FALSE,
     'stricton' => FALSE,
@@ -106,11 +102,11 @@ $db['default'] = array(
 
 
 $db['bitacoras'] = array(
-    'dsn' => 'pgsql:host=11.32.41.13;port=5433;dbname=foro_imss_2',
+   'dsn' => 'pgsql:host=localhost;port=5432;dbname=foro_imss',
     'hostname' => '11.32.41.13',
-    'username' => 'innovaedu',
-    'password' => 'nPgEoXCqd/?gV.,',
-    'database' => 'sipimss_bitacoras',
+    'username' => 'postgres',
+    'password' => 'postgresql',  
+    'database' => 'foro_imss',
     'dbdriver' => 'pdo',
     'port' => '5433',
 
