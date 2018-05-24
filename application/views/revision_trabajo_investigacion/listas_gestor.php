@@ -79,3 +79,11 @@
           }
         }
       </script> -->
+      <!-- <script>
+          $("#comite").removeClass()
+          $("#atencion").removeClass()
+          $("#revision").removeClass()
+          $("#revisados").addClass("active")
+          $("#aceptados").removeClass()
+          $("#rechazados").removeClass()
+      </script> -->

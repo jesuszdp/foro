@@ -133,7 +133,7 @@ class Gestor_revision_model extends MY_Model {
 
     /**
      * Devuelve la información de los registros de la tabla catalogos
-     * @author
+     * @author Alespock
      * @date 21/05/2018
      * @return array
      */
@@ -160,6 +160,7 @@ class Gestor_revision_model extends MY_Model {
           $this->db->where('hr.clave_estado','evaluado');
           $this->db->where("actual", TRUE);
           $result = $this->db->get();
+          // pr($result);
           $salida = $result->result_array();
           $result->free_result();
           $this->db->flush_cache();

@@ -44,8 +44,8 @@ class Gestion_revision extends General_revision {
                 $output['list_en_revision'] = $this->load->view('revision_trabajo_investigacion/estados/lista_en_revision.php', $datos, true);
                 break;
             case Gestion_revision::REVISADOS:
-                $datos['data_revisados'] = $this->revisados();
-                $datos['opciones_secciones'] = $this->obtener_grupos_texto('evaluado', $this->obtener_idioma())['evaluado'];
+                // $datos['data_revisados'] = $this->revisados();
+                $datos['language_text'] =  $this->language_text['evaluado'];
                 $output['list_revisados'] = $this->load->view('revision_trabajo_investigacion/estados/lista_revisados.php', $datos, true);
                 break;
             case Gestion_revision::ACEPTADOS:
@@ -60,13 +60,13 @@ class Gestion_revision extends General_revision {
                 $output['list_rechazados'] = $this->load->view('revision_trabajo_investigacion/estados/lista_rechazados.php', $output, true);
                 break;
             case Gestion_revision::SIN_ASIGNAR:
-                $output['data_sin_asignar'] = $this->revisados();
-                  $output['language_text'] = $this->language_text['evaluado'];
+                $output['data_sin_asignar'] = $this->revisados_sin_asignar();
+                $output['language_text'] = $this->language_text['evaluado'];
                 $output['$list_sin_asignar'] = $this->load->view('revision_trabajo_investigacion/estados/lista_sin_asignar.php', $datos, true);
                 break;
             case Gestion_revision::ASIGNADOS:
-                $datos['data_asignados'] = $this->revisados();
-                  $output['language_text'] = $this->language_text['evaluado'];
+                $output['data_asignados'] = $this->asignados();
+                $output['language_text'] = $this->language_text['evaluado'];
                 $output['$list_asignados'] = $this->load->view('revision_trabajo_investigacion/estados/lista_asignados.php', $datos, true);
                 break;
             default :
@@ -111,18 +111,24 @@ class Gestion_revision extends General_revision {
       return $result;
     }
 
-    private function revisados() {
+    private function revisados_sin_asignar() {
       $respuesta_model = $this->gestion_revision->get_revisados();
-      $result = array('success'=>$respuesta_model['success'],'msg'=>$respuesta_model['msg'],'result'=>[]);
-      foreach ($respuesta_model['result'] as $row) {
-        $result['result'][$row['folio']]['folio'] = $row['folio'];
-        $result['result'][$row['folio']]['revisores'][] = $row['revisor'];
-        $result['result'][$row['folio']]['titulo'] = $row['titulo'];
-        $result['result'][$row['folio']]['metodologia'] = $row['metodologia'];
-        $result['result'][$row['folio']]['promedio_revision'] = $row['promedio_revision'];
-        $result['result'][$row['folio']]['propuesta_dictamen'] = $row['propuesta_dictamen'];
-      }
-      return $result;
+      // $result = array('success'=>$respuesta_model['success'],'msg'=>$respuesta_model['msg'],'result'=>[]);
+      // foreach ($respuesta_model['result'] as $row) {
+      //   $result['result'][$row['folio']]['folio'] = $row['folio'];
+      //   $result['result'][$row['folio']]['revisores'][] = $row['revisor'];
+      //   $result['result'][$row['folio']]['titulo'] = $row['titulo'];
+      //   $result['result'][$row['folio']]['metodologia'] = $row['metodologia'];
+      //   $result['result'][$row['folio']]['promedio_revision'] = $row['promedio_revision'];
+      //   $result['result'][$row['folio']]['propuesta_dictamen'] = $row['propuesta_dictamen'];
+      // }
+      pr($respuesta_model);
+      return $respuesta_model;
+    }
+    private function asignados() {
+      // $respuesta_model = $this->gestion_revision->get_revisados();
+      // pr($respuesta_model);
+      // return $respuesta_model;
     }
 
     private function aceptados() {
