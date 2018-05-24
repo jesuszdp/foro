@@ -77,8 +77,3 @@ else
   <?php
 }
 ?>
-
-<script>
-$("#asignados").removeClass()
-$("#sin_asignar").removeClass("active")
-</script>
