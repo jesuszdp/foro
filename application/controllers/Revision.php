@@ -10,7 +10,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Revision extends General_revision {
 
     function __construct() {
-        $this->grupo_language_text = ['generales', 'evaluacion']; //Grupo de idiomas para el controlador actual
+        $this->grupo_language_text = ['generales', 'evaluacion', 'en_revision']; //Grupo de idiomas para el controlador actual
         parent::__construct();
           $this->load->model('Revision_model','revision');
 
@@ -26,6 +26,7 @@ class Revision extends General_revision {
      //
      // }
      public function trabajos_investigacion_evaluacion() {
+       $output['language_text'] = $this->language_text['en_revision'];
        $output['data_revisar']= $this->lista_revisar();
        $main_content = $this->load->view('revision_trabajo_investigacion/listas_revisor.php', $output, true);
        $this->template->setMainContent($main_content);

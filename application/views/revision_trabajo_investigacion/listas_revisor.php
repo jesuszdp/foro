@@ -16,13 +16,14 @@
             <!-- lista nuevos trabajos a revisar -->
             <table class="table">
               <thead>
+
                 <tr>
-                  <th scope="col">Folio</th>
-                  <th scope="col">Título</th>
-                  <th scope="col">Metodología</th>
-                  <th scope="col">Fecha límite para revisión</th>
-                  <th scope="col">Opciones</th>
+                    <th scope="col"><?php echo $language_text['col_folio'];?></th>
+                    <th scope="col"><?php echo $language_text['col_titulo'];?></th>
+                    <th scope="col"><?php echo $language_text['col_metodologia'];?></th>
+                    <th scope="col"><?php echo $language_text['col_opciones'];?></th>
                 </tr>
+
               </thead>
               <tbody>
                 <?php
@@ -32,14 +33,22 @@
                   {
                     if(count($data_revisar['result']) > 0)
                     {
+                      $lenguaje = obtener_lenguaje_actual();  
                       foreach ($data_revisar['result'] as $row)
                       {
                         ?>
 
+
                         <tr>
                           <td scope="row"><?php echo $row['folio'];?></td>
                           <td><?php echo $row['titulo'];?></td>
-                          <td><?php echo $row['metodologia'];?></td>
+                          <td>
+                            <?php
+                                $metodologia = json_decode($row['metodologia'], true);
+                                echo $metodologia[$lenguaje];
+                            ?>
+
+                          </td>
                           <td><?php echo $row['fecha_limite_revision'];?> </td>
                           <td>
                             <a href="" type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button">Evaluar</a>
