@@ -14,7 +14,7 @@ class Gestion_revision extends General_revision {
 
     function __construct() {
         $this->grupo_language_text = ['sin_comite','req_atencion','en_revision',
-        'evaluado','aceptado','rechazado','listado_trabajo']; //Grupo de idiomas para el controlador actual
+        'evaluado','aceptado','rechazado','listado_trabajo','generales', 'evaluacion', 'en_revision']; //Grupo de idiomas para el controlador actual
         parent::__construct();
         $this->load->model('Gestor_revision_model','gestion_revision');
     }
@@ -55,8 +55,9 @@ class Gestion_revision extends General_revision {
                 break;
             case Gestion_revision::RECHAZADOS:
                 $output['data_rechazados'] = $this->rechazados();
-                //pr($datos);
-                $datos['opciones_secciones'] = $this->obtener_grupos_texto('rechazado', $this->obtener_idioma())['rechazado'];
+                pr($datos);
+                $output['language_text'] = $this->language_text['rechazado'];
+                // $datos['opciones_secciones'] = $this->obtener_grupos_texto('rechazado', $this->obtener_idioma())['rechazado'];
                 $output['list_rechazados'] = $this->load->view('revision_trabajo_investigacion/estados/lista_rechazados.php', $output, true);
                 break;
             default :
@@ -127,7 +128,7 @@ class Gestion_revision extends General_revision {
       $this->template->setMainContent($main_content);
       $this->template->getTemplate();
     }
-    
+
     /**
      * @author JZDP
      * @Fecha 23/05/2018

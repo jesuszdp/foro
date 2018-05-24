@@ -12,10 +12,10 @@ if(!empty($data_rechazados))
       <table class="table">
         <thead>
           <tr>
-            <th scope="col"><?php echo $opciones_secciones['col_folio'];?></th>
-            <th scope="col"><?php echo $opciones_secciones['col_titulo'];?></th>
-            <th scope="col"><?php echo $opciones_secciones['col_metodologia'];?></th>
-            <th scope="col"><?php echo $opciones_secciones['col_opciones'];?></th>
+            <th scope="col"><?php echo $language_text['col_folio'];?></th>
+            <th scope="col"><?php echo $language_text['col_titulo'];?></th>
+            <th scope="col"><?php echo $language_text['col_metodologia'];?></th>
+            <th scope="col"><?php echo $language_text['col_opciones'];?></th>
           </tr>
         </thead>
         <tbody>
