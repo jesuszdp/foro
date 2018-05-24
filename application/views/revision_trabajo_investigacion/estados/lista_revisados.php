@@ -3,33 +3,36 @@
       <li class="active"><a href="#tab-lv21-first" data-toggle="tab">ASIGNADOS</a></li>
       <li><a href="#tab-lv21-second" data-toggle="tab">SIN ASIGNAR</a></li>
   </ul>
+</div>
+<br>
+<!-- contadores de lugares para oratoria y lugares para cartel -->
+<div class="col-sm-12">
+  <div class="col-sm-3">
+    <h4 class=""> <?php echo $opciones_secciones['lbl_oral'];?></h4>
+    <h3>10 / 20</h3>
+  </div>
+  <div class="col-sm-3">
+    <h4> <?php echo $opciones_secciones['lbl_cartel'];?></h4>
+    <h3>10 / 20</h3>
+  </div>
+  <div class="col-sm-3">
+    <h4>Asignados</h4>
+    <h3>1 / 55</h3>
 
-                              </div>
+  </div>
+  <div class="col-sm-3">
+    <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal2"> <a  style="color:#fff;"><?php echo $opciones_secciones['btn_sugerir'];?></a> </button>
+    <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal2"> <a  style="color:#fff;"><?php echo $opciones_secciones['btn_guardar'];?></a> </button>
+    <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal2"> <a  style="color:#fff;"><?php echo $opciones_secciones['btn_cerrar'];?></a> </button>
+  </div>
+  <br><br>
+</div>
 
-<?php
-  if(isset($data_revisados))
-  {
-      if($data_revisados['success'])
-      {
-          if(count($data_revisados['result']) > 0)
-          {
-?>
-              <!-- contadores de lugares para oratoria y lugares para cartel -->
-              <div class="col-sm-12">
-                <div class="col-sm-3">
-                  <h4 class=""> <?php echo $opciones_secciones['lbl_oral'];?></h4>
-                  <h3>10 / 20</h3>
-                </div>
-                <div class="col-sm-3">
-                  <h4> <?php echo $opciones_secciones['lbl_cartel'];?></h4>
-                  <h3>10 / 20</h3>
-                </div>
-              </div>
+
+
               <!-- END contadores de lugares para oratoria y lugares para cartel -->
-
-
               <!-- botones cerrar proceso, guardar cambios y sugerir dictamen -->
-              <div class="col-sm-12">
+              <!-- <div class="col-sm-12">
                 <div class="col-sm-1">
                 </div>
                 <div class="col-sm-3">
@@ -41,8 +44,18 @@
                 <div class="col-sm-3">
                   <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal2"> <a  style="color:#fff;"><?php echo $opciones_secciones['btn_cerrar'];?></a> </button>
                 </div>
-              </div>
+              </div> -->
               <!-- END botones cerrar proceso, guardar cambios y sugerir dictamen -->
+<<<<<<< HEAD
+              <?php
+                if(isset($list_asignados)){
+                  echo $list_asignados;
+                }
+                if(isset($list_sin_asignar)){
+                  echo $list_sin_asignar;
+                }
+              ?>
+=======
               <br><br>
 
               <!--  lista_revisados -->
@@ -103,18 +116,8 @@
 <?php
       }
 ?>
+>>>>>>> 7ab87fc08d0f8ef88d08b248f820bd742492c828
 
-    </tbody>
-  </table>
-<?php
-  }
-  else
-  {
-?>
-    <h3>Algo salió mal, vuelve a intentarlo más tarde!</h3>
-<?php
-  }
-?>
 
 <script>
     $("#comite").removeClass()
