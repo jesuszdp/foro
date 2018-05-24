@@ -25,43 +25,136 @@ $(document).ready(function () {
     });
 });
 
-function chart(id_chart, tabla, titulo, ytext, color) {
-    console.log("Tabla: ", tabla);
-    console.log("Titulo: ", titulo);
-    console.log("Ytext: ", ytext);
-    console.log("Color: ", color);
-    var g = Highcharts.chart(id_chart, {
-        data: {
-            table: tabla
-        },
-        chart: {
-            type: 'column',
-            backgroundColor: '#3e4b5a'
-        },
-        //colors: color,
-        plotOptions: {
-          series: {
-            colorByPoint: true,
-            animation: false
-          }
-        },
-        title: {
-            text: titulo
-        },
-        legend: {
-            enabled: false
-        },
-        yAxis: {
-            allowDecimals: false,
+function chart(id_chart, tabla, titulo, ytext, color, typeColumn) {
+    if(typeColumn == 'column'){
+      var g = Highcharts.chart(id_chart, {
+          data: {
+              table: tabla
+          },
+          chart: {
+              type: typeColumn,
+              backgroundColor: '#3e4b5a'
+          },
+          //colors: color,
+          plotOptions: {
+            series: {
+              colorByPoint: true,
+              animation: false
+            }
+          },
+          title: {
+              text: titulo
+          },
+          legend: {
+              enabled: false
+          },
+          yAxis: {
+              allowDecimals: false,
+              title: {
+                  text: ytext
+              },
+              visible: false
+          },
+          // xAxis: {
+          //   labels: {
+          //       rotation: -90
+          //   }
+          // }
+      });
+    }
+    if(typeColumn == 'solidgauge'){
+      var g = Highcharts.chart(id_chart,{
+          data: {
+              table: tabla
+          },
+          chart: {
+            type: typeColumn
+          },
+          title: {
+              text: titulo
+          },
+          pane: {
+            center: [
+              "50%",
+              "85%"
+            ],
+            size: "140%",
+            startAngle: "-90",
+            endAngle: "90",
+            background: {
+              backgroundColor: "#EEE",
+              innerRadius: "60%",
+              outerRadius: "100%",
+              shape: "arc"
+            }
+          },
+          tooltip: {
+            "enabled": false
+          },
+          yAxis: {
             title: {
-                text: ytext
+              y: -70
             },
-            visible: false
-        },
-        // xAxis: {
-        //   labels: {
-        //       rotation: -90
-        //   }
-        // }
-    });
+            labels: {
+              y: 16
+            },
+            stops: [
+              [
+                0.1,
+                "#55BF3B"
+              ],
+              [
+                0.25,
+                "#55BF3B"
+              ],
+
+              [
+                0.50,
+                "#DDDF0D"
+              ],
+              [
+                0.75,
+                "#DF5353"
+              ],
+              [
+                0.9,
+                "#DF5353"
+              ]
+            ],
+            min: 0,
+            max: 100,
+            lineWidth: 0,
+            minorTickInterval: null,
+            tickPixelInterval: 400,
+            tickWidth: 0
+          },
+          plotOptions: {
+            solidgauge: {
+              dataLabels: {
+                y: 10,
+                borderWidth: 0,
+                useHTML: true
+              }
+            },
+            series: {
+              animation: false,
+              dataLabels: {}
+            }
+          },
+          series[0]: {
+            dataLabels: {
+              format: "<div style=\"text-align:center\"><span style=\"font-size:25px;color:#000000\">{y}</span></div>"
+            }
+          },
+          series: [
+            {
+              name: "Column 2",
+              turboThreshold: 0,
+              _symbolIndex: 0,
+              _colorIndex: 0,
+              marker: {}
+            }
+          ]
+      });
+    }
 }

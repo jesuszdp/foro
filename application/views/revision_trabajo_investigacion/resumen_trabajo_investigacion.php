@@ -320,7 +320,8 @@
 <script type="text/javascript">
     jQuery(document).ready(function () {
         //theme.init();
-        chart("graficas", "table", null, null, ['#0095bc','#98c56e']);
+        chart("graficas", "table", null, null, ['#0095bc','#98c56e'],"column");
+        //chart("graficas", "table", null, null, null,"solidgauge");
     });
 
     // jQuery(document).ready(function () { theme.onResize(); });
