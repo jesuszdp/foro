@@ -41,6 +41,16 @@
         </div>
       </div>
     </div>
+    <!-- <div id="tab-lv21-second" class="tab-pane fade">
+        <div class="timeline">
+          <?php
+            if(isset($list_sin_asignar)){
+              echo $list_sin_asignar;
+            }
+          ?>
+
+        </div>
+    </div> -->
     <!-- END tab-sin-comite sin comité -->
 
       <!-- <script type="text/javascript">

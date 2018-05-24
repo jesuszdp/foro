@@ -10,7 +10,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Gestion_revision extends General_revision {
 
     const SN_COMITE = 1, REQ_ATENCION = 2, EN_REVISION = 3,
-            REVISADOS = 4, ACEPTADOS = 5, RECHAZADOS = 6;
+            REVISADOS = 4, ACEPTADOS = 5, RECHAZADOS = 6,  SIN_ASIGNAR = 7,  ASIGNADOS = 8;
 
     function __construct() {
         $this->grupo_language_text = ['sin_comite','req_atencion','en_revision',
@@ -55,10 +55,19 @@ class Gestion_revision extends General_revision {
                 break;
             case Gestion_revision::RECHAZADOS:
                 $output['data_rechazados'] = $this->rechazados();
-                pr($datos);
+                //pr($datos);
                 $output['language_text'] = $this->language_text['rechazado'];
-                // $datos['opciones_secciones'] = $this->obtener_grupos_texto('rechazado', $this->obtener_idioma())['rechazado'];
                 $output['list_rechazados'] = $this->load->view('revision_trabajo_investigacion/estados/lista_rechazados.php', $output, true);
+                break;
+            case Gestion_revision::SIN_ASIGNAR:
+                $output['data_sin_asignar'] = $this->revisados();
+                  $output['language_text'] = $this->language_text['sin_asignar'];
+                $output['$list_sin_asignar'] = $this->load->view('revision_trabajo_investigacion/estados/lista_sin_asignar.php', $datos, true);
+                break;
+            case Gestion_revision::ASIGNADOS:
+                $datos['data_asignados'] = $this->revisados();
+                  $output['language_text'] = $this->language_text['asignados'];
+                $output['$list_asignados'] = $this->load->view('revision_trabajo_investigacion/estados/lista_asignados.php', $datos, true);
                 break;
             default :
                 $datos['data_sn_comite'] = $this->sn_comite();

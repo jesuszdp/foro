@@ -1,3 +1,11 @@
+<div class="schedule-tabs lv2">
+  <ul id="tabs-lv21"  class="nav nav-justified">
+      <li class="active"><a href="#tab-lv21-first" data-toggle="tab">ASIGNADOS</a></li>
+      <li><a href="#tab-lv21-second" data-toggle="tab">SIN ASIGNAR</a></li>
+  </ul>
+
+                              </div>
+
 <?php
   if(isset($data_revisados))
   {
@@ -9,11 +17,11 @@
               <!-- contadores de lugares para oratoria y lugares para cartel -->
               <div class="col-sm-12">
                 <div class="col-sm-3">
-                  <h3> <?php echo $opciones_secciones['lbl_oral'];?></h3><br>
+                  <h4 class=""> <?php echo $opciones_secciones['lbl_oral'];?></h4>
                   <h3>10 / 20</h3>
                 </div>
                 <div class="col-sm-3">
-                  <h3> <?php echo $opciones_secciones['lbl_cartel'];?></h3><br>
+                  <h4> <?php echo $opciones_secciones['lbl_cartel'];?></h4>
                   <h3>10 / 20</h3>
                 </div>
               </div>
