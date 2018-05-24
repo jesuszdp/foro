@@ -3,7 +3,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * Clase que contiene las funciones generales de las revisiones, 
+ * Clase que contiene las funciones generales de las revisiones,
  * y gestión de revisiones
  * @version 	: 1.0.0
  * @author      : LEAS
@@ -19,23 +19,23 @@ class General_revision extends MY_Controller {
     }
 
     /**
-     * @author 
+     * @author
      * @Fecha 21/05/2018
      * @param type $cve_evaluacion
      * @description Obtiene el detalle de la investigación
-     * 
+     *
      */
     function get_detalle_evaluacion($cve_evaluacion) {
-        
+
     }
 
     /**
-     * @author 
+     * @author
      * @Fecha 21/05/2018
      * @param type $folio //para el caso en que obtenga el detalle de la investigación sin folio
-     * @param type $datos_trabajo Si la consulta ya se genero, trabajo contiene el folio 
+     * @param type $datos_trabajo Si la consulta ya se genero, trabajo contiene el folio
      * @description Obtiene el detalle de la investigación en vista html
-     * 
+     *
      */
     protected function get_detalle_investigacion($folio, $datos_trabajo = null) {
         $this->load->model('Trabajo_model', 'trabajo');

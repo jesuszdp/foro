@@ -75,14 +75,13 @@ $active_group = 'default';
 $query_builder = TRUE;
 
 $db['default'] = array(
-    'dsn' => 'pgsql:host=localhost;port=5432;dbname=foro_imss',
+    'dsn' => 'pgsql:host=localhost;port=5432;dbname=foro',
     'hostname' => 'localhost',
     'username' => 'postgres',
-    'password' => 'postgresql',  
-    'database' => 'foro_imss',
+    'password' => '11M5user',
+    'database' => 'foro',
     'dbdriver' => 'pdo',
     'port' => '5433',
-
     'dbprefix' => '',
     'pconnect' => FALSE,
     'db_debug' => (ENVIRONMENT !== 'desarrollo'),
@@ -105,7 +104,7 @@ $db['bitacoras'] = array(
    'dsn' => 'pgsql:host=localhost;port=5432;dbname=foro_imss',
     'hostname' => '11.32.41.13',
     'username' => 'postgres',
-    'password' => 'postgresql',  
+    'password' => 'postgresql',
     'database' => 'foro_imss',
     'dbdriver' => 'pdo',
     'port' => '5433',

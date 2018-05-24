@@ -15,7 +15,7 @@ class Gestion_revision extends General_revision {
     function __construct() {
         $this->grupo_language_text = ['sin_comite','req_atencion','en_revision',
         'evaluado','aceptado','rechazado','listado_trabajo','generales', 'evaluacion', 'en_revision'
-        ,'mensajes','detalle_revision']; //Grupo de idiomas para el controlador actual
+        ,'mensajes','detalle_revision','detalle_trabajo']; //Grupo de idiomas para el controlador actual
         parent::__construct();
         $this->load->model('Gestor_revision_model','gestion_revision');
     }
@@ -145,8 +145,7 @@ class Gestion_revision extends General_revision {
      * @description Función que muestra la vista del resumen de un trabajo de investigación
      */
     public function ver_resumen($idFolio=NULL){
-      $trabajoInvestigacion = $this->get_detalle_investigacion($idFolio);
-      pr($trabajoInvestigacion);
+      $output['trabajo_investigacion'] = $this->get_detalle_investigacion($idFolio);
       $output['idioma'] = $this->obtener_grupos_texto('detalle_revision', $this->obtener_idioma())['detalle_revision'];
       $output['promedioFinal'] = $this->gestion_revision->get_info_promedio_final_por_trabajo($idFolio);
       $output['revisores'] = $this->gestion_revision->get_revisores_por_trabajo($idFolio);

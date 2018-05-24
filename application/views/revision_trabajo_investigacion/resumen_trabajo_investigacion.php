@@ -32,6 +32,7 @@
 
     <!-- Content area -->
     <div class="content-area">
+        <?php echo $trabajo_investigacion; ?>
         <div id="main">
           <div class="container">
               <h1 class="section-title">
