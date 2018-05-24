@@ -46,7 +46,7 @@
                 </div>
               </div> -->
               <!-- END botones cerrar proceso, guardar cambios y sugerir dictamen -->
-<<<<<<< HEAD
+
               <?php
                 if(isset($list_asignados)){
                   echo $list_asignados;
@@ -55,7 +55,6 @@
                   echo $list_sin_asignar;
                 }
               ?>
-=======
               <br><br>
 
               <!--  lista_revisados -->
@@ -104,7 +103,7 @@
           else
           {
 ?>
-          <h3>No hay trabajos aceptados!</h3>
+          <h3><?php echo $opciones_secciones['ev_mensaje'];?></h3>
 <?php
 
           }
@@ -112,11 +111,10 @@
       else
       {
 ?>
-      <h3><?php echo $data_revisados['msg'];?></h3>
+      <h3><?php echo $mensajes['ern_mensaje'];?></h3>
 <?php
       }
 ?>
->>>>>>> 7ab87fc08d0f8ef88d08b248f820bd742492c828
 
 
 <script>

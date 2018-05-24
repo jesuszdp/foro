@@ -54,7 +54,7 @@
           else
           {
 ?>
-          <h3>No hay trabajos aceptados!</h3>
+          <h3><?php //poner mensaje correcpondiente ?></h3>
 <?php
 
           }
@@ -62,7 +62,7 @@
       else
       {
 ?>
-      <h3><?php echo $data_revisados['msg'];?></h3>
+      <h3><?php echo $mensajes['ern_mensaje'];?></h3>
 <?php
       }
 ?>
@@ -74,7 +74,7 @@
   else
   {
 ?>
-    <h3>Algo salió mal, vuelve a intentarlo más tarde!</h3>
+    <h3><?php echo $mensajes['ern_mensaje'];?></h3>
 <?php
   }
 ?>

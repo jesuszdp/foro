@@ -188,98 +188,123 @@
                     <section id="column1">
                       <h3>Trabajo de investigación</h3>
                       <br>
-                      <p style="color:whitesmoke;">Prevención de diabetes en adultos </p>
-                       <p style="color:whitesmoke;">Promedio final: <small>9.5</small> </p>
-                      <p style="color:whitesmoke;">Resolución: <small>Aceptado</small> </p>
-                      <p style="color:whitesmoke;">Presentación: <small>Oral</small> </p>
-                      <img id="grafica1" src="../public/img/resumen1.png" alt="">
+                      <?php
+                          if(isset($promedioFinal))
+                          {
+                              if($promedioFinal['success'])
+                              {
+                                    //pr($promedioFinal['result'][0]);
+                      ?>
+                                    <p style="color:whitesmoke;"><?php echo $promedioFinal['result'][0]['titulo']; ?></p>
+                                    <p style="color:whitesmoke;">Promedio final: <small><?php echo $promedioFinal['result'][0]['avg']; ?></small> </p>
+                                    <p style="color:whitesmoke;">Resolución: <small><?php echo $promedioFinal['result'][0]['clave_estado']; ?></small> </p>
+                                    <p style="color:whitesmoke;">Presentación: <small><?php echo $promedioFinal['result'][0]['tipo_exposicion']; ?></small> </p>
+                      <?php
+                              }
+                              else
+                              {
+                                 //poner el error
+                              }
+                          }
+                          else
+                          {
+                              //poner el error
+                          }
+                      ?>
+                      <section id="progressBar">
+                      </section>
                     </section>
                     <section id="column2">
                       <h3>Revisores</h3>
                       <!-- <hr> -->
                       <br>
-                      <section class="row">
-                        <div class="tarjeta">
-                          <!-- <div class="circulos pull-left">
-                              <img src="../public/img/imagen.jpg" alt="" class="media-object" />
-                          </div> -->
-                          <p class="nombreR">Nombre: <small> Sergio Amaro Rosas </small></p>
-                          <p class="nombreR">Fecha de asignación: <small> 01/05/2018 </small></p>
-                          <p class="nombreR">Fecha de conclusión: <small> 02/05/2018 </small></p>
-                          <p class="nombreR">Promedio: <small> 9.0 </small></p>
-                        </div>
-                      </section>
-                      <hr>
-                      <section class="row">
-                        <div class="tarjeta">
-                          <!-- <div class="circulos pull-left">
-                              <img src="../public/img/dennis.jpg" alt="" class="media-object" />
-                          </div> -->
-                          <p class="nombreR">Nombre: <small> Sergio Amaro Rosas </small></p>
-                          <p class="nombreR">Fecha de asignación: <small> 01/05/2018s </small></p>
-                          <p class="nombreR">Fecha de conclusión: <small> 02/05/2018 </small></p>
-                              <p class="nombreR">Promedio: <small> 9.0 </small></p>
-                        </div>
-                      </section>
-                      <hr>
-                      <section class="row">
-                        <div class="tarjeta">
-                          <!-- <div class="circulos pull-left">
-                              <img src="../public/img/turin.jpg" alt="" class="media-object" />
-                          </div> -->
-                          <p class="nombreR">Nombre: <small>Sergio Amaro Rosas</small></p>
-                          <p class="nombreR">Fecha de asignación: <small> 01/05/2018 </small></p>
-                          <p class="nombreR">Fecha de conclusión: <small> 02/05/2018 </small></p>
-                          <p class="nombreR">Promedio: <small> 10 </small></p>
-                        </div>
-                      </section>
+                      <?php
+                          if(isset($revisores))
+                          {
+                              if($revisores['success'])
+                              {
+                                  foreach ($revisores['result'] as $row) {
+                      ?>
+                                      <section class="row">
+                                        <div class="tarjeta">
+                                          <!-- <div class="circulos pull-left">
+                                              <img src="../public/img/imagen.jpg" alt="" class="media-object" />
+                                          </div> -->
+                                          <p class="nombreR">Nombre: <small> <?php echo $row['revisor']; ?> </small></p>
+                                          <p class="nombreR">Fecha de asignación: <small> <?php echo $row['fecha_asignacion']; ?> </small></p>
+                                          <p class="nombreR">Fecha de conclusión: <small> <?php echo $row['fecha_conclucion']; ?> </small></p>
+                                          <p class="nombreR">Promedio: <small> <?php echo $row['promedio_revision']; ?> </small></p>
+                                        </div>
+                                      </section>
+                                      <hr>
+                      <?php
+                                  }
+                              }
+                              else
+                              {
+                                  //poner error
+                              }
+                          }
+                          else
+                          {
+                             //poner error
+                          }
+                      ?>
                     </section>
                 </section>
                 <section class="row">
                   <section id="column3">
                     <h3>Trabajos de investigación por las evaluaciones</h3>
                     <br>
-                    <div id="graficas">
-                    </div>
-                    <br>
-                    <table class="table" id="table">
-                      <thead>
-                        <tr>
-                          <th scope="col">Secciones</th>
-                          <th scope="col">Promedio</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>Aspectos éticos</td>
-                          <td>70</td>
-                        </tr>
-                        <tr>
-                          <td>Trascendencia</td>
-                          <td>60</td>
-                        </tr>
-                        <tr>
-                          <td>Calidad metodológica (Mixtas)</td>
-                          <td>50</td>
-                        </tr>
-                        <tr>
-                          <td>Calidad metodológica (Cualitativas)</td>
-                          <td>40</td>
-                        </tr>
-                        <tr>
-                          <td>Calidad metodológica (Cuantitativas)</td>
-                          <td>30</td>
-                        </tr>
-                        <tr>
-                          <td>Calidad metodológica (Originalidad)</td>
-                          <td>20</td>
-                        </tr>
-                        <tr>
-                          <td>Calidad de resumen</td>
-                          <td>10</td>
-                        </tr>
-                      </tbody>
-                    </table>
+                    <?php
+                        if(isset($tablaSeccion))
+                        {
+                            if($tablaSeccion['success'])
+                            {
+                    ?>
+                                <div id="graficas">
+                                </div>
+                                <br>
+                                <table class="table" id="table">
+                                  <thead>
+                                    <tr>
+                                      <th scope="col">Secciones</th>
+                                      <th scope="col">Promedio</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <?php
+                                        $lenguaje = obtener_lenguaje_actual();
+                                        foreach ($tablaSeccion['result'] as $row) {
+
+                                    ?>
+                                        <tr>
+                                          <td>
+                                              <?php
+                                                  $seccion = json_decode($row['descripcion'],true);
+                                                  echo $seccion[$lenguaje];
+                                              ?>
+                                          </td>
+                                          <td><?php echo $row['sum']; ?></td>
+                                        </tr>
+                                    <?php
+                                        }
+                                    ?>
+
+                                  </tbody>
+                                </table>
+                    <?php
+                            }
+                            else
+                            {
+                                //poner error
+                            }
+                        }
+                        else
+                        {
+                          //poner error
+                        }
+                    ?>
                   </section>
                 </section>
               </div>

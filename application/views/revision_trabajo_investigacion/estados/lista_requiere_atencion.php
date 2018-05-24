@@ -50,7 +50,7 @@
           else
           {
 ?>
-          <h3>No hay trabajos de requiere atención!</h3>
+          <h3><?php echo $opciones_secciones['ra_mensaje'];?></h3>
 <?php
 
           }
@@ -58,7 +58,7 @@
       else
       {
 ?>
-      <h3><?php echo $data_req_atencion['msg'];?></h3>
+      <h3><?php echo $mensajes['ern_mensaje'];?></h3>
 <?php
       }
 ?>
@@ -70,7 +70,7 @@
   else
   {
 ?>
-    <h3>Algo salió mal, vuelve a intentarlo más tarde!</h3>
+    <h3><?php echo $mensajes['ern_mensaje'];?></h3>
 <?php
   }
 ?>
