@@ -274,6 +274,41 @@ class Gestor_revision_model extends MY_Model {
     }
 
     /**
+     * Función que trae la información de un trabajo
+     * de investigación con el promedio final
+     * @author Cheko
+     * @date 24/05/2018
+     * @param String $folio folio del trabajo de investigación
+     *
+     */
+    public function get_info_promedio_final_por_trabajo($folio = NULL){
+
+    }
+
+    /**
+     * Función que obtiene los promedios finales
+     * por seccion de un trabajo de investigación
+     * @author Cheko
+     * @date 24/05/2018
+     * @param String $folio folio del trabajo de investigación
+     *
+     */
+    public function get_promedio_por_seccion_por_trabajo($folio = NULL){
+
+    }
+
+    /**
+     * Función que obtiene los revisores con
+     * su información adicional de un trabajo de investigación
+     * @author Cheko
+     * @date 24/05/2018
+     * @param String $folio folio del trabajo de investigación
+     */
+    public function get_revisores_por_trabajo($folio = NULL){
+
+    }
+
+    /**
      * Devuelve la información de los registros de la tabla catalogos
      * @author
      * @date 21/05/2018

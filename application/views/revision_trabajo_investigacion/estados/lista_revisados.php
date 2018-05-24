@@ -82,7 +82,7 @@
                     <td><?php echo $row['promedio_revision'];?></td>
                     <td><?php echo $row['propuesta_dictamen'];?></td>
                     <td>
-                      <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button"> <a href="ver_resumen" style="color:#fff;"><?php echo $opciones_secciones['btn_vdetalle']; ?></a> </button>
+                      <a class="btn btn-theme btn-block submit-button" href="<?php echo base_url("index.php/gestion_revision/ver_resumen/".$row['folio'])?>" style="color:#fff;"><?php echo $opciones_secciones['btn_vdetalle']; ?></a>
                     </td>
                   </tr>
 <?php

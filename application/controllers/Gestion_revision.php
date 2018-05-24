@@ -142,19 +142,23 @@ class Gestion_revision extends General_revision {
      * @param type $id - identificador del trabajo de investigación
      * @description Función que muestra la vista del resumen de un trabajo de investigación
      */
-    public function ver_resumen($id=NULL){
+    public function ver_resumen($idFolio=NULL){
+      //$TrabajoInvestigacion;
+      $promedioFinal = $this->gestion_revision->get_info_promedio_final_por_trabajo($idFolio);
+      $tablaSeccion = $this->gestion_revision->get_promedio_por_seccion_por_trabajo($idFolio);
+      $revisores = $this->gestion_revision->get_revisores_por_trabajo($idFolio);
       $main_content = $this->load->view('revision_trabajo_investigacion/resumen_trabajo_investigacion.php', $output, true);
       $this->template->setMainContent($main_content);
       $this->template->getTemplate();
     }
+
+
     /**
      * @author AleSpock
      * @date 21/05/2018
      * @param
      * @description Función que muestra la vista de los estados en la administracion de gestor de revisores
      */
-
-
     public function trabajos_investigacion_evaluacion_gestor() {
       $this->listado_control('SN_COMITE');
 
