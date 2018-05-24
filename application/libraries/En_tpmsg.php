@@ -7,7 +7,7 @@
 class En_tpmsg {
 
     const
-            __default = '',
+            __default = 'tp_message',
             SUCCESS = 'success',
             DANGER = 'danger',
             WARNING = 'warning',

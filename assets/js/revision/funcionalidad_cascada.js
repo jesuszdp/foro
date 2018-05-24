@@ -302,12 +302,3 @@ function cambio(obj){
   }
 }
 
-function cambioEvaluacion(check){
-  if($('input[value=educativo]:checked, input[value=conflicto]:checked').length == 2){
-    $( "#seccionesEva" ).show( 1000, function() {
-    });
-  }else{
-    $( "#seccionesEva" ).hide( 1000, function() {
-    });
-  }
-}

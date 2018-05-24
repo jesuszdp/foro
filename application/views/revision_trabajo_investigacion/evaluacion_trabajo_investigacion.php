@@ -1,5 +1,4 @@
-<?php echo css("revision/evaluacion_revisor.css"); ?>
-<?php echo js("revision/funcionalidad_cascada.js"); ?>
+
 
 <div class="content-area">
     <div class="container">
@@ -26,38 +25,38 @@
                                 padding: 0.5em;
                             }
                         </style>
-                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                            <strong>ERROR</strong> ERROR ERROR.
+                        <div id="mensaje_notificacion" class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <strong id="msg_notificacion"></strong>
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="sectionEvaluacion" id="secTrabajoInv">
                             <h3>
-                                Trabajo de investigación
+                               <?php echo $language_text['evaluacion']['lbl_tr_ev']?>
                             </h3>
                             <img src="<?php echo asset_url(); ?>img/arrowdown.png" alt="">
                         </div>
-                        <?php echo form_open('revision/nueva_evaluacion_revision/' . $datos['folio']); ?>
                         <div id="hideTrabajo" class="panel panel-default" style="display:none;">
                             <?php echo $trabajo_investigacion; ?>
                         </div>
-                        <?php echo form_close(); ?>
                         <div class="sectionEvaluacion" id="secEvaluacion">
                             <h3>
-                                Evaluación
+                                <?php echo $language_text['evaluacion']['lbl_eval']?>
                             </h3>
                             <img src="<?php echo asset_url(); ?>img/arrowdown.png" alt="">
                         </div>
                         <div id="hideEvaluacion" class="panel panel-default" style="display:none;">
                             <div class="panel-body">
-                                <input type="checkbox" name="educativo" value="educativo" onchange="cambioEvaluacion(this)"> <?php echo $language_text['evaluacion']['lbl_tema']; ?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <input type="checkbox" name="conflicto" value="conflicto" onchange="cambioEvaluacion(this)"> <?php echo $language_text['evaluacion']['lbl_conflicto']; ?>
-                                <?php echo $evaluacion; ?>
+                                <?php echo form_open('' . $datos['folio'], array('id' => 'form_evaluacion')); ?>
+                                <input type="hidden" value="<?php echo $datos['folio']; ?>" name="folio">
+                                <div id="eval_principal">
+                                    <?php echo $evaluacion; ?>
+                                </div>
+                                <?php echo form_close(); ?>
                                 <section id="sec_b">
-                                    <a href="finalizar_evaluacion" class="btn btn-theme btn-block submit-button animated flipInY visible"><?php echo $language_text['evaluacion']['btn_aceptar']; ?><i class="fa fa-arrow-circle-right"></i></a>
+                                    <button class="btn btn-theme btn-block submit-button animated flipInY visible" onclick="evaluacion(this);"><?php echo $language_text['evaluacion']['btn_aceptar']; ?><i class="fa fa-arrow-circle-right"></i></button>
                                 </section>
-                                </form>
                             </div>
                         </div>
                     </div>
@@ -65,6 +64,9 @@
             </section>
         </div>
 
+        <?php echo css("revision/evaluacion_revisor.css"); ?>
+        <?php echo js("revision/funcionalidad_cascada.js"); ?>
+        <?php echo js("revision/revision_evaluacion.js"); ?>
         <script type="text/javascript">
             jQuery(document).ready(function () {
                 theme.init();
