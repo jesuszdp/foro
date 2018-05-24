@@ -3,12 +3,12 @@
 <div class="schedule-wrapper clear" data-animation="fadeIn" data-animation-delay="200">
   <div class="schedule-tabs lv1">
     <ul id="tabs-lv1"  class="nav nav-justified">
-      <li id="comite" onclick="ponerActivo(this)"> <a href="<?php echo base_url("index.php/gestion_revision/listado_control/1"); ?>"><strong>Sin comité</strong> <br/></a></li>
-      <li id="atencion" onclick="ponerActivo(this)"> <a href="<?php echo base_url("index.php/gestion_revision/listado_control/2"); ?>" ><strong>Requiere atención</strong> <br/></a></li>
-      <li id="revision" onclick="ponerActivo(this)"> <a href="<?php echo base_url("index.php/gestion_revision/listado_control/3"); ?>"><strong>En revisión</strong> <br/></a></li>
-      <li id="revisados" onclick="ponerActivo(this)"> <a href="<?php echo base_url("index.php/gestion_revision/listado_control/4"); ?>"><strong>Revisados</strong></a></li>
-      <li id="aceptados" onclick="ponerActivo(this)"> <a href="<?php echo base_url("index.php/gestion_revision/listado_control/5"); ?>"><strong>Aceptados</strong> <br/></a></li>
-      <li id="rechazados" onclick="ponerActivo(this)"> <a href="<?php echo base_url("index.php/gestion_revision/listado_control/6"); ?>"><strong>Rechazados</strong> <br/></a></li>
+      <li id="comite" onclick="ponerActivo(this)"> <a href="<?php echo base_url("index.php/gestion_revision/listado_control/1"); ?>"><strong><?php echo $textos_idioma_nav['tab_sc']; ?></strong> <br/></a></li>
+      <li id="atencion" onclick="ponerActivo(this)"> <a href="<?php echo base_url("index.php/gestion_revision/listado_control/2"); ?>" ><strong><?php echo $textos_idioma_nav['tab_ra']; ?></strong> <br/></a></li>
+      <li id="revision" onclick="ponerActivo(this)"> <a href="<?php echo base_url("index.php/gestion_revision/listado_control/3"); ?>"><strong><?php echo $textos_idioma_nav['tab_er']; ?></strong> <br/></a></li>
+      <li id="revisados" onclick="ponerActivo(this)"> <a href="<?php echo base_url("index.php/gestion_revision/listado_control/4"); ?>"><strong><?php echo $textos_idioma_nav['tab_rv']; ?></strong></a></li>
+      <li id="aceptados" onclick="ponerActivo(this)"> <a href="<?php echo base_url("index.php/gestion_revision/listado_control/5"); ?>"><strong><?php echo $textos_idioma_nav['tab_ac']; ?></strong> <br/></a></li>
+      <li id="rechazados" onclick="ponerActivo(this)"> <a href="<?php echo base_url("index.php/gestion_revision/listado_control/6"); ?>"><strong><?php echo $textos_idioma_nav['tab_rx']; ?></strong> <br/></a></li>
     </ul>
   </div>
   <div class="tab-content lv1">

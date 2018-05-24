@@ -65,7 +65,8 @@
       </tbody>
     </table>
   <?php
-  }else
+  }
+  else
   {
   ?>
     <h3>Algo salió mal, vuelve a intentarlo más tarde!</h3>
@@ -97,7 +98,7 @@
                     <tr>
                       <th scope="row">Lorem Ipsum ... </th>
                       <td>
-                      
+
                            <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="dropdown">Cartel
                            </button>
                            <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="dropdown">Ponencia
@@ -126,7 +127,7 @@
                     </tr>
                     <tr>
                       <th scope="row">Lorem Ipsum ...</th>
-                      
+
                       <td>
                         <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="dropdown">Cartel
                         </button>
