@@ -61,12 +61,12 @@ class Gestion_revision extends General_revision {
                 break;
             case Gestion_revision::SIN_ASIGNAR:
                 $output['data_sin_asignar'] = $this->revisados();
-                  $output['language_text'] = $this->language_text['sin_asignar'];
+                  $output['language_text'] = $this->language_text['evaluado'];
                 $output['$list_sin_asignar'] = $this->load->view('revision_trabajo_investigacion/estados/lista_sin_asignar.php', $datos, true);
                 break;
             case Gestion_revision::ASIGNADOS:
                 $datos['data_asignados'] = $this->revisados();
-                  $output['language_text'] = $this->language_text['asignados'];
+                  $output['language_text'] = $this->language_text['evaluado'];
                 $output['$list_asignados'] = $this->load->view('revision_trabajo_investigacion/estados/lista_asignados.php', $datos, true);
                 break;
             default :
