@@ -35,9 +35,9 @@
                             echo $metodologia[$lenguaje];
                         ?>
                     </td>
-                    <td><?php echo "ESTATUS R1";?></td>
-                    <td><?php echo "ESTATUS R2";?></td>
-                    <td><?php echo "ESTATUS R3";?></td>
+                    <td><?php echo $row['revisores'][0];?></td>
+                    <td><?php echo $row['revisores'][1];?></td>
+                    <td><?php echo $row['revisores'][2];?></td>
                     <td><?php echo $row['numero_revisiones'];?></td>
                     <td>
                       <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal"><?php echo $opciones_secciones['btn_ver'];?></button>

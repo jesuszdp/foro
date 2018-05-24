@@ -56,7 +56,6 @@
                 <tbody>
 <?php
               $lenguaje = obtener_lenguaje_actual();
-              
               foreach ($data_revisados['result'] as $row)
               {
 ?>
@@ -69,13 +68,13 @@
                             echo $metodologia[$lenguaje];
                         ?>
                     </td>
-                    <td><?php echo $row['revisor'];?></td>
-                    <td><?php echo $row['revisor'];?></td>
-                    <td><?php echo $row['revisor'];?></td>
+                    <td><?php echo $row['revisores'][0];?></td>
+                    <td><?php echo $row['revisores'][1];?></td>
+                    <td><?php echo $row['revisores'][2];?></td>
                     <td><?php echo $row['promedio_revision'];?></td>
                     <td><?php echo $row['propuesta_dictamen'];?></td>
                     <td>
-                      <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button"> <a href="ver_resumen" style="color:#fff;">FALTA IDIOMA</a> </button>
+                      <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button"> <a href="ver_resumen" style="color:#fff;"><?php echo $opciones_secciones['btn_vdetalle']; ?></a> </button>
                     </td>
                   </tr>
 <?php

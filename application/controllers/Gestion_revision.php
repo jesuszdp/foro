@@ -66,7 +66,7 @@ class Gestion_revision extends General_revision {
                 $output['list_sn_comite'] = $this->load->view('revision_trabajo_investigacion/estados/lista_sin_comite.php',$datos,true);
                 break;
         }
-        $output['textos_idioma_nav'] = $this->obtener_grupos_texto('listado_trabajo', $this->obtener_idioma())['listado_trabajo'];
+        $output['textos_idioma_nav'] = $this->obtener_grupos_texto('tabs_gestor', $this->obtener_idioma())['tabs_gestor'];
         $main_content = $this->load->view('revision_trabajo_investigacion/listas_gestor.php', $output, true);
         $this->template->setMainContent($main_content);
         $this->template->getTemplate();
@@ -79,17 +79,41 @@ class Gestion_revision extends General_revision {
 
     private function requiere_atencion() {
       $respuesta_model = $this->gestion_revision->get_requiere_atencion();
-      return $respuesta_model;
+      $result = array('success'=>$respuesta_model['success'],'msg'=>$respuesta_model['msg'],'result'=>[]);
+      foreach ($respuesta_model['result'] as $row) {
+        $result['result'][$row['folio']]['folio'] = $row['folio'];
+        $result['result'][$row['folio']]['revisores'][] = $row['revisor'];
+        $result['result'][$row['folio']]['titulo'] = $row['titulo'];
+        $result['result'][$row['folio']]['metodologia'] = $row['metodologia'];
+        $result['result'][$row['folio']]['numero_revisiones'] = $row['numero_revisiones'];
+      }
+      return $result;
     }
 
     private function en_revision() {
       $respuesta_model = $this->gestion_revision->get_en_revision();
-      return $respuesta_model;
+      $result = array('success'=>$respuesta_model['success'],'msg'=>$respuesta_model['msg'],'result'=>[]);
+      foreach ($respuesta_model['result'] as $row) {
+        $result['result'][$row['folio']]['folio'] = $row['folio'];
+        $result['result'][$row['folio']]['revisores'][] = $row['revisor'];
+        $result['result'][$row['folio']]['titulo'] = $row['titulo'];
+        $result['result'][$row['folio']]['metodologia'] = $row['metodologia'];
+      }
+      return $result;
     }
 
     private function revisados() {
       $respuesta_model = $this->gestion_revision->get_revisados();
-      return $respuesta_model;
+      $result = array('success'=>$respuesta_model['success'],'msg'=>$respuesta_model['msg'],'result'=>[]);
+      foreach ($respuesta_model['result'] as $row) {
+        $result['result'][$row['folio']]['folio'] = $row['folio'];
+        $result['result'][$row['folio']]['revisores'][] = $row['revisor'];
+        $result['result'][$row['folio']]['titulo'] = $row['titulo'];
+        $result['result'][$row['folio']]['metodologia'] = $row['metodologia'];
+        $result['result'][$row['folio']]['promedio_revision'] = $row['promedio_revision'];
+        $result['result'][$row['folio']]['propuesta_dictamen'] = $row['propuesta_dictamen'];
+      }
+      return $result;
     }
 
     private function aceptados() {
