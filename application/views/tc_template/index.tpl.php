@@ -11,12 +11,12 @@ header('Content-type: text/html; charset=utf-8');
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <title>
             <?php echo (!is_null($title)) ? "{$title}&nbsp;|" : "" ?>
-<?php echo (!is_null($main_title)) ? $main_title : "XV Foro Nacional y I Foro Internacional de Educación en Salud" ?>
+            <?php echo (!is_null($main_title)) ? $main_title : "XV Foro Nacional y I Foro Internacional de Educación en Salud" ?>
         </title>
         <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
         <meta name="viewport" content="width=device-width" />
         <!-- BOOTSTRAP STYLES-->
-<?php echo css('bootstrap.css'); ?>
+        <?php echo css('bootstrap.css'); ?>
 
         <script type="text/javascript">
             var language_text = <?php echo (isset($language_text)) ? json_encode($language_text) : json_encode([]); ?>;
@@ -31,8 +31,8 @@ header('Content-type: text/html; charset=utf-8');
         <?php echo css("date/datepicker.css"); ?>
         <?php echo css("datepicker.less"); ?>
 
+        <?php echo css('custom.css') ?>
         <?php echo css('template_foro/apprise.css'); ?>
-<?php echo css('custom.css') ?>
 
 
         <?php echo js("jquery.js"); ?>
@@ -41,26 +41,26 @@ header('Content-type: text/html; charset=utf-8');
         <!-- General de SIPIMSS -->
         <?php echo js('template_foro/general.js'); ?>
         <?php echo js('template_foro/apprise.js'); ?>
-<?php echo js('template_foro/idioma.js'); ?>
+        <?php echo js('template_foro/idioma.js'); ?>
 
-<!-- Google Analytics -->
-  <script>
-      (function (i, s, o, g, r, a, m) {
-          i['GoogleAnalyticsObject'] = r;
-          i[r] = i[r] || function () {
-              (i[r].q = i[r].q || []).push(arguments)
-          }, i[r].l = 1 * new Date();
-          a = s.createElement(o),
-                  m = s.getElementsByTagName(o)[0];
-          a.async = 1;
-          a.src = g;
-          m.parentNode.insertBefore(a, m)
-      })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+        <!-- Google Analytics -->
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
-      ga('create', 'UA-119316120-1', 'auto');
-      ga('send', 'pageview');
-  </script>
-  <!-- End Google Analytics -->
+            ga('create', 'UA-119316120-1', 'auto');
+            ga('send', 'pageview');
+        </script>
+        <!-- End Google Analytics -->
 
     </head>
     <body>
@@ -114,16 +114,17 @@ header('Content-type: text/html; charset=utf-8');
                             </a>
                             <ul class="dropdown-menu dropdown-user">
 
-<?php //pr($datos_sesion);
-if (isset($datos_sesion['matricula'])) {
-    ?>
+                                <?php
+                                //pr($datos_sesion);
+                                if (isset($datos_sesion['matricula'])) {
+                                    ?>
                                     <li><a class="link_ficha_usuario" href="#">
                                             <b>Nombre:</b> <?php echo $datos_sesion['nombre'] . ' ' . $datos_sesion['apellido_paterno'] . ' ' . $datos_sesion['apellido_materno']; ?> <br>
                                             <b>Matrícula:</b> <?php echo $datos_sesion['matricula']; ?><br>
                                             <b>Categoría:</b> <?php echo $datos_sesion['categoria']; ?><br>
                                             <b>Delegación:</b> <?php echo $datos_sesion['delegacion']; ?> <br>
                                             <b>Unidad:</b> <?php echo $datos_sesion['unidad']; ?><br>
-                                            <!--<b>Rol:</b> <?php // echo $datos_sesion['nombre_role'];          ?><br>-->
+                                            <!--<b>Rol:</b> <?php // echo $datos_sesion['nombre_role'];           ?><br>-->
                                             <div class="ripple-container"></div></a>
                                     </li>
 <?php } ?>
@@ -133,20 +134,20 @@ if (isset($datos_sesion['matricula'])) {
                             </ul>
                         </li>
 
-<?php
-if (isset($this->session->userdata(En_datos_sesion::__INSTANCIA)['anterior'])) {
-    ?>
+                        <?php
+                        if (isset($this->session->userdata(En_datos_sesion::__INSTANCIA)['anterior'])) {
+                            ?>
                             <li class="nav">
                                 <a href="<?php echo site_url('administracion/terminar_entrar_como'); ?>"> Regresar a la sesión original</a>
                             </li>
-<?php } ?>
+                        <?php } ?>
                         <?php if (ENVIRONMENT == 'development' && isset($datos_sesion['workflow']) && count($datos_sesion['workflow']) > 0) {
                             ?>
                             <li>
                                 Solo en desarrollo <br>Etapa activa del usuario: <?php echo $datos_sesion['workflow'][0]['etapa_activa']; ?>
                             </li>
-    <?php }
-?>
+                        <?php }
+                        ?>
 
                         <li class="nav pull-right">
                             <ul class="">
@@ -157,7 +158,7 @@ if (isset($this->session->userdata(En_datos_sesion::__INSTANCIA)['anterior'])) {
                                              height="30px"
                                              class="logos"
                                              alt="SIPIMSS"
-                                             title="<?php echo $language_text['template_general']['espaniol']; ?>"
+                                             title="<?php  echo $language_text['template_general']['espaniol']; ?>"
                                              target="_blank"/>
                                     </a>
                                     <!-- <a href="#"><img img-responsive class"logos" height="70px" src="assets/img/sipimss.png" alt=""></a> -->
@@ -215,13 +216,13 @@ if (isset($this->session->userdata(En_datos_sesion::__INSTANCIA)['anterior'])) {
             <nav  class="navbar-default navbar-side " role="navigation">
                 <div class="sidebar-collapse">
                     <!-- AQUI VA EL MENU LATERAL -->
-<?php
-if (isset($menu) && !is_null($menu)) {
-    // pr ($menu);
-    //echo $menu;
-    echo render_menu($menu['lateral'], null);
-}
-?>
+                    <?php
+                    if (isset($menu) && !is_null($menu)) {
+                        // pr ($menu);
+                        //echo $menu;
+                        echo render_menu($menu['lateral'], null);
+                    }
+                    ?>
 
                 </div>
 
@@ -229,47 +230,47 @@ if (isset($menu) && !is_null($menu)) {
             </nav>
             <!-- /. SIDEBAR MENU (navbar-side) -->
             <div id="main-content" class="page-wrapper-cls">
-<?php
-if (isset($blank)) {
-    ?>
+                <?php
+                if (isset($blank)) {
+                    ?>
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12">
-                    <?php
-                    echo $blank;
-                    ?>
+                            <?php
+                            echo $blank;
+                            ?>
                         </div>
                     </div>
-                        <?php } //fin blank zone  ?>
+                <?php } //fin blank zone   ?>
 
 <?php ?>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="">
-                <?php
-                if (isset($sub_title) && !empty($sub_title)) {
-                    ?>
+                            <?php
+                            if (isset($sub_title) && !empty($sub_title)) {
+                                ?>
                                 <div class="card-header" data-background-color="purple">
                                     <h4 class="title">
-                                <?php echo $sub_title; ?>
+                                    <?php echo $sub_title; ?>
                                     </h4>
-                                <?php
-                                if (isset($descripcion) && !empty($descripcion)) {
-                                    ?>
+                                    <?php
+                                    if (isset($descripcion) && !empty($descripcion)) {
+                                        ?>
                                         <p class="category">
                                         <?php echo $descripcion ?>
                                         </p>
-                                    <?php } ?>
+                                <?php } ?>
                                 </div>
-                                    <?php
-                                }
-                                if (isset($main_content)) {
-                                    ?>
-                                <div class="card-content">
                                 <?php
-                                echo $main_content;
+                            }
+                            if (isset($main_content)) {
                                 ?>
+                                <div class="card-content">
+                                    <?php
+                                    echo $main_content;
+                                    ?>
                                 </div>
-                            <?php } //fin content card      ?>
+<?php } //fin content card       ?>
                         </div>
                     </div>
                 </div>
@@ -308,20 +309,20 @@ if (isset($blank)) {
         </footer>
 
         <!-- BOOTSTRAP SCRIPTS -->
-<?php echo js("bootstrap.js"); ?>
+        <?php echo js("bootstrap.js"); ?>
         <!-- METISMENU SCRIPTS -->
-<?php echo js("jquery.metisMenu.js"); ?>
+        <?php echo js("jquery.metisMenu.js"); ?>
         <!-- CUSTOM SCRIPTS -->
-<?php echo js("/custom.js"); ?>
-<?php echo js('template_foro/menu.js'); ?>
-        <?php echo js('template_foro/ayuda.js'); ?>
+        <?php echo js("/custom.js"); ?>
+        <?php echo js('template_foro/menu.js'); ?>
+<?php echo js('template_foro/ayuda.js'); ?>
         <script type="text/javascript">
-        // Instantiate the Bootstrap carousel
+            // Instantiate the Bootstrap carousel
             $('.multi-item-carousel').carousel({
                 interval: false
             });
-        // for every slide in carousel, copy the next slide's item in the slide.
-        // Do the same for the next, next item
+            // for every slide in carousel, copy the next slide's item in the slide.
+            // Do the same for the next, next item
         </script>
         <script type="text/javascript">
             $('#info_siap_modal').modal('show');

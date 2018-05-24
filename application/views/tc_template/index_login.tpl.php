@@ -31,6 +31,7 @@
     <link href="<?php echo asset_url(); ?>css/custom.css" rel="stylesheet">
 
     <?php echo $css_files; ?>
+	<?php echo css('template_foro/apprise.css'); ?>
 
     <!--[if lt IE 9]>
     <script src="<?php echo asset_url(); ?>plugins/iesupport/html5shiv.js"></script>

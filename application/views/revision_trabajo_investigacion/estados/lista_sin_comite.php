@@ -50,7 +50,7 @@
           else
           {
   ?>
-          <h3>No hay trabajos sin comite!</h3>
+          <h3><?php echo $opciones_secciones['sn_mensaje'];?></h3>
   <?php
 
           }
@@ -58,7 +58,7 @@
       else
       {
   ?>
-      <h3><?php echo $data_sn_comite['msg'];?></h3>
+      <h3><?php echo $mensajes['ern_mensaje'];?></h3>
   <?php
       }
   ?>
@@ -69,7 +69,7 @@
   else
   {
   ?>
-    <h3>Algo salió mal, vuelve a intentarlo más tarde!</h3>
+    <h3><?php echo $mensajes['ern_mensaje'];?></h3>
   <?php
   }
 ?>

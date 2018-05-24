@@ -128,6 +128,51 @@ function data_ajax(path, form_recurso, elemento_resultado, callback, is_json, pa
     });
 }
 
+/*
+ * @author  LEAS
+ * @modified_by DPérez
+ * @param url para conexión ajax
+ * @param id html del formulario donde se obtienen los datos a enviar en ajax
+ * @param id html del elemento que contendrá los datos del resultado
+ * @param función que se ejecutará cuando el ajax es correcto y se tienen datos
+ * @param is_jason para indicar que el resultado esperado es una cadena en formato json
+ * @param parametros para la función de callback, opcional
+ * @returns none
+ * @modificada - Christian Garcia 9 de junio 2017
+ */
+function data_ajax_print(path, form_recurso, elemento_resultado, name_funcion_resultado) {
+    var dataSend = $(form_recurso).serialize();
+    $.ajax({
+        url: path,
+        data: dataSend,
+        method: 'POST',
+        beforeSend: function (xhr) {
+//            $(elemento_resultado).html(create_loader());
+            mostrar_loader();
+        }
+    }).done(function (response) {
+        var json = null;
+        try {
+            json = JSON.parse(response);
+            console.log(json);
+            if (typeof name_funcion_resultado !== 'undefined') {
+                eval(name_funcion_resultado + "(" + json + ")");
+            } else {
+                $(elemento_resultado).html(json.html);
+            }
+        } catch (err) {//No es un json 
+            json = {html: "", msj: "Hola", tpmsj: "succes"}
+            setTimeout(name_funcion_resultado + "(" + json + ")", 1);
+            $(elemento_resultado).html(response);
+        }
+    }).fail(function (jqXHR, textStatus) {
+        $(elemento_resultado).html("Ocurrió un error durante el proceso, inténtelo más tarde.");
+    }).always(function () {
+        remove_loader();
+        ocultar_loader();
+    });
+}
+
 /**
  *
  * @param {type} path
@@ -447,4 +492,9 @@ function  crear_estructura_modal() {
             '<div class="modal-footer text-center" id="modal_pie">' +
             '</div>' +
             '</div>';
+}
+
+
+function validarSiNumero(numero) {
+    return (!/^([0-9])*$/.test(numero));
 }

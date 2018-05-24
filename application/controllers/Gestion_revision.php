@@ -14,7 +14,8 @@ class Gestion_revision extends General_revision {
 
     function __construct() {
         $this->grupo_language_text = ['sin_comite','req_atencion','en_revision',
-        'evaluado','aceptado','rechazado','listado_trabajo','generales', 'evaluacion', 'en_revision']; //Grupo de idiomas para el controlador actual
+        'evaluado','aceptado','rechazado','listado_trabajo','generales', 'evaluacion', 'en_revision'
+        ,'mensajes','detalle_revision','detalle_trabajo']; //Grupo de idiomas para el controlador actual
         parent::__construct();
         $this->load->model('Gestor_revision_model','gestion_revision');
     }
@@ -27,6 +28,7 @@ class Gestion_revision extends General_revision {
      *
      */
     public function listado_control($tipo = null) {
+        $datos['mensajes'] = $this->obtener_grupos_texto('mensajes', $this->obtener_idioma())['mensajes'];
         switch ($tipo) {
             case Gestion_revision::SN_COMITE:
                 $datos['data_sn_comite'] = $this->sn_comite();
@@ -148,19 +150,24 @@ class Gestion_revision extends General_revision {
      * @param type $id - identificador del trabajo de investigación
      * @description Función que muestra la vista del resumen de un trabajo de investigación
      */
-    public function ver_resumen($id=NULL){
+    public function ver_resumen($idFolio=NULL){
+      $output['trabajo_investigacion'] = $this->get_detalle_investigacion($idFolio);
+      $output['idioma'] = $this->obtener_grupos_texto('detalle_revision', $this->obtener_idioma())['detalle_revision'];
+      $output['promedioFinal'] = $this->gestion_revision->get_info_promedio_final_por_trabajo($idFolio);
+      $output['revisores'] = $this->gestion_revision->get_revisores_por_trabajo($idFolio);
+      $output['tablaSeccion'] = $this->gestion_revision->get_promedio_por_seccion_por_trabajo($idFolio);
       $main_content = $this->load->view('revision_trabajo_investigacion/resumen_trabajo_investigacion.php', $output, true);
       $this->template->setMainContent($main_content);
       $this->template->getTemplate();
     }
+
+
     /**
      * @author AleSpock
      * @date 21/05/2018
      * @param
      * @description Función que muestra la vista de los estados en la administracion de gestor de revisores
      */
-
-
     public function trabajos_investigacion_evaluacion_gestor() {
       $this->listado_control('SN_COMITE');
 

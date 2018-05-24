@@ -43,14 +43,14 @@ if(!empty($data_rechazados))
                 }else
                     {
                   ?>
-                            <h3>No hay trabajos en rechazados!</h3>
+                            <h3><?php echo $opciones_secciones['rz_mensaje'];?></h3>
                   <?php
 
                      }
                   }else
                     {
                   ?>
-                        <h3><?php echo $data_rechazados['msg'];?></h3>
+                        <h3><?php echo $mensajes['ern_mensaje'];?></h3>
                   <?php
                     }
                   ?>
@@ -61,7 +61,7 @@ if(!empty($data_rechazados))
                     }else
                       {
                   ?>
-                        <h3>Algo salió mal, vuelve a intentarlo más tarde!</h3>
+                        <h3><?php echo $mensajes['ern_mensaje'];?></h3>
                   <?php
                       }
                   ?>
