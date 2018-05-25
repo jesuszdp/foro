@@ -1,4 +1,5 @@
 <?php
+ // pr($data_sin_asignar);
     if(isset($data_sin_asignar))
     {
         if($data_sin_asignar['success'])
@@ -77,3 +78,8 @@ else
   <?php
 }
 ?>
+
+<script>
+$("#asignados").removeClass()
+$("#sin_asignar").addClass("active")
+</script>

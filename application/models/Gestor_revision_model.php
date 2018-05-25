@@ -148,7 +148,6 @@ class Gestor_revision_model extends MY_Model {
      * @return array
      */
     public function get_revisados($param = []) {
-
       $estado = array('success'=>false, 'msg'=>'Algo salio mal', 'result'=>[]);
       try
       {
@@ -170,7 +169,7 @@ class Gestor_revision_model extends MY_Model {
           $this->db->where('hr.clave_estado','evaluado');
           $this->db->where("actual", TRUE);
           $result = $this->db->get();
-          // pr($result);
+          //pr($result);
           $salida = $result->result_array();
           $result->free_result();
           $this->db->flush_cache();
@@ -433,13 +432,13 @@ class Gestor_revision_model extends MY_Model {
         $folios = implode("','", $datos['folios']);
 
         $validar_folios = $this->get_sn_comite(array('conditions'=>"hr.folio in ('".$folios."')")); //Validar situación y/oestado de los trabajos
-        
+
         if($validar_folios['success']==true) //En caso de que se encuentren datos
         {
             $revision = $historico = array(); //Arreglo que contendrá asignaciones por añadir
             $i=0;
             foreach ($datos['usuarios'] as $key_u => $usuario) { //Se recorren los usuarios por asociar
-                foreach ($validar_folios['result'] as $key_f => $folio) { //Se recorren los trabajos que fueron localizados 
+                foreach ($validar_folios['result'] as $key_f => $folio) { //Se recorren los trabajos que fueron localizados
                     $revision[$i]['folio'] = $folio['folio'];
                     $revision[$i]['activo'] = true;
                     $revision[$i]['id_usuario'] = $usuario;
@@ -453,14 +452,14 @@ class Gestor_revision_model extends MY_Model {
             $this->db->update('foro.historico_revision', array('actual'=>false)); ///Se actualiza el estado 'sin_asignacion' en el historico de la revisión
 
             $i=0;
-            foreach ($validar_folios['result'] as $key_f => $folio) { //Se recorren los trabajos que fueron localizados 
+            foreach ($validar_folios['result'] as $key_f => $folio) { //Se recorren los trabajos que fueron localizados
                 $historico[$i]['folio'] = $folio['folio'];
                 $historico[$i]['actual'] = true;
                 $historico[$i]['clave_estado'] = 'asignado';
                 $i++;
             }
-            $this->db->insert_batch('foro.historico_revision', $historico); //Inserción en tabla historico_revision, se agrega nuevo estado para la revisión            
-                    
+            $this->db->insert_batch('foro.historico_revision', $historico); //Inserción en tabla historico_revision, se agrega nuevo estado para la revisión
+
             if ($this->db->trans_status() === FALSE){
                 $this->db->trans_rollback();
                 $resultado['result'] = FALSE;
@@ -471,7 +470,7 @@ class Gestor_revision_model extends MY_Model {
                 $resultado['result'] = TRUE;
             }
 
-            
+
         } else {
             $resultado['msg'] = 'No existen folios disponibles para la asignación, verifique el estado de los trabajos.';
         }
@@ -483,10 +482,10 @@ class Gestor_revision_model extends MY_Model {
      * Devuelve el listado de revisores registrados en la BD
      * @author JZDP
      * @date 24/05/2018
-     * @return array 
+     * @return array
      */
     public function get_revisores($param = []) {
-        try 
+        try
         {
             $estado = array('success'=>false, 'msg'=>'', 'result'=>[]);
             $this->db->flush_cache();
@@ -512,7 +511,7 @@ class Gestor_revision_model extends MY_Model {
             $estado['success'] = true;
             $estado['msg'] = "Se obtuvo el reporte con exito";
             $estado['result'] = $salida;
-        } catch(Exception $ex)            
+        } catch(Exception $ex)
         {
             $estado = array('success'=>false, 'msg'=>'Algo salio mal', 'result'=>[]);
         }
