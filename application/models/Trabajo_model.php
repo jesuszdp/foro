@@ -101,12 +101,14 @@ class Trabajo_model extends CI_Model
         $this->db->where(array(
             'a.id_informacion_usuario'=>$id_informacion_usuario,
             'a.registro' => 'true',
-            'hr.actual' => true
+            'hr.actual' => true,
+            'c.activo' => true
             ));
         $this->db->join('foro.autor a', 'a.folio_investigacion = ti.folio','left');
         $this->db->join('foro.tipo_metodologia m','m.id_tipo_metodologia = ti.id_tipo_metodologia', 'left');
         $this->db->join('foro.historico_revision hr','ti.folio = hr.folio','inner');
         $this->db->join('foro.estado_trabajo et','hr.clave_estado = et.clave_estado');
+        $this->db->join('foro.convocatoria c','ti.id_convocatoria = c.id_convocatoria');
         $this->db->order_by('ti.folio','desc');
         $res = $this->db->get('foro.trabajo_investigacion ti');
 
@@ -134,7 +136,8 @@ class Trabajo_model extends CI_Model
         ));
         $this->db->where(array(
             'a.registro' => true,
-            'hr.actual' => true
+            'hr.actual' => true,
+            'c.activo' => true
         ));
         $this->db->join('foro.autor a', 'a.folio_investigacion = ti.folio', 'inner');
         $this->db->join('foro.tipo_metodologia m', 'm.id_tipo_metodologia = ti.id_tipo_metodologia', 'inner');
@@ -143,6 +146,7 @@ class Trabajo_model extends CI_Model
         $this->db->join('sistema.informacion_usuario iu', 'iu.id_informacion_usuario = a.id_informacion_usuario', 'inner');
         $this->db->join('sistema.historico_informacion_usuario h', 'h.actual = true and h.id_informacion_usuario = iu.id_informacion_usuario', 'left', FALSE);
         $this->db->join('catalogo.departamento dep', 'dep.clave_departamental = h.clave_departamental', 'left');
+        $this->db->join('foro.convocatoria c','ti.id_convocatoria = c.id_convocatoria');
         $this->db->join('catalogo.unidad uni', 'uni.clave_unidad = dep.clave_unidad', 'left');
 //        $this->db->join('catalogo.delegaciones del', 'del.id_delegacion = uni.id_delegacion', 'left');
         $this->db->order_by('ti.folio', 'desc');

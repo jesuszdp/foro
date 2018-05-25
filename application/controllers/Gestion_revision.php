@@ -123,7 +123,17 @@ class Gestion_revision extends General_revision {
      * @description Función que muestra la vista del resumen de un trabajo de investigación
      */
     private function revisados_sin_asignar() {
-      $respuesta_model = $this->gestion_revision->get_revisados();
+      //$respuesta_model = $this->gestion_revision->get_revisados();
+      $param = array(
+          'where' => array(
+              'hr.clave_estado' => 'evaluado',
+              'hr.actual' => true,
+              'd.aceptado' => null,
+              'd.tipo_exposicion' => null
+            ),
+          'order_by' => 'd.promedio, ti.fecha'
+        );
+      $respuesta_model = $this->gestion_revision->get_trabajos_evaluados($param);
       //pr($respuesta_model);
       return $respuesta_model;
     }
