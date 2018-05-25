@@ -108,3 +108,11 @@ $config['status_sistema'] = 'P';
 $config['menu_configuradores'] = array('MENU', 'MODAL', 'EXTERNO');
 
 $config['menu_configuradores_no_sesion'] = array('MENU_LIBRE');
+
+$config['estados_transicion_evaluacion'] = array(
+"CT"=>"",    
+""=>"",    
+""=>"",    
+""=>"",    
+    
+);

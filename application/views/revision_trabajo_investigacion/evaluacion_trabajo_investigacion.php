@@ -50,6 +50,7 @@
                             <div class="panel-body">
                                 <?php echo form_open('' . $datos['folio'], array('id' => 'form_evaluacion')); ?>
                                 <input type="hidden" value="<?php echo $datos['folio']; ?>" name="folio">
+                                <input type="hidden" value="<?php echo $datos['id_tipo_metodologia']; ?>" name="tipo_metodologia">
                                 <div id="eval_principal">
                                     <?php echo $evaluacion; ?>
                                 </div>

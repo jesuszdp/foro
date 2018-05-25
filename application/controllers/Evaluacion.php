@@ -26,19 +26,22 @@ class Evaluacion extends General_revision {
      *
      */
     public function nueva_evaluacion_revision($folio = null) {
-
         $id_usuario = $this->get_datos_sesion(En_datos_sesion::ID_USUARIO);
-        pr($this->get_datos_sesion(En_datos_sesion::ID_USUARIO));
-
+//        pr($this->get_datos_sesion(En_datos_sesion::ID_USUARIO));
         $this->obtener_idioma();
         if (!is_null($folio)) {
             $this->load->model('Trabajo_model', 'trabajo');
             $output['datos'] = $this->trabajo->trabajo_investigacion_folio($folio, null);
             if (!empty($output['datos'])) {
-                $output['datos'] = $output['datos'][0]; //Accede a la información de los datos de la investigación
-                $output['trabajo_investigacion'] = $this->get_detalle_investigacion(null, $output['datos']); //Cargara la vista de trabajo de investigación
-                $output['evaluacion'] = $this->get_vista_evaluacion();
-                $main = $this->load->view('revision_trabajo_investigacion/evaluacion_trabajo_investigacion.php', $output, true);
+                $acceso_revisar_investigacion = $this->valida_acceso_revisar_investigacion($folio, $id_usuario);
+                if ($acceso_revisar_investigacion) {
+                    $output['datos'] = $output['datos'][0]; //Accede a la información de los datos de la investigación
+                    $output['trabajo_investigacion'] = $this->get_detalle_investigacion(null, $output['datos']); //Cargara la vista de trabajo de investigación
+                    $output['evaluacion'] = $this->get_vista_evaluacion();
+                    $main = $this->load->view('revision_trabajo_investigacion/evaluacion_trabajo_investigacion.php', $output, true);
+                } else {
+                    $main = $this->load->view('revision_trabajo_investigacion/no_trabajo_valido.php', null, true);
+                }
             } else {//No existe el trabajo de investigación con dicho folio
                 $main = $this->load->view('revision_trabajo_investigacion/no_trabajo_valido.php', null, true);
 //                pr("Hola");
@@ -49,6 +52,28 @@ class Evaluacion extends General_revision {
         }
         $this->template->setMainContent($main);
         $this->template->getTemplate();
+    }
+
+    /**
+     * 
+     * @author LEAS
+     * @Fecha 25/05/2018
+     * @param type $folio
+     * @param type $id_usuario
+     * @return boolean true si tiene acceso a evaluar lainvestigación
+     * Valida que no se encuentre 
+     */
+    private function valida_acceso_revisar_investigacion($folio, $id_usuario) {
+        $detalle_revision = $this->evaluacion->get_detalle_revision($folio, $id_usuario);
+//        pr($detalle_revision);
+        if (!empty($detalle_revision)) {
+            $data = $detalle_revision[0];
+            if ($data['revisado'] == true || $data['dentro_fecha_limite'] == 0) {//Sin acceso
+                return FALSE;
+            }
+            return TRUE;
+        }
+        return FALSE;
     }
 
     private function get_vista_evaluacion($secciones = null) {
@@ -65,15 +90,19 @@ class Evaluacion extends General_revision {
         return $this->load->view('revision_trabajo_investigacion/evaluacion.php', $output, true);
     }
 
-    public function guardar_evaluacion_revision() {
+    public function pruebas($folio) {
+        $this->evaluacion->guardar_evaluacion($folio);
+    }
+    public function guardar_evaluacion() {
         $secciones = $this->evaluacion->get_secciones(null, $this->obtener_idioma());
-        pr($this->input->post());
+//        pr($this->input->post());
         if ($this->input->post()) {//valida post
             $data = $this->input->post(null, true);
+            $id_user = $this->get_datos_sesion(En_datos_sesion::ID_USUARIO);
             if (!is_null($this->input->post('conflicto', true)) && !is_null($this->input->post("educativo", true))) {//No tiene conflicto de interes y tambien es tema educativo
                 $this->carga_validaciones('valida_evaluacion_revision', $secciones);
                 if ($this->form_validation->run() == TRUE) {
-                    $output = $this->guarda_evaluacion_revision();
+                    $output = $this->guarda_evaluacion_revision($secciones);
                 } else {
                     
                 }
@@ -116,19 +145,72 @@ class Evaluacion extends General_revision {
         $this->form_validation->set_rules($val_tmp);
     }
 
-    private function guarda_conflicto_tema_educativo() {
-//        pr("tema de conflicto o sin tema de salud");
+    /**
+     * @author LEAS
+     * @Fecha 24/05/2018
+     * @description actualiza el estado de la revisión 
+     *
+     */
+    private function actualizar_estado_revision() {
+        
     }
 
-    private function guarda_evaluacion_revision() {
+    private function guarda_evaluacion_revision($secciones) {
+//        pr("tema de conflicto o sin tema de salud");
+        $folio = $this->input->post('folio', true);
+        $id_user = $this->get_datos_sesion(En_datos_sesion::ID_USUARIO);
+        $detalle_revision = $this->evaluacion->get_detalle_revision($folio, $id_user);
+        $data_post = $this->input->post(null, true);
+        $datos = [];
+
+        $suma_calificacion = 0;
+        $total_secciones = 0;
+        /* Obtiene las secciones */
+        foreach ($secciones as $value) {
+            $calificacion = (int) $data_post[Evaluacion::EVALUACION_CALIFICACION . $value['id_seccion']];
+            $datos['detalle_revision'][] = array(
+                "id_revision" => $detalle_revision[0]['id_revision'],
+                "id_opcion" => $data_post[Evaluacion::SECCIONES_EVALUACION_OPCIONES . $value['id_seccion']],
+                "id_seccion" => $value['id_seccion'],
+                "valor" => $calificacion,
+            );
+            $suma_calificacion += $calificacion;
+            $total_secciones += 1;
+        }
+
+        $prom = $suma_calificacion / $total_secciones;
+        $educativo = (!is_null($this->input->post('educativo', true)));
+        $conflicto = (is_null($this->input->post('conflicto', true)));
+        $datos['revision'] = [
+            'datos' => array(
+                'promedio_revision' => $prom,
+                'sugerencia' => $data_post['tipo_exposicion_eval'],
+                'comentario' => $data_post['observaciones_eval'],
+                'tema_educacion' => true,
+                'conflicto_interes' => FALSE,
+                'fecha_revision' => 'now()',
+                'revisado' => true,
+                "tema_educacion" => $educativo,
+                "conflicto_interes" => $conflicto,
+            ),
+            "condicion" => array(
+                "id_revision" => $detalle_revision[0]['id_revision'],
+            )
+        ];
+
+        return $this->evaluacion->guardar_evaluacion($datos);
+    }
+
+    private function guarda_conflicto_tema_educativo() {
 //        pr("evaluación general");
         $folio = $this->input->post('folio', true);
         $id_user = $this->get_datos_sesion(En_datos_sesion::ID_USUARIO);
-        $educativo = (is_null($this->input->post('educativo', true)));
+        $educativo = (!is_null($this->input->post('educativo', true)));
         $conflicto = (is_null($this->input->post('conflicto', true)));
         $datos = [
             "tema_educacion" => $educativo,
-            "conflicto_interes" => $conflicto
+            "conflicto_interes" => $conflicto,
+            "revisado" => true
         ];
         return $this->evaluacion->update_conflicto_sn_tema_educacion($folio, $id_user, $datos);
     }

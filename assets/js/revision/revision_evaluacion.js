@@ -3,7 +3,7 @@ $(document).ready(function () {
 
 function evaluacion(element) {
 //    data_ajax_print(site_url + "/revision/guardar_evaluacion_revision", "#form_evaluacion", "#eval_principal", "resultado_evaluacion", "get_mensaje_general_evaluacion");
-    resultado_evaluacion(site_url + "/evaluacion/guardar_evaluacion_revision", "#form_evaluacion", "#eval_principal", "resultado_evaluacion");
+    resultado_evaluacion(site_url + "/evaluacion/guardar_evaluacion", "#form_evaluacion", "#eval_principal", "resultado_evaluacion");
 
 }
 
@@ -25,7 +25,10 @@ function resultado_evaluacion(path, form_recurso, elemento_resultado) {
                     json = JSON.parse(response);
                     console.log(json);
                     $(elemento_resultado).html(json.html);
-                    get_mensaje_general_evaluacion("genial", 'warning', 10000);
+                    get_mensaje_general_evaluacion(json.message, json.tp_message, 10000);
+                    if(json.tp_message == 'success'){
+                        
+                    }
                 } catch (err) {//No es un json 
                     json = {html: "", msj: "Hola", tpmsj: "succes"}
                     $(elemento_resultado).html(response);
