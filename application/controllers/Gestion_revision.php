@@ -17,7 +17,7 @@ class Gestion_revision extends General_revision {
         'evaluado','aceptado','rechazado','listado_trabajo','generales', 'evaluacion', 'en_revision'
         ,'mensajes','detalle_revision','detalle_trabajo']; //Grupo de idiomas para el controlador actual
         parent::__construct();
-        $this->load->library('form_complete');
+        $this->load->library('form_complete','security');
         $this->load->model('Gestor_revision_model','gestion_revision');
     }
 
@@ -198,6 +198,30 @@ class Gestion_revision extends General_revision {
         }        
       }
     }
+
+    /**
+     * @author JZDP
+     * @Fecha 23/05/2018
+     * @param string $folio Identificador del trabajo de investigación
+     * @description Genera el listado de revisores disponibles para la asignación de trabajo de investigación
+     *
+     */
+    public function asignar_revisor_requiere_atencion($param){
+      if($this->input->is_ajax_request()){ //Validar que se realice una petición ajax
+        if(isset($param) && !empty($param)){ //Se valida que se envien datos
+          //pr($this->input->post());
+          $folios = $this->security->xss_clean($param);
+          //pr(array_walk_recursive($folios, 'decrypt_base64'));
+          $datos['folios_enc'] = array($folios);
+          $datos['folios'] = array(decrypt_base64($folios));
+          $datos['revisores'] = $this->gestion_revision->get_revisores()['result'];
+          //print_r($b);
+          //pr($folios);
+          $this->load->view('revision_trabajo_investigacion/asignar_revisor.php', $datos);
+        }        
+      }
+    }
+
 
     /**
      * @author JZDP
