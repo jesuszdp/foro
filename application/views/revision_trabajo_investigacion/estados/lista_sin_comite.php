@@ -1,4 +1,5 @@
 <?php
+  echo form_open('gestion_revision/asignar_revisor/', array('id' => 'asignar_form', 'name' => 'asignar_form', 'autocomplete' => 'off'));
   if(isset($data_sn_comite))
   {
       if($data_sn_comite['success'])
@@ -6,7 +7,7 @@
           if(count($data_sn_comite['result']) > 0)
           {
 ?>
-            <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal"> <a  style="color:#fff;"><?php echo $opciones_secciones['btn_asignar'];?></a> </button>
+            <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button btn-asignar-multiple" data-toggle="modal" data-target="#exampleModal"> <a  style="color:#fff;"><?php echo $opciones_secciones['btn_asignar'];?></a> </button>
             <br>
             <!-- lista sin comité -->
             <table class="table">
@@ -20,15 +21,16 @@
                 </tr>
               </thead>
               <tbody>
-<?php
+              <?php
               $lenguaje = obtener_lenguaje_actual();
               foreach ($data_sn_comite['result'] as $row)
               {
-  ?>
+                $folio_enc = encrypt_base64($row['folio']);
+                ?>
                   <tr>
                     <td>
                       <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="">
+                        <?php echo $this->form_complete->create_element(array('id'=>'check_'.$folio_enc, 'type'=>'checkbox', 'value'=>$folio_enc, 'attributes'=>array('class'=>'check_asignar'))); ?>
                       </div>
                     </td>
                     <td scope="row"><?php echo $row['folio'];?></td>
@@ -40,17 +42,17 @@
                       ?>
                     </td>
                     <td>
-                      <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal"><?php echo $opciones_secciones['btn_asignar'];?></button>
+                      <button type="button" data-animation="flipInY" data-animation-delay="100" data-f="<?php echo $folio_enc; ?>" class="btn btn-theme btn-block submit-button btn-asignar" data-toggle="modal" data-target="#exampleModal"><?php echo $opciones_secciones['btn_asignar'];?></button>
                       <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal"><?php echo $opciones_secciones['btn_ver'];?></button>
                     </td>
                   </tr>
-  <?php
-              }
+                  <?php
+              } 
           }
           else
           {
   ?>
-          <h3><?php echo $opciones_secciones['sn_mensaje'];?></h3>
+          <h3>No hay trabajos sin comite!</h3>
   <?php
 
           }
@@ -58,110 +60,42 @@
       else
       {
   ?>
-      <h3><?php echo $mensajes['ern_mensaje'];?></h3>
+      <h3><?php echo $data_sn_comite['msg'];?></h3>
   <?php
       }
   ?>
       </tbody>
     </table>
   <?php
-  }
-  else
+  }else
   {
   ?>
-    <h3><?php echo $mensajes['ern_mensaje'];?></h3>
+    <h3>Algo salió mal, vuelve a intentarlo más tarde!</h3>
   <?php
   }
+echo form_close();
 ?>
 <!-- END lista sin comité -->
 
-      <!-- Modal 2 -->
-      <!-- <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered"  role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h3 class="modal-title" id="exampleModalLabel2">Dictamen</h3>
-
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-
-              <table class="table">
-                  <thead>
-                    <tr>
-                      <th scope="col">Nombre del trabajo</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <th scope="row">Lorem Ipsum ... </th>
-                      <td>
-
-                           <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="dropdown">Cartel
-                           </button>
-                           <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="dropdown">Ponencia
-                           </button>
-
-
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Lorem Ipsum ...</th>
-                      <td>
-                        <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="dropdown">Cartel
-                        </button>
-                        <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="dropdown">Ponencia
-                        </button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Lorem Ipsum ...</th>
-                      <td>
-                        <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="dropdown">Cartel
-                        </button>
-                        <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="dropdown">Ponencia
-                        </button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Lorem Ipsum ...</th>
-
-                      <td>
-                        <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="dropdown">Cartel
-                        </button>
-                        <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="dropdown">Ponencia
-                        </button>
-                      </td>
-                    </tr>
-                  </tbody>
-                  </table>
-            </div>
-            <div class="modal-footer">
-              <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block" class="btn btn-primary">Guardar</button>
-            </div>
-          </div>
-        </div>
-      </div> -->
-      <!-- Modal -->
-
-      <script type="text/javascript">
-          /*$('#myModal').on('shown.bs.modal', function () {
-          $('#myInput').trigger('focus')
-          })*/
-      </script>
-
-
-
 <script>
-$(document).ready(function(){
-    $(document).ready(function () {
-        $(".btn-asignar").on('click', function (e) {
-            var f = $(this).data('f');
-            //console.log('hola'+f);
-            data_ajax(site_url + '/gestion_revision/asignar_revisor/' + f, null, "#modal_contenido");
-        });
+$(document).ready(function () {
+    $(".btn-asignar").on('click', function (e) {
+        var f = $(this).data('f'); //Obtener datos para realizar envío
+        $('.check_asignar').prop( "checked", false );
+        $("#modal_contenido").html('');
+        $('#check_'+f).prop( "checked", true );
+        data_ajax(site_url + '/gestion_revision/asignar_revisor/', "#asignar_form", "#modal_contenido");
+    });
+
+    $(".btn-asignar-multiple").on('click', function (e) {
+        var numberOfChecked = $('.check_asignar:checked').length; ///Validar número de usuarios seleccionadas
+        if(numberOfChecked==0){
+            e.stopPropagation(); //Evitar envío
+            alert('Debe seleccionar al menos un folio para poder asignar revisores.');
+        } else {
+            $("#modal_contenido").html('');
+            data_ajax(site_url + '/gestion_revision/asignar_revisor/', "#asignar_form", "#modal_contenido");
+        }
     });
 });
   $("#comite").addClass("active");

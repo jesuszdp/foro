@@ -7,6 +7,7 @@ class Gestor_revision_model extends MY_Model {
     public function __construct() {
         // Call the CI_Model constructor
         parent::__construct();
+        $this->load->library('LNiveles_acceso');
     }
 
     /**
@@ -37,6 +38,15 @@ class Gestor_revision_model extends MY_Model {
           $this->db->join('foro.tipo_metodologia ma', 'ti.id_tipo_metodologia = ma.id_tipo_metodologia', 'left');
           $this->db->where('clave_estado', 'sin_asignacion');
           $this->db->where('actual',true);
+          if(array_key_exists('fields', $param)){
+              $this->db->select($param['fields']);
+          }
+          if(array_key_exists('conditions', $param)){
+              $this->db->where($param['conditions']);
+          }
+          if(array_key_exists('order', $param)){
+              $this->db->order_by($param['order']['field'], $param['order']['type']);
+          }
           $result = $this->db->get('foro.historico_revision hr');
           $salida = $result->result_array();
           $result->free_result();
@@ -133,12 +143,11 @@ class Gestor_revision_model extends MY_Model {
 
     /**
      * Devuelve la información de los registros de la tabla catalogos
-     * @author
+     * @author Alespock
      * @date 21/05/2018
      * @return array
      */
     public function get_revisados($param = []) {
-
       $estado = array('success'=>false, 'msg'=>'Algo salio mal', 'result'=>[]);
       try
       {
@@ -160,6 +169,7 @@ class Gestor_revision_model extends MY_Model {
           $this->db->where('hr.clave_estado','evaluado');
           $this->db->where("actual", TRUE);
           $result = $this->db->get();
+          //pr($result);
           $salida = $result->result_array();
           $result->free_result();
           $this->db->flush_cache();
@@ -416,9 +426,95 @@ class Gestor_revision_model extends MY_Model {
      * @date 21/05/2018
      * @return array
      */
-    public function insert_asignar_revisor($param) {
+    public function insert_asignar_revisor($datos) {
+        $resultado = array('result'=>null, 'msg'=>'', 'data'=>null);
+        $this->db->trans_begin(); //Definir inicio de transacción
+        $folios = implode("','", $datos['folios']);
 
-        $resut = [];
-        return $resut;
+        $validar_folios = $this->get_sn_comite(array('conditions'=>"hr.folio in ('".$folios."')")); //Validar situación y/oestado de los trabajos
+
+        if($validar_folios['success']==true) //En caso de que se encuentren datos
+        {
+            $revision = $historico = array(); //Arreglo que contendrá asignaciones por añadir
+            $i=0;
+            foreach ($datos['usuarios'] as $key_u => $usuario) { //Se recorren los usuarios por asociar
+                foreach ($validar_folios['result'] as $key_f => $folio) { //Se recorren los trabajos que fueron localizados
+                    $revision[$i]['folio'] = $folio['folio'];
+                    $revision[$i]['activo'] = true;
+                    $revision[$i]['id_usuario'] = $usuario;
+                    $i++;
+                }
+            }
+            //pr($revision);
+            $this->db->insert_batch('foro.revision', $revision); //Inserción en tabla revision
+
+            $this->db->where("folio IN ('".$folios."')");
+            $this->db->update('foro.historico_revision', array('actual'=>false)); ///Se actualiza el estado 'sin_asignacion' en el historico de la revisión
+
+            $i=0;
+            foreach ($validar_folios['result'] as $key_f => $folio) { //Se recorren los trabajos que fueron localizados
+                $historico[$i]['folio'] = $folio['folio'];
+                $historico[$i]['actual'] = true;
+                $historico[$i]['clave_estado'] = 'asignado';
+                $i++;
+            }
+            $this->db->insert_batch('foro.historico_revision', $historico); //Inserción en tabla historico_revision, se agrega nuevo estado para la revisión
+
+            if ($this->db->trans_status() === FALSE){
+                $this->db->trans_rollback();
+                $resultado['result'] = FALSE;
+                $resultado['msg'] = "Ocurrió un error durante el guardado, por favor intentelo de nuevo más tarde.";
+            } else {
+                $this->db->trans_commit();
+                //$resultado['data'] = $taller_id;
+                $resultado['result'] = TRUE;
+            }
+
+
+        } else {
+            $resultado['msg'] = 'No existen folios disponibles para la asignación, verifique el estado de los trabajos.';
+        }
+        return $resultado;
+    }
+
+
+    /**
+     * Devuelve el listado de revisores registrados en la BD
+     * @author JZDP
+     * @date 24/05/2018
+     * @return array
+     */
+    public function get_revisores($param = []) {
+        try
+        {
+            $estado = array('success'=>false, 'msg'=>'', 'result'=>[]);
+            $this->db->flush_cache();
+            $this->db->reset_query();
+            $this->db->select(array("iu.id_usuario",
+                "iu.nombre", "iu.apellido_paterno", "iu.apellido_materno", "iu.institucion",
+                "(SELECT COUNT(rn.id_usuario) FROM foro.revision rn WHERE rn.id_usuario=iu.id_usuario) AS revisiones_realizadas"
+            ));
+            $this->db->from("sistema.usuario_rol ul");
+            $this->db->join("sistema.informacion_usuario iu", "ul.id_usuario=iu.id_usuario", 'left');
+            $this->db->join("foro.revision rn", "iu.id_usuario=rn.id_usuario", 'left');
+            $this->db->where("clave_rol IN ('".LNiveles_acceso::Revisor."', '".LNiveles_acceso::Admin."')");
+            $this->db->where("ul.activo", TRUE);
+            $this->db->group_by("iu.id_usuario,iu.nombre,iu.apellido_paterno,iu.apellido_materno,iu.institucion");
+            $this->db->order_by("iu.nombre,iu.apellido_paterno,iu.apellido_materno,iu.institucion");
+            $result = $this->db->get();
+            //pr($this->db->last_query());
+            $salida = $result->result_array();
+            //pr($salida);
+            $result->free_result();
+            $this->db->flush_cache();
+            $this->db->reset_query();
+            $estado['success'] = true;
+            $estado['msg'] = "Se obtuvo el reporte con exito";
+            $estado['result'] = $salida;
+        } catch(Exception $ex)
+        {
+            $estado = array('success'=>false, 'msg'=>'Algo salio mal', 'result'=>[]);
+        }
+        return $estado;
     }
 }

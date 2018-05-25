@@ -10,13 +10,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Gestion_revision extends General_revision {
 
     const SN_COMITE = 1, REQ_ATENCION = 2, EN_REVISION = 3,
-            REVISADOS = 4, ACEPTADOS = 5, RECHAZADOS = 6,  SIN_ASIGNAR = 7,  ASIGNADOS = 8;
+            REVISADOS = 4, ACEPTADOS = 5, RECHAZADOS = 6;
 
     function __construct() {
         $this->grupo_language_text = ['sin_comite','req_atencion','en_revision',
-        'evaluado','aceptado','rechazado','listado_trabajo','generales', 'evaluacion', 'en_revision'
-        ,'mensajes','detalle_revision','detalle_trabajo']; //Grupo de idiomas para el controlador actual
+        'evaluado','aceptado','rechazado','listado_trabajo','generales','evaluacion', 'en_revision','mensajes','detalle_revision','detalle_trabajo']; //Grupo de idiomas para el controlador actual
         parent::__construct();
+        $this->load->library('form_complete','security');
         $this->load->model('Gestor_revision_model','gestion_revision');
     }
 
@@ -46,9 +46,10 @@ class Gestion_revision extends General_revision {
                 $output['list_en_revision'] = $this->load->view('revision_trabajo_investigacion/estados/lista_en_revision.php', $datos, true);
                 break;
             case Gestion_revision::REVISADOS:
-                $datos['data_revisados'] = $this->revisados();
-                $datos['opciones_secciones'] = $this->obtener_grupos_texto('evaluado', $this->obtener_idioma())['evaluado'];
-                $output['list_revisados'] = $this->load->view('revision_trabajo_investigacion/estados/lista_revisados.php', $datos, true);
+                $output['data_revisados'] = $this->revisados_sin_asignar();
+                //pr($output);
+                $output['language_text'] =  $this->language_text['evaluado'];
+                $output['list_revisados'] = $this->load->view('revision_trabajo_investigacion/estados/lista_revisados.php', $output, true);
                 break;
             case Gestion_revision::ACEPTADOS:
                 $datos['data_aceptados'] = $this->aceptados();
@@ -60,16 +61,6 @@ class Gestion_revision extends General_revision {
                 //pr($datos);
                 $output['language_text'] = $this->language_text['rechazado'];
                 $output['list_rechazados'] = $this->load->view('revision_trabajo_investigacion/estados/lista_rechazados.php', $output, true);
-                break;
-            case Gestion_revision::SIN_ASIGNAR:
-                $output['data_sin_asignar'] = $this->revisados();
-                  $output['language_text'] = $this->language_text['evaluado'];
-                $output['$list_sin_asignar'] = $this->load->view('revision_trabajo_investigacion/estados/lista_sin_asignar.php', $datos, true);
-                break;
-            case Gestion_revision::ASIGNADOS:
-                $datos['data_asignados'] = $this->revisados();
-                  $output['language_text'] = $this->language_text['evaluado'];
-                $output['$list_asignados'] = $this->load->view('revision_trabajo_investigacion/estados/lista_asignados.php', $datos, true);
                 break;
             default :
                 $datos['data_sn_comite'] = $this->sn_comite();
@@ -113,18 +104,21 @@ class Gestion_revision extends General_revision {
       return $result;
     }
 
-    private function revisados() {
+    /**
+     * @author AleSpock
+     * @date 24/05/2018
+     * @param type
+     * @description Función que muestra la vista del resumen de un trabajo de investigación
+     */
+    private function revisados_sin_asignar() {
       $respuesta_model = $this->gestion_revision->get_revisados();
-      $result = array('success'=>$respuesta_model['success'],'msg'=>$respuesta_model['msg'],'result'=>[]);
-      foreach ($respuesta_model['result'] as $row) {
-        $result['result'][$row['folio']]['folio'] = $row['folio'];
-        $result['result'][$row['folio']]['revisores'][] = $row['revisor'];
-        $result['result'][$row['folio']]['titulo'] = $row['titulo'];
-        $result['result'][$row['folio']]['metodologia'] = $row['metodologia'];
-        $result['result'][$row['folio']]['promedio_revision'] = $row['promedio_revision'];
-        $result['result'][$row['folio']]['propuesta_dictamen'] = $row['propuesta_dictamen'];
-      }
-      return $result;
+      //pr($respuesta_model);
+      return $respuesta_model;
+    }
+    private function asignados() {
+      // $respuesta_model = $this->gestion_revision->get_revisados();
+      // pr($respuesta_model);
+      // return $respuesta_model;
     }
 
     private function aceptados() {
@@ -176,8 +170,66 @@ class Gestion_revision extends General_revision {
      * @description Genera el listado de revisores disponibles para la asignación de trabajo de investigación
      *
      */
-    public function asignar_revisor($folio){
+    public function asignar_revisor(){
+      if($this->input->is_ajax_request()){ //Validar que se realice una petición ajax
+        if($this->input->post()){ //Se valida que se envien datos
+          //pr($this->input->post());
+          $folios = $this->input->post(null, true);
+          //pr(array_walk_recursive($folios, 'decrypt_base64'));
+          $datos['folios_enc'] = $folios;
+          $datos['folios'] = array_map("decrypt_base64", $folios);
+          $datos['revisores'] = $this->gestion_revision->get_revisores()['result'];
+          //print_r($b);
+          //pr($folios);
+          $this->load->view('revision_trabajo_investigacion/asignar_revisor.php', $datos);
+        }
+      }
+    }
 
+    /**
+     * @author JZDP
+     * @Fecha 23/05/2018
+     * @param string $folio Identificador del trabajo de investigación
+     * @description Genera el listado de revisores disponibles para la asignación de trabajo de investigación
+     *
+     */
+    public function asignar_revisor_requiere_atencion($param){
+      if($this->input->is_ajax_request()){ //Validar que se realice una petición ajax
+        if(isset($param) && !empty($param)){ //Se valida que se envien datos
+          //pr($this->input->post());
+          $folios = $this->security->xss_clean($param);
+          //pr(array_walk_recursive($folios, 'decrypt_base64'));
+          $datos['folios_enc'] = array($folios);
+          $datos['folios'] = array(decrypt_base64($folios));
+          $datos['revisores'] = $this->gestion_revision->get_revisores()['result'];
+          //print_r($b);
+          //pr($folios);
+          $this->load->view('revision_trabajo_investigacion/asignar_revisor.php', $datos);
+        }        
+      }
+    }
+
+
+    /**
+     * @author JZDP
+     * @Fecha 23/05/2018
+     * @param string $folio Identificador del trabajo de investigación
+     * @description Genera el listado de revisores disponibles para la asignación de trabajo de investigación
+     *
+     */
+    public function asignar_revisor_bd(){
+      if($this->input->is_ajax_request()){ //Validar que se realice una petición ajax
+        if($this->input->post()){ //Se valida que se envien datos
+          //pr($this->input->post());
+          $id = $this->input->post(null, true);
+          $datos['usuarios'] = array_map("decrypt_base64", $id['usuarios']);
+          $datos['folios'] = array_map("decrypt_base64", explode(',', $id['folios']));
+          $datos['resultado'] = $this->gestion_revision->insert_asignar_revisor($datos);
+          //print_r($id);
+          //pr($datos);
+          $this->load->view('revision_trabajo_investigacion/asignar_revisor_bd.php', $datos);
+        }
+      }
     }
 
 }

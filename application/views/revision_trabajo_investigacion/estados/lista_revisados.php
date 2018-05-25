@@ -1,127 +1,196 @@
-<div class="schedule-tabs lv2">
-  <ul id="tabs-lv21"  class="nav nav-justified">
-      <li class="active"><a href="#tab-lv21-first" data-toggle="tab">ASIGNADOS</a></li>
-      <li><a href="#tab-lv21-second" data-toggle="tab">SIN ASIGNAR</a></li>
-  </ul>
-</div>
-<br>
 <!-- contadores de lugares para oratoria y lugares para cartel -->
 <div class="col-sm-12">
   <div class="col-sm-3">
-    <h4 class=""> <?php echo $opciones_secciones['lbl_oral'];?></h4>
+    <h4 class=""> <?php echo $language_text['lbl_oral'];?></h4>
     <h3>10 / 20</h3>
   </div>
   <div class="col-sm-3">
-    <h4> <?php echo $opciones_secciones['lbl_cartel'];?></h4>
+    <h4> <?php echo $language_text['lbl_cartel'];?></h4>
     <h3>10 / 20</h3>
   </div>
   <div class="col-sm-3">
-    <h4>Asignados</h4>
+    <h4><?php echo $language_text['lbl_cartel'];?></h4>
     <h3>1 / 55</h3>
 
   </div>
   <div class="col-sm-3">
-    <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal2"> <a  style="color:#fff;"><?php echo $opciones_secciones['btn_sugerir'];?></a> </button>
-    <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal2"> <a  style="color:#fff;"><?php echo $opciones_secciones['btn_guardar'];?></a> </button>
-    <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal2"> <a  style="color:#fff;"><?php echo $opciones_secciones['btn_cerrar'];?></a> </button>
+    <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal2"> <a  style="color:#fff;"><?php echo $language_text['btn_manual'];?></a> </button>
+    <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal2"> <a  style="color:#fff;"><?php echo $language_text['btn_automatico'];?></a> </button>
+    <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal2"> <a  style="color:#fff;"><?php echo $language_text['btn_cerrar'];?></a> </button>
   </div>
-  <br><br>
+
 </div>
+<br><br>
 
+<!-- <div id="main"> -->
+<!-- <section class="page-section background-img"> -->
 
+    <div class="col-sm-12">
+    <br><br>
+      <style type="text/css">
+      .titulo{
+        font-weight: 500;
+        color:#333;
+      }
+      .div-borde {
+        margin-top:10px;
+        border: #cdcdcd medium solid;
+        border-radius: 5px;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        padding: 0.5em;
+      }
+    </style>
 
-              <!-- END contadores de lugares para oratoria y lugares para cartel -->
-              <!-- botones cerrar proceso, guardar cambios y sugerir dictamen -->
-              <!-- <div class="col-sm-12">
-                <div class="col-sm-1">
-                </div>
-                <div class="col-sm-3">
-                  <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal2"> <a  style="color:#fff;"><?php echo $opciones_secciones['btn_sugerir'];?></a> </button>
-                </div>
-                <div class="col-sm-3">
-                  <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal2"> <a  style="color:#fff;"><?php echo $opciones_secciones['btn_guardar'];?></a> </button>
-                </div>
-                <div class="col-sm-3">
-                  <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal2"> <a  style="color:#fff;"><?php echo $opciones_secciones['btn_cerrar'];?></a> </button>
-                </div>
-              </div> -->
-              <!-- END botones cerrar proceso, guardar cambios y sugerir dictamen -->
-
-              <?php
-                if(isset($list_asignados)){
-                  echo $list_asignados;
-                }
-                if(isset($list_sin_asignar)){
-                  echo $list_sin_asignar;
-                }
-              ?>
-              <br><br>
-
-              <!--  lista_revisados -->
-              <table class="table">
-                <thead>
-                  <tr>
-                    <!-- <th scope="col"></th> -->
-                    <th scope="col"><?php echo $opciones_secciones['col_folio'];?></th>
-                    <th scope="col"><?php echo $opciones_secciones['col_titulo'];?></th>
-                    <th scope="col"><?php echo $opciones_secciones['col_metodologia'];?></th>
-                    <th scope="col"><?php echo $opciones_secciones['col_r1'];?></th>
-                    <th scope="col"><?php echo $opciones_secciones['col_r2'];?></th>
-                    <th scope="col"><?php echo $opciones_secciones['col_r3'];?></th>
-                    <th scope="col"><?php echo $opciones_secciones['col_puntaje'];?></th>
-                    <th><?php echo $opciones_secciones['col_sugerencia'];?></th>
-                    <th scope="col"><?php echo $opciones_secciones['col_opciones'];?></th>
-                  </tr>
-                </thead>
-                <tbody>
-<?php
-              $lenguaje = obtener_lenguaje_actual();
-              foreach ($data_revisados['result'] as $row)
+    <div class="sectionEvaluacion" id="secTrabajoInv" style="">
+      <h3 style="color: #fff;padding-top: 15px;padding-bottom: 15px;padding-left: 15px;background-color: #f05a29;border-radius: 10px;"> Sin Asignar</h3>
+      <!-- <img class="arrow-black" src="<?php //echo asset_url(); ?>img/arrowdownblack.png" alt=""> -->
+    </div>
+    <div id="hideTrabajo" class="panel" style="display:none;">
+      <h1 class="page-head-line"></h1>
+      <div class="panel-body">
+        <!-- Aqui va la tabla de sin asignar -->
+        <table class="table">
+          <thead>
+            <tr>
+              <!-- <th scope="col"></th> -->
+              <th scope="col"><?php echo $language_text['col_folio'];?></th>
+              <th scope="col"><?php echo $language_text['col_titulo'];?></th>
+              <th scope="col"><?php echo $language_text['col_metodologia'];?></th>
+              <th scope="col"><?php echo $language_text['col_r1'];?></th>
+              <th scope="col"><?php echo $language_text['col_r2'];?></th>
+              <th scope="col"><?php echo $language_text['col_r3'];?></th>
+              <th scope="col"><?php echo $language_text['col_puntaje'];?></th>
+              <th><?php echo $language_text['col_sugerencia'];?></th>
+              <th scope="col"><?php echo $language_text['col_opciones'];?></th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+            if(isset($data_revisados))
+            {
+              if($data_revisados['success'])
               {
-?>
-                  <tr>
-                    <td scope="row"><?php echo $row['folio'];?></td>
-                    <td><?php echo $row['titulo'];?></td>
-                    <td>
-                        <?php
-                            $metodologia = json_decode($row['metodologia'],true);
-                            echo $metodologia[$lenguaje];
-                        ?>
-                    </td>
-                    <td><?php echo $row['revisores'][0];?></td>
-                    <td><?php echo $row['revisores'][1];?></td>
-                    <td><?php echo $row['revisores'][2];?></td>
-                    <td><?php echo $row['promedio_revision'];?></td>
-                    <td><?php echo $row['propuesta_dictamen'];?></td>
-                    <td>
-                      <a class="btn btn-theme btn-block submit-button" href="<?php echo base_url("index.php/gestion_revision/ver_resumen/".$row['folio'])?>" style="color:#fff;"><?php echo $opciones_secciones['btn_vdetalle']; ?></a>
-                    </td>
-                  </tr>
-<?php
-              }
+                if(count($data_revisados['result']) > 0)
+                {
+                  $lenguaje = obtener_lenguaje_actual();
+                  foreach ($data_revisados['result'] as $row)
+                  {
+                    ?>
+              <tr>
+                <td scope="row"><?php echo $row['folio'];?></td>
+                <td><?php echo $row['titulo'];?></td>
+                <td>
+                  <?php
+                  $metodologia = json_decode($row['metodologia'],true);
+                  echo $metodologia[$lenguaje];
+                  ?>
+                </td>
+                <td><?php echo $row['revisor'];?></td>
+                <td><?php echo $row['revisor'];?></td>
+                <td><?php echo $row['revisor'];?></td>
+                <td><?php echo $row['promedio_revision'];?></td>
+                <td><?php echo $row['propuesta_dictamen'];?></td>
+                <td>
+                  <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button"> <a href="ver_resumen" style="color:#fff;">FALTA IDIOMA</a> </button>
+                </td>
+              </tr>
+              <?php
+           }
           }
           else
           {
-?>
-          <h3><?php echo $opciones_secciones['ev_mensaje'];?></h3>
-<?php
+            ?>
+            <h3>No hay trabajos aceptados!</h3>
+            <?php
 
           }
-      }
-      else
-      {
-?>
-      <h3><?php echo $mensajes['ern_mensaje'];?></h3>
-<?php
-      }
-?>
+        }
+        else
+        {
+          ?>
+          <h3><?php echo $data_revisados['msg'];?></h3>
+          <?php
+        }
+        ?>
+
+        </tbody>
+        </table>
+        <?php
+        }
+        else
+        {
+          ?>
+          <h3>Algo salió mal, vuelve a intentarlo más tarde!</h3>
+          <?php
+        }
+        ?>
+
+
+         </div>
+     </div>
+
+     <div class="sectionEvaluacion" id="secEvaluacion">
+       <h3 style="color: #fff;padding-top: 15px;padding-bottom: 15px;padding-left: 15px;background-color: #f05a29;border-radius: 10px;">
+         Asignados
+       </h3>
+       <!-- <img class="arrow-black" src="<?php //echo asset_url(); ?>img/arrowdownblack.png" alt=""> -->
+     </div>
+     <div id="hideEvaluacion" class="panel " style="display:none;">
+       <div class="panel-body">
+         <div id="seccionesEva">
+          <!-- Aqui va la tabla de asignados -->
+
+           <br>
+         </div>
+
+
+        </div>
+      </div>
+    </div>
+  <!-- </section> -->
+
 
 
 <script>
-    $("#comite").removeClass()
-    $("#atencion").removeClass()
-    $("#revision").removeClass()
-    $("#revisados").addClass("active")
-    $("#aceptados").removeClass()
-    $("#rechazados").removeClass()
+$("#comite").removeClass()
+$("#atencion").removeClass()
+$("#revision").removeClass()
+$("#revisados").addClass("active")
+$("#aceptados").removeClass()
+$("#rechazados").removeClass()
+//$("#sin_asignar").addClass("active")
+</script>
+
+<script type="text/javascript">
+$(function () {
+var down1 = false;
+$("#secTrabajoInv").click(function() {
+down1 = !down1;
+if(down1){
+$( "#hideTrabajo" ).show( 1000, function() {
+//$( this ).remove();
+});
+}else{
+$( "#hideTrabajo" ).hide( 1000, function() {
+//$( this ).remove();
+});
+}
+});
+
+var down2 = false;
+$("#secEvaluacion").click(function() {
+down2 = !down2;
+if(down2){
+$( "#hideEvaluacion" ).show( 1000, function() {
+//$( this ).remove();
+});
+}else{
+$( "#hideEvaluacion" ).hide( 1000, function() {
+//$( this ).remove();
+});
+}
+});}
+);
+
 </script>
