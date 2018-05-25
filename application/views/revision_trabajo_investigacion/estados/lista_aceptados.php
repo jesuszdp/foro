@@ -36,7 +36,7 @@
                     <td><?php echo $row['tipo_exposicion'];?></td>
                     <td><?php echo $row['promedio_revision'];?></td>
                     <td>
-                      <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal"><?php echo $opciones_secciones['btn_revision'];?></button>
+                      <a href="" type="button" data-animation="flipInY" data-animation-delay="100" data-toggle="modal" data-target="#exampleModal"><?php echo $opciones_secciones['btn_revision'];?></a>
                     </td>
                   </tr>
 <?php

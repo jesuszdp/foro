@@ -35,7 +35,7 @@ if(!empty($data_rechazados))
                         ?>
                       </td>
                       <td>
-                          <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button">Ver trabajo</button>
+                          <a href="" type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button">Ver trabajo</a>
                       </td>
                   </tr>
                   <?php

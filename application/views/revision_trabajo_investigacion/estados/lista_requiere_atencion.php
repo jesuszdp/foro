@@ -41,9 +41,9 @@
                     <td><?php echo (isset($row['revisores'][2])) ? $row['revisores'][2] : '';?></td>
                     <td><?php echo $row['numero_revisiones'];?></td>
                     <td>
-                      <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal"><?php echo $opciones_secciones['btn_ver'];?></button>
-                      <button type="button" data-animation="flipInY" data-animation-delay="100" data-f="<?php echo $folio_enc; ?>" class="btn btn-theme btn-block submit-button btn-asignar" data-toggle="modal" data-target="#exampleModal"><?php echo $opciones_secciones['btn_asignar'];?></button>
-                    </td>
+                      <a href="" type="button" data-animation="flipInY" data-animation-delay="100" data-toggle="modal" data-target="#exampleModal"><?php echo $opciones_secciones['btn_ver'];?></a>
+                      <a href="" type="button" data-animation="flipInY" data-animation-delay="100" data-f="<?php echo $folio_enc; ?>"  data-toggle="modal" data-target="#exampleModal"><?php echo $opciones_secciones['btn_asignar'];?></a>
+                    </td
                   </tr>
 <?php
               }

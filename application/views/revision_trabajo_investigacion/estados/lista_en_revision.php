@@ -39,7 +39,7 @@
                     <td><?php echo $row['revisores'][1];?></td>
                     <td><?php echo $row['revisores'][2];?></td>
                     <td>
-                      <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal"><?php echo $opciones_secciones['btn_ver'];?></button>
+                      <a href="" type="button" data-animation="flipInY" data-animation-delay="100" data-toggle="modal" data-target="#exampleModal"><?php echo $opciones_secciones['btn_ver'];?></a>
                     </td>
                   </tr>
 <?php
