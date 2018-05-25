@@ -22,7 +22,6 @@
               </thead>
               <tbody>
               <?php
-              $lenguaje = obtener_lenguaje_actual();
               foreach ($data_sn_comite['result'] as $row)
               {
                 $folio_enc = encrypt_base64($row['folio']);
@@ -35,15 +34,10 @@
                     </td>
                     <td scope="row"><?php echo $row['folio'];?></td>
                     <td><?php echo $row['titulo'];?></td>
+                    <td><?php echo $row['metodologia'];?></td>
                     <td>
-                      <?php
-                          $metodologia = json_decode($row['metodologia'],true);
-                          echo $metodologia[$lenguaje];
-                      ?>
-                    </td>
-                    <td>
-                      <a type="button" data-f="<?php echo $folio_enc; ?>" data-toggle="modal" data-target="#exampleModal" href=""><?php echo $opciones_secciones['btn_asignar'];?></a>
-                      <a type="button" href=""><?php echo $opciones_secciones['btn_ver'];?></a>
+                      <a type="button" data-f="<?php echo $folio_enc; ?>" data-toggle="modal" data-target="#exampleModal" href=""><?php echo $opciones_secciones['btn_asignar'];?> <span class="glyphicon glyphicon-new-window"></a>
+                      <a type="button" data-f="<?php echo $folio_enc; ?>" data-toggle="modal" data-target="#exampleModal" href=""><?php echo $opciones_secciones['btn_ver'];?> <span class="glyphicon glyphicon-new-window"></a>
                     </td>
                   </tr>
                   <?php

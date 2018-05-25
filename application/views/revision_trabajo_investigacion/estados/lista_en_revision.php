@@ -29,17 +29,21 @@
                   <tr>
                     <td scope="row"><?php echo $row['folio'];?></td>
                     <td><?php echo $row['titulo'];?></td>
-                    <td>
+                    <td><?php  echo $row['metodologia'];?></td>
                       <?php
-                          $metodologia = json_decode($row['metodologia'],true);
-                          echo $metodologia[$lenguaje];
+                          foreach ($row['revisores'] as $revisor) {
                       ?>
-                    </td>
-                    <td><?php echo $row['revisores'][0];?></td>
-                    <td><?php echo $row['revisores'][1];?></td>
-                    <td><?php echo $row['revisores'][2];?></td>
+                              <td><?php echo (isset($revisor)) ? $revisor : '';?></td>
+                      <?php
+                          }
+                          if(count($row['revisores']) < 3){
+                      ?>
+                          <td></td>
+                      <?php
+                          }
+                      ?>
                     <td>
-                      <a href="" type="button" data-animation="flipInY" data-animation-delay="100" data-toggle="modal" data-target="#exampleModal"><?php echo $opciones_secciones['btn_ver'];?></a>
+                      <a href="" type="button" data-animation="flipInY" data-animation-delay="100" data-toggle="modal" data-target="#exampleModal"><?php echo $opciones_secciones['btn_ver'];?> <span class="glyphicon glyphicon-new-window"></a>
                     </td>
                   </tr>
 <?php

@@ -20,23 +20,18 @@
               </thead>
               <tbody>
 <?php
-              $lenguaje = obtener_lenguaje_actual();
               foreach ($data_aceptados['result'] as $row)
               {
+                  $folio_enc = encrypt_base64($row['folio']);
 ?>
                   <tr>
                     <td scope="row"><?php echo $row['folio'];?></td>
                     <td><?php echo $row['titulo'];?></td>
-                    <td>
-                        <?php
-                            $metodologia = json_decode($row['metodologia'],true);
-                            echo $metodologia[$lenguaje];
-                        ?>
-                    </td>
+                    <td><?php echo $row['metodologia'];?></td>
                     <td><?php echo $row['tipo_exposicion'];?></td>
                     <td><?php echo $row['promedio_revision'];?></td>
                     <td>
-                      <a href="" type="button" data-animation="flipInY" data-animation-delay="100" data-toggle="modal" data-target="#exampleModal"><?php echo $opciones_secciones['btn_revision'];?></a>
+                      <a href="<?php echo base_url('index.php/gestion_revision/ver_resumen/'.$folio_enc); ?>" type="button" data-animation="flipInY" data-animation-delay="100" data-toggle="modal" data-target="#exampleModal"><?php echo $opciones_secciones['btn_revision'];?> <span class="glyphicon glyphicon-new-window"></a>
                     </td>
                   </tr>
 <?php

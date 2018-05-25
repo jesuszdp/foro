@@ -27,15 +27,9 @@ if(!empty($data_rechazados))
                   <tr>
                       <td scope="row"><?php echo $row['folio'];?></td>
                       <td><?php echo $row['titulo'];?></td>
+                      <td><?php echo $row['metodologia']; ?></td>
                       <td>
-                        <?php
-                        // pr($row);
-                           $metodologia = json_decode($row['metodologia'],true);
-                           echo $metodologia[$lenguaje];
-                        ?>
-                      </td>
-                      <td>
-                          <a href="" type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button">Ver trabajo</a>
+                          <a href="" type="button" data-animation="flipInY" data-animation-delay="100" >Ver trabajo <span class="glyphicon glyphicon-new-window"></a>
                       </td>
                   </tr>
                   <?php
