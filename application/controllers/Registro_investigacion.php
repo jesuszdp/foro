@@ -198,6 +198,7 @@ class Registro_investigacion extends MY_Controller {
                   $trabajo['titulo'] = $trabajo['titulo_trabajo'];
                   unset($trabajo['titulo_trabajo']);
                   $trabajo['folio'] = $folio;
+                  $trabajo['id_convocatoria'] = $id_convocatoria;
                   
                   unset($trabajo['autor_imss']);
                   unset($trabajo['autor_matricula']);
