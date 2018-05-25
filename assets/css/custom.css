@@ -164,3 +164,7 @@ Elementos de formularios
 .modal-dialog {
 	margin-top: 140px;
 }
+.bullet-folio {
+	list-style-type: circle;
+	margin-left: 50px;
+}
