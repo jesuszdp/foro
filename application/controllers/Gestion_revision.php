@@ -209,20 +209,17 @@ class Gestion_revision extends General_revision {
      * @author JZDP
      * @Fecha 23/05/2018
      * @param string $folio Identificador del trabajo de investigación
-     * @description Genera el listado de revisores disponibles para la asignación de trabajo de investigación
+     * @description Genera el listado de revisores disponibles para la asignación de trabajo de investigación en la sección 'Sin comite'
      *
      */
     public function asignar_revisor(){
       if($this->input->is_ajax_request()){ //Validar que se realice una petición ajax
         if($this->input->post()){ //Se valida que se envien datos
-          //pr($this->input->post());
-          $folios = $this->input->post(null, true);
-          //pr(array_walk_recursive($folios, 'decrypt_base64'));
-          $datos['folios_enc'] = $folios;
-          $datos['folios'] = array_map("decrypt_base64", $folios);
-          $datos['revisores'] = $this->gestion_revision->get_revisores()['result'];
-          //print_r($b);
-          //pr($folios);
+          $folios = $this->input->post(null, true); //Obtener valores enviados por usuario y limpiarlos
+          $datos['folios_enc'] = $folios; //Enviar datos a vista
+          $datos['folios'] = array_map("decrypt_base64", $folios); //Desencriptar identificadores de trabajos
+          $datos['revisores'] = $this->gestion_revision->get_revisores()['result']; //Obtener listado de revisores
+          
           $this->load->view('revision_trabajo_investigacion/asignar_revisor.php', $datos);
         }
       }
@@ -232,23 +229,31 @@ class Gestion_revision extends General_revision {
      * @author JZDP
      * @Fecha 23/05/2018
      * @param string $folio Identificador del trabajo de investigación
-     * @description Genera el listado de revisores disponibles para la asignación de trabajo de investigación
+     * @description Genera el listado de revisores disponibles para la asignación de trabajo de investigación en la sección 'Requiere Atención'
      *
      */
     public function asignar_revisor_requiere_atencion($param){
       if($this->input->is_ajax_request()){ //Validar que se realice una petición ajax
         if(isset($param) && !empty($param)){ //Se valida que se envien datos
-          //pr($this->input->post());
-          $folios = $this->security->xss_clean($param);
-          //pr(array_walk_recursive($folios, 'decrypt_base64'));
+          $folios = $this->security->xss_clean($param); ///Limpiar parámetro
           $datos['folios_enc'] = array($folios);
-          $datos['folios'] = array(decrypt_base64($folios));
-          $datos['revisores'] = $this->gestion_revision->get_revisores()['result'];
-          //print_r($b);
-          //pr($folios);
+          $datos['folios'] = array(decrypt_base64($folios)); //Desencriptar identificadores de trabajos
+          $condiciones = array('conditions'=>"iu.id_usuario not in (select id_usuario from foro.revision r1 where r1.folio='".decrypt_base64($folios)."')"); //Generar condiciones para mostrar revisores.
+          $datos['revisores'] = $this->gestion_revision->get_revisores($condiciones)['result']; ///Obtener listado de revisores
           $this->load->view('revision_trabajo_investigacion/asignar_revisor.php', $datos);
-        }
+        }        
       }
+    }
+    
+    /**
+     * @author JZDP
+     * @Fecha 25/05/2018
+     * @param string $folio Identificador del trabajo de investigación
+     * @description Obtiene el número de revisores a remplazar por trabajo
+     *
+     */
+    private function validar_numero_revisores_remplazar(){
+
     }
 
 
@@ -264,8 +269,8 @@ class Gestion_revision extends General_revision {
         if($this->input->post()){ //Se valida que se envien datos
           //pr($this->input->post());
           $id = $this->input->post(null, true);
-          $datos['usuarios'] = array_map("decrypt_base64", $id['usuarios']);
-          $datos['folios'] = array_map("decrypt_base64", explode(',', $id['folios']));
+          $datos['usuarios'] = array_map("decrypt_base64", $id['usuarios']); ///Obtener identificadores de usuarios
+          $datos['folios'] = array_map("decrypt_base64", explode(',', $id['folios'])); //Obtener identificadores de folios
           $datos['resultado'] = $this->gestion_revision->insert_asignar_revisor($datos);
           //print_r($id);
           //pr($datos);

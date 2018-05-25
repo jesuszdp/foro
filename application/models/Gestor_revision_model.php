@@ -536,7 +536,8 @@ class Gestor_revision_model extends MY_Model {
             $this->db->reset_query();
             $this->db->select(array("iu.id_usuario",
                 "iu.nombre", "iu.apellido_paterno", "iu.apellido_materno", "iu.institucion",
-                "(SELECT COUNT(rn.id_usuario) FROM foro.revision rn WHERE rn.id_usuario=iu.id_usuario) AS revisiones_realizadas"
+                //"(SELECT COUNT(rn.id_usuario) FROM foro.revision rn WHERE rn.id_usuario=iu.id_usuario) AS revisiones_realizadas"
+                "count(distinct rn.folio) AS revisiones_realizadas"
             ));
             $this->db->from("sistema.usuario_rol ul");
             $this->db->join("sistema.informacion_usuario iu", "ul.id_usuario=iu.id_usuario", 'left');
@@ -545,6 +546,17 @@ class Gestor_revision_model extends MY_Model {
             $this->db->where("ul.activo", TRUE);
             $this->db->group_by("iu.id_usuario,iu.nombre,iu.apellido_paterno,iu.apellido_materno,iu.institucion");
             $this->db->order_by("iu.nombre,iu.apellido_paterno,iu.apellido_materno,iu.institucion");
+            
+            if(array_key_exists('fields', $param)){
+                $this->db->select($param['fields']);
+            }
+            if(array_key_exists('conditions', $param)){
+                $this->db->where($param['conditions']);
+            }
+            if(array_key_exists('order', $param)){
+                $this->db->order_by($param['order']['field'], $param['order']['type']);
+            }
+            
             $result = $this->db->get();
             //pr($this->db->last_query());
             $salida = $result->result_array();
