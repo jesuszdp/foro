@@ -347,6 +347,7 @@ class Gestor_revision_model extends MY_Model {
             $this->db->reset_query();
             $this->db->select(array(
                 "sc.id_seccion",
+                "sc.descripcion",
                 "AVG(dr.valor)"
             ));
             $this->db->join('foro.revision rn', 'hr.folio=rn.folio','left');

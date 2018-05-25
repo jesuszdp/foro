@@ -169,7 +169,9 @@ class Gestion_revision extends General_revision {
      */
     public function ver_resumen($idFolio=NULL){
       $folio = decrypt_base64($idFolio);
+      //$folio = $idFolio;
       $output['trabajo_investigacion'] = $this->get_detalle_investigacion($folio);
+      //pr($output['trabajo_investigacion']);
       $output['idioma'] = $this->obtener_grupos_texto('detalle_revision', $this->obtener_idioma())['detalle_revision'];
       $output['promedioFinal'] = $this->gestion_revision->get_info_promedio_final_por_trabajo($folio);
       $output['revisores'] = $this->gestion_revision->get_revisores_por_trabajo($folio);
