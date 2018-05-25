@@ -391,8 +391,7 @@ class Gestor_revision_model extends MY_Model {
             $this->db->reset_query();
             $this->db->select(array(
                 "sc.id_seccion",
-                "(SELECT descripcion FROM foro.seccion WHERE id_seccion=sc.id_seccion)",
-                "SUM(dr.valor)"
+                "AVG(dr.valor)"
             ));
             $this->db->join('foro.revision rn', 'hr.folio=rn.folio','left');
             $this->db->join('foro.detalle_revision dr', 'rn.id_revision=dr.id_revision','left');
@@ -436,7 +435,7 @@ class Gestor_revision_model extends MY_Model {
             $this->db->reset_query();
             $this->db->select(array(
                 "CONCAT(iu.nombre,' ',iu.apellido_paterno,' ',iu.apellido_materno) revisor",
-                "rn.fecha_asignacion","rn.fecha_revision fecha_conclucion", "rn.promedio_revision"
+                "rn.fecha_asignacion","rn.fecha_revision fecha_conclusion", "rn.promedio_revision"
             ));
             $this->db->join('foro.trabajo_investigacion ti', 'hr.folio = ti.folio','left');
             $this->db->join('foro.revision rn', 'hr.folio=rn.folio','left');

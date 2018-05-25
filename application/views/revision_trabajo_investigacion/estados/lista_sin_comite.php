@@ -22,7 +22,6 @@
               </thead>
               <tbody>
               <?php
-              $lenguaje = obtener_lenguaje_actual();
               foreach ($data_sn_comite['result'] as $row)
               {
                 $folio_enc = encrypt_base64($row['folio']);
@@ -35,24 +34,19 @@
                     </td>
                     <td scope="row"><?php echo $row['folio'];?></td>
                     <td><?php echo $row['titulo'];?></td>
+                    <td><?php echo $row['metodologia'];?></td>
                     <td>
-                      <?php
-                          $metodologia = json_decode($row['metodologia'],true);
-                          echo $metodologia[$lenguaje];
-                      ?>
-                    </td>
-                    <td>
-                      <button type="button" data-animation="flipInY" data-animation-delay="100" data-f="<?php echo $folio_enc; ?>" class="btn btn-theme btn-block submit-button btn-asignar" data-toggle="modal" data-target="#exampleModal"><?php echo $opciones_secciones['btn_asignar'];?></button>
-                      <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal"><?php echo $opciones_secciones['btn_ver'];?></button>
+                      <a type="button" data-f="<?php echo $folio_enc; ?>" data-toggle="modal" data-target="#exampleModal" href=""><?php echo $opciones_secciones['btn_asignar'];?> <span class="glyphicon glyphicon-new-window"></a>
+                      <a type="button" data-f="<?php echo $folio_enc; ?>" data-toggle="modal" data-target="#exampleModal" href=""><?php echo $opciones_secciones['btn_ver'];?> <span class="glyphicon glyphicon-new-window"></a>
                     </td>
                   </tr>
                   <?php
-              } 
+              }
           }
           else
           {
   ?>
-          <h3>No hay trabajos sin comite!</h3>
+          <h3><?php echo $opciones_secciones['sc_mensaje'];?></h3>
   <?php
 
           }
@@ -60,7 +54,7 @@
       else
       {
   ?>
-      <h3><?php echo $data_sn_comite['msg'];?></h3>
+      <h3><?php echo $mensajes['ern_mensaje'];?></h3>
   <?php
       }
   ?>
@@ -70,7 +64,7 @@
   }else
   {
   ?>
-    <h3>Algo salió mal, vuelve a intentarlo más tarde!</h3>
+    <h3><?php echo $mensajes['ern_mensaje'];?></h3>
   <?php
   }
 echo form_close();

@@ -64,9 +64,11 @@ function chart(id_chart, tabla, titulo, ytext, color, typeColumn) {
     }
     if(typeColumn == 'solidgauge'){
       var g = Highcharts.chart(id_chart,{
-          data: {
-              table: tabla
-          },
+         data:{
+            "csv": '\"Column 1\";\"Column 2\"\n\"Promedio final\";90.33',
+            "googleSpreadsheetKey": false,
+            "googleSpreadsheetWorksheet": false
+         },
           chart: {
             type: typeColumn
           },
@@ -141,9 +143,9 @@ function chart(id_chart, tabla, titulo, ytext, color, typeColumn) {
               dataLabels: {}
             }
           },
-          series[0]: {
+          "series[0]": {
             dataLabels: {
-              format: "<div style=\"text-align:center\"><span style=\"font-size:25px;color:#000000\">{y}</span></div>"
+              format: '<div style=\"text-align:center\"><span style=\"font-size:25px;color:#000000\">{y}</span></div>'
             }
           },
           series: [
@@ -157,78 +159,81 @@ function chart(id_chart, tabla, titulo, ytext, color, typeColumn) {
           ]
       });
     }
+    if(typeColumn == 'bullet'){
+        Highcharts.setOptions({
+         chart: {
+           inverted: true,
+           // marginLeft: 135,
+           type: typeColumn,
+           backgroundColor: '#3e4b5a'
+         },
+         title: {
+           text: titulo,
+           style:{
+             color: 'whitesmoke'
+           }
+         },
+         legend: {
+           enabled: false
+         },
+         yAxis: {
+           gridLineWidth: 0
+         },
+         plotOptions: {
+           series: {
+             //pointPadding: 0.25,
+             //borderWidth: 0,
+             color: '#ffffff',
+             targetOptions: {
+               //width: '200%'
+             }
+           }
+         },
+         credits: {
+           enabled: false
+         },
+         exporting: {
+           enabled: false
+         }
+        });
+
+        var g = Highcharts.chart(id_chart, {
+         chart: {
+           //marginTop: 40
+         },
+         title: {
+           color: '#ffffff',
+           text: 'Valoración del trabajo'
+         },
+         xAxis: {
+           categories: ['<span class="hc-cat-title" style="color:whitesmoke;">Muy malo</span><br/>']
+         },
+         yAxis: {
+           plotBands: [{
+             from: 0,
+             to: 25,
+             color: '#e43b5f'
+           }, {
+             from: 25,
+             to: 50,
+             color: '#ffc800'
+           }, {
+             from: 50,
+             to: 75,
+             color: '#6ac0b1'
+           }, {
+             from: 75,
+             to: 100,
+             color: '#21908e'
+           }],
+           title: null
+         },
+         series: [{
+           data: [{
+             y: 20,
+             target: 100
+           }]
+         }]
+        });
+    }
 }
-
-Highcharts.setOptions({
- chart: {
-   inverted: true,
-   marginLeft: 135,
-   type: ‘bullet’
- },
- title: {
-   text: null
- },
- legend: {
-   enabled: false
- },
- yAxis: {
-   gridLineWidth: 0
- },
- plotOptions: {
-   series: {
-     pointPadding: 0.25,
-     borderWidth: 0,
-     color: ‘#000’,
-     targetOptions: {
-       width: ‘200%’
-     }
-   }
- },
- credits: {
-   enabled: false
- },
- exporting: {
-   enabled: false
- }
-});
-
-Highcharts.chart(‘container1’, {
- chart: {
-   marginTop: 40
- },
- title: {
-   text: ‘2017 YTD’
- },
- xAxis: {
-   categories: [‘<span class=“hc-cat-title”>Valoración del trabajo</span><br/>Muy malo’]
- },
- yAxis: {
-   plotBands: [{
-     from: 0,
-     to: 25,
-     color: ‘#e43b5f’
-   }, {
-     from: 25,
-     to: 50,
-     color: ‘#ffc800’
-   }, {
-     from: 50,
-     to: 75,
-     color: ‘#6ac0b1’
-   }, {
-     from: 75,
-     to: 100,
-     color: ‘#21908e’
-   }],
-   title: null
- },
- series: [{
-   data: [{
-     y: 20,
-     target: 100
-   }]
- }],
- tooltip: {
-   pointFormat: ‘<b>Su trabajo se valoró con {point.y}/{point.target} puntos’
- }
-});

@@ -1,19 +1,21 @@
 <!-- contadores de lugares para oratoria y lugares para cartel -->
 <div class="col-sm-12">
   <div class="col-sm-3">
-    <h4 class=""> <?php echo $language_text['lbl_oral'];?></h4>
-    <h3>10 / 20</h3>
+    <h4 class="text-center"> <?php echo $language_text['lbl_oral'];?></h4>
+    <h3 class="text-center">10 / 20</h3>
   </div>
   <div class="col-sm-3">
-    <h4> <?php echo $language_text['lbl_cartel'];?></h4>
-    <h3>10 / 20</h3>
+    <h4 class="text-center"> <?php echo $language_text['lbl_cartel'];?></h4>
+    <h3 class="text-center">10 / 20</h3>
   </div>
   <div class="col-sm-3">
-    <h4><?php echo $language_text['lbl_cartel'];?></h4>
-    <h3>1 / 55</h3>
+    <h4 class="text-center"><?php echo $language_text['lbl_cartel'];?></h4>
+    <h3 class="text-center">1 / 55</h3>
 
   </div>
   <div class="col-sm-3">
+    <h4 class="text-center"> <?php echo $language_text['lbl_tipos_de_asignacion'];?></h4>
+    <br>
     <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal2"> <a  style="color:#fff;"><?php echo $language_text['btn_manual'];?></a> </button>
     <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal2"> <a  style="color:#fff;"><?php echo $language_text['btn_automatico'];?></a> </button>
     <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal2"> <a  style="color:#fff;"><?php echo $language_text['btn_cerrar'];?></a> </button>
@@ -43,8 +45,8 @@
     </style>
 
     <div class="sectionEvaluacion" id="secTrabajoInv" style="">
-      <h3 style="color: #fff;padding-top: 15px;padding-bottom: 15px;padding-left: 15px;background-color: #f05a29;border-radius: 10px;"> Sin Asignar</h3>
-      <!-- <img class="arrow-black" src="<?php //echo asset_url(); ?>img/arrowdownblack.png" alt=""> -->
+      <h3 style="color: #fff;padding-top: 15px;padding-bottom: 15px;padding-left: 15px;"><?php echo $language_text['tab_sin_asignar'];?></h3>
+      <img class="arrow-black" src="<?php echo asset_url(); ?>img/arrowdownblack.png" alt="">
     </div>
     <div id="hideTrabajo" class="panel" style="display:none;">
       <h1 class="page-head-line"></h1>
@@ -92,7 +94,8 @@
                 <td><?php echo $row['promedio_revision'];?></td>
                 <td><?php echo $row['propuesta_dictamen'];?></td>
                 <td>
-                  <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button"> <a href="ver_resumen" style="color:#fff;">FALTA IDIOMA</a> </button>
+                  <a href="ver_resumen" style="color:#f05a29;"><?php echo $language_text['btn_vdetalle'];?></a><br>
+                  <a href="ver_resumen" style="color:#f05a29;"><?php echo $language_text['btn_asignar'];?></a>
                 </td>
               </tr>
               <?php
@@ -131,10 +134,10 @@
      </div>
 
      <div class="sectionEvaluacion" id="secEvaluacion">
-       <h3 style="color: #fff;padding-top: 15px;padding-bottom: 15px;padding-left: 15px;background-color: #f05a29;border-radius: 10px;">
+       <h3 style="color: #fff;padding-top: 15px;padding-bottom: 15px;padding-left: 15px;">
          Asignados
        </h3>
-       <!-- <img class="arrow-black" src="<?php //echo asset_url(); ?>img/arrowdownblack.png" alt=""> -->
+       <img class="arrow-black" src="<?php echo asset_url(); ?>img/arrowdownblack.png" alt="">
      </div>
      <div id="hideEvaluacion" class="panel " style="display:none;">
        <div class="panel-body">
@@ -161,6 +164,8 @@ $("#aceptados").removeClass()
 $("#rechazados").removeClass()
 //$("#sin_asignar").addClass("active")
 </script>
+
+    <?php echo css("revision/evaluacion_revisor.css"); ?>
 
 <script type="text/javascript">
 $(function () {

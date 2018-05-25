@@ -75,31 +75,43 @@ class Gestion_revision extends General_revision {
     }
 
     private function sn_comite() {
+      $lenguaje = obtener_lenguaje_actual();
       $respuesta_model = $this->gestion_revision->get_sn_comite();
-      return $respuesta_model;
+      $result = array('success'=>$respuesta_model['success'],'msg'=>$respuesta_model['msg'],'result'=>[]);
+      foreach ($respuesta_model['result'] as $row) {
+        $result['result'][$row['folio']]['folio'] = $row['folio'];
+        $result['result'][$row['folio']]['titulo'] = $row['titulo'];
+        $metodologia = json_decode($row['metodologia'],true);
+        $result['result'][$row['folio']]['metodologia'] = $metodologia[$lenguaje];
+      }
+      return $result;
     }
 
     private function requiere_atencion() {
+      $lenguaje = obtener_lenguaje_actual();
       $respuesta_model = $this->gestion_revision->get_requiere_atencion();
       $result = array('success'=>$respuesta_model['success'],'msg'=>$respuesta_model['msg'],'result'=>[]);
       foreach ($respuesta_model['result'] as $row) {
         $result['result'][$row['folio']]['folio'] = $row['folio'];
         $result['result'][$row['folio']]['revisores'][] = $row['revisor'];
         $result['result'][$row['folio']]['titulo'] = $row['titulo'];
-        $result['result'][$row['folio']]['metodologia'] = $row['metodologia'];
+        $metodologia = json_decode($row['metodologia'],true);
+        $result['result'][$row['folio']]['metodologia'] = $metodologia[$lenguaje];
         $result['result'][$row['folio']]['numero_revisiones'] = $row['numero_revisiones'];
       }
       return $result;
     }
 
     private function en_revision() {
+      $lenguaje = obtener_lenguaje_actual();
       $respuesta_model = $this->gestion_revision->get_en_revision();
       $result = array('success'=>$respuesta_model['success'],'msg'=>$respuesta_model['msg'],'result'=>[]);
       foreach ($respuesta_model['result'] as $row) {
         $result['result'][$row['folio']]['folio'] = $row['folio'];
         $result['result'][$row['folio']]['revisores'][] = $row['revisor'];
         $result['result'][$row['folio']]['titulo'] = $row['titulo'];
-        $result['result'][$row['folio']]['metodologia'] = $row['metodologia'];
+        $metodologia = json_decode($row['metodologia'],true);
+        $result['result'][$row['folio']]['metodologia'] = $metodologia[$lenguaje];
       }
       return $result;
     }
@@ -132,14 +144,31 @@ class Gestion_revision extends General_revision {
     }
 
     private function aceptados() {
-      $respuesta_model = $this->gestion_revision->get_aceptados();
-      return $respuesta_model;
+      $lenguaje = obtener_lenguaje_actual();
+      $respuesta_model = $this->gestion_revision->get_sn_comite();
+      $result = array('success'=>$respuesta_model['success'],'msg'=>$respuesta_model['msg'],'result'=>[]);
+      foreach ($respuesta_model['result'] as $row) {
+        $result['result'][$row['folio']]['folio'] = $row['folio'];
+        $result['result'][$row['folio']]['titulo'] = $row['titulo'];
+        $metodologia = json_decode($row['metodologia'],true);
+        $result['result'][$row['folio']]['metodologia'] = $metodologia[$lenguaje];
+        $result['result'][$row['folio']]['tipo_exposicion'] = isset($row['tipo_exposicion']) ? $row['tipo_exposicion'] : "";
+        $result['result'][$row['folio']]['promedio_revision'] = isset($row['promedio_revision']) ? $row['promedio_revision']: "";
+      }
+      return $result;
     }
 
     private function rechazados() {
-      $respuesta_model = $this->gestion_revision->get_rechazados();
-      //pr($respuesta_model);
-      return $respuesta_model;
+      $lenguaje = obtener_lenguaje_actual();
+      $respuesta_model = $this->gestion_revision->get_sn_comite();
+      $result = array('success'=>$respuesta_model['success'],'msg'=>$respuesta_model['msg'],'result'=>[]);
+      foreach ($respuesta_model['result'] as $row) {
+        $result['result'][$row['folio']]['folio'] = $row['folio'];
+        $result['result'][$row['folio']]['titulo'] = $row['titulo'];
+        $metodologia = json_decode($row['metodologia'],true);
+        $result['result'][$row['folio']]['metodologia'] = $metodologia[$lenguaje];
+      }
+      return $result;
     }
 
     /**
@@ -149,11 +178,12 @@ class Gestion_revision extends General_revision {
      * @description Función que muestra la vista del resumen de un trabajo de investigación
      */
     public function ver_resumen($idFolio=NULL){
-      $output['trabajo_investigacion'] = $this->get_detalle_investigacion($idFolio);
+      $folio = decrypt_base64($idFolio);
+      $output['trabajo_investigacion'] = $this->get_detalle_investigacion($folio);
       $output['idioma'] = $this->obtener_grupos_texto('detalle_revision', $this->obtener_idioma())['detalle_revision'];
-      $output['promedioFinal'] = $this->gestion_revision->get_info_promedio_final_por_trabajo($idFolio);
-      $output['revisores'] = $this->gestion_revision->get_revisores_por_trabajo($idFolio);
-      $output['tablaSeccion'] = $this->gestion_revision->get_promedio_por_seccion_por_trabajo($idFolio);
+      $output['promedioFinal'] = $this->gestion_revision->get_info_promedio_final_por_trabajo($folio);
+      $output['revisores'] = $this->gestion_revision->get_revisores_por_trabajo($folio);
+      $output['tablaSeccion'] = $this->gestion_revision->get_promedio_por_seccion_por_trabajo($folio);
       $main_content = $this->load->view('revision_trabajo_investigacion/resumen_trabajo_investigacion.php', $output, true);
       $this->template->setMainContent($main_content);
       $this->template->getTemplate();
@@ -215,7 +245,7 @@ class Gestion_revision extends General_revision {
           //print_r($b);
           //pr($folios);
           $this->load->view('revision_trabajo_investigacion/asignar_revisor.php', $datos);
-        }        
+        }
       }
     }
 

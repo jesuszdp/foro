@@ -5,6 +5,7 @@
 <script src="<?php echo asset_url(); ?>highcharts/modules/exporting.js"></script>
 <?php echo js("revision/opciones_highchart.js"); ?>
 <?php echo js("revision/funcionalidad_cascada.js"); ?>
+<script src="https://code.highcharts.com/modules/bullet.js"></script>
 
 
 <style type="text/css">
@@ -32,7 +33,7 @@
 
     <!-- Content area -->
     <div class="content-area">
-        <?php echo $trabajo_investigacion; ?>
+        <?php ?>
         <div id="main">
           <div class="container">
               <h1 class="section-title">
@@ -212,8 +213,11 @@
                               //poner el error
                           }
                       ?>
-                      <section id="progressBar">
-                      </section>
+                        <div>
+                          <div id="progressBar">
+                          </div>
+                        </div>
+
                     </section>
                     <section id="column2">
                       <h3>Revisores</h3>
@@ -322,7 +326,7 @@
     jQuery(document).ready(function () {
         //theme.init();
         chart("graficas", "table", null, null, ['#0095bc','#98c56e'],"column");
-        //chart("graficas", "table", null, null, null,"solidgauge");
+        chart("progressBar", null, null, null, null,"bullet");
     });
 
     // jQuery(document).ready(function () { theme.onResize(); });
