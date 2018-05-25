@@ -21,11 +21,12 @@
                   </tr>
                 </thead>
                 <tbody>
-<?php
+              <?php
               $lenguaje = obtener_lenguaje_actual();
               foreach ($data_req_atencion['result'] as $row)
               {
-?>
+                  $folio_enc = encrypt_base64($row['folio']);
+                  ?>
                   <tr>
                     <td scope="row"><?php echo $row['folio'];?></td>
                     <td><?php echo $row['titulo'];?></td>
@@ -37,11 +38,11 @@
                     </td>
                     <td><?php echo $row['revisores'][0];?></td>
                     <td><?php echo $row['revisores'][1];?></td>
-                    <td><?php echo $row['revisores'][2];?></td>
+                    <td><?php echo (isset($row['revisores'][2])) ? $row['revisores'][2] : '';?></td>
                     <td><?php echo $row['numero_revisiones'];?></td>
                     <td>
                       <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal"><?php echo $opciones_secciones['btn_ver'];?></button>
-                      <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal"><?php echo $opciones_secciones['btn_asignar'];?></button>
+                      <button type="button" data-animation="flipInY" data-animation-delay="100" data-f="<?php echo $folio_enc; ?>" class="btn btn-theme btn-block submit-button btn-asignar" data-toggle="modal" data-target="#exampleModal"><?php echo $opciones_secciones['btn_asignar'];?></button>
                     </td>
                   </tr>
 <?php
@@ -77,10 +78,17 @@
 <!-- END lista_requiere_atencion -->
 
 <script>
-  $("#comite").removeClass()
-  $("#atencion").addClass("active")
-  $("#revision").removeClass()
-  $("#revisados").removeClass()
-  $("#aceptados").removeClass()
-  $("#rechazados").removeClass()
+$(document).ready(function () {
+    $(".btn-asignar").on('click', function (e) {
+        var f = $(this).data('f'); //Obtener datos para realizar envío
+        $("#modal_contenido").html('');
+        data_ajax(site_url + '/gestion_revision/asignar_revisor_requiere_atencion/'+f, null, "#modal_contenido");
+    });
+});
+$("#comite").removeClass();
+$("#atencion").addClass("active");
+$("#revision").removeClass();
+$("#revisados").removeClass();
+$("#aceptados").removeClass();
+$("#rechazados").removeClass();
 </script>
