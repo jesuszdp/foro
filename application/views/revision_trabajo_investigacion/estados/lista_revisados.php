@@ -16,13 +16,14 @@
   <div class="col-sm-3">
     <h4 class="text-center"> <?php echo $language_text['lbl_tipos_de_asignacion'];?></h4>
     <br>
-    <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal2"> <a  style="color:#fff;"><?php echo $language_text['btn_manual'];?></a> </button>
-    <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal2"> <a  style="color:#fff;"><?php echo $language_text['btn_automatico'];?></a> </button>
+    <button id="show" type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal2"> <a  style="color:#fff;"><?php echo $language_text['btn_manual'];?></a> </button>
+    <button id="hide" type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal2"> <a  style="color:#fff;"><?php echo $language_text['btn_automatico'];?></a> </button>
     <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal2"> <a  style="color:#fff;"><?php echo $language_text['btn_cerrar'];?></a> </button>
   </div>
 
 </div>
 <br><br>
+
 
 <!-- <div id="main"> -->
 <!-- <section class="page-section background-img"> -->
@@ -94,8 +95,9 @@
                 <td><?php echo $row['promedio_revision'];?></td>
                 <td><?php echo $row['propuesta_dictamen'];?></td>
                 <td>
+
                   <a href="ver_resumen" style="color:#f05a29;"><?php echo $language_text['btn_vdetalle'];?></a><br>
-                  <a href="ver_resumen" style="color:#f05a29;"><?php echo $language_text['btn_asignar'];?></a>
+                  <a id="asignar" href="ver_resumen" style="color:#f05a29;"><?php echo $language_text['btn_asignar'];?></a>
                 </td>
               </tr>
               <?php
@@ -152,6 +154,18 @@
       </div>
     </div>
   <!-- </section> -->
+
+
+<script>
+  $(document).ready(function(){
+      $("#hide").click(function(){
+          $("#asignar").hide();
+      });
+      $("#show").click(function(){
+          $("#asignar").show();
+      });
+  });
+</script>
 
 
 
