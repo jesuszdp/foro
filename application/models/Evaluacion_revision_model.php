@@ -307,7 +307,7 @@ class Evaluacion_revision_model extends MY_Model {
         $result = true;
         $result_estado = $this->obtener_estado_general_revision($folio);
 //        pr($result_estado);
-        $this->db->trans_begin();
+//        $this->db->trans_begin();
         if (isset($actualizacion_estado[$result_estado['estado_trancicion']])) {//Estados que pasan validación
 //        pr($folio);
 //        pr($result_estado);
@@ -318,7 +318,7 @@ class Evaluacion_revision_model extends MY_Model {
 //            if ($result) {
 //                $this->db->trans_commit();
 //            } else {
-            $this->db->trans_rollback();
+//            $this->db->trans_rollback();
 //            }
         }
 
@@ -337,6 +337,7 @@ class Evaluacion_revision_model extends MY_Model {
         $general_revisiones = $this->get_general_revision($folio);
 //        pr($general_revisiones);
         $total_revisores = count($general_revisiones);
+        $result["estado_trancicion"] = En_estado_revision::__default;
         switch ($total_revisores) {
             case 1:
                 $result = $this->un_revisor($general_revisiones);
