@@ -1,2 +1,2 @@
 
-<h2>No se puede acceder al trabajo de investigación</h2>
+<h2><?php echo $language_text['evaluacion']['no_acceso_trabajo_investigacion'];?></h2>

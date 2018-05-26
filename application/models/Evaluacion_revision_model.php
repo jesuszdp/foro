@@ -140,17 +140,17 @@ class Evaluacion_revision_model extends MY_Model {
         if ($this->db->trans_status() === FALSE) {
             $this->db->trans_rollback();
             $resultado[En_tpmsg::__default] = En_tpmsg::DANGER;
-            $resultado['message'] = 'No fue posible actualizar la información';
+            $resultado['message'] = $language_text['evaluacion']['danger_update'];
 //            $resultado['msg'] = $language_text['registro_usuario']['user_registro_problem'];
         } else {
             $result = $this->actualizar_estado_evaluacion($folio);
             if ($result) {
                 $this->db->trans_commit();
                 $resultado[En_tpmsg::__default] = En_tpmsg::SUCCESS;
-                $resultado['message'] = 'La información se actualizo correctamente.';
+                $resultado['message'] = $language_text['evaluacion']['success_update'];
             } else {
                 $resultado[En_tpmsg::__default] = En_tpmsg::DANGER;
-                $resultado['message'] = 'No fue posible actualizar la información';
+                $resultado['message'] = $language_text['evaluacion']['danger_update'];
             }
         }
 
@@ -263,7 +263,7 @@ class Evaluacion_revision_model extends MY_Model {
         if ($this->db->trans_status() === FALSE) {
             $this->db->trans_rollback();
             $resultado[En_tpmsg::__default] = En_tpmsg::DANGER;
-            $resultado['message'] = 'No fue posible actualizar la información';
+            $resultado['message'] = $language_text['evaluacion']['danger_update'];
 //            $resultado['msg'] = $language_text['registro_usuario']['user_registro_problem'];
         } else {
             $status = TRUE;
@@ -278,16 +278,16 @@ class Evaluacion_revision_model extends MY_Model {
             if ($status === FALSE) {
                 $this->db->trans_rollback();
                 $resultado[En_tpmsg::__default] = En_tpmsg::DANGER;
-                $resultado['message'] = 'No fue posible actualizar la información';
+                $resultado['message'] = $language_text['evaluacion']['danger_update'];
             } else {
                 $result = $this->actualizar_estado_evaluacion($datos_revision['folio']);
                 if ($result) {
                     $this->db->trans_commit();
                     $resultado[En_tpmsg::__default] = En_tpmsg::SUCCESS;
-                    $resultado['message'] = 'La información se actualizo correctamente.';
+                    $resultado['message'] = $language_text['evaluacion']['success_update'];
                 } else {
                     $resultado[En_tpmsg::__default] = En_tpmsg::DANGER;
-                    $resultado['message'] = 'No fue posible actualizar la información';
+                    $resultado['message'] = $language_text['evaluacion']['danger_update'];
                 }
             }
         }
@@ -415,7 +415,7 @@ class Evaluacion_revision_model extends MY_Model {
             'tema_educacion' => 1, 'dentro_fecha_limite' => 1, 'revisiones_ids' => [], 'suma_promedio' => 0];
         foreach ($revisiones as $value) {
             if (is_numeric($value['promedio_revision'])) {
-                $validaciones['suma_promedio'] = floatval($value['promedio_revision']);
+                $validaciones['suma_promedio']+= floatval($value['promedio_revision']);
             }
             if ($value['revisado'] == 0) {
                 $validaciones['revisado'] = 0;
