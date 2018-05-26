@@ -22,6 +22,16 @@ class Evaluacion_revision_model extends MY_Model {
             "id_seccion", "descripcion"
         );
         $this->db->select($select);
+        foreach ($param as $key => $val) {
+            foreach ($val as $keyp => $valp) {
+                $name = $key . "";
+                if (is_null($valp) || $valp == "") {
+                    $this->db->{$name}($keyp, null);
+                } else {
+                    $this->db->{$name}($keyp, $valp);
+                }
+            }
+        }
         $result = $this->db->get('foro.seccion')->result_array();
         $lang = [];
         foreach ($result as &$value) {
@@ -45,6 +55,9 @@ class Evaluacion_revision_model extends MY_Model {
         );
         $result = [];
         $this->db->select($select);
+        foreach ($param['where'] as $key => $val) {
+            $this->db->where($key, $val);
+        }
         $result_prima = $this->db->get('foro.opcion')->result_array();
         $lang = [];
         foreach ($result_prima as &$value) {
@@ -68,6 +81,16 @@ class Evaluacion_revision_model extends MY_Model {
             "s.id_seccion", "o.id_opcion", "o.descripcion", "r.cualitativa", "r.minimo", "r.maximo"
         );
         $this->db->select($select);
+        foreach ($param as $key => $val) {
+            foreach ($val as $keyp => $valp) {
+                $name = $key . "";
+                if (is_null($valp) || $valp == "") {
+                    $this->db->{$name}($keyp, null);
+                } else {
+                    $this->db->{$name}($keyp, $valp);
+                }
+            }
+        }
         $this->db->join('foro.opcion o', 's.id_seccion=o.id_seccion', 'inner');
         $this->db->join('foro.rango r', 'o.id_rango=r.id_rango', 'inner');
         $this->db->order_by("s.id_seccion, o.id_opcion asc");
@@ -120,9 +143,15 @@ class Evaluacion_revision_model extends MY_Model {
             $resultado['message'] = 'No fue posible actualizar la información';
 //            $resultado['msg'] = $language_text['registro_usuario']['user_registro_problem'];
         } else {
-            $this->db->trans_commit();
-            $resultado[En_tpmsg::__default] = En_tpmsg::SUCCESS;
-            $resultado['message'] = 'La información se actualizo correctamente';
+            $result = $this->actualizar_estado_evaluacion($folio);
+            if ($result) {
+                $this->db->trans_commit();
+                $resultado[En_tpmsg::__default] = En_tpmsg::SUCCESS;
+                $resultado['message'] = 'La información se actualizo correctamente.';
+            } else {
+                $resultado[En_tpmsg::__default] = En_tpmsg::DANGER;
+                $resultado['message'] = 'No fue posible actualizar la información';
+            }
         }
 
 //                $this->db->last_query();
@@ -173,6 +202,7 @@ class Evaluacion_revision_model extends MY_Model {
         $this->db->join('foro.historico_revision hr', 'rn.folio=hr.folio', 'inner');
         $this->db->where("hr.actual", TRUE);
         $this->db->where("rn.activo", TRUE);
+        $this->db->where("rn.revisado", TRUE);
         $this->db->where("rn.folio", $folio);
         $result = $this->db->get('foro.revision rn')->result_array();
 //        pr($this->db->last_query());
@@ -184,49 +214,113 @@ class Evaluacion_revision_model extends MY_Model {
      * @param type $folio Folio de la investigación
      * @param type $estado_transicion estado de transición actual
      * @return boolean true si se guardosatisfactoriamente
+     * Actualiza el último estado de la revision a false y agrega la el nuevo estado.
      * 
      */
     public function guardar_historico_estado($folio, $estado_transicion) {
         $estado = TRUE;
         $this->db->where("folio", $folio);
-        $this->db->update("foro.historico_revision", ["activo" => FALSE]);
+        $this->db->update("foro.historico_revision", ["actual" => FALSE]);
         if ($this->db->trans_status() === FALSE) {
             $estado = FALSE;
         } else {
-            $datos = ["folio" => $folio, "clave_estado" => $estado_transicion];
+            $datos = ["folio" => $folio, "clave_estado" => $estado_transicion, "actual" => true];
             $this->db->insert("foro.historico_revision", $datos);
             if ($this->db->trans_status() === FALSE) {
                 $estado = FALSE;
             }
         }
-        return FALSE;
-    }
-    public function genera_dictamen($folio, $estado_transicion) {
-        $estado = TRUE;
-        $this->db->where("folio", $folio);
-        $this->db->update("foro.historico_revision", ["activo" => FALSE]);
-        if ($this->db->trans_status() === FALSE) {
-            $estado = FALSE;
-        } else {
-            $datos = ["folio" => $folio, "clave_estado" => $estado_transicion];
-            $this->db->insert("foro.historico_revision", $datos);
-            if ($this->db->trans_status() === FALSE) {
-                $estado = FALSE;
-            }
-        }
-        return FALSE;
+        return $estado;
     }
 
-    public function guardar_evaluacion($folio, $language_text = null) {
-        $actualizacion_estado = [En_estado_revision::EVALUADO => 1, En_estado_revision::DISCREPANCIA => 1, En_estado_revision::CONFLICTO_INTERES => 1, En_estado_revision::RECHAZADO => 1,];
-        $result = $this->obtener_estado_general_revision($folio);
-        if (isset($actualizacion_estado[$result['estado_trancicion']])) {//Estados que pasan validación
-            $this->guardar_historico_estado($folio, $result['estado_trancicion']);
-            if ($result['estado_trancicion'] == En_estado_revision::EVALUADO) {//Evaluación, agerega promedio
-                
+    /**
+     * @author LEAS 
+     * @fecha 25/05/2018
+     * @param type $folio folio de la investigación
+     * @param type $promedio promedio de la revisión
+     * @return boolean si se guardo satisfactoriamente
+     * Genera el dictamen
+     */
+    public function genera_dictamen($folio, $promedio) {
+        $estado = TRUE;
+        $datos = ["folio" => $folio, "promedio" => $promedio];
+        $this->db->insert("foro.dictamen", $datos);
+        if ($this->db->trans_status() === FALSE) {
+            $estado = FALSE;
+        }
+        return $estado;
+    }
+
+    public function guardar_evaluacion($datos_revision, $language_text = null) {
+        $this->db->trans_begin();
+//        pr($datos_revision);
+        foreach ($datos_revision['revision']['condicion'] as $key => $value) {
+            $this->db->where($key, $value);
+        }
+        $this->db->update('foro.revision', $datos_revision['revision']['datos']);
+        if ($this->db->trans_status() === FALSE) {
+            $this->db->trans_rollback();
+            $resultado[En_tpmsg::__default] = En_tpmsg::DANGER;
+            $resultado['message'] = 'No fue posible actualizar la información';
+//            $resultado['msg'] = $language_text['registro_usuario']['user_registro_problem'];
+        } else {
+            $status = TRUE;
+            /* Guarda el detalle de la revision */
+            foreach ($datos_revision['detalle_revision'] as $val) {
+                $this->db->insert('foro.detalle_revision', $val);
+                if ($this->db->trans_status() === FALSE) {
+                    $status = FALSE;
+                    break;
+                }
+            }
+            if ($status === FALSE) {
+                $this->db->trans_rollback();
+                $resultado[En_tpmsg::__default] = En_tpmsg::DANGER;
+                $resultado['message'] = 'No fue posible actualizar la información';
+            } else {
+                $result = $this->actualizar_estado_evaluacion($datos_revision['folio']);
+                if ($result) {
+                    $this->db->trans_commit();
+                    $resultado[En_tpmsg::__default] = En_tpmsg::SUCCESS;
+                    $resultado['message'] = 'La información se actualizo correctamente.';
+                } else {
+                    $resultado[En_tpmsg::__default] = En_tpmsg::DANGER;
+                    $resultado['message'] = 'No fue posible actualizar la información';
+                }
             }
         }
+
+//        pr($this->db->reset_query());
         return $resultado;
+    }
+
+    /**
+     * 
+     * @param type $folio
+     * @param type $language_text
+     * @return type
+     */
+    public function actualizar_estado_evaluacion($folio, $language_text = null) {
+        $actualizacion_estado = [En_estado_revision::EVALUADO => 1, En_estado_revision::DISCREPANCIA => 1, En_estado_revision::CONFLICTO_INTERES => 1, En_estado_revision::RECHAZADO => 1,];
+        $result = true;
+        $result_estado = $this->obtener_estado_general_revision($folio);
+//        pr($result_estado);
+//        $this->db->trans_begin();
+        if (isset($actualizacion_estado[$result_estado['estado_trancicion']])) {//Estados que pasan validación
+//        pr($folio);
+//        pr($result_estado);
+            $result = $this->guardar_historico_estado($folio, $result_estado['estado_trancicion']);
+            if ($result && $result_estado['estado_trancicion'] == En_estado_revision::EVALUADO) {//Evaluación, agerega promedio
+                $result = $this->genera_dictamen($folio, $result_estado['promedio_general']);
+            }
+//            if ($result) {
+//                $this->db->trans_commit();
+//            } else {
+//                $this->db->trans_rollback();
+//            }
+        }
+
+        return $result;
     }
 
     /**
@@ -237,8 +331,9 @@ class Evaluacion_revision_model extends MY_Model {
      * @param type $diferencia_conf
      * @return si es evaluacion o discrepancia según la comparación entre los revisores 1 y dos
      */
-    private function obtener_estado_general_revision($folio) {
+    public function obtener_estado_general_revision($folio) {
         $general_revisiones = $this->get_general_revision($folio);
+//        pr($general_revisiones);
         $total_revisores = count($general_revisiones);
         switch ($total_revisores) {
             case 1:
@@ -251,15 +346,16 @@ class Evaluacion_revision_model extends MY_Model {
                 $result = $this->tres_revisores($general_revisiones);
                 break;
         }
-        pr($general_revisiones);
-        pr($result);
+//        pr($general_revisiones);
+//        pr($result);
         return $result;
     }
 
     private function un_revisor($revisiones) {
         $result = ['estado_trancicion' => En_estado_revision::__default];
         $revisiones = $revisiones[0];
-        if ($revisiones['revisado']) {
+//        pr($revisiones);
+        if ($revisiones['revisado'] == 1) {
             if ($revisiones['conflicto_interes'] == true) {
                 $result["estado_trancicion"] = En_estado_revision::CONFLICTO_INTERES;
             }
@@ -370,7 +466,7 @@ class Evaluacion_revision_model extends MY_Model {
                 }
             }
         }
-        pr($estado);
+//        pr($estado);
         return $estado;
     }
 

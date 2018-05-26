@@ -36,8 +36,9 @@ class Evaluacion extends General_revision {
                 $acceso_revisar_investigacion = $this->valida_acceso_revisar_investigacion($folio, $id_usuario);
                 if ($acceso_revisar_investigacion) {
                     $output['datos'] = $output['datos'][0]; //Accede a la información de los datos de la investigación
+//                    pr($output['datos']);
                     $output['trabajo_investigacion'] = $this->get_detalle_investigacion(null, $output['datos']); //Cargara la vista de trabajo de investigación
-                    $output['evaluacion'] = $this->get_vista_evaluacion();
+                    $output['evaluacion'] = $this->get_vista_evaluacion(null, $output['datos']['id_tipo_metodologia']);
                     $main = $this->load->view('revision_trabajo_investigacion/evaluacion_trabajo_investigacion.php', $output, true);
                 } else {
                     $main = $this->load->view('revision_trabajo_investigacion/no_trabajo_valido.php', null, true);
@@ -76,25 +77,34 @@ class Evaluacion extends General_revision {
         return FALSE;
     }
 
-    private function get_vista_evaluacion($secciones = null) {
+    private function get_vista_evaluacion($secciones = null, $tipo_metodologia = 1) {
         $output['language_text'] = $this->language_text;
+        $param = array(
+            "where" => ['id_tipo_metodologia' => null],
+            "or_where_in" => ['id_tipo_metodologia' => $tipo_metodologia]
+        );
 //                pr($this->language_text);
         if (is_null($secciones)) {
-            $output['secciones'] = $this->evaluacion->get_secciones(null, $this->obtener_idioma());
+            $output['secciones'] = $this->evaluacion->get_secciones($param, $this->obtener_idioma());
         } else {
             $output['secciones'] = $secciones;
         }
-        $output['opciones_secciones'] = $this->evaluacion->get_secciones_detalle(null, $this->obtener_idioma());
+        $output['opciones_secciones'] = $this->evaluacion->get_secciones_detalle($param, $this->obtener_idioma());
 //                pr($output['opciones_secciones']);
 //                pr($output['detalle']);
         return $this->load->view('revision_trabajo_investigacion/evaluacion.php', $output, true);
     }
 
     public function pruebas($folio) {
-        $this->evaluacion->guardar_evaluacion($folio);
+        $this->evaluacion->actualizar_estado_evaluacion($folio);
     }
+
     public function guardar_evaluacion() {
-        $secciones = $this->evaluacion->get_secciones(null, $this->obtener_idioma());
+        $param = array(
+            "where" => ['id_tipo_metodologia' => null],
+            "or_where_in" => ['id_tipo_metodologia' => $this->input->post("tipo_metodologia",null)]
+        );
+        $secciones = $this->evaluacion->get_secciones($param, $this->obtener_idioma());
 //        pr($this->input->post());
         if ($this->input->post()) {//valida post
             $data = $this->input->post(null, true);
@@ -111,7 +121,7 @@ class Evaluacion extends General_revision {
             }
         }
         $output['data'] = $data;
-        $html = $this->get_vista_evaluacion($secciones);
+        $html = $this->get_vista_evaluacion($secciones, $this->input->post("tipo_metodologia",null));
         $output['html'] = $html;
 
         echo json_encode($output);
@@ -181,6 +191,7 @@ class Evaluacion extends General_revision {
         $prom = $suma_calificacion / $total_secciones;
         $educativo = (!is_null($this->input->post('educativo', true)));
         $conflicto = (is_null($this->input->post('conflicto', true)));
+        $datos['folio'] = $folio;
         $datos['revision'] = [
             'datos' => array(
                 'promedio_revision' => $prom,
@@ -197,7 +208,6 @@ class Evaluacion extends General_revision {
                 "id_revision" => $detalle_revision[0]['id_revision'],
             )
         ];
-
         return $this->evaluacion->guardar_evaluacion($datos);
     }
 

@@ -51,7 +51,7 @@
                           </td>
                           <td><?php echo $row['fecha_limite_revision'];?> </td>
                           <td>
-                            <a href="" type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button">Evaluar</a>
+                            <a href="<?php echo site_url().'/evaluacion/nueva_evaluacion_revision/'.$row['folio']; ?>" type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button">Evaluar</a>
                           </td>
                         </tr>
 
