@@ -36,7 +36,7 @@ class Evaluacion extends General_revision {
             $output['datos'] = $this->trabajo->trabajo_investigacion_folio($folio, null);
             if (!empty($output['datos'])) {
                 $acceso_revisar_investigacion = $this->valida_acceso_revisar_investigacion($folio, $id_usuario);
-                if ($acceso_revisar_investigacion) {
+                if (!$acceso_revisar_investigacion) {
                     $output['datos'] = $output['datos'][0]; //Accede a la información de los datos de la investigación
 //                    pr($output['datos']);
                     $output['trabajo_investigacion'] = $this->get_detalle_investigacion(null, $output['datos']); //Cargara la vista de trabajo de investigación

@@ -32,6 +32,7 @@ class Evaluacion_revision_model extends MY_Model {
                 }
             }
         }
+        $result = $this->db->order_by('id_seccion');
         $result = $this->db->get('foro.seccion')->result_array();
         $lang = [];
         foreach ($result as &$value) {
@@ -307,7 +308,7 @@ class Evaluacion_revision_model extends MY_Model {
         $result = true;
         $result_estado = $this->obtener_estado_general_revision($folio);
 //        pr($result_estado);
-//        $this->db->trans_begin();
+        $this->db->trans_begin();
         if (isset($actualizacion_estado[$result_estado['estado_trancicion']])) {//Estados que pasan validación
 //        pr($folio);
 //        pr($result_estado);
@@ -318,7 +319,7 @@ class Evaluacion_revision_model extends MY_Model {
 //            if ($result) {
 //                $this->db->trans_commit();
 //            } else {
-//            $this->db->trans_rollback();
+            $this->db->trans_rollback();
 //            }
         }
 
@@ -410,6 +411,7 @@ class Evaluacion_revision_model extends MY_Model {
     }
 
     private function tres_revisores($revisiones) {
+//        pr($revisiones);
         $result = [];
         $validaciones = ['revisado' => 1, 'conflicto_interes' => 0, 'total_no_tema_educacion' => 0,
             'tema_educacion' => 1, 'dentro_fecha_limite' => 1, 'revisiones_ids' => [], 'suma_promedio' => 0];
