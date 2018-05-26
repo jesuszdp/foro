@@ -119,6 +119,8 @@ class Inicio extends MY_Controller {
             ////Redirección de revisor
         } else if (isset($foro_educacion['usuario']['niveles_acceso']['0']['clave_rol']) && $foro_educacion['usuario']['niveles_acceso']['0']['clave_rol'] == LNiveles_acceso::Mesa && count($foro_educacion['usuario']['niveles_acceso']) == 1) {
             redirect(site_url('/registro_investigacion/index'));
+        } else if (isset($foro_educacion['usuario']['niveles_acceso']['0']['clave_rol']) && $foro_educacion['usuario']['niveles_acceso']['0']['clave_rol'] == LNiveles_acceso::Revisor && count($foro_educacion['usuario']['niveles_acceso']) == 1) {
+            redirect(site_url('/revision/trabajos_investigacion_evaluacion'));
         } else {
             redirect(site_url('inicio/inicio')); //Redirección de moderador
         }
