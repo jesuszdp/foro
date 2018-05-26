@@ -33,7 +33,10 @@
                       <?php
                           foreach ($row['revisores'] as $revisor) {
                       ?>
-                              <td><?php echo (isset($revisor)) ? $revisor : '';?></td>
+                              <td><?php echo (isset($revisor['revisor'])) ? $revisor['revisor'] : '';?><br>
+                                <?php echo (isset($revisor['clave_estado'])) ? $revisor['clave_estado'] : '';?><br>
+                                <?php echo (isset($revisor['fecha_limite_revision'])) ? $revisor['fecha_limite_revision'] : '';?>
+                              </td>
                       <?php
                           }
                           if(count($row['revisores']) < 3){

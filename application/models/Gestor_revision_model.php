@@ -117,7 +117,7 @@ class Gestor_revision_model extends MY_Model {
           $estado = array('success'=>false, 'msg'=>'Algo salio mal', 'result'=>[]);
           $this->db->flush_cache();
           $this->db->reset_query();
-          $this->db->select(array('hr.folio folio','ti.titulo titulo','ma.lang metodologia',
+          $this->db->select(array('hr.folio folio','ti.titulo titulo','ma.lang metodologia','rn.id_usuario',
           "(SELECT concat(nombre,' ',apellido_paterno,' ',apellido_materno) FROM sistema.informacion_usuario WHERE id_usuario=rn.id_usuario) revisor",'hr.clave_estado',
           "CAST(rn.fecha_asignacion AS DATE) + CAST('3 days' AS INTERVAL) fecha_limite_revision"));
           $this->db->join('foro.trabajo_investigacion ti', 'hr.folio = ti.folio','left');
@@ -125,7 +125,7 @@ class Gestor_revision_model extends MY_Model {
           $this->db->join('foro.revision rn', 'hr.folio = rn.folio','left');
           $this->db->where_in('hr.clave_estado', array('fuera_tiempo','discrepancia','conflicto_interes','asignado'));
           $this->db->where('actual',true);
-          $result = $this->db->get('foro.historico_revision hr');
+          $result = $this->db->get('foro.historico_revision hr'); //pr($this->db->last_query());
           $salida = $result->result_array();
           $result->free_result();
           $this->db->flush_cache();

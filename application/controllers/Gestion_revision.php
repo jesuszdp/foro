@@ -108,8 +108,10 @@ class Gestion_revision extends General_revision {
       $result = array('success'=>$respuesta_model['success'],'msg'=>$respuesta_model['msg'],'result'=>[]);
       foreach ($respuesta_model['result'] as $row) {
         $result['result'][$row['folio']]['folio'] = $row['folio'];
-        $result['result'][$row['folio']]['revisores'][] = $row['revisor'];
         $result['result'][$row['folio']]['titulo'] = $row['titulo'];
+        $result['result'][$row['folio']]['revisores'][$row['id_usuario']]['revisor'] = $row['revisor'];
+        $result['result'][$row['folio']]['revisores'][$row['id_usuario']]['clave_estado'] = $row['clave_estado'];
+        $result['result'][$row['folio']]['revisores'][$row['id_usuario']]['fecha_limite_revision'] = $row['fecha_limite_revision'];
         $metodologia = json_decode($row['metodologia'],true);
         $result['result'][$row['folio']]['metodologia'] = $metodologia[$lenguaje];
       }
