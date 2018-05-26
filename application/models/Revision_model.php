@@ -39,7 +39,7 @@ class Revision_model extends MY_Model {
          $this->db->from("foro.historico_revision hr");
          $this->db->join("foro.trabajo_investigacion ti", "hr.folio=ti.folio", 'left');
          $this->db->join("foro.tipo_metodologia ma", "ti.id_tipo_metodologia=ma.id_tipo_metodologia", 'left');
-         $this->db->where("clave_estado", "asignado");
+         //$this->db->where("clave_estado", "asignado");
          $this->db->where("actual", TRUE);
          $this->db->where("hr.folio in (SELECT r.folio FROM foro.revision r WHERE hr.folio=r.folio AND r.id_usuario=".$this->session->userdata('die_sipimss')['usuario']['id_usuario']." and r.revisado=false)");
          $result = $this->db->get(); //pr($this->db->last_query());

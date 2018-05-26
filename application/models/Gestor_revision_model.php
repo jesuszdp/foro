@@ -537,7 +537,7 @@ class Gestor_revision_model extends MY_Model {
             $this->db->reset_query();
             $this->db->select(array("iu.id_usuario",
                 "iu.nombre", "iu.apellido_paterno", "iu.apellido_materno", "iu.institucion",
-                //"(SELECT COUNT(rn.id_usuario) FROM foro.revision rn WHERE rn.id_usuario=iu.id_usuario) AS revisiones_realizadas"
+                "(SELECT COUNT(rn.id_usuario) FROM foro.revision rn WHERE rn.id_usuario=iu.id_usuario AND rn.revisado = false) AS revisiones_pendientes",
                 "count(distinct rn.folio) AS revisiones_realizadas"
             ));
             $this->db->from("sistema.usuario_rol ul");

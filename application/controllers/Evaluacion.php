@@ -28,6 +28,8 @@ class Evaluacion extends General_revision {
     public function nueva_evaluacion_revision($folio = null) {
         $id_usuario = $this->get_datos_sesion(En_datos_sesion::ID_USUARIO);
 //        pr($this->get_datos_sesion(En_datos_sesion::ID_USUARIO));
+
+        $output['language_text'] = $this->language_text;
         $this->obtener_idioma();
         if (!is_null($folio)) {
             $this->load->model('Trabajo_model', 'trabajo');
@@ -41,15 +43,15 @@ class Evaluacion extends General_revision {
                     $output['evaluacion'] = $this->get_vista_evaluacion(null, $output['datos']['id_tipo_metodologia']);
                     $main = $this->load->view('revision_trabajo_investigacion/evaluacion_trabajo_investigacion.php', $output, true);
                 } else {
-                    $main = $this->load->view('revision_trabajo_investigacion/no_trabajo_valido.php', null, true);
+                    $main = $this->load->view('revision_trabajo_investigacion/no_trabajo_valido.php', $output, true);
                 }
             } else {//No existe el trabajo de investigación con dicho folio
-                $main = $this->load->view('revision_trabajo_investigacion/no_trabajo_valido.php', null, true);
+                $main = $this->load->view('revision_trabajo_investigacion/no_trabajo_valido.php', $output, true);
 //                pr("Hola");
             }
 //        echo $main;
         } else {
-            $main = $this->load->view('revision_trabajo_investigacion/no_trabajo_valido.php', null, true);
+            $main = $this->load->view('revision_trabajo_investigacion/no_trabajo_valido.php', $output, true);
         }
         $this->template->setMainContent($main);
         $this->template->getTemplate();
@@ -102,7 +104,7 @@ class Evaluacion extends General_revision {
     public function guardar_evaluacion() {
         $param = array(
             "where" => ['id_tipo_metodologia' => null],
-            "or_where_in" => ['id_tipo_metodologia' => $this->input->post("tipo_metodologia",null)]
+            "or_where_in" => ['id_tipo_metodologia' => $this->input->post("tipo_metodologia", null)]
         );
         $secciones = $this->evaluacion->get_secciones($param, $this->obtener_idioma());
 //        pr($this->input->post());
@@ -121,7 +123,7 @@ class Evaluacion extends General_revision {
             }
         }
         $output['data'] = $data;
-        $html = $this->get_vista_evaluacion($secciones, $this->input->post("tipo_metodologia",null));
+        $html = $this->get_vista_evaluacion($secciones, $this->input->post("tipo_metodologia", null));
         $output['html'] = $html;
 
         echo json_encode($output);
@@ -208,7 +210,7 @@ class Evaluacion extends General_revision {
                 "id_revision" => $detalle_revision[0]['id_revision'],
             )
         ];
-        return $this->evaluacion->guardar_evaluacion($datos);
+        return $this->evaluacion->guardar_evaluacion($datos, $this->language_text);
     }
 
     private function guarda_conflicto_tema_educativo() {
@@ -222,7 +224,7 @@ class Evaluacion extends General_revision {
             "conflicto_interes" => $conflicto,
             "revisado" => true
         ];
-        return $this->evaluacion->update_conflicto_sn_tema_educacion($folio, $id_user, $datos);
+        return $this->evaluacion->update_conflicto_sn_tema_educacion($folio, $id_user, $datos, $this->language_text);
     }
 
 }
