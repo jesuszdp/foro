@@ -123,7 +123,7 @@ class Gestor_revision_model extends MY_Model {
           $this->db->join('foro.trabajo_investigacion ti', 'hr.folio = ti.folio','left');
           $this->db->join('foro.tipo_metodologia ma', 'ti.id_tipo_metodologia = ma.id_tipo_metodologia','left');
           $this->db->join('foro.revision rn', 'hr.folio = rn.folio','left');
-          $this->db->where('hr.clave_estado','asignado');
+          $this->db->where_in('hr.clave_estado', array('fuera_tiempo','discrepancia','conflicto_interes','asignado'));
           $this->db->where('actual',true);
           $result = $this->db->get('foro.historico_revision hr');
           $salida = $result->result_array();
