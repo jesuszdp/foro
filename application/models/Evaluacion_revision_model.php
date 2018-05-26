@@ -257,7 +257,9 @@ class Evaluacion_revision_model extends MY_Model {
         foreach ($datos_revision['revision']['condicion'] as $key => $value) {
             $this->db->where($key, $value);
         }
-        $this->db->update('foro.revision', $datos_revision['revision']['datos']);
+
+        $this->db->set($datos_revision['revision']['datos'], FALSE);
+        $this->db->update('foro.revision');
         if ($this->db->trans_status() === FALSE) {
             $this->db->trans_rollback();
             $resultado[En_tpmsg::__default] = En_tpmsg::DANGER;
@@ -305,7 +307,7 @@ class Evaluacion_revision_model extends MY_Model {
         $result = true;
         $result_estado = $this->obtener_estado_general_revision($folio);
 //        pr($result_estado);
-//        $this->db->trans_begin();
+        $this->db->trans_begin();
         if (isset($actualizacion_estado[$result_estado['estado_trancicion']])) {//Estados que pasan validación
 //        pr($folio);
 //        pr($result_estado);
@@ -316,7 +318,7 @@ class Evaluacion_revision_model extends MY_Model {
 //            if ($result) {
 //                $this->db->trans_commit();
 //            } else {
-//                $this->db->trans_rollback();
+            $this->db->trans_rollback();
 //            }
         }
 
@@ -369,7 +371,7 @@ class Evaluacion_revision_model extends MY_Model {
             'tema_educacion' => 1, 'dentro_fecha_limite' => 1, 'revisiones_ids' => [], 'suma_promedio' => 0];
         foreach ($revisiones as $value) {
             if (is_numeric($value['promedio_revision'])) {
-                $validaciones['suma_promedio'] = floatval($value['promedio_revision']);
+                $validaciones['suma_promedio'] += floatval($value['promedio_revision']);
             }
             if ($value['revisado'] == 0) {
                 $validaciones['revisado'] = 0;
