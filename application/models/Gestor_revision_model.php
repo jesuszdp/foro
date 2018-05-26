@@ -79,8 +79,9 @@ class Gestor_revision_model extends MY_Model {
           $estado = array('success'=>false, 'msg'=>'Algo salio mal', 'result'=>[]);
           $this->db->flush_cache();
           $this->db->reset_query();
-          $this->db->select(array('hr.folio folio','ti.titulo titulo','ma.lang metodologia',
-          '(SELECT username FROM sistema.usuarios WHERE id_usuario=rn.id_usuario) revisor',
+          $this->db->select(array('hr.folio folio','ti.titulo titulo', 'ma.lang metodologia', 'rn.revisado','rn.id_usuario',
+          "(SELECT concat(nombre,' ',apellido_paterno,' ',apellido_materno) FROM sistema.informacion_usuario WHERE id_usuario=rn.id_usuario) revisor",'hr.clave_estado',
+          "CAST(rn.fecha_asignacion AS DATE) + CAST('3 days' AS INTERVAL) fecha_limite_revision",
           '(SELECT count(folio) FROM foro.historico_revision WHERE folio=hr.folio) numero_revisiones'));
           $this->db->join('foro.trabajo_investigacion ti', 'hr.folio = ti.folio','left');
           $this->db->join('foro.tipo_metodologia ma', 'ti.id_tipo_metodologia = ma.id_tipo_metodologia','left');
@@ -117,7 +118,7 @@ class Gestor_revision_model extends MY_Model {
           $estado = array('success'=>false, 'msg'=>'Algo salio mal', 'result'=>[]);
           $this->db->flush_cache();
           $this->db->reset_query();
-          $this->db->select(array('hr.folio folio','ti.titulo titulo','ma.lang metodologia','rn.id_usuario',
+          $this->db->select(array('hr.folio folio','ti.titulo titulo','ma.lang metodologia','rn.id_usuario', 'rn.revisado',
           "(SELECT concat(nombre,' ',apellido_paterno,' ',apellido_materno) FROM sistema.informacion_usuario WHERE id_usuario=rn.id_usuario) revisor",'hr.clave_estado',
           "CAST(rn.fecha_asignacion AS DATE) + CAST('3 days' AS INTERVAL) fecha_limite_revision"));
           $this->db->join('foro.trabajo_investigacion ti', 'hr.folio = ti.folio','left');
