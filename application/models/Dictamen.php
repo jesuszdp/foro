@@ -43,4 +43,26 @@ class Dictamen_model extends MY_Model {
         return $resut;
     }
 
+    /**
+    * Devuelve el cupo maximo
+    * 
+    */
+    public function obtener_cupo()
+    {
+      try{
+        $this->db->flush_cache();
+        $this->db->reset_query();
+
+        $this->db->where(array('llave'=>'cupo'));
+        $res = $this->db->get('foro.configuracion');
+
+        $this->db->flush_cache();
+        $this->db->reset_query();    
+
+        return $res->result_array();
+      }catch(Exception $ex){
+        return [];
+      }
+    }
+
 }
