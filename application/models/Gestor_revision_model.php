@@ -191,48 +191,6 @@ class Gestor_revision_model extends MY_Model {
     }
 
     /**
-    * Devuelve la informacion de los trabajos que han sido evaluados
-    * @author clapas
-    * @date 25/05/2018
-    * @return array
-    */
-    public function get_trabajos_evaluados($param = [])
-    {
-      try{
-        $this->db->flush_cache();
-        $this->db->reset_query();
-
-        $this->db->select(array('hr.folio','ti.titulo','tm.lang metodologia','d.promedio', 'd.sugerencia', 'd.orden'));
-
-        $this->db->join('foro.trabajo_investigacion ti','hr.folio = ti.folio','inner');
-        $this->db->join('foro.tipo_metodologia tm','ti.id_tipo_metodologia = tm.id_tipo_metodologia','inner');
-        $this->db->join('foro.dictamen d','hr.folio = d.folio','inner');
-        $this->db->join('foro.convocatoria c','ti.id_convocatoria = c.id_convocatoria','inner');
-
-        $this->db->where(array('c.activo'=>true));
-        
-        if(isset($param['where']))
-        {
-          $this->db->where($param['where']);
-        }
-
-        if(isset($param['order_by']))
-        {
-          $this->db->order_by($param['order_by'],'desc');
-        }
-
-        $res = $this->db->get('foro.historico_revision hr');
-        $this->db->flush_cache();
-        $this->db->reset_query();    
-
-        return $res->result_array();
-
-      }catch(Exception $ex){
-        return [];
-      }
-    }
-
-    /**
      * Devuelve la información de los registros de la tabla catalogos
      * @author AlesSpock
      * @date 22/05/2018
