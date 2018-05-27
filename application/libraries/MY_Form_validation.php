@@ -383,6 +383,8 @@ class MY_Form_validation extends CI_Form_validation {
 
     public function is_valido_rango_calificacion($str, $field) {
         $opcion = $_POST['seleccion_opcion_evaluacion_' . $field];
+        if (trim($opcion) == "")
+            return false;
         $this->CI = & get_instance();
         $this->CI->load->model('Evaluacion_revision_model', 'eval');
         $result = $this->CI->eval->is_valido_rango_calificacion($opcion, $str);

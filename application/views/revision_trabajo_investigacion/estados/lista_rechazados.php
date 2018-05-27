@@ -29,7 +29,7 @@ if(!empty($data_rechazados))
                       <td><?php echo $row['titulo'];?></td>
                       <td><?php echo $row['metodologia']; ?></td>
                       <td>
-                          <a href="" type="button" data-animation="flipInY" data-animation-delay="100" >Ver trabajo <span class="glyphicon glyphicon-new-window"></a>
+                          <a href="<?php echo site_url().'/registro_investigacion/ver/'.$row['folio']; ?>" type="button" data-animation="flipInY" data-animation-delay="100" >Ver trabajo <span class="glyphicon glyphicon-new-window"></a>
                       </td>
                   </tr>
                   <?php

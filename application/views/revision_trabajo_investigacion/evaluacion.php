@@ -1,3 +1,8 @@
+<!--<h4 class="textRubro">-->
+    <?php echo $language_text['evaluacion']['info_conflicto_tema_edu']; ?>
+<!--</h4>-->
+<br>
+<br>
 <?php
 //pr($language_text);
 echo $this->form_complete->create_element(

@@ -43,7 +43,7 @@ class General_revision extends MY_Controller {
         $output = [];
         $lang = $this->obtener_idioma();
         if (is_null($datos_trabajo)) {
-            $datos_trabajo = $this->trabajo->trabajo_investigacion_folio($folio, null);
+            $datos_trabajo = $this->trabajo->trabajo_investigacion_folio($folio, null)[0];
         }
         $output['lang'] = $lang;
         $output['datos'] = $datos_trabajo;

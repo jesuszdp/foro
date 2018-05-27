@@ -33,7 +33,6 @@
 
     <!-- Content area -->
     <div class="content-area">
-        <?php ?>
         <div id="main">
           <div class="container">
               <h1 class="section-title">
@@ -50,134 +49,7 @@
                 <img src="<?php echo asset_url(); ?>img/arrowdown.png" alt="">
               </div>
               <div id="hideTrabajo" class="panel panel-default" style="display:none;">
-                  <h1 class="page-head-line"></h1>
-                  <div class="panel-body">
-                      <div class="row">
-                          <div class="col-sm-12">
-                              <h2 class="titulo">Trabajo de investigación</h2>
-                          </div>
-                      </div><!--row-->
-                      <div class="row">
-                          <div class="col-sm-4">
-                              <div class="div-borde">
-                                  <strong>Folio:</strong>
-                                  <br>
-                                  IMSS-CES-FNFIES-P-18-0030                </div>
-                          </div>
-                          <div class="col-sm-8">
-                              <div class="div-borde">
-                                  <strong>Título:</strong>
-                                  <br>
-                                  Mi título de prueba                </div>
-                          </div>
-                      </div> <!--row-->
-                      <div class="row">
-                          <div class="col-sm-12">
-                              <div class="div-borde">
-                                  <strong>Ver archivo:</strong>
-                                  <a href="http://localhost/foro/index.php/registro_investigacion/ver_archivo/MTg" target="_blank"><span class="fa fa-search"></span> IMSS-CES-FNFIES-P-18-0030.pdf</a><br>                                    </div>
-                          </div>
-                      </div>
-                                  <div class="row">
-                          <div class="col-sm-12">
-                              <h2 class="titulo">Problema</h2>
-                          </div>
-                      </div><!--row-->
-                      <div class="row">
-                          <div class="col-sm-12">
-                              <div class="div-borde">
-                                  <strong>Pregunta de investigación:</strong>
-                                  <br>
-                                  Pregunta de investigación                </div>
-                          </div>
-                      </div><!--row-->
-                      <div class="row">
-                          <div class="col-sm-12">
-                              <div class="div-borde">
-                                  <strong>Planteamiento del problema:</strong>
-                                  <br>
-                                  Planteamiento del problema                </div>
-                          </div>
-                      </div><!--row-->
-                      <div class="row">
-                          <div class="col-sm-12">
-                              <div class="div-borde">
-                                  <strong>Objetivo:</strong>
-                                  <br>
-                                  Objetivo                </div>
-                          </div>
-                      </div><!--row-->
-                      <div class="row">
-                          <div class="col-sm-12">
-                              <div class="div-borde">
-                                  <strong>Justificación:</strong>
-                                  <br>
-                                  Justificación                </div>
-                          </div>
-                      </div><!--row-->
-                      <div class="row">
-                          <div class="col-sm-12">
-                              <h2 class="titulo">Marco teórico</h2>
-                          </div>
-                      </div><!--row-->
-                      <div class="row">
-                          <div class="col-sm-12">
-                              <div class="div-borde">
-                                  <strong>Antecedentes:</strong>
-                                  <br>
-                                  Antecedentes                </div>
-                          </div>
-                      </div><!--row-->
-                      <div class="row">
-                          <div class="col-sm-12">
-                              <div class="div-borde">
-                                  <strong>Tipo de metodología:</strong>
-                                  <br>
-                                  Cuantitativo                </div>
-                          </div>
-                      </div><!--row-->
-                      <div class="row">
-                          <div class="col-sm-12">
-                              <div class="div-borde">
-                                  <strong>Metodología:</strong>
-                                  <br>
-                                  Metodología                </div>
-                          </div>
-                      </div><!--row-->
-                      <div class="row">
-                          <div class="col-sm-12">
-                              <div class="div-borde">
-                                  <strong>Consideraciones éticas:</strong>
-                                  <br>
-                                  Consideraciones éticas                </div>
-                          </div>
-                      </div><!--row-->
-                      <div class="row">
-                          <div class="col-sm-12">
-                              <div class="div-borde">
-                                  <strong>Hipótesis y/o supuestos teóricos:</strong>
-                                  <br>
-                                  Hipótesis y/o supuestos teóricos                </div>
-                          </div>
-                      </div><!--row-->
-                      <div class="row">
-                          <div class="col-sm-12">
-                              <div class="div-borde">
-                                  <strong>Resultados:</strong>
-                                  <br>
-                                  Resultados                </div>
-                          </div>
-                      </div><!--row-->
-                      <div class="row">
-                          <div class="col-sm-12">
-                              <div class="div-borde">
-                                  <strong>Conclusiones:</strong>
-                                  <br>
-                                  Conclusiones                </div>
-                          </div>
-                      </div><!--row-->
-                      <!--row-->
-                  </div>
+                  <?php echo $trabajo_investigacion; ?>
               </div>
               <div class="sectionEvaluacion" id="secResTrabajoInv">
                 <h3>
@@ -195,12 +67,23 @@
                           {
                               if($promedioFinal['success'])
                               {
-                                    //pr($promedioFinal['result'][0]);
+                                    if(count($promedioFinal['result']) > 0)
+                                    {
                       ?>
-                                    <p style="color:whitesmoke;"><?php echo $promedioFinal['result'][0]['titulo']; ?></p>
-                                    <p style="color:whitesmoke;">Promedio final: <small><?php echo $promedioFinal['result'][0]['avg']; ?></small> </p>
-                                    <p style="color:whitesmoke;">Resolución: <small><?php echo $promedioFinal['result'][0]['clave_estado']; ?></small> </p>
-                                    <p style="color:whitesmoke;">Presentación: <small><?php echo $promedioFinal['result'][0]['tipo_exposicion']; ?></small> </p>
+                                        <p style="color:whitesmoke;"><?php echo $promedioFinal['result'][0]['titulo']; ?></p>
+                                        <p style="color:whitesmoke;">Promedio final: <small><?php echo $promedioFinal['result'][0]['avg']; ?></small> </p>
+                                        <p style="color:whitesmoke;">Resolución: <small><?php echo $promedioFinal['result'][0]['clave_estado']; ?></small> </p>
+                                        <p style="color:whitesmoke;">Presentación: <small><?php echo $promedioFinal['result'][0]['tipo_exposicion']; ?></small> </p>
+                      <?php
+                                    }
+                                    else
+                                    {
+                      ?>
+                                          <h2>No hay datos de este trabajo</h2>
+                      <?php
+                                    }
+                      ?>
+
                       <?php
                               }
                               else
@@ -228,20 +111,30 @@
                           {
                               if($revisores['success'])
                               {
-                                  foreach ($revisores['result'] as $row) {
+                                  if(count($revisores['result']) > 0)
+                                  {
+
+                                      foreach ($revisores['result'] as $row) {
                       ?>
-                                      <section class="row">
-                                        <div class="tarjeta">
-                                          <!-- <div class="circulos pull-left">
-                                              <img src="../public/img/imagen.jpg" alt="" class="media-object" />
-                                          </div> -->
-                                          <p class="nombreR">Nombre: <small> <?php echo $row['revisor']; ?> </small></p>
-                                          <p class="nombreR">Fecha de asignación: <small> <?php echo $row['fecha_asignacion']; ?> </small></p>
-                                          <p class="nombreR">Fecha de conclusión: <small> <?php echo $row['fecha_conclucion']; ?> </small></p>
-                                          <p class="nombreR">Promedio: <small> <?php echo $row['promedio_revision']; ?> </small></p>
-                                        </div>
-                                      </section>
-                                      <hr>
+                                          <section class="row">
+                                            <div class="tarjeta">
+                                              <!-- <div class="circulos pull-left">
+                                                  <img src="../public/img/imagen.jpg" alt="" class="media-object" />
+                                              </div> -->
+                                              <p class="nombreR">Nombre: <small> <?php echo $row['revisor']; ?> </small></p>
+                                              <p class="nombreR">Fecha de asignación: <small> <?php echo $row['fecha_asignacion']; ?> </small></p>
+                                              <p class="nombreR">Fecha de conclusión: <small> <?php echo $row['fecha_conclusion']; ?> </small></p>
+                                              <p class="nombreR">Promedio: <small> <?php echo $row['promedio_revision']; ?> </small></p>
+                                            </div>
+                                          </section>
+                                          <hr>
+                      <?php
+                                      }
+                                  }
+                                  else
+                                  {
+                      ?>
+                                        <h2>No hay datos de este trabajo</h2>
                       <?php
                                   }
                               }
@@ -266,48 +159,65 @@
                         {
                             if($tablaSeccion['success'])
                             {
+                                if(count($tablaSeccion['result']) > 0)
+                                {
                     ?>
-                                <div id="graficas">
-                                </div>
-                                <br>
-                                <table class="table" id="table">
-                                  <thead>
-                                    <tr>
-                                      <th scope="col">Secciones</th>
-                                      <th scope="col">Promedio</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody>
-                                    <?php
-                                        $lenguaje = obtener_lenguaje_actual();
-                                        foreach ($tablaSeccion['result'] as $row) {
-
-                                    ?>
+                                    <div id="graficas">
+                                    </div>
+                                    <br>
+                                    <table class="table" id="table">
+                                      <thead>
                                         <tr>
-                                          <td>
-                                              <?php
-                                                  $seccion = json_decode($row['descripcion'],true);
-                                                  echo $seccion[$lenguaje];
-                                              ?>
-                                          </td>
-                                          <td><?php echo $row['sum']; ?></td>
+                                          <th scope="col">Secciones</th>
+                                          <th scope="col">Promedio</th>
                                         </tr>
-                                    <?php
-                                        }
-                                    ?>
+                                      </thead>
+                                      <tbody>
+                                        <?php
+                                            $lenguaje = obtener_lenguaje_actual();
+                                            foreach ($tablaSeccion['result'] as $row) {
 
-                                  </tbody>
-                                </table>
+                                        ?>
+                                            <tr>
+                                              <td>
+                                                  <?php
+                                                      $seccion = json_decode($row['descripcion'],true);
+                                                      echo $seccion[$lenguaje];
+                                                  ?>
+                                              </td>
+                                              <td><?php echo $row['avg']; ?></td>
+                                            </tr>
+                                        <?php
+                                            }
+                                        ?>
+
+                                      </tbody>
+                                    </table>
+                    <?php
+
+                                }
+                                else
+                                {
+                    ?>
+                                      <h2>No hay datos de este trabajo</h2>
+                    <?php
+                                }
+                    ?>
+
                     <?php
                             }
                             else
                             {
-                                //poner error
+                    ?>
+                                  <h2>Algo salio mal</h2>
+                    <?php
                             }
                         }
                         else
                         {
-                          //poner error
+                    ?>
+                            <h2>Algo salio mal</h2>
+                    <?php
                         }
                     ?>
                   </section>
@@ -325,8 +235,10 @@
 <script type="text/javascript">
     jQuery(document).ready(function () {
         //theme.init();
-        chart("graficas", "table", null, null, ['#0095bc','#98c56e'],"column");
-        chart("progressBar", null, null, null, null,"bullet");
+        var promedio = "<?php echo $promedioFinal['result'][0]['avg']; ?>";
+        console.log(promedio);
+        chart("graficas", "table", null, null, ['#0095bc','#98c56e']);
+        progresBar("progressBar", null, "Valoración del trabajo", null, null,Math.round(promedio));
     });
 
     // jQuery(document).ready(function () { theme.onResize(); });

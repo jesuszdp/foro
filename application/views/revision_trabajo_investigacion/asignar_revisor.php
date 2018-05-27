@@ -15,6 +15,7 @@
         <tr>
           <th scope="col">Nombre</th>
           <th scope="col">Adscripción</th>
+          <th scope="col">Trabajos asignados</th>
           <th scope="col">Trabajos pendientes</th>
           <th scope="col">Seleccionar</th>
         </tr>
@@ -26,6 +27,7 @@
                 <th scope="row">'.$revisor['nombre'].' '.$revisor['apellido_paterno'].' '.$revisor['apellido_materno'].'</th>
                 <td>'.$revisor['institucion'].'</td>
                 <td>'.$revisor['revisiones_realizadas'].'</td>
+                <td>'.$revisor['revisiones_pendientes'].'</td>
                 <td>'.$this->form_complete->create_element(array('id'=>'check_'.$id_usuario, 'type'=>'checkbox', 'value'=>$id_usuario, 'attributes'=>array('class'=>'check_asignar_usuario', 'name'=>'usuarios[]'))).'</td>
             </tr>';
         }

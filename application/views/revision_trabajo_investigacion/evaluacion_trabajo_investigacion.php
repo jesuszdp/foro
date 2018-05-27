@@ -4,7 +4,8 @@
     <div class="container">
         <h1 class="section-title">
             <span data-animation="flipInY" data-animation-delay="300" class="icon-inner"><span class="fa-stack"><i class="fa rhex fa-stack-2x"></i><i class="fa fa-star fa-stack-1x"></i></span></span>
-            <span data-animation="fadeInRight" data-animation-delay="500" class="title-inner">Evalucación del trabajo de investigación</span>
+            <span data-animation="fadeInRight" data-animation-delay="500" class="title-inner"><?php echo $language_text['evaluacion']['eva_tra_investigacion'] ?></span>
+            
         </h1>
         <div>
             <!-- <div id="main"> -->
@@ -33,7 +34,7 @@
                         </div>
                         <div class="sectionEvaluacion" id="secTrabajoInv">
                             <h3>
-                               <?php echo $language_text['evaluacion']['lbl_tr_ev']?>
+                                <?php echo $language_text['evaluacion']['lbl_tr_ev'] ?>
                             </h3>
                             <img src="<?php echo asset_url(); ?>img/arrowdown.png" alt="">
                         </div>
@@ -42,7 +43,7 @@
                         </div>
                         <div class="sectionEvaluacion" id="secEvaluacion">
                             <h3>
-                                <?php echo $language_text['evaluacion']['lbl_eval']?>
+                                <?php echo $language_text['evaluacion']['lbl_eval'] ?>
                             </h3>
                             <img src="<?php echo asset_url(); ?>img/arrowdown.png" alt="">
                         </div>
@@ -50,6 +51,7 @@
                             <div class="panel-body">
                                 <?php echo form_open('' . $datos['folio'], array('id' => 'form_evaluacion')); ?>
                                 <input type="hidden" value="<?php echo $datos['folio']; ?>" name="folio">
+                                <input type="hidden" value="<?php echo $datos['id_tipo_metodologia']; ?>" name="tipo_metodologia">
                                 <div id="eval_principal">
                                     <?php echo $evaluacion; ?>
                                 </div>
@@ -63,55 +65,57 @@
                 </div>
             </section>
         </div>
+    </div>
+</div>
 
-        <?php echo css("revision/evaluacion_revisor.css"); ?>
-        <?php echo js("revision/funcionalidad_cascada.js"); ?>
-        <?php echo js("revision/revision_evaluacion.js"); ?>
-        <script type="text/javascript">
-            jQuery(document).ready(function () {
-                theme.init();
-                theme.initMainSlider();
-                theme.initCountDown();
-                theme.initPartnerSlider();
-                theme.initTestimonials();
-                theme.initGoogleMap();
-            });
-            jQuery(window).load(function () {
-                theme.initAnimation();
-            });
+<?php echo css("revision/evaluacion_revisor.css"); ?>
+<?php echo js("revision/funcionalidad_cascada.js"); ?>
+<?php echo js("revision/revision_evaluacion.js"); ?>
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        theme.init();
+        theme.initMainSlider();
+        theme.initCountDown();
+        theme.initPartnerSlider();
+        theme.initTestimonials();
+        theme.initGoogleMap();
+    });
+    jQuery(window).load(function () {
+        theme.initAnimation();
+    });
 
-            jQuery(window).load(function () {
-                jQuery('body').scrollspy({offset: 100, target: '.navigation'});
-            });
-            jQuery(window).load(function () {
-                jQuery('body').scrollspy('refresh');
-            });
-            jQuery(window).resize(function () {
-                jQuery('body').scrollspy('refresh');
-            });
+    jQuery(window).load(function () {
+        jQuery('body').scrollspy({offset: 100, target: '.navigation'});
+    });
+    jQuery(window).load(function () {
+        jQuery('body').scrollspy('refresh');
+    });
+    jQuery(window).resize(function () {
+        jQuery('body').scrollspy('refresh');
+    });
 
-            jQuery(document).ready(function () {
-                theme.onResize();
-            });
-            jQuery(window).load(function () {
-                theme.onResize();
-            });
-            jQuery(window).resize(function () {
-                theme.onResize();
-            });
+    jQuery(document).ready(function () {
+        theme.onResize();
+    });
+    jQuery(window).load(function () {
+        theme.onResize();
+    });
+    jQuery(window).resize(function () {
+        theme.onResize();
+    });
 
-            jQuery(window).load(function () {
-                if (location.hash != '') {
-                    var hash = '#' + window.location.hash.substr(1);
-                    if (hash.length) {
-                        jQuery('html,body').delay(0).animate({
-                            scrollTop: jQuery(hash).offset().top - 44 + 'px'
-                        }, {
-                            duration: 1200,
-                            easing: "easeInOutExpo"
-                        });
-                    }
-                }
-            });
+    jQuery(window).load(function () {
+        if (location.hash != '') {
+            var hash = '#' + window.location.hash.substr(1);
+            if (hash.length) {
+                jQuery('html,body').delay(0).animate({
+                    scrollTop: jQuery(hash).offset().top - 44 + 'px'
+                }, {
+                    duration: 1200,
+                    easing: "easeInOutExpo"
+                });
+            }
+        }
+    });
 
-        </script>
+</script>

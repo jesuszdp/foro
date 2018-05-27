@@ -806,7 +806,7 @@ $config["valida_evaluacion_revision"] = array(
     "tipo_exposicion_eval" => array(
         'field' => 'tipo_exposicion_eval',
         'label' => 'Tipo de exposicón',
-        'rules' => 'required|numeric'
+        'rules' => 'required'
     ),
     "observaciones_eval" => array(
         'field' => 'observaciones_eval',

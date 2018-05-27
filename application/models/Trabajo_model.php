@@ -180,7 +180,7 @@ class Trabajo_model extends CI_Model
 
         $this->db->flush_cache();
         $this->db->reset_query();    
-        pr($this->db->last_query());
+        //pr($this->db->last_query());
         return $res->result_array();
     }
 
@@ -189,7 +189,7 @@ class Trabajo_model extends CI_Model
         $this->db->flush_cache();
         $this->db->reset_query();
 
-        $this->db->select(array('ti.*',"m.lang tipo_metodologia", "f.id_archivo", "f.nombre_fisico"));
+        $this->db->select(array('ti.*',"m.lang tipo_metodologia", "f.id_archivo", "f.nombre_fisico", "m.id_tipo_metodologia"));
         $this->db->where(array('ti.folio'=>$folio));
         $this->db->join('foro.tipo_metodologia m','m.id_tipo_metodologia = ti.id_tipo_metodologia');
         //$this->db->join('foro.historico_revision hr','ti.folio = hr.folio','inner');

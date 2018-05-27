@@ -24,8 +24,8 @@ class Empleados_siap {
         $result = array('resp_info' => null, 'resultado' => 'false');
         $params = array("Delegacion" => "{$delegacion}", "Matricula" => "{$matricula}", "RFC" => '');
         try{
-            // $client = new SoapClient("http://172.26.18.156/ServiciosWeb/wsSIED.asmx?WSDL", ['trace' => 1, 'exceptions' => true]);
-            $client = new SoapClient("http://172.26.18.15/ServiciosWeb/wsSIED.asmx?WSDL", ['trace' => 1, 'exceptions' => true]);
+            $client = new SoapClient("http://172.26.18.156/ServiciosWeb/wsSIED.asmx?WSDL", ['trace' => 1, 'exceptions' => true]);
+            // $client = new SoapClient("http://172.26.18.15/ServiciosWeb/wsSIED.asmx?WSDL", ['trace' => 1, 'exceptions' => true]);
             $resultado_siap = $client->__soapCall("ConsultaSIED", array($params));
             $resultado = simplexml_load_string($resultado_siap->ConsultaSIEDResult->any); //obtenemos la consulta xml
             $res_json = json_encode($resultado); // la codificamos en json
