@@ -110,10 +110,6 @@ class General_revision extends MY_Controller {
             
             if($this->dictamen->actualizar_sugerencia($param))
             {
-              pr($candidatos_oratoria);
-              pr($param);
-              pr($folios_oratoria);
-
               // Asignamos los trabajos para cartel
               $candidatos_cartel = $this->dictamen->trabajos_candidatos($max_cartel,$max_oratoria);
               if(count($candidatos_cartel) > $max_oratoria)
@@ -133,9 +129,7 @@ class General_revision extends MY_Controller {
                 {
                   return false;
                 } // if cartel
-                pr($candidatos_cartel);
-                pr($param);
-                pr($folios_cartel);
+                
               }
               return true;
             } // if oratoria
