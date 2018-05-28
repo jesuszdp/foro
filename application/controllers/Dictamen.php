@@ -75,6 +75,7 @@ class Dictamen extends General_revision {
     	$resultado = [];
     	$param = null;
     	// Revisamos cual es el modo de asignacion activo
+    	$config_asignacion = $this->tipo_asignacion();
     	$manual = $config_asignacion['manual'];
     	$sistema = $config_asignacion['sistema'];
 
