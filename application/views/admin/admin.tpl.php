@@ -21,7 +21,7 @@ if (isset($output))
     <div class="panel panel-default">
         <h2 class="page-head-line "><?php echo (isset($title)) ? $title : "Agregar curso"; ?></h2>
 
-        <div class="table">
+        <div style="overflow:auto;" class="table">
             <!-- table-container-fluid panel -->
             <?php
             if (isset($output))
