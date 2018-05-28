@@ -8,7 +8,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * */
 class Idiomas extends MY_Controller {
 
-    function __construct() 
+    function __construct()
     {
         parent::__construct();
         $this->load->database();
@@ -52,7 +52,7 @@ class Idiomas extends MY_Controller {
         }
     }
 
-   public function elemento_link($value, $row) 
+   public function elemento_link($value, $row)
     {
        return site_url('idiomas/obtener_grupo_traduccion/'.$row->clave_grupo);
     }
@@ -62,7 +62,7 @@ class Idiomas extends MY_Controller {
      * @fecha 27/04/2018
      * @param  $cve_grupo_etiqueta, $tipo
      * @return Vista
-     * Controla Busqueda por Filtros 
+     * Controla Busqueda por Filtros
      */
     public function obtener_grupo_traduccion($clave_grupo)
     {
@@ -93,4 +93,4 @@ class Idiomas extends MY_Controller {
             show_error($e->getMessage() . ' --- ' . $e->getTraceAsString());
         }
       }
-    }
+}
