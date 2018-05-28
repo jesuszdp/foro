@@ -649,4 +649,263 @@ class Catalogo extends MY_Controller {
 //        }
     }
 
+    /**
+     * Función que hace la gestion de las categorias
+     * con grocery crud
+     * @author Cheko
+     * @date 28/05/2018
+     *
+     */
+     function gestion_categorias(){
+         $this->db->schema = 'catalogo';
+         $crud = $this->new_crud();
+         $crud->set_table('categorias');
+         $crud->set_subject('categorias');
+         $crud->set_primary_key('id_categoria');
+
+         //$crud->columns("nombre", "clave_categoria", "activa");
+
+         $crud->required_fields("nombre", "activa");
+
+         $data_view['output'] = $crud->render();
+         $data_view['title'] = "Categorias";
+
+         $vista = $this->load->view('admin/admin.tpl.php', $data_view, true);
+         $this->template->setMainContent($vista);
+         $this->template->getTemplate();
+     }
+
+     /**
+      * Función que hace la gestion de los departamentos
+      * con grocery crud
+      * @author Cheko
+      * @date 28/05/2018
+      *
+      */
+      function gestion_departamentos(){
+          $this->db->schema = 'catalogo';
+          $crud = $this->new_crud();
+          $crud->set_table('departamento');
+          $crud->set_subject('departamento');
+          $crud->set_primary_key('clave_departamental');
+
+          //$crud->columns("nombre", "clave_presupuestal", "activa");
+
+          $crud->required_fields("clave_departamental", "nombre",'clave_presupuestal','clave_unidad');
+
+          $data_view['output'] = $crud->render();
+          $data_view['title'] = "Departamentos";
+
+          $vista = $this->load->view('admin/admin.tpl.php', $data_view, true);
+          $this->template->setMainContent($vista);
+          $this->template->getTemplate();
+      }
+
+      /**
+       * Función que hace la gestion de unidades
+       * con grocery crud
+       * @author Cheko
+       * @date 28/05/2018
+       *
+       */
+       function gestion_unidades(){
+           $this->db->schema = 'catalogo';
+           $crud = $this->new_crud();
+           $crud->set_table('unidad');
+           $crud->set_subject('unidad');
+           $crud->set_primary_key('clave_unidad');
+
+           //$crud->columns("nombre", "clave_presupuestal", "activa");
+
+           $crud->required_fields('clave_unidad', 'nombre','clave_presupuestal');
+
+           $data_view['output'] = $crud->render();
+           $data_view['title'] = "Unidades";
+
+           $vista = $this->load->view('admin/admin.tpl.php', $data_view, true);
+           $this->template->setMainContent($vista);
+           $this->template->getTemplate();
+       }
+
+       /**
+        * Función que hace la gestión de la configuración
+        * del trabajo de investigación
+        * @author Cheko
+        * @date 28/05/2018
+        *
+        */
+        function gestion_configuracion(){
+            $this->db->schema = 'foro';
+            $crud = $this->new_crud();
+            $crud->set_table('configuracion');
+            $crud->set_subject('configuracion');
+            //$crud->set_primary_key('clave_unidad');
+
+            //$crud->columns("nombre", "clave_presupuestal", "activa");
+
+            $crud->required_fields('llave', 'valor');
+
+            $data_view['output'] = $crud->render();
+            $data_view['title'] = "Configuracion";
+
+            $vista = $this->load->view('admin/admin.tpl.php', $data_view, true);
+            $this->template->setMainContent($vista);
+            $this->template->getTemplate();
+        }
+
+        /**
+         * Función que hace la gestión de la convocatoria
+         * del trabajo de investigación
+         * @author Cheko
+         * @date 28/05/2018
+         *
+         */
+         function gestion_convocatoria(){
+             $this->db->schema = 'foro';
+             $crud = $this->new_crud();
+             $crud->set_table('convocatoria');
+             $crud->set_subject('convocatoria');
+             $crud->set_primary_key('id_convocatoria');
+
+             //$crud->columns("nombre", "clave_presupuestal", "activa");
+
+             $crud->required_fields('id_convocatoria', 'anio');
+
+             $data_view['output'] = $crud->render();
+             $data_view['title'] = "Convocatoria";
+
+             $vista = $this->load->view('admin/admin.tpl.php', $data_view, true);
+             $this->template->setMainContent($vista);
+             $this->template->getTemplate();
+         }
+
+         /**
+          * Función que hace la gestión del estado
+          * del trabajo de investigación
+          * @author Cheko
+          * @date 28/05/2018
+          *
+          */
+          function gestion_estado_trabajo(){
+              $this->db->schema = 'foro';
+              $crud = $this->new_crud();
+              $crud->set_table('estado_trabajo');
+              $crud->set_subject('estado_trabajo');
+              $crud->set_primary_key('clave_estado');
+
+              //$crud->columns("nombre", "clave_presupuestal", "activa");
+
+              $crud->required_fields('clave_estado', 'lang');
+
+              $data_view['output'] = $crud->render();
+              $data_view['title'] = "Estado del trabajo";
+
+              $vista = $this->load->view('admin/admin.tpl.php', $data_view, true);
+              $this->template->setMainContent($vista);
+              $this->template->getTemplate();
+          }
+
+          /**
+           * Función que hace la gestión de opciones
+           * del trabajo de investigación
+           * @author Cheko
+           * @date 28/05/2018
+           *
+           */
+           function gestion_opciones(){
+               $this->db->schema = 'foro';
+               $crud = $this->new_crud();
+               $crud->set_table('opcion');
+               $crud->set_subject('opcion');
+               $crud->set_primary_key('id_opcion');
+
+               //$crud->columns("nombre", "clave_presupuestal", "activa");
+
+               $crud->required_fields('id_opcion', 'id_seccion','descripcion');
+
+               $data_view['output'] = $crud->render();
+               $data_view['title'] = "Opciones";
+
+               $vista = $this->load->view('admin/admin.tpl.php', $data_view, true);
+               $this->template->setMainContent($vista);
+               $this->template->getTemplate();
+           }
+
+           /**
+            * Función que hace la gestión de rangos
+            * del trabajo de investigación
+            * @author Cheko
+            * @date 28/05/2018
+            *
+            */
+            function gestion_rangos(){
+                $this->db->schema = 'foro';
+                $crud = $this->new_crud();
+                $crud->set_table('rango');
+                $crud->set_subject('rango');
+                $crud->set_primary_key('id_rango');
+
+                //$crud->columns("nombre", "clave_presupuestal", "activa");
+
+                $crud->required_fields('id_rango', 'cualitativa');
+
+                $data_view['output'] = $crud->render();
+                $data_view['title'] = "Rangos";
+
+                $vista = $this->load->view('admin/admin.tpl.php', $data_view, true);
+                $this->template->setMainContent($vista);
+                $this->template->getTemplate();
+            }
+
+            /**
+             * Función que hace la gestión de secciones
+             * del trabajo de investigación
+             * @author Cheko
+             * @date 28/05/2018
+             *
+             */
+             function gestion_seccion(){
+                 $this->db->schema = 'foro';
+                 $crud = $this->new_crud();
+                 $crud->set_table('seccion');
+                 $crud->set_subject('seccion');
+                 $crud->set_primary_key('id_seccion');
+
+                 //$crud->columns("nombre", "clave_presupuestal", "activa");
+
+                 $crud->required_fields('id_seccion', 'descripcion');
+
+                 $data_view['output'] = $crud->render();
+                 $data_view['title'] = "Secciones";
+
+                 $vista = $this->load->view('admin/admin.tpl.php', $data_view, true);
+                 $this->template->setMainContent($vista);
+                 $this->template->getTemplate();
+             }
+
+             /**
+              * Función que hace la gestión de secciones
+              * del trabajo de investigación
+              * @author Cheko
+              * @date 28/05/2018
+              *
+              */
+              function gestion_tipo_metodologia(){
+                  $this->db->schema = 'foro';
+                  $crud = $this->new_crud();
+                  $crud->set_table('tipo_metodologia');
+                  $crud->set_subject('tipo_metodologia');
+                  $crud->set_primary_key('id_tipo_metodologia');
+
+                  //$crud->columns("nombre", "clave_presupuestal", "activa");
+
+                  $crud->required_fields('id_tipo_metodologia');
+
+                  $data_view['output'] = $crud->render();
+                  $data_view['title'] = "Tipos de metodología";
+
+                  $vista = $this->load->view('admin/admin.tpl.php', $data_view, true);
+                  $this->template->setMainContent($vista);
+                  $this->template->getTemplate();
+              }
 }

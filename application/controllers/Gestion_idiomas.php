@@ -108,7 +108,7 @@ class Gestion_idiomas extends MY_Controller {
         $vista = $this->load->view('admin/admin.tpl.php', $data_view, true);
         $this->template->setMainContent($vista);
         $this->template->getTemplate();
-//      
+//
     }
 
     /**
@@ -116,7 +116,7 @@ class Gestion_idiomas extends MY_Controller {
      * @Fecha 26/04/2018
      * @param type $idioma
      * @description Modifica el idioma actual de la aplicación
-     * 
+     *
      */
     function modifica_idioma($idioma = "es") {
         $update = update_lenguaje($idioma);
@@ -133,4 +133,29 @@ class Gestion_idiomas extends MY_Controller {
         echo json_encode($result);
     }
 
+    /**
+     * Función que hace la gestion de tipos
+     * con grocery crud
+     * @author Cheko
+     * @date 28/05/2018
+     *
+     */
+     function gestion_tipos(){
+         $this->db->schema = 'idiomas';
+         $crud = $this->new_crud();
+         $crud->set_table('tipo');
+         $crud->set_subject('tipo');
+         $crud->set_primary_key('clave_tipo');
+
+         $crud->columns("nombre", "clave_tipo", "descripcion");
+
+         $crud->required_fields('clave_tipo', 'nombre');
+
+         $data_view['output'] = $crud->render();
+         $data_view['title'] = "Tipo";
+
+         $vista = $this->load->view('admin/admin.tpl.php', $data_view, true);
+         $this->template->setMainContent($vista);
+         $this->template->getTemplate();
+     }
 }
