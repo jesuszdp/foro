@@ -36,7 +36,7 @@ class Evaluacion extends General_revision {
             $output['datos'] = $this->trabajo->trabajo_investigacion_folio($folio, null);
             if (!empty($output['datos'])) {
                 $acceso_revisar_investigacion = $this->valida_acceso_revisar_investigacion($folio, $id_usuario);
-                if (!$acceso_revisar_investigacion) {
+                if ($acceso_revisar_investigacion) {
                     $output['datos'] = $output['datos'][0]; //Accede a la información de los datos de la investigación
 //                    pr($output['datos']);
                     $output['trabajo_investigacion'] = $this->get_detalle_investigacion(null, $output['datos']); //Cargara la vista de trabajo de investigación
@@ -68,7 +68,6 @@ class Evaluacion extends General_revision {
      */
     private function valida_acceso_revisar_investigacion($folio, $id_usuario) {
         $detalle_revision = $this->evaluacion->get_detalle_revision($folio, $id_usuario);
-//        pr($detalle_revision);
         if (!empty($detalle_revision)) {
             $data = $detalle_revision[0];
             if ($data['revisado'] == true || $data['dentro_fecha_limite'] == 0) {//Sin acceso
@@ -210,7 +209,12 @@ class Evaluacion extends General_revision {
                 "id_revision" => $detalle_revision[0]['id_revision'],
             )
         ];
-        return $this->evaluacion->guardar_evaluacion($datos, $this->language_text);
+        $result_insert = $this->evaluacion->guardar_evaluacion($datos, $this->language_text);
+        if ($result_insert[En_tpmsg::__default] == En_tpmsg::SUCCESS && $result_insert['genero_dictamen']) {//valida que se haya insertado un dictamen
+            $this->asignacion_automatica(); //Se ejecuta para reordenar el dictamen
+            unset($result_insert['genero_dictamen']); //Elimina bandera
+        }
+        return $result_insert;
     }
 
     private function guarda_conflicto_tema_educativo() {
@@ -222,6 +226,7 @@ class Evaluacion extends General_revision {
         $datos = [
             "tema_educacion" => $educativo,
             "conflicto_interes" => $conflicto,
+            'fecha_revision' => 'now()',
             "revisado" => true
         ];
         return $this->evaluacion->update_conflicto_sn_tema_educacion($folio, $id_user, $datos, $this->language_text);
