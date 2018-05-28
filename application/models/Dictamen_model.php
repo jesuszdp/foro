@@ -199,8 +199,9 @@ class Dictamen_model extends MY_Model {
     * @param int offset, uno antes de los que se toman en cuenta
     * @return array
     */
-    public function trabajos_candidatos($cupo,$offset)
+    public function trabajos_candidatos($cupo_total,$offset=null)
     {
+      $res = [];
       try{
         $this->db->flush_cache();
         $this->db->reset_query();
@@ -211,10 +212,19 @@ class Dictamen_model extends MY_Model {
         $this->db->join('foro.convocatoria c','ti.id_convocatoria = c.id_convocatoria');
 
         $this->db->order_by('d.promedio, ti.fecha','desc');
-        $res = $this->db->get('foro.dictamen d',$cupo_total,$offset);
 
+        if(!is_null($offset))
+        {
+          $res = $this->db->get('foro.dictamen d',$cupo_total,$offset);
+        }else
+        {
+          $res = $this->db->get('foro.dictamen d',$cupo_total);
+        }
+
+        return $res->result_array();
+        
       }catch(Exception $ex){
-        return [];
+        return $res;
       }
     }
 
@@ -225,9 +235,38 @@ class Dictamen_model extends MY_Model {
     * @param array param = (where_in, values)
     * @return boolean True si logro actualizar los datos, false en otro caso
     */
-    public function actualizar_($param)
+    public function actualizar_sugerencia($param)
     {
+      $salida = false;
+      $this->db->flush_cache();
+      $this->db->reset_query();
+      $this->db->trans_begin();
+
+      $this->db->set($param['values']);
       
+      if(isset($param['where_in']))
+      {
+        $this->db->where_in($param['where_in'][0],$param['where_in'][1]);
+      }
+
+      if(isset($param['where']))
+      {
+        $this->db->where($param['where']);
+      }
+
+      $this->db->update('foro.dictamen');
+      if ($this->db->trans_status() === FALSE)
+      {
+          $this->db->trans_rollback();
+      } else
+      {
+          $this->db->trans_commit();
+          $salida = true;
+      }
+
+      $this->db->flush_cache();
+      $this->db->reset_query();
+      return $salida;
     }
 
     /**

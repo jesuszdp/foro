@@ -59,8 +59,8 @@ class General_revision extends MY_Controller {
     * @return array
     */
     protected function tipo_asignacion(){
-        $this->load->model('Dictamen_model','dictamen');
-        return json_decode($this->dictamen->config_asignacion(),true);
+      $this->load->model('Dictamen_model','dictamen');
+      return json_decode($this->dictamen->config_asignacion(),true);
     }
 
     /**
@@ -70,8 +70,8 @@ class General_revision extends MY_Controller {
     * @return array
     */
     protected function cupo(){
-        $this->load->model('Dictamen_model','dictamen');
-        return json_decode($this->dictamen->get_cupo(),true);
+      $this->load->model('Dictamen_model','dictamen');
+      return json_decode($this->dictamen->get_cupo(),true);
     }
 
     /**
@@ -80,8 +80,69 @@ class General_revision extends MY_Controller {
     * @date 28/05/2018
     */
     protected function asignacion_automatica()
-    {
-        
+    { 
+      $this->load->model('Dictamen_model','dictamen');
+      $asig_auto = $this->tipo_asignacion()['sistema'];
+      if($asig_auto)
+      {
+        // Quitamos las sugerencias y el orden
+        if($this->dictamen->reset_orden())
+        {
+          // Obtenemos los cupos para cada tipo de exposicion
+          $max_oratoria = $this->cupo()['oratoria'];
+          $max_cartel = $this->cupo()['cartel'];
+
+          // Asignamos los trabajos para oratoria
+          $candidatos_oratoria = $this->dictamen->trabajos_candidatos($max_oratoria);
+          if(count($candidatos_oratoria > 0))
+          {
+            $folios_oratoria = [];
+            foreach ($candidatos_oratoria as $key => $value) {
+              $folios_oratoria[$key] = $value['folio'];
+            }
+            $param = array(
+              'where_in' => array('folio',$folios_oratoria),
+              'values' => array(
+                  'sugerencia' => 'O',
+                  'aceptado' => true
+                )
+            );
+            
+            if($this->dictamen->actualizar_sugerencia($param))
+            {
+              pr($candidatos_oratoria);
+              pr($param);
+              pr($folios_oratoria);
+
+              // Asignamos los trabajos para cartel
+              $candidatos_cartel = $this->dictamen->trabajos_candidatos($max_cartel,$max_oratoria);
+              if(count($candidatos_cartel) > $max_oratoria)
+              {
+                $folios_cartel = [];
+                foreach ($candidatos_cartel as $key => $value) {
+                  $folios_cartel[$key] = $value['folio'];
+                }
+                $param = array(
+                  'where_in' => array('folio',$folios_cartel),
+                  'values' => array(
+                      'sugerencia' => 'C',
+                      'aceptado' => true
+                    )
+                );
+                if(!$this->dictamen->actualizar_sugerencia($param))
+                {
+                  return false;
+                } // if cartel
+                pr($candidatos_cartel);
+                pr($param);
+                pr($folios_cartel);
+              }
+              return true;
+            } // if oratoria
+          } // if existen trabajos
+        } // if reset
+        return false;
+      } // if asignacion automatica
     }
 
 }
