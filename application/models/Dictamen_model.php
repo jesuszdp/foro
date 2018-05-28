@@ -285,7 +285,8 @@ class Dictamen_model extends MY_Model {
       $valores = array(
           'sugerencia'=> null,
           'orden' => null,
-          'aceptado' => null
+          'aceptado' => null,
+          'id_usuario' => null
         );
 
       $this->db->set($valores);

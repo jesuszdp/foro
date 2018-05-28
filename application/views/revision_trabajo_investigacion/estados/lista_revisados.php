@@ -8,21 +8,34 @@
     <h4 class="text-center"> <?php echo $language_text['lbl_cartel'];?></h4>
     <h3 class="text-center">10 / 20</h3>
   </div>
-  <div class="col-sm-3">
-    <h4 class="text-center"><?php echo $language_text['lbl_cartel'];?></h4>
+  <div class="col-sm-2">
+    <h4 class="text-center">Total de asignaciones<?php //echo $language_text['lbl_cartel'];?></h4>
     <h3 class="text-center">1 / 55</h3>
 
   </div>
-  <div class="col-sm-3">
+  <div class="col-sm-4">
     <h4 class="text-center"> <?php echo $language_text['lbl_tipos_de_asignacion'];?></h4>
     <br>
     <button id="show" type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal2"> <a  style="color:#fff;"><?php echo $language_text['btn_manual'];?></a> </button>
-    <button id="hide" type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal2"> <a  style="color:#fff;"><?php echo $language_text['btn_automatico'];?></a> </button>
+  </div>
+</div>
+<div class="col-sm-12">
+  <br>
+  <div class="col-sm-2">
+
+  </div>
+  <div class="col-sm-4">
     <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal2"> <a  style="color:#fff;"><?php echo $language_text['btn_cerrar'];?></a> </button>
   </div>
+  <div class="col-sm-2">
 
+  </div>
+  <div class="col-sm-4">
+    <button id="hide" type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal2"> <a  style="color:#fff;"><?php echo $language_text['btn_automatico'];?></a> </button>
+
+  </div>
 </div>
-<br><br>
+
 
 
 <!-- <div id="main"> -->
@@ -145,6 +158,83 @@
        <div class="panel-body">
          <div id="seccionesEva">
           <!-- Aqui va la tabla de asignados -->
+          <table class="table">
+            <thead>
+              <tr>
+                <!-- <th scope="col"></th> -->
+                <th scope="col"><?php echo $language_text['col_folio'];?></th>
+                <th scope="col"><?php echo $language_text['col_titulo'];?></th>
+                <th scope="col"><?php echo $language_text['col_metodologia'];?></th>
+                <th scope="col"><?php echo $language_text['col_r1'];?></th>
+                <th scope="col"><?php echo $language_text['col_r2'];?></th>
+                <th scope="col"><?php echo $language_text['col_r3'];?></th>
+                <th scope="col"><?php echo $language_text['col_puntaje'];?></th>
+                <th><?php echo $language_text['col_sugerencia'];?></th>
+                <th scope="col"><?php echo $language_text['col_opciones'];?></th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php
+              if(isset($data_dictamen))
+              {
+                if($data_dictamen['success'])
+                {
+                  if(count($data_dictamen['result']) > 0)
+                  {
+                    $lenguaje = obtener_lenguaje_actual();
+                    foreach ($data_dictamen['result'] as $row)
+                    {
+                      ?>
+                <tr>
+                  <td scope="row"><?php echo $row['folio'];?></td>
+                  <td><?php echo $row['titulo'];?></td>
+                  <td>
+                    <?php
+                    $metodologia = json_decode($row['metodologia'],true);
+                    echo $metodologia[$lenguaje];
+                    ?>
+                  </td>
+                  <td><?php echo $row['revisor'];?></td>
+                  <td><?php echo $row['revisor'];?></td>
+                  <td><?php echo $row['revisor'];?></td>
+                  <td><?php echo $row['promedio_revision'];?></td>
+                  <td><?php echo $row['propuesta_dictamen'];?></td>
+                  <td>
+
+                    <a href="ver_resumen" style="color:#f05a29;"><?php echo $language_text['btn_vdetalle'];?></a><br>
+                    <a id="asignar" href="ver_resumen" style="color:#f05a29;"><?php echo $language_text['btn_asignar'];?></a>
+                  </td>
+                </tr>
+                <?php
+             }
+            }
+            else
+            {
+              ?>
+              <h3>No hay trabajos aceptados!</h3>
+              <?php
+
+            }
+          }
+          else
+          {
+            ?>
+            <h3><?php echo $data_dictamen['msg'];?></h3>
+            <?php
+          }
+          ?>
+
+          </tbody>
+          </table>
+          <?php
+          }
+          else
+          {
+            ?>
+            <h3>Algo salió mal, vuelve a intentarlo más tarde!</h3>
+            <?php
+          }
+          ?>
 
            <br>
          </div>

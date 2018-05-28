@@ -198,6 +198,7 @@ class Trabajo_model extends CI_Model
         $res = $this->db->get('foro.trabajo_investigacion ti');
 
 //        pr($this->db->last_query());
+//        pr($this->db->last_query());
         $this->db->flush_cache();
         $this->db->reset_query();    
         

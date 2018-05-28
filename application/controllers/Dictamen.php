@@ -22,6 +22,7 @@ class Dictamen extends General_revision {
     {
       $datos['mensajes'] = $this->obtener_grupos_texto('mensajes', $this->obtener_idioma())['mensajes'];
       $output['data_revisados'] = $this->revisados_sin_asignar();
+			$output['data_dictamen'] = $this->revisados_asignados();
       //pr($output);
       $output['language_text'] =  $this->language_text['evaluado'];
       $output['list_revisados'] = $this->load->view('revision_trabajo_investigacion/estados/lista_revisados.php', $output, true);
@@ -31,14 +32,13 @@ class Dictamen extends General_revision {
         $this->template->getTemplate();
     }
 
-
     /**
      * Procesa la informacion de los trabajos de investigacion evaluados y que no han sido asignados
      * @author AleSpock, clapas
      * @date 24/05/2018
      * @return array
      */
-    private function revisados_sin_asignar() 
+    private function revisados_sin_asignar()
     {
     	$resultado = [];
       // Filtros para obtener los trabajos sin asignar
@@ -64,10 +64,9 @@ class Dictamen extends General_revision {
       return $resultado;
     }
 
-
     /**
     * Procesa la informacion de los trabajos de investigacion evaluados y que ya fueron asignados
-    * @author clapas 
+    * @author clapas
     * @date 27/05/2018
     * @return array
     */
@@ -76,7 +75,6 @@ class Dictamen extends General_revision {
     	$resultado = [];
     	$param = null;
     	// Revisamos cual es el modo de asignacion activo
-    	$config_asignacion = $this->tipo_asignacion();
     	$manual = $config_asignacion['manual'];
     	$sistema = $config_asignacion['sistema'];
 
@@ -89,7 +87,7 @@ class Dictamen extends General_revision {
           'order_by' => 'd.promedio, ti.fecha',
           'where_in' => array('d.sugerencia',array('O','C'))
         );
-    	}elseif ($manual) 
+    	}elseif ($manual)
     	{ // Filtros para obtener los trabajos asignados de forma manual
     		$param = array(
           'where' => array(
@@ -99,7 +97,7 @@ class Dictamen extends General_revision {
           'where_in' => array('d.sugerencia',array('O','C'))
         );
     	}
-      
+
       if(!is_null($param))
       {
       	$resultado['trabajos'] = $this->dictamen->get_trabajos_evaluados($param);

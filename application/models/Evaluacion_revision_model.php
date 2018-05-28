@@ -15,6 +15,29 @@ class Evaluacion_revision_model extends MY_Model {
      * @date 22/05/2018
      * @return array
      */
+    public function get_configuracion_dias_revision() {
+        $this->db->flush_cache();
+        $this->db->reset_query();
+        $conf = 3;
+        $select = array(
+            "llave", "valor"
+        );
+        $this->db->select($select);
+        $this->db->where("llave", "dias_revision");
+        $result = $this->db->get("foro.configuracion")->result_array();
+        if(!empty($result)){
+            $result = json_decode($result[0]["valor"], true);
+            $conf = $result['dias'];
+        }
+        return $conf;
+    }
+
+    /**
+     * Devuelve la información de los registros de la tabla catalogos
+     * @author LEAS
+     * @date 22/05/2018
+     * @return array
+     */
     public function get_secciones($param = null, $idioma = 'es') {
         $this->db->flush_cache();
         $this->db->reset_query();
@@ -136,7 +159,8 @@ class Evaluacion_revision_model extends MY_Model {
         $this->db->trans_begin();
         $this->db->where('folio', $folio);
         $this->db->where('id_usuario', $user_revisor);
-        $this->db->update('foro.revision', $datos);
+        $this->db->set($datos, FALSE);
+        $this->db->update('foro.revision');
 
         if ($this->db->trans_status() === FALSE) {
             $this->db->trans_rollback();
@@ -181,6 +205,7 @@ class Evaluacion_revision_model extends MY_Model {
         $this->db->where("rn.activo", TRUE);
         $this->db->where("rn.folio", $folio);
         $result = $this->db->get('foro.revision rn')->result_array();
+//        pr($this->db->last_query());
 //        pr($this->db->last_query());
         return $result;
     }
@@ -282,10 +307,11 @@ class Evaluacion_revision_model extends MY_Model {
                 $resultado['message'] = $language_text['evaluacion']['danger_update'];
             } else {
                 $result = $this->actualizar_estado_evaluacion($datos_revision['folio']);
-                if ($result) {
+                if ($result[En_tpmsg::SUCCESS]) {
                     $this->db->trans_commit();
                     $resultado[En_tpmsg::__default] = En_tpmsg::SUCCESS;
                     $resultado['message'] = $language_text['evaluacion']['success_update'];
+                    $resultado['genero_dictamen'] = $result['genero_dictamen'];
                 } else {
                     $resultado[En_tpmsg::__default] = En_tpmsg::DANGER;
                     $resultado['message'] = $language_text['evaluacion']['danger_update'];
@@ -305,21 +331,23 @@ class Evaluacion_revision_model extends MY_Model {
      */
     public function actualizar_estado_evaluacion($folio, $language_text = null) {
         $actualizacion_estado = [En_estado_revision::EVALUADO => 1, En_estado_revision::DISCREPANCIA => 1, En_estado_revision::CONFLICTO_INTERES => 1, En_estado_revision::RECHAZADO => 1,];
-        $result = true;
+        $result['success'] = true;
+        $result['genero_dictamen'] = FALSE;
         $result_estado = $this->obtener_estado_general_revision($folio);
 //        pr($result_estado);
-        $this->db->trans_begin();
+//        $this->db->trans_begin();
         if (isset($actualizacion_estado[$result_estado['estado_trancicion']])) {//Estados que pasan validación
 //        pr($folio);
 //        pr($result_estado);
-            $result = $this->guardar_historico_estado($folio, $result_estado['estado_trancicion']);
+            $result['success'] = $this->guardar_historico_estado($folio, $result_estado['estado_trancicion']);
             if ($result && $result_estado['estado_trancicion'] == En_estado_revision::EVALUADO) {//Evaluación, agerega promedio
-                $result = $this->genera_dictamen($folio, $result_estado['promedio_general']);
+                $result['success'] = $this->genera_dictamen($folio, $result_estado['promedio_general']);
+                $result['genero_dictamen'] = true;
             }
 //            if ($result) {
 //                $this->db->trans_commit();
 //            } else {
-            $this->db->trans_rollback();
+//            $this->db->trans_rollback();
 //            }
         }
 
@@ -336,6 +364,7 @@ class Evaluacion_revision_model extends MY_Model {
      */
     public function obtener_estado_general_revision($folio) {
         $general_revisiones = $this->get_general_revision($folio);
+//        pr($folio);
 //        pr($general_revisiones);
         $total_revisores = count($general_revisiones);
         $result["estado_trancicion"] = En_estado_revision::__default;
@@ -411,29 +440,40 @@ class Evaluacion_revision_model extends MY_Model {
     }
 
     private function tres_revisores($revisiones) {
-//        pr($revisiones);
-        $result = [];
+        $result = ['estado_trancicion' => En_estado_revision::__default];
         $validaciones = ['revisado' => 1, 'conflicto_interes' => 0, 'total_no_tema_educacion' => 0,
-            'tema_educacion' => 1, 'dentro_fecha_limite' => 1, 'revisiones_ids' => [], 'suma_promedio' => 0];
+            'tema_educacion' => 0, 'dentro_fecha_limite' => 1, 'revisiones_ids' => [], 'suma_promedio' => 0];
         foreach ($revisiones as $value) {
-            if (is_numeric($value['promedio_revision'])) {
-                $validaciones['suma_promedio']+= floatval($value['promedio_revision']);
-            }
             if ($value['revisado'] == 0) {
                 $validaciones['revisado'] = 0;
             }
             if ($value['conflicto_interes'] == true) {
-                $validaciones['conflicto_interes'] = 1;
+                $validaciones['conflicto_interes'] = 1; //detecta un conflicto de interes, lo envíara a conflicto de interes
             }
-            if ($value['tema_educacion'] == 0) {
-                $validaciones['tema_educacion'] = 0;
-                $validaciones['total_no_tema_educacion'] += 1;
-            }
-            if ($value['dentro_fecha_limite'] == 0) {
-                $validaciones['dentro_fecha_limite'] = 0;
+            if ($value['tema_educacion'] == 0) {//Alguno no es tema relacionado
+                $validaciones['total_no_tema_educacion'] += 1; //suma de los temas de educacion 
+            } else {
+                $validaciones['tema_educacion'] += 1; //no es un tema de educación
+                if (is_numeric($value['promedio_revision'])) {//valida que el promedio de la revision sea numerico
+                    $validaciones['suma_promedio'] += floatval($value['promedio_revision']);
+                }
             }
             $validaciones['revisiones_ids'][] = $value['id_revision']; //Obtiene revisiones
         }
+        if ($validaciones['revisado'] == 1) {//ya fueron evaluados
+            if ($validaciones['conflicto_interes'] == 1) {//tiene por lo menos un conflicto de interes
+                $result["estado_trancicion"] = En_estado_revision::CONFLICTO_INTERES;
+            } else if ($validaciones['total_no_tema_educacion'] > 1) {//Existe más de un "No tema de educación "
+                $result["estado_trancicion"] = En_estado_revision::RECHAZADO;
+            } else {//deberá hacer una evaluación
+                $result["suma_calificacion"] = $validaciones["suma_promedio"];
+                $result["promedio_general"] = $validaciones["suma_promedio"] / $validaciones['tema_educacion'];
+                $result["estado_trancicion"] = En_estado_revision::EVALUADO;
+            }
+        } else {
+            $result["estado_trancicion"] = En_estado_revision::__default;
+        }
+        return $result;
     }
 
     /**
