@@ -222,7 +222,7 @@ class Dictamen_model extends MY_Model {
         }
 
         return $res->result_array();
-        
+
       }catch(Exception $ex){
         return $res;
       }
@@ -232,10 +232,10 @@ class Dictamen_model extends MY_Model {
     * Actualiza los trabajos evaluados
     * @author clapas
     * @date 28/05/2018
-    * @param array param = (where_in, values)
+    * @param array param = (where_in, values, where)
     * @return boolean True si logro actualizar los datos, false en otro caso
     */
-    public function actualizar_sugerencia($param)
+    public function actualizar_registro($param)
     {
       $salida = false;
       $this->db->flush_cache();
@@ -284,7 +284,8 @@ class Dictamen_model extends MY_Model {
 
       $valores = array(
           'sugerencia'=> null,
-          'orden' => null
+          'orden' => null,
+          'aceptado' => null
         );
 
       $this->db->set($valores);
@@ -304,4 +305,56 @@ class Dictamen_model extends MY_Model {
       return $salida; 
     }
 
+
+    /**
+    * Devuelve el numero de trabajos en la tabla de dictamen
+    * @author clapas
+    * @date 28/05/2018
+    * @param boolean true si ya fue dictaminado, false si solo se tomara la sugerencia
+    * @param char O si es oratoria, C si es cartel, R si es rechazado, Q si esta sin asignarse
+    * @return int
+    */
+    public function count_registros_dictamen($dictaminado,$filtro)
+    {
+      $this->db->flush_cache();
+      $this->db->reset_query();
+
+      $filtros = [];
+
+      if($dictaminado)
+      {
+        switch ($filtro) {
+          case 'R':
+            $filtros = array('aceptado'=>false);
+            break;
+
+          case 'Q':
+            return 0;
+            break;
+          
+          default:
+            $filtros = array('aceptado'=>true,'tipo_exposicion'=>$filtro);
+            break;
+        }
+      }else
+      {
+        switch ($filtro) {
+          case 'R':
+            return 0;
+            break;
+
+          case 'Q':
+            $filtros = array('aceptado'=>true,'sugerencia'=>null);
+            break;
+          
+          default:
+            $filtros = array('aceptado'=>true,'sugerencia'=>$filtro);
+            break;
+        }
+      }
+
+      $this->db->where($filtros);
+      $this->db->from('foro.dictamen');
+      return $this->db->count_all();
+    }
 }

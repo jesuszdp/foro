@@ -108,7 +108,7 @@ class General_revision extends MY_Controller {
                 )
             );
             
-            if($this->dictamen->actualizar_sugerencia($param))
+            if($this->dictamen->actualizar_registro($param))
             {
               // Asignamos los trabajos para cartel
               $candidatos_cartel = $this->dictamen->trabajos_candidatos($max_cartel,$max_oratoria);
@@ -125,7 +125,7 @@ class General_revision extends MY_Controller {
                       'aceptado' => true
                     )
                 );
-                if(!$this->dictamen->actualizar_sugerencia($param))
+                if(!$this->dictamen->actualizar_registro($param))
                 {
                   return false;
                 } // if cartel

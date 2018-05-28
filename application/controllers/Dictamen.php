@@ -119,10 +119,96 @@ class Dictamen extends General_revision {
     	return $resultado;
     }
 
+    /**
+    * Asigna de manera manual el dictamen de un trabajo
+    * @author clapas
+    * @date 28/05/2018
+    * @param 
+    * @return json
+    */
+    public function asignacion_manual($folio,$sugerencia)
+    {
+    	$this->load->model('Dictamen_model','dictamen');
+      $asig_manual = $this->tipo_asignacion()['manual'];
+
+      if($asig_manual)
+      {
+	    	$this->load->model('Evaluacion_revision_model','evaluacion_revision');
+	    	//$post = $this->input->post(null,true);
+	    	$usuario = $this->get_datos_sesion()['id_usuario'];
+	    	$asignar = true;
+	    	$aceptado = true;
+	    	$msg = "Ocurrio un error al actualizar la asignacion";
+	    	$success = false;
+
+	    	switch ($sugerencia) {
+	    		case 'O':
+	          $max_oratoria = $this->cupo()['oratoria'];
+	          $actual_oratoria = $this->dictamen->count_registros_dictamen(false,'O');
+	          if($actual_oratoria == $max_oratoria)
+	          {
+	          	$asignar = false;
+	          }else
+	          {
+	          	$msg = "Ya no hay lugar disponible para oratoria";
+	          }
+	    			break;
+	    		case 'C':
+	          $max_cartel = $this->cupo()['cartel'];
+	          $actual_cartel = $this->dictamen->count_registros_dictamen(false,'C');
+	          if($actual_cartel == $max_cartel)
+	          {
+	          	$asignar = false;
+	          }else
+	          {
+	          	$msg = "Ya no hay lugar disponible para cartel";
+	          }
+	    			break;
+	    		case 'R':
+	    			if($this->evaluacion_revision->guardar_historico_estado($folio,'rechazado'))
+	    			{
+		    			$sugerencia = null;
+		    			$aceptado = false;
+		    		}else
+		    		{
+		    			$asignar = false;
+		    		}
+	    			break;
+	    		case 'Q':
+	    			$sugerencia = null;
+	    			$aceptado = null;
+	    			break;
+	    	}
+
+	    	if($asignar)
+	    	{
+		    	$param = array(
+		        'where' => array('folio'=>$folio),
+		        'values' => array(
+		            'sugerencia' => $sugerencia,
+		            'aceptado' => $aceptado,
+		            'id_usuario' => $usuario
+		          )
+		      );
+		      if($this->dictamen->actualizar_registro($param))
+		      {
+		      	$msg = "Se actualizo la asignacion";
+		      	$success = true;
+		      }
+		    }
+
+		    return json_encode(array('success'=>$success,'msg'=>$msg));
+		  }
+    }
+
     public function pruebas()
     {
     	pr($this->cupo());
       pr($this->tipo_asignacion());
-      pr($this->asignacion_automatica());
+      $this->dictamen->reset_orden();
+      $datos_sesion = $this->get_datos_sesion();
+      pr($datos_sesion['id_usuario']);
+      //pr($this->asignacion_manual('IMSS-CES-FNFIES-P-18-0001','C'));
+      //pr($this->asignacion_automatica());
     }
 }
