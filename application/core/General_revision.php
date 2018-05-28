@@ -52,4 +52,36 @@ class General_revision extends MY_Controller {
         return $main_content;
     }
 
+    /**
+    * Devuelve la configuracion del tipo de asignacion activo  
+    * @author clapas
+    * @date 27/05/2018
+    * @return array
+    */
+    protected function tipo_asignacion(){
+        $this->load->model('Dictamen_model','dictamen');
+        return json_decode($this->dictamen->config_asignacion(),true);
+    }
+
+    /**
+    * Devuelve la configuracion del cupo 
+    * @author clapas
+    * @date 27/05/2018
+    * @return array
+    */
+    protected function cupo(){
+        $this->load->model('Dictamen_model','dictamen');
+        return json_decode($this->dictamen->get_cupo(),true);
+    }
+
+    /**
+    * Realiza la asignacion automatica para los revisados, si la configuracion lo permite 
+    * @author clapas
+    * @date 28/05/2018
+    */
+    protected function asignacion_automatica()
+    {
+        
+    }
+
 }

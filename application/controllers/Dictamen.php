@@ -64,15 +64,6 @@ class Dictamen extends General_revision {
       return $resultado;
     }
 
-    /**
-    * Devuelve la configuracion del cupo 
-    * @author clapas
-    * @date 27/05/2018
-    * @return array
-    */
-    private function cupo(){
-    	return json_decode($this->dictamen->get_cupo(),true);
-    }
 
     /**
     * Procesa la informacion de los trabajos de investigacion evaluados y que ya fueron asignados
@@ -126,5 +117,12 @@ class Dictamen extends General_revision {
 
     	//pr($resultado);
     	return $resultado;
+    }
+
+    public function pruebas()
+    {
+    	pr($this->cupo());
+      pr($this->tipo_asignacion());
+      pr($this->asignacion_automatica());
     }
 }
