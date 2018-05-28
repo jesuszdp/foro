@@ -147,8 +147,7 @@ class Gestion_idiomas extends MY_Controller {
          $crud->set_subject('tipo');
          $crud->set_primary_key('clave_tipo');
 
-         $crud->columns("nombre", "clave_tipo", "descripcion");
-
+         $crud->columns("clave_tipo","nombre", "descripcion");
          $crud->required_fields('clave_tipo', 'nombre');
 
          $data_view['output'] = $crud->render();
