@@ -15,6 +15,29 @@ class Evaluacion_revision_model extends MY_Model {
      * @date 22/05/2018
      * @return array
      */
+    public function get_configuracion_dias_revision() {
+        $this->db->flush_cache();
+        $this->db->reset_query();
+        $conf = 3;
+        $select = array(
+            "llave", "valor"
+        );
+        $this->db->select($select);
+        $this->db->where("llave", "dias_revision");
+        $result = $this->db->get("foro.configuracion")->result_array();
+        if(!empty($result)){
+            $result = json_decode($result[0]["valor"], true);
+            $conf = $result['dias'];
+        }
+        return $conf;
+    }
+
+    /**
+     * Devuelve la información de los registros de la tabla catalogos
+     * @author LEAS
+     * @date 22/05/2018
+     * @return array
+     */
     public function get_secciones($param = null, $idioma = 'es') {
         $this->db->flush_cache();
         $this->db->reset_query();

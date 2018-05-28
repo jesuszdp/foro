@@ -26,7 +26,7 @@ class General_revision extends MY_Controller {
      *
      */
     function get_detalle_evaluacion($cve_evaluacion) {
-
+        
     }
 
     /**
@@ -53,90 +53,95 @@ class General_revision extends MY_Controller {
     }
 
     /**
-    * Devuelve la configuracion del tipo de asignacion activo  
-    * @author clapas
-    * @date 27/05/2018
-    * @return array
-    */
-    protected function tipo_asignacion(){
-      $this->load->model('Dictamen_model','dictamen');
-      return json_decode($this->dictamen->config_asignacion(),true);
+     * Devuelve la configuracion del tipo de asignacion activo  
+     * @author clapas
+     * @date 27/05/2018
+     * @return array
+     */
+    protected function tipo_asignacion() {
+        $this->load->model('Dictamen_model', 'dictamen');
+        return json_decode($this->dictamen->config_asignacion(), true);
     }
 
     /**
-    * Devuelve la configuracion del cupo 
-    * @author clapas
-    * @date 27/05/2018
-    * @return array
-    */
-    protected function cupo(){
-      $this->load->model('Dictamen_model','dictamen');
-      return json_decode($this->dictamen->get_cupo(),true);
+     * Devuelve la configuracion del cupo 
+     * @author clapas
+     * @date 27/05/2018
+     * @return array
+     */
+    protected function cupo() {
+        $this->load->model('Dictamen_model', 'dictamen');
+        return json_decode($this->dictamen->get_cupo(), true);
     }
 
     /**
-    * Realiza la asignacion automatica para los revisados, si la configuracion lo permite 
-    * @author clapas
-    * @date 28/05/2018
-    */
-    protected function asignacion_automatica()
-    { 
-      $this->load->model('Dictamen_model','dictamen');
-      $asig_auto = $this->tipo_asignacion()['sistema'];
-      if($asig_auto)
-      {
-        // Quitamos las sugerencias y el orden
-        if($this->dictamen->reset_orden())
-        {
-          // Obtenemos los cupos para cada tipo de exposicion
-          $max_oratoria = $this->cupo()['oratoria'];
-          $max_cartel = $this->cupo()['cartel'];
+     * Realiza la asignacion automatica para los revisados, si la configuracion lo permite 
+     * @author clapas
+     * @date 28/05/2018
+     */
+    protected function asignacion_automatica() {
+        $this->load->model('Dictamen_model', 'dictamen');
+        $asig_auto = $this->tipo_asignacion()['sistema'];
+        if ($asig_auto) {
+            // Quitamos las sugerencias y el orden
+            if ($this->dictamen->reset_orden()) {
+                // Obtenemos los cupos para cada tipo de exposicion
+                $max_oratoria = $this->cupo()['oratoria'];
+                $max_cartel = $this->cupo()['cartel'];
 
-          // Asignamos los trabajos para oratoria
-          $candidatos_oratoria = $this->dictamen->trabajos_candidatos($max_oratoria);
-          if(count($candidatos_oratoria > 0))
-          {
-            $folios_oratoria = [];
-            foreach ($candidatos_oratoria as $key => $value) {
-              $folios_oratoria[$key] = $value['folio'];
-            }
-            $param = array(
-              'where_in' => array('folio',$folios_oratoria),
-              'values' => array(
-                  'sugerencia' => 'O',
-                  'aceptado' => true
-                )
-            );
-            
-            if($this->dictamen->actualizar_sugerencia($param))
-            {
-              // Asignamos los trabajos para cartel
-              $candidatos_cartel = $this->dictamen->trabajos_candidatos($max_cartel,$max_oratoria);
-              if(count($candidatos_cartel) > $max_oratoria)
-              {
-                $folios_cartel = [];
-                foreach ($candidatos_cartel as $key => $value) {
-                  $folios_cartel[$key] = $value['folio'];
-                }
-                $param = array(
-                  'where_in' => array('folio',$folios_cartel),
-                  'values' => array(
-                      'sugerencia' => 'C',
-                      'aceptado' => true
-                    )
-                );
-                if(!$this->dictamen->actualizar_sugerencia($param))
-                {
-                  return false;
-                } // if cartel
-                
-              }
-              return true;
-            } // if oratoria
-          } // if existen trabajos
-        } // if reset
-        return false;
-      } // if asignacion automatica
+                // Asignamos los trabajos para oratoria
+                $candidatos_oratoria = $this->dictamen->trabajos_candidatos($max_oratoria);
+                if (count($candidatos_oratoria > 0)) {
+                    $folios_oratoria = [];
+                    foreach ($candidatos_oratoria as $key => $value) {
+                        $folios_oratoria[$key] = $value['folio'];
+                    }
+                    $param = array(
+                        'where_in' => array('folio', $folios_oratoria),
+                        'values' => array(
+                            'sugerencia' => 'O',
+                            'aceptado' => true
+                        )
+                    );
+
+                    if ($this->dictamen->actualizar_sugerencia($param)) {
+                        // Asignamos los trabajos para cartel
+                        $candidatos_cartel = $this->dictamen->trabajos_candidatos($max_cartel, $max_oratoria);
+                        if (count($candidatos_cartel) > $max_oratoria) {
+                            $folios_cartel = [];
+                            foreach ($candidatos_cartel as $key => $value) {
+                                $folios_cartel[$key] = $value['folio'];
+                            }
+                            $param = array(
+                                'where_in' => array('folio', $folios_cartel),
+                                'values' => array(
+                                    'sugerencia' => 'C',
+                                    'aceptado' => true
+                                )
+                            );
+                            if (!$this->dictamen->actualizar_sugerencia($param)) {
+                                return false;
+                            } // if cartel
+                        }
+                        return true;
+                    } // if oratoria
+                } // if existen trabajos
+            } // if reset
+            return false;
+        } // if asignacion automatica
+    }
+
+    /**
+     * Devuelve la configuracion del cupo 
+     * @author clapas
+     * @date 27/05/2018
+     * @return array
+     */
+    protected function get_dias_revision() {
+        $this->load->model('Evaluacion_revision_model', 'evaluacion_m');
+        $return = $this->evaluacion_m->get_configuracion_dias_revision();
+        pr($return);
+        return $return;
     }
 
 }

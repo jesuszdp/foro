@@ -28,7 +28,6 @@ class Evaluacion extends General_revision {
     public function nueva_evaluacion_revision($folio = null) {
         $id_usuario = $this->get_datos_sesion(En_datos_sesion::ID_USUARIO);
 //        pr($this->get_datos_sesion(En_datos_sesion::ID_USUARIO));
-
         $output['language_text'] = $this->language_text;
         $this->obtener_idioma();
         if (!is_null($folio)) {
@@ -67,7 +66,7 @@ class Evaluacion extends General_revision {
      * Valida que no se encuentre 
      */
     private function valida_acceso_revisar_investigacion($folio, $id_usuario) {
-        $detalle_revision = $this->evaluacion->get_detalle_revision($folio, $id_usuario);
+        $detalle_revision = $this->evaluacion->get_detalle_revision($folio, $id_usuario, $this->get_dias_revision());
         if (!empty($detalle_revision)) {
             $data = $detalle_revision[0];
             if ($data['revisado'] == true || $data['dentro_fecha_limite'] == 0) {//Sin acceso
