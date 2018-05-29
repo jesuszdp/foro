@@ -1,7 +1,7 @@
 <!-- contadores de lugares para oratoria y lugares para cartel -->
 <?php echo js("revision/asignar_dictamen.js"); ?>
 
-<?php 
+<?php
 $manual = $config_asignacion['manual'];
 $sistema = $config_asignacion['sistema'];
 ?>
@@ -31,7 +31,7 @@ $sistema = $config_asignacion['sistema'];
 
   </div>
   <div class="col-sm-4">
-    <?php 
+    <?php
     if($cerrar_proceso_btn){
     ?>
     <a href="<?php echo site_url("/dictamen/cierre_convocatoria"); ?>" class="btn btn-theme btn-block submit-button" type="button"><?php echo $language_text['btn_cerrar'];?><span class="glyphicon glyphicon-new-window"></span></a>
@@ -183,7 +183,7 @@ $sistema = $config_asignacion['sistema'];
      </div>
      <div id="hideEvaluacion" class="panel " style="display:none;">
        <div class="panel-body">
-         <div id="seccionesEva">
+
           <!-- Aqui va la tabla de asignados -->
           <table class="table">
             <thead>
@@ -264,7 +264,7 @@ $sistema = $config_asignacion['sistema'];
           ?>
 
            <br>
-         </div>
+
 
 
         </div>
