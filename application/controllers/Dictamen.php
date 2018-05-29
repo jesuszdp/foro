@@ -240,6 +240,8 @@ class Dictamen extends General_revision {
         }
 
         //pr($resultado);
+        $revisores = $this->dictamen->get_revisores($param);
+        $resultado['success'] = 'success';
         $resultado['result'] = $this->combinar_trabajo_revisores($trabajo, $revisores);
 
         return $resultado;
