@@ -828,41 +828,6 @@ class Catalogo extends MY_Controller {
               $this->template->getTemplate();
           }
 
-          /**
-           * Función que cambia los valores de las columnas
-           * con valores json, que tienen el lenguaje en,es
-           * @author Cheko
-           */
-          public function _callback_change_values($value, $row)
-          {
-              $lenguaje = obtener_lenguaje_actual();
-              $array_php = json_decode($value,true);
-              $uri = substr( current_url(), strrpos( current_url(), '/' )+1 );
-              switch ($uri) {
-                case 'gestion_estado_trabajo':
-                    $investigador = "Investigador: ".$array_php['investigador'][$lenguaje];
-                    $gestor = "Gestor: ".$array_php['gestor'][$lenguaje];
-                    $revisor = "Revisor: ".$array_php['revisor'][$lenguaje];;
-                    return $investigador."\n".$gestor."\n".$revisor;
-                    break;
-                case 'gestion_opciones':
-                    return $array_php[$lenguaje];
-                    break;
-                case 'gestion_rangos':
-                    return $array_php[$lenguaje];
-                    break;
-                case 'gestion_seccion':
-                    return $array_php[$lenguaje];
-                    break;
-                case 'gestion_tipo_metodologia':
-                    return $array_php[$lenguaje];
-                    break;
-                default:
-                    return $array_php[$lenguaje];
-                    break;
-              }
-          }
-
 
           /**
            * Función que hace la gestión de opciones
@@ -884,10 +849,12 @@ class Catalogo extends MY_Controller {
 
                $crud->required_fields('id_opcion', 'id_seccion','descripcion');
 
+               $crud->callback_column($this->unique_field_name('id_seccion'),array($this,'_callback_cambiar_id_seccion'));
+               $crud->callback_column($this->unique_field_name('id_rango'),array($this,'_callback_cambiar_id_rango'));
+               $crud->callback_column('descripcion',array($this,'_callback_change_values'));
+
                $crud->set_relation('id_seccion','seccion','id_seccion');
                $crud->set_relation('id_rango','rango','id_rango');
-
-               $crud->callback_column('descripcion',array($this,'_callback_change_values'));
 
                $data_view['output'] = $crud->render();
                $data_view['title'] = "Opciones";
@@ -947,6 +914,9 @@ class Catalogo extends MY_Controller {
                  $crud->edit_fields("descripcion", "id_tipo_metodologia");
 
                  $crud->required_fields('id_seccion', 'descripcion');
+
+                 $crud->callback_column($this->unique_field_name('id_tipo_metodologia'),array($this,'_callback_cambiar_id_tipo_metodologia'));
+
                  $crud->set_relation('id_tipo_metodologia','tipo_metodologia','id_tipo_metodologia');
 
                  $crud->callback_column('descripcion',array($this,'_callback_change_values'));
@@ -990,4 +960,115 @@ class Catalogo extends MY_Controller {
                   $this->template->setMainContent($vista);
                   $this->template->getTemplate();
               }
+
+              /**
+               * Función que cambia los valores de las columnas
+               * con valores json, que tienen el lenguaje en,es
+               * @author Cheko
+               * @date 28/05/2018
+               * @param
+               */
+              public function _callback_change_values($value, $row)
+              {
+                  $lenguaje = obtener_lenguaje_actual();
+                  $array_php = json_decode($value,true);
+                  $uri = substr( current_url(), strrpos( current_url(), '/' )+1 );
+                  switch ($uri) {
+                    case 'gestion_estado_trabajo':
+                        $investigador = "Investigador: ".$array_php['investigador'][$lenguaje];
+                        $gestor = "Gestor: ".$array_php['gestor'][$lenguaje];
+                        $revisor = "Revisor: ".$array_php['revisor'][$lenguaje];;
+                        return $investigador."\n".$gestor."\n".$revisor;
+                        break;
+                    case 'gestion_opciones':
+                        return $array_php[$lenguaje];
+                        break;
+                    case 'gestion_rangos':
+                        return $array_php[$lenguaje];
+                        break;
+                    case 'gestion_seccion':
+                        return $array_php[$lenguaje];
+                        break;
+                    case 'gestion_tipo_metodologia':
+                        return $array_php[$lenguaje];
+                        break;
+                    default:
+                        return $array_php[$lenguaje];
+                        break;
+                  }
+              }
+
+
+              /**
+               * Función que cambia los valores de la columna
+               * id seccion de cada renglon de la gestion de opciones
+               * @author Cheko
+               * @date 29/05/2018
+               * @param
+               *
+               */
+               public function _callback_cambiar_id_seccion($value,$row){
+                  $lenguaje = obtener_lenguaje_actual();
+                  $seccion = $this->catalogo->obtener_seccion($value);
+                  if($seccion['success'])
+                  {
+                      if(count($seccion['result']) > 0)
+                      {
+                         $array_php = json_decode($seccion['result'][0]['descripcion'],true);
+                         return $array_php[$lenguaje];
+                      }
+                  }
+               }
+
+               /**
+                * Función que cambia los valores de la columna
+                * id rango de cada renglon de la gestion de opciones
+                * @author Cheko
+                * @date 29/05/2018
+                * @param
+                *
+                */
+                public function _callback_cambiar_id_rango($value,$row){
+                    $lenguaje = obtener_lenguaje_actual();
+                    $rango = $this->catalogo->obtener_rango($value);
+                    if($rango['success'])
+                    {
+                        if(count($rango['result']) > 0)
+                        {
+                           $array_php = json_decode($rango['result'][0]['cualitativa'],true);
+                           return $array_php[$lenguaje];
+                        }
+
+                    }
+                    return 'NA';
+                }
+
+                /**
+                 * Función que cambia los valores de la columna
+                 * id rango de cada renglon de la gestion de opciones
+                 * @author Cheko
+                 * @date 29/05/2018
+                 * @param
+                 *
+                 */
+                 public function _callback_cambiar_id_tipo_metodologia($value,$row){
+                     $lenguaje = obtener_lenguaje_actual();
+                     $rango = $this->catalogo->obtener_tipo_metodologia($value);
+                     if($rango['success'])
+                     {
+                         if(count($rango['result']) > 0)
+                         {
+                            $array_php = json_decode($rango['result'][0]['lang'],true);
+                            return $array_php[$lenguaje];
+                         }
+                     }
+                     return 'NA';
+
+                 }
+
+               public function unique_field_name($field_name) {
+                 return 's'.substr(md5($field_name),0,8); //This s is because is better for a string to begin with a letter and not with a number
+               }
+
+
 }

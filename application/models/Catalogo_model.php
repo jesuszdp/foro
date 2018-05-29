@@ -372,7 +372,7 @@ class Catalogo_model extends MY_Model {
 //        }
         return $result;
     }
-    
+
     public function get_registros($nombre_tabla = null, &$params = [])
     {
         //pr($params);
@@ -432,4 +432,108 @@ class Catalogo_model extends MY_Model {
         return $salida;
     }
 
+    /**
+     * Función que obtiene la sección del foro
+     * @author Cheko
+     * @date 29/05/2018
+     * @param string $id Identificador de la sección
+     *
+     */
+     public function obtener_seccion($id=NULL){
+        $estado = array('success'=>false, 'msg'=>'Algo salio mal', 'result'=>[]);
+        try
+        {
+            if(is_null($id)){
+              return $estado;
+            }
+            $this->db->flush_cache();
+            $this->db->reset_query();
+            $this->db->from("foro.seccion");
+            $this->db->where("id_seccion", $id);
+            $result = $this->db->get(); //pr($this->db->last_query());
+            //pr($result);
+            $salida = $result->result_array();
+            $result->free_result();
+            $this->db->flush_cache();
+            $this->db->reset_query();
+            $estado['success'] = true;
+            $estado['msg'] = "Se obtuvo la sección con exito";
+            $estado['result'] = $salida;
+        }
+        catch(Exception $ex)
+        {
+            $estado = array('success'=>false, 'msg'=>'Algo salio mal', 'result'=>[]);
+        }
+        return $estado;
+     }
+
+     /**
+      * Función que obtiene la sección del foro
+      * @author Cheko
+      * @date 29/05/2018
+      * @param string $id Identificador de la sección
+      *
+      */
+      public function obtener_rango($id=NULL){
+         $estado = array('success'=>false, 'msg'=>'Algo salio mal', 'result'=>[]);
+         try
+         {
+             if(is_null($id)){
+               return $estado;
+             }
+             $this->db->flush_cache();
+             $this->db->reset_query();
+             $this->db->from("foro.rango");
+             $this->db->where("id_rango", $id);
+             $result = $this->db->get(); //pr($this->db->last_query());
+             //pr($result);
+             $salida = $result->result_array();
+             $result->free_result();
+             $this->db->flush_cache();
+             $this->db->reset_query();
+             $estado['success'] = true;
+             $estado['msg'] = "Se obtuvo el rango con exito";
+             $estado['result'] = $salida;
+         }
+         catch(Exception $ex)
+         {
+             $estado = array('success'=>false, 'msg'=>'Algo salio mal', 'result'=>[]);
+         }
+         return $estado;
+      }
+
+      /**
+       * Función que obtiene la sección del foro
+       * @author Cheko
+       * @date 29/05/2018
+       * @param string $id Identificador de la sección
+       *
+       */
+       public function obtener_tipo_metodologia($id=NULL){
+          $estado = array('success'=>false, 'msg'=>'Algo salio mal', 'result'=>[]);
+          try
+          {
+              if(is_null($id)){
+                return $estado;
+              }
+              $this->db->flush_cache();
+              $this->db->reset_query();
+              $this->db->from("foro.tipo_metodologia");
+              $this->db->where("id_tipo_metodologia", $id);
+              $result = $this->db->get(); //pr($this->db->last_query());
+              //pr($result);
+              $salida = $result->result_array();
+              $result->free_result();
+              $this->db->flush_cache();
+              $this->db->reset_query();
+              $estado['success'] = true;
+              $estado['msg'] = "Se obtuvo el rango con exito";
+              $estado['result'] = $salida;
+          }
+          catch(Exception $ex)
+          {
+              $estado = array('success'=>false, 'msg'=>'Algo salio mal', 'result'=>[]);
+          }
+          return $estado;
+       }
 }
