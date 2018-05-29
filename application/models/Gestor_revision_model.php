@@ -506,7 +506,7 @@ class Gestor_revision_model extends MY_Model {
 
         //$validar_folios = $this->get_sn_comite(array('conditions'=>"hr.folio in ('".$folios."')")); //Validar situación y/o estado de los trabajos
         $validar_folios = $this->get_requiere_atencion(array('conditions'=>"hr.folio = '".$folios."'")); //Validar situación y/o estado de los trabajos
-        pr($datos); pr($validar_folios);
+        //pr($datos); pr($validar_folios);
         if($validar_folios['success']==true) //En caso de que se encuentren datos
         {
             $revision = $historico = $revision_anterior = array(); //Arreglo que contendrá asignaciones por añadir
