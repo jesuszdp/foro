@@ -104,9 +104,9 @@
                 </td>
                 <td><?php echo $row['revisor1'];?></td>
                 <td><?php echo $row['revisor2'];?></td>
-                <td><?php echo $row['revisor3'];?></td>
+                <td><?php if(isset($row['revisor3'])) echo $row['revisor3'];?></td>
                 <td><?php echo $row['promedio'];?></td>
-                <!-- <td><?php// echo $row['propuesta_dictamen'];?></td> -->
+                <td><?php echo $row['sugerencia'];?></td>
                 <td>
 
                   <a href="ver_resumen" style="color:#f05a29;"><?php echo $language_text['btn_vrevision'];?></a><br>
