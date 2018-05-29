@@ -27,7 +27,7 @@ class Gestion_revision extends General_revision {
      * @description genera el espacio de la evaluación
      *
      */
-    public function listado_control($tipo = null) {
+    public function listado_control($tipo = Gestion_revision::SN_COMITE) {
         $datos['mensajes'] = $this->obtener_grupos_texto('mensajes', $this->obtener_idioma())['mensajes'];
         switch ($tipo) {
             case Gestion_revision::SN_COMITE:

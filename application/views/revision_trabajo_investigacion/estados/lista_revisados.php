@@ -16,7 +16,7 @@
   <div class="col-sm-4">
     <h4 class="text-center"> <?php echo $language_text['lbl_tipos_de_asignacion'];?></h4>
     <br>
-    <button id="show" type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal2"> <a  style="color:#fff;"><?php echo $language_text['btn_manual'];?></a> </button>
+    <button id="show" type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button revisados" data- data-toggle="modal" data-target="#exampleModal2"> <a  style="color:#fff;"><?php echo $language_text['btn_manual'];?></a> </button>
   </div>
 </div>
 <div class="col-sm-12">
@@ -25,7 +25,7 @@
 
   </div>
   <div class="col-sm-4">
-    <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal2"> <a  style="color:#fff;"><?php echo $language_text['btn_cerrar'];?></a> </button>
+    <a href="<?php echo site_url("/dictamen/cierre_convocatoria"); ?>" class="btn btn-theme btn-block submit-button" type="button"><?php echo $language_text['btn_cerrar'];?><span class="glyphicon glyphicon-new-window"></span></a>
   </div>
   <div class="col-sm-2">
 
