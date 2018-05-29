@@ -124,22 +124,6 @@ class Gestion_revision extends General_revision {
       return $result;
     }
 
-    /**
-     * @author AleSpock
-     * @date 24/05/2018
-     * @param type
-     * @description Función que muestra la vista del resumen de un trabajo de investigación
-     */
-    private function revisados_sin_asignar() {
-      $respuesta_model = $this->gestion_revision->get_revisados();
-      //pr($respuesta_model);
-      return $respuesta_model;
-    }
-    private function asignados() {
-      // $respuesta_model = $this->gestion_revision->get_revisados();
-      // pr($respuesta_model);
-      // return $respuesta_model;
-    }
 
     private function aceptados() {
       $lenguaje = obtener_lenguaje_actual();

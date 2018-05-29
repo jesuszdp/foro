@@ -22,7 +22,7 @@ $sistema = $config_asignacion['sistema'];
   <div class="col-sm-4">
     <h4 class="text-center"> <?php echo $language_text['lbl_tipos_de_asignacion'];?></h4>
     <br>
-    <button id="show" type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button revisados" data- data-toggle="modal" data-target="#exampleModal"> <a  style="color:#fff;"><?php echo $language_text['btn_manual'];?></a> </button>
+    <a id="btn_manual" type="button" class="btn btn-theme btn-block submit-button"> <span  style="color:#fff;"><?php echo $language_text['btn_manual'];?></span> </a>
   </div>
 </div>
 <div class="col-sm-12">
@@ -41,7 +41,7 @@ $sistema = $config_asignacion['sistema'];
 
   </div>
   <div class="col-sm-4">
-    <a id="hide" type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal"> <span  style="color:#fff;"><?php echo $language_text['btn_automatico'];?></span> </a>
+    <a id="btn_automatico" type="button" class="btn btn-theme btn-block submit-button"> <span  style="color:#fff;"><?php echo $language_text['btn_automatico'];?></span> </a>
 
   </div>
 </div>
@@ -134,7 +134,7 @@ $sistema = $config_asignacion['sistema'];
                 </td>
                 <?php } ?>
                 <td>
-                  <a href="#" style="color:#f05a29;"><?php echo $language_text['btn_vrevision'];?></a><br>
+                  <a <a href="<?php echo site_url('/gestion_revision/ver_resumen/'.base64_encode($row['folio'])); ?>"  style="color:#f05a29;"><?php echo $language_text['btn_vrevision'];?></a><br>
                   <?php  if($manual){ ?>
                   <a id="btn_asignar" href="#" style="color:#f05a29;"><?php echo $language_text['btn_asignar'];?></a>
                   <?php } ?>
@@ -213,7 +213,7 @@ $sistema = $config_asignacion['sistema'];
                     {
                       ?>
                 <tr>
-                  <td scope="row"><?php echo $row['folio'];?></td>
+                  <td scope="row" class="row_folio"><?php echo $row['folio'];?></td>
                   <td><?php echo $row['titulo'];?></td>
                   <td>
                     <?php
@@ -225,11 +225,22 @@ $sistema = $config_asignacion['sistema'];
                   <td><?php echo $row['revisor2'];?></td>
                   <td><?php if(isset($row['revisor3'])) echo $row['revisor3'];?></td>
                   <td><?php echo $row['promedio'];?></td>
-                  <td><?php echo $row['sugerencia'];?></td>
+                  <?php if($manual){ ?>
+                  <td>
+                    <select class="select_asignacion">
+                      <option value="Q">Sin asignar</option>
+                      <option value="O" <?php if($row['sugerencia']=='O') echo 'selected';?> >Oratoria</option>
+                      <option value="C" <?php if($row['sugerencia']=='C') echo 'selected';?> >Cartel</option>
+                      <option value="R">Rechazado</option>
+                    </select>
+                  </td>
+                  <?php } ?>
                   <td>
 
-                    <a href="ver_resumen" style="color:#f05a29;"><?php echo $language_text['btn_vrevision'];?></a><br>
-                    <a id="asignar" href="ver_resumen" style="color:#f05a29;"><?php echo $language_text['btn_asignar'];?></a>
+                    <a href="<?php echo site_url('/gestion_revision/ver_resumen/'.base64_encode($row['folio'])); ?>" style="color:#f05a29;"><?php echo $language_text['btn_vrevision'];?></a><br>
+                    <?php  if($manual){ ?>
+                    <a id="btn_asignar" href="#" style="color:#f05a29;"><?php echo $language_text['btn_asignar'];?></a>
+                    <?php } ?>
                   </td>
                 </tr>
                 <?php

@@ -11,7 +11,7 @@ class Dictamen extends General_revision {
 
     public function __construct() {
         $this->grupo_language_text = ['sin_comite', 'req_atencion', 'en_revision',
-            'evaluado', 'aceptado', 'rechazado', 'listado_trabajo', 'generales', 'evaluacion', 'en_revision', 'mensajes', 'detalle_revision', 'detalle_trabajo']; //Grupo de idiomas para el controlador actual
+            'evaluado', 'aceptado', 'rechazado', 'listado_trabajo', 'generales', 'evaluacion', 'en_revision', 'mensajes', 'detalle_revision', 'detalle_trabajo','sugerencia']; //Grupo de idiomas para el controlador actual
         parent::__construct();
         $this->load->model('Dictamen_model', 'dictamen');
         $this->load->model('Convocatoria_model', 'convocatoria');
@@ -26,6 +26,7 @@ class Dictamen extends General_revision {
         $output['data_dictamen'] = $this->revisados_asignados();
         //pr($output['data_dictamen']);
         $output['language_text'] = $this->language_text['evaluado'];
+        
         $output['count_cartel'] = $this->dictamen->count_registros_dictamen(false,'C');
         //pr($this->dictamen->count_registros_dictamen(false,'C'));
         $output['count_oratoria'] = $this->dictamen->count_registros_dictamen(false,'O');
@@ -94,6 +95,8 @@ class Dictamen extends General_revision {
      */
     private function combinar_trabajo_revisores($trabajo, $revisores)
     {
+    	$lang = $this->obtener_idioma();
+      $sugerencias = $this->obtener_grupos_texto(array('sugerencia'),$lang);
     	//pr($revisores);
     	//pr($trabajo);
         /*TEST*/
@@ -191,7 +194,12 @@ class Dictamen extends General_revision {
             {
                 if($value_revisores['folio'] == $value_trabajo['folio'])
                 {
-                    $revisor_sugerencia = $value_revisores['nombre_revisor'] . ": " . $value_revisores['sugerencia'];
+                		$sug = '';
+                		if($value_revisores['sugerencia'] != '')
+                		{
+                			$sug = $sugerencias['sugerencia'][$value_revisores['sugerencia']];
+                		}
+                    $revisor_sugerencia = $value_revisores['nombre_revisor'] . ": " . $sug;
                     $llave = "revisor".($offset);
                     $offset += 1;
                     $resultado[$llave] = $revisor_sugerencia;
@@ -263,7 +271,16 @@ class Dictamen extends General_revision {
     */
     public function activar_asignacion($tipo)
     {
-    	$this->dictamen->activar_asignacion();
+    	//pr($tipo);
+    	$success = $this->dictamen->activar_asignacion($tipo);
+
+    	if($tipo == 'A')
+    	{
+    		$success = $this->asignacion_automatica();
+    	}
+
+    	header('Content-Type: application/json; charset=utf-8;');
+      echo json_encode(array('success' => $success));
     }
 
     /**
@@ -295,7 +312,6 @@ class Dictamen extends General_revision {
                     $actual_oratoria = $this->dictamen->count_registros_dictamen(false, 'O');
                     if ($actual_oratoria == $max_oratoria) {
                         $asignar = false;
-                    } else {
                         $msg = "Ya no hay lugar disponible para oratoria";
                     }
                     break;
@@ -304,7 +320,6 @@ class Dictamen extends General_revision {
                     $actual_cartel = $this->dictamen->count_registros_dictamen(false, 'C');
                     if ($actual_cartel == $max_cartel) {
                         $asignar = false;
-                    } else {
                         $msg = "Ya no hay lugar disponible para cartel";
                     }
                     break;
@@ -331,6 +346,7 @@ class Dictamen extends General_revision {
                         'id_usuario' => $usuario
                     )
                 );
+                //pr($param);
                 if ($this->dictamen->actualizar_registro($param)) {
                     $msg = "Se actualizo la asignacion";
                     $success = true;
@@ -342,6 +358,7 @@ class Dictamen extends General_revision {
         }
     }
 
+    /*
     public function pruebas() {
         pr($this->cupo());
         pr($this->tipo_asignacion());
@@ -349,9 +366,10 @@ class Dictamen extends General_revision {
         $datos_sesion = $this->get_datos_sesion();
         pr($datos_sesion['id_usuario']);
         //pr($this->asignacion_manual('IMSS-CES-FNFIES-P-18-0001','C'));
-        //pr($this->asignacion_automatica());
+        pr($this->asignacion_automatica());
     }
-
+		*/
+		
     public function cierre_convocatoria() {
         $main = "";
         $this->template->setMainContent($main);
