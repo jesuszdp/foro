@@ -5,6 +5,7 @@ class Pdf_dom extends MY_Controller
 
     public function __construct()
     {
+        $this->grupo_language_text = ['generales', 'correo']; //Grupo de idiomas para el controlador actual
         parent::__construct();
         //cargamos la libreria html2pdf
         $this->load->library('dompdf/html2pdf.php');
@@ -45,8 +46,10 @@ class Pdf_dom extends MY_Controller
 
         //hacemos que coja la vista como datos a imprimir
         //importante utf8_decode para mostrar bien las tildes, ñ y demás
+        $data['language_text'] = $this->language_text['correo'];
+      //  pr($this->language_text);
         $this->html2pdf->html(utf8_decode($this->load->view('pdf/carta_pdf.php', $data, true)));
-
+        //exit();
         //si el pdf se guarda correctamente lo mostramos en pantalla
         if($this->html2pdf->create('save'))
         {
@@ -94,6 +97,20 @@ class Pdf_dom extends MY_Controller
             }
         }
     }
+
+    /**
+     * Procesa la informacion de los trabajos de investigacion evaluados y que no han sido asignados
+     * @author AleSpock
+     * @date 24/05/2018
+     * @return array
+     */
+     private function nombre_carta() {
+
+       $respuesta_model = $this->dictamen->get_nombre_carta();
+       //pr($respuesta_model);
+       return $respuesta_model;
+     }
+
 
     //función para crear y enviar el pdf por email
     //ejemplo de la libreria sin modificar
