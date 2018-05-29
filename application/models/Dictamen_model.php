@@ -358,6 +358,7 @@ class Dictamen_model extends MY_Model {
     */
     public function count_registros_dictamen($dictaminado,$filtro)
     {
+
       $this->db->flush_cache();
       $this->db->reset_query();
 
@@ -386,7 +387,7 @@ class Dictamen_model extends MY_Model {
             break;
 
           case 'Q':
-            $filtros = array('aceptado'=>true,'sugerencia'=>null);
+            $filtros = array('aceptado'=>null,'sugerencia'=>null);
             break;
           
           default:
@@ -397,6 +398,8 @@ class Dictamen_model extends MY_Model {
 
       $this->db->where($filtros);
       $this->db->from('foro.dictamen');
+      $valor = $this->db->count_all();
+
       return $this->db->count_all();
     }
 }

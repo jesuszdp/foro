@@ -89,7 +89,7 @@ class Gestion_revision extends General_revision {
 
     private function requiere_atencion() {
       $lenguaje = obtener_lenguaje_actual();
-      $respuesta_model = $this->gestion_revision->get_requiere_atencion();
+      $respuesta_model = $this->gestion_revision->get_requiere_atencion(array('order'=>array('field'=>'id_revision', 'type'=>'desc')));
       $result = array('success'=>$respuesta_model['success'],'msg'=>$respuesta_model['msg'],'result'=>[]);
       foreach ($respuesta_model['result'] as $row) {
         $result['result'][$row['folio']]['folio'] = $row['folio'];

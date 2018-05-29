@@ -506,7 +506,7 @@ class Gestor_revision_model extends MY_Model {
 
         //$validar_folios = $this->get_sn_comite(array('conditions'=>"hr.folio in ('".$folios."')")); //Validar situación y/o estado de los trabajos
         $validar_folios = $this->get_requiere_atencion(array('conditions'=>"hr.folio = '".$folios."'")); //Validar situación y/o estado de los trabajos
-        pr($datos); pr($validar_folios);
+        //pr($datos); pr($validar_folios);
         if($validar_folios['success']==true) //En caso de que se encuentren datos
         {
             $revision = $historico = $revision_anterior = array(); //Arreglo que contendrá asignaciones por añadir
@@ -541,7 +541,7 @@ class Gestor_revision_model extends MY_Model {
                 $i++;
             }
             //pr($revision_anterior); exit();
-            if($revision_anterior>0){ //En caso de que existan conflictos de interes o sea fuera de tiempo se actualiza tabla de revisión.
+            if(count($revision_anterior)>0){ //En caso de que existan conflictos de interes o sea fuera de tiempo se actualiza tabla de revisión.
               $this->db->where("id_revision IN (".implode(",", $revision_anterior).")");
               $this->db->update('foro.revision', array('activo'=>false)); ///Se actualiza el estado en el historico de la revisión
             }
