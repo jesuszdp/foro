@@ -238,11 +238,14 @@ class Dictamen extends General_revision {
             );
             $revisores = $this->dictamen->get_revisores($param);
         }
+        if (isset ($trabajo, $revisores))
+            {
+              $resultado['success'] = 'success';
+              $resultado['result'] = $this->combinar_trabajo_revisores($trabajo, $revisores);
 
-        //pr($resultado);
-        $revisores = $this->dictamen->get_revisores($param);
-        $resultado['success'] = 'success';
-        $resultado['result'] = $this->combinar_trabajo_revisores($trabajo, $revisores);
+            }
+
+
 
         return $resultado;
     }
