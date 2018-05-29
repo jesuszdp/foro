@@ -664,6 +664,7 @@ class Catalogo extends MY_Controller {
          $crud->set_primary_key('id_categoria');
 
          $crud->columns("id_categoria","nombre", "clave_categoria", "activa");
+
          $crud->add_fields('nombre','clave_categoria','activa');
          $crud->edit_fields('nombre','clave_categoria','activa');
          $crud->field_type('activa','true_false');
@@ -812,13 +813,19 @@ class Catalogo extends MY_Controller {
               $crud->set_primary_key('clave_estado');
 
               $crud->columns("clave_estado","lang", "descripcion", "activo");
-              $crud->add_fields("lang", "descripcion", "activo");
-              $crud->edit_fields("lang", "descripcion", "activo");
+              $crud->fields('clave_estado','lang','Investigador','Gestor','Revisor','descripcion','activo');
+              $crud->change_field_type('lang', 'hidden');
+              // $crud->add_fields("clave_estado","clave_estado","Investigador","Gestor","Revisor","descripcion", "activo");
+              // $crud->edit_fields("lang", "descripcion", "activo");
 
               $crud->field_type('activo','true_false');
-              $crud->required_fields('clave_estado', 'lang');
+              $crud->required_fields('clave_estado', 'Investigador','Gestor','Revisor');
 
-              $crud->callback_column('lang',array($this,'_callback_change_values'));
+              if($crud->getState() == 'success' || $crud->getState() == 'list'){
+                  $crud->callback_column('lang',array($this,'_callback_cambiar_valores_gestion_trabajo'));
+              }
+
+              $crud->callback_before_insert(array($this,'_callback_insertar_estado_trabajo'));
 
               $data_view['output'] = $crud->render();
               $data_view['title'] = "Estado del trabajo";
@@ -851,7 +858,7 @@ class Catalogo extends MY_Controller {
 
                $crud->callback_column($this->unique_field_name('id_seccion'),array($this,'_callback_cambiar_id_seccion'));
                $crud->callback_column($this->unique_field_name('id_rango'),array($this,'_callback_cambiar_id_rango'));
-               $crud->callback_column('descripcion',array($this,'_callback_change_values'));
+               $crud->callback_column('descripcion',array($this,'_callback_cambiar_valores'));
 
                $crud->set_relation('id_seccion','seccion','id_seccion');
                $crud->set_relation('id_rango','rango','id_rango');
@@ -884,7 +891,7 @@ class Catalogo extends MY_Controller {
 
                 $crud->required_fields('id_rango', 'cualitativa');
 
-                $crud->callback_column('cualitativa',array($this,'_callback_change_values'));
+                $crud->callback_column('cualitativa',array($this,'_callback_cambiar_valores'));
 
                 $data_view['output'] = $crud->render();
                 $data_view['title'] = "Rangos";
@@ -919,7 +926,7 @@ class Catalogo extends MY_Controller {
 
                  $crud->set_relation('id_tipo_metodologia','tipo_metodologia','id_tipo_metodologia');
 
-                 $crud->callback_column('descripcion',array($this,'_callback_change_values'));
+                 $crud->callback_column('descripcion',array($this,'_callback_cambiar_valores'));
 
                  $data_view['output'] = $crud->render();
                  $data_view['title'] = "Secciones";
@@ -951,7 +958,7 @@ class Catalogo extends MY_Controller {
                   $crud->field_type('activo','true_false');
                   $crud->required_fields('id_tipo_metodologia');
 
-                  $crud->callback_column('lang',array($this,'_callback_change_values'));
+                  $crud->callback_column('lang',array($this,'_callback_cambiar_valores'));
 
                   $data_view['output'] = $crud->render();
                   $data_view['title'] = "Tipos de metodología";
@@ -963,41 +970,35 @@ class Catalogo extends MY_Controller {
 
               /**
                * Función que cambia los valores de las columnas
-               * con valores json, que tienen el lenguaje en,es
+               * con valores json, dependiendo el lenguaje es, en
                * @author Cheko
                * @date 28/05/2018
                * @param
                */
-              public function _callback_change_values($value, $row)
+              public function _callback_cambiar_valores_gestion_trabajo($value, $row)
               {
                   $lenguaje = obtener_lenguaje_actual();
                   $array_php = json_decode($value,true);
-                  $uri = substr( current_url(), strrpos( current_url(), '/' )+1 );
-                  switch ($uri) {
-                    case 'gestion_estado_trabajo':
-                        $investigador = "Investigador: ".$array_php['investigador'][$lenguaje];
-                        $gestor = "Gestor: ".$array_php['gestor'][$lenguaje];
-                        $revisor = "Revisor: ".$array_php['revisor'][$lenguaje];;
-                        return $investigador."\n".$gestor."\n".$revisor;
-                        break;
-                    case 'gestion_opciones':
-                        return $array_php[$lenguaje];
-                        break;
-                    case 'gestion_rangos':
-                        return $array_php[$lenguaje];
-                        break;
-                    case 'gestion_seccion':
-                        return $array_php[$lenguaje];
-                        break;
-                    case 'gestion_tipo_metodologia':
-                        return $array_php[$lenguaje];
-                        break;
-                    default:
-                        return $array_php[$lenguaje];
-                        break;
-                  }
+                  $investigador = "Investigador: ".$array_php['investigador'][$lenguaje];
+                  $gestor = "Gestor: ".$array_php['gestor'][$lenguaje];
+                  $revisor = "Revisor: ".$array_php['revisor'][$lenguaje];;
+                  return $investigador."\n".$gestor."\n".$revisor;
+
               }
 
+              /**
+               * Función que cambia los valores de las columnas
+               * con valores json, dependiendo el lenguaje es, en
+               * @author Cheko
+               * @date 28/05/2018
+               * @param
+               */
+              public function _callback_cambiar_valores($value, $row)
+              {
+                  $lenguaje = obtener_lenguaje_actual();
+                  $array_php = json_decode($value,true);
+                  return $array_php[$lenguaje];
+              }
 
               /**
                * Función que cambia los valores de la columna
@@ -1018,6 +1019,7 @@ class Catalogo extends MY_Controller {
                          return $array_php[$lenguaje];
                       }
                   }
+                  return 'NA';
                }
 
                /**
@@ -1066,9 +1068,39 @@ class Catalogo extends MY_Controller {
 
                  }
 
-               public function unique_field_name($field_name) {
-                 return 's'.substr(md5($field_name),0,8); //This s is because is better for a string to begin with a letter and not with a number
-               }
+                 /**
+                  * Función auxiliar para tener un unico
+                  * nombre de un campo
+                  * @author Cheko
+                  * @date 29/05/2018
+                  * @param String $field_name nombre del campo
+                  *
+                  */
+                 public function unique_field_name($field_name) {
+                   return 's'.substr(md5($field_name),0,8); //This s is because is better for a string to begin with a letter and not with a number
+                 }
+
+                 /**
+                  * Función que para manejar el insertar
+                  * un estado de trabajo de Grocery CRUD
+                  * @author Cheko
+                  * @date 29/05/2018
+                  * @param array $post_array Arreglo de datos a insertar
+                  *
+                  */
+                 public function _callback_insertar_estado_trabajo($post_array){
+                    $lenguaje = obtener_lenguaje_actual();
+                    $lang = array('investigador'=>array('es'=>'','en'=>''),'gestor'=>array('es'=>'','en'=>''),'revisor'=>array('es'=>'','en'=>''));
+                    $lang['investigador'][$lenguaje] = $post_array['Investigador'];
+                    $lang['gestor'][$lenguaje] = $post_array['Gestor'];
+                    $lang['revisor'][$lenguaje] = $post_array['Revisor'];
+                    $post_array['lang'] = json_encode($lang);
+                    unset($post_array['Investigador']);
+                    unset($post_array['Gestor']);
+                    unset($post_array['Revisor']);
+
+                    return $post_array;
+                 }
 
 
 }

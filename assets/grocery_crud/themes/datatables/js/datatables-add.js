@@ -67,7 +67,7 @@ $(function(){
 								}
 								else
 								{
-									form_error_message('Ocurrió un error al momento de insertar.');
+									form_error_message('An error has been occured at the insert.');
 								}
 							}
 						});
