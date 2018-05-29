@@ -226,7 +226,7 @@ class Dictamen extends General_revision {
         }
 
         if (!is_null($param)) {
-            $resultado['trabajos'] = $this->dictamen->get_trabajos_evaluados($param);
+            $trabajo = $this->dictamen->get_trabajos_evaluados($param);
             // Obtenemos el listado de los revisores
             $param = array(
                 'where' => array(
@@ -236,10 +236,12 @@ class Dictamen extends General_revision {
                 'order_by' => 'hr.folio, r.fecha_asignacion',
                 'where_in' => array('d.sugerencia', array('O', 'C'))
             );
-            $resultado['revisores'] = $this->dictamen->get_revisores($param);
+            $revisores = $this->dictamen->get_revisores($param);
         }
 
         //pr($resultado);
+        $resultado['result'] = $this->combinar_trabajo_revisores($trabajo, $revisores);
+
         return $resultado;
     }
 
@@ -247,7 +249,7 @@ class Dictamen extends General_revision {
      * Asigna de manera manual el dictamen de un trabajo
      * @author clapas
      * @date 28/05/2018
-     * @param 
+     * @param
      * @return json
      */
     public function asignacion_manual($folio, $sugerencia) {
@@ -330,5 +332,12 @@ class Dictamen extends General_revision {
         $this->template->setMainContent($main);
         $this->template->getTemplate();
     }
+
+    // public function modal_confirmación(){
+    //     $output = $this->load->view('revision_trabajo_investigacion/estados/modal/modal_confirmacion.php', $output, );
+    //     echo $output;
+    //
+    //
+    // }
 
 }

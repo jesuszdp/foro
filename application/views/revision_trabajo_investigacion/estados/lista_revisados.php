@@ -16,7 +16,7 @@
   <div class="col-sm-4">
     <h4 class="text-center"> <?php echo $language_text['lbl_tipos_de_asignacion'];?></h4>
     <br>
-    <button id="show" type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button revisados" data- data-toggle="modal" data-target="#exampleModal2"> <a  style="color:#fff;"><?php echo $language_text['btn_manual'];?></a> </button>
+    <button id="show" type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button revisados" data- data-toggle="modal" data-target="#exampleModal"> <a  style="color:#fff;"><?php echo $language_text['btn_manual'];?></a> </button>
   </div>
 </div>
 <div class="col-sm-12">
@@ -25,13 +25,13 @@
 
   </div>
   <div class="col-sm-4">
-    <a href="<?php echo site_url("/dictamen/cierre_convocatoria"); ?>" class="btn btn-theme btn-block submit-button" type="button"><?php echo $language_text['btn_cerrar'];?><span class="glyphicon glyphicon-new-window"></span></a>
+    <a href="" class="btn btn-theme btn-block submit-button" type="button"><?php echo $language_text['btn_cerrar'];?><span class="glyphicon glyphicon-new-window"></span></a>
   </div>
   <div class="col-sm-2">
 
   </div>
   <div class="col-sm-4">
-    <button id="hide" type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal2"> <a  style="color:#fff;"><?php echo $language_text['btn_automatico'];?></a> </button>
+    <a id="hide" type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal"> <span  style="color:#fff;"><?php echo $language_text['btn_automatico'];?></span> </a>
 
   </div>
 </div>
@@ -175,14 +175,14 @@
             </thead>
             <tbody>
               <?php
-              if(isset($data_dictamen))
+              if(isset($data_revisados))
               {
-                if($data_dictamen['success'])
+                if($data_revisados['success'])
                 {
-                  if(count($data_dictamen['result']) > 0)
+                  if(count($data_revisados['result']) > 0)
                   {
                     $lenguaje = obtener_lenguaje_actual();
-                    foreach ($data_dictamen['result'] as $row)
+                    foreach ($data_revisados['result'] as $row)
                     {
                       ?>
                 <tr>
@@ -194,14 +194,14 @@
                     echo $metodologia[$lenguaje];
                     ?>
                   </td>
-                  <td><?php echo $row['revisor'];?></td>
-                  <td><?php echo $row['revisor'];?></td>
-                  <td><?php echo $row['revisor'];?></td>
-                  <td><?php echo $row['promedio_revision'];?></td>
-                  <td><?php echo $row['propuesta_dictamen'];?></td>
+                  <td><?php echo $row['revisor1'];?></td>
+                  <td><?php echo $row['revisor2'];?></td>
+                  <td><?php if(isset($row['revisor3'])) echo $row['revisor3'];?></td>
+                  <td><?php echo $row['promedio'];?></td>
+                  <td><?php echo $row['sugerencia'];?></td>
                   <td>
 
-                    <a href="ver_resumen" style="color:#f05a29;"><?php echo $language_text['btn_vdetalle'];?></a><br>
+                    <a href="ver_resumen" style="color:#f05a29;"><?php echo $language_text['btn_vrevision'];?></a><br>
                     <a id="asignar" href="ver_resumen" style="color:#f05a29;"><?php echo $language_text['btn_asignar'];?></a>
                   </td>
                 </tr>
@@ -211,7 +211,7 @@
             else
             {
               ?>
-              <h3>No hay trabajos aceptados!</h3>
+              <h3>No hay trabajos revisados</h3>
               <?php
 
             }
@@ -219,7 +219,7 @@
           else
           {
             ?>
-            <h3><?php echo $data_dictamen['msg'];?></h3>
+            <h3>No hay trabajos revisados</h3>
             <?php
           }
           ?>
