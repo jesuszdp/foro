@@ -96,7 +96,9 @@ class Gestion_revision extends General_revision {
         $result['result'][$row['folio']]['titulo'] = $row['titulo'];
         $result['result'][$row['folio']]['clave_estado'] = $row['clave_estado'];
         $result['result'][$row['folio']]['revisores'][$row['id_usuario']]['revisor'] = $row['revisor'];
-        $result['result'][$row['folio']]['revisores'][$row['id_usuario']]['clave_estado'] = ($row['revisado']==true) ? 'Revisado' : 'Sin revisar';
+        $result['result'][$row['folio']]['revisores'][$row['id_usuario']]['revisor'] = $row['revisor'];
+        //$result['result'][$row['folio']]['revisores'][$row['id_usuario']]['clave_estado'] = ($row['revisado']==true) ? 'Revisado' : 'Sin revisar';
+        $result['result'][$row['folio']]['revisores'][$row['id_usuario']]['clave_estado'] = $this->get_estado_revisor($row);
         $result['result'][$row['folio']]['revisores'][$row['id_usuario']]['fecha_limite_revision'] = $row['fecha_limite_revision'];
         $metodologia = json_decode($row['metodologia'],true);
         $result['result'][$row['folio']]['metodologia'] = $metodologia[$lenguaje];
@@ -236,7 +238,9 @@ class Gestion_revision extends General_revision {
           $datos['folios'] = array(decrypt_base64($folios)); //Desencriptar identificadores de trabajos
           $condiciones = array('conditions'=>"iu.id_usuario not in (select id_usuario from foro.revision r1 where r1.folio='".decrypt_base64($folios)."')"); //Generar condiciones para mostrar revisores.
           $datos['revisores'] = $this->gestion_revision->get_revisores($condiciones)['result']; ///Obtener listado de revisores
-          $this->load->view('revision_trabajo_investigacion/asignar_revisor.php', $datos);
+
+          $datos['numero_revisores_remplazar'] = $this->validar_numero_revisores_remplazar(decrypt_base64($folios));
+          $this->load->view('revision_trabajo_investigacion/asignar_revisor_requiere_atencion.php', $datos);
         }        
       }
     }
@@ -248,8 +252,57 @@ class Gestion_revision extends General_revision {
      * @description Obtiene el número de revisores a remplazar por trabajo
      *
      */
-    private function validar_numero_revisores_remplazar(){
+    private function validar_numero_revisores_remplazar($folio){
+      ///Obtener datos de las revisiones
+      $revisores = $this->gestion_revision->get_requiere_atencion(array('conditions'=>"hr.folio = '".$folio."'"));
+      //pr($revisores);
+      $numero_revisores = 0;
+      foreach ($revisores['result'] as $key_r => $revisor) {
+        if($revisor['activo']==true){ ///Validamos solo revisiones activas
+          if($revisor['revisado']==false){ //En caso de que no se hayan realizado las revisiones
+            if($revisor['fuera_tiempo']==true){
+              //$estado_actual_revisor = 'Fuera de tiempo';
+              $numero_revisores++;
+            }
+          } else { ///Si se realizaron las revisiones
+            if($revisor['conflicto_interes']==true){
+              $numero_revisores++;
+            } else {
+              if($revisor['clave_estado']=='discrepancia'){
+                $numero_revisores+=.5;
+              }
+            }
+          }
+        }
+      }
+      //pr($numero_revisores);
+      return $numero_revisores;
+    }
 
+
+    private function get_estado_revisor($registro){
+      //pr($registro);
+      //$lenguaje = obtener_lenguaje_actual();
+      $estado_actual_revisor = '';
+      if($registro['revisado']==false){
+        if($registro['fuera_tiempo']==true){
+          $estado_actual_revisor = 'Fuera de tiempo';
+        } else {
+          $estado_actual_revisor = 'Sin revisión';
+        }
+      } else {
+        if($registro['conflicto_interes']==true){
+          $estado_actual_revisor = 'Conflicto de intereses';
+        } else {
+          if($registro['clave_estado']=='discrepancia'){
+            $estado_actual_revisor = 'Discrepancia';
+          } else {
+            $estado_actual_revisor = 'Revisado';
+          }
+        }
+      }
+
+      return $estado_actual_revisor;
     }
 
 
@@ -260,17 +313,17 @@ class Gestion_revision extends General_revision {
      * @description Genera el listado de revisores disponibles para la asignación de trabajo de investigación
      *
      */
-    public function asignar_revisor_bd(){
+    public function asignar_revisor_requiere_atencion_bd(){
       if($this->input->is_ajax_request()){ //Validar que se realice una petición ajax
         if($this->input->post()){ //Se valida que se envien datos
           //pr($this->input->post());
           $id = $this->input->post(null, true);
           $datos['usuarios'] = array_map("decrypt_base64", $id['usuarios']); ///Obtener identificadores de usuarios
           $datos['folios'] = array_map("decrypt_base64", explode(',', $id['folios'])); //Obtener identificadores de folios
-          $datos['resultado'] = $this->gestion_revision->insert_asignar_revisor($datos);
+          $datos['resultado'] = $this->gestion_revision->insert_asignar_revisor_requiere_atencion($datos);
           //print_r($id);
           //pr($datos);
-          $this->load->view('revision_trabajo_investigacion/asignar_revisor_bd.php', $datos);
+          $this->load->view('revision_trabajo_investigacion/asignar_revisor_requiere_atencion_bd.php', $datos);
         }
       }
     }

@@ -13,7 +13,6 @@
                     <th scope="col"><?php echo $opciones_secciones['col_folio'];?></th>
                     <th scope="col"><?php echo $opciones_secciones['col_titulo'];?></th>
                     <th scope="col"><?php echo $opciones_secciones['col_metodologia'];?></th>
-                    <th scope="col">Estado</th>
                     <th scope="col"><?php echo $opciones_secciones['col_r1'];?></th>
                     <th scope="col"><?php echo $opciones_secciones['col_r2'];?></th>
                     <th scope="col"><?php echo $opciones_secciones['col_r3'];?></th>
@@ -31,7 +30,6 @@
                     <td scope="row"><?php echo $row['folio'];?></td>
                     <td><?php echo $row['titulo'];?></td>
                     <td><?php echo $row['metodologia'];?></td>
-                    <td><?php  echo $row['clave_estado'];?></td>
                     <?php
                         foreach ($row['revisores'] as $revisor) {
                     ?>
@@ -50,7 +48,7 @@
                     <td><?php echo $row['numero_revisiones'];?></td>
                     <td>
                       <a href="" type="button" data-animation="flipInY" data-animation-delay="100" data-toggle="modal" data-target="#exampleModal"><?php echo $opciones_secciones['btn_ver'];?> <span class="glyphicon glyphicon-new-window"></a>
-                      <a href="" type="button" data-animation="flipInY" data-animation-delay="100" data-f="<?php echo $folio_enc; ?>"  data-toggle="modal" data-target="#exampleModal"><?php echo $opciones_secciones['btn_asignar'];?> <span class="glyphicon glyphicon-new-window"></a>
+                      <a href="" type="button" data-animation="flipInY" data-animation-delay="100" data-f="<?php echo $folio_enc; ?>" class="btn-asignar" data-toggle="modal" data-target="#exampleModal"><?php echo $opciones_secciones['btn_asignar'];?> <span class="glyphicon glyphicon-new-window"></a>
                     </td
                   </tr>
 <?php

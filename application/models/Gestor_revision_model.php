@@ -76,18 +76,31 @@ class Gestor_revision_model extends MY_Model {
       $estado = array('success'=>false, 'msg'=>'Algo salio mal', 'result'=>[]);
       try
       {
-          $estado = array('success'=>false, 'msg'=>'Algo salio mal', 'result'=>[]);
+          //$estado = array('success'=>false, 'msg'=>'Algo salio mal', 'result'=>[]);
           $this->db->flush_cache();
           $this->db->reset_query();
-          $this->db->select(array('hr.folio folio','ti.titulo titulo', 'ma.lang metodologia', 'rn.revisado','rn.id_usuario',
-          "(SELECT concat(nombre,' ',apellido_paterno,' ',apellido_materno) FROM sistema.informacion_usuario WHERE id_usuario=rn.id_usuario) revisor",'hr.clave_estado',
+          $this->db->select(array('hr.folio folio','rn.id_revision', 'ti.titulo titulo', 'ma.lang metodologia', 'rn.revisado','rn.id_usuario',
+          "(SELECT concat(nombre,' ',apellido_paterno,' ',apellido_materno) FROM sistema.informacion_usuario WHERE id_usuario=rn.id_usuario) revisor",
+          'hr.clave_estado', 'rn.tema_educacion', 'rn.conflicto_interes', 'rn.activo',
           "CAST(rn.fecha_asignacion AS DATE) + CAST('3 days' AS INTERVAL) fecha_limite_revision",
+          "(CASE WHEN CAST(rn.fecha_asignacion AS DATE) + CAST('3 days' AS INTERVAL) < now() THEN true ELSE false END) fuera_tiempo",
           '(SELECT count(folio) FROM foro.historico_revision WHERE folio=hr.folio) numero_revisiones'));
           $this->db->join('foro.trabajo_investigacion ti', 'hr.folio = ti.folio','left');
           $this->db->join('foro.tipo_metodologia ma', 'ti.id_tipo_metodologia = ma.id_tipo_metodologia','left');
           $this->db->join('foro.revision rn', 'hr.folio = rn.folio','left');
-          $this->db->where_in('hr.clave_estado', array('fuera_tiempo','discrepancia','conflicto_interes'));
+          $this->db->where("hr.clave_estado IN('fuera_tiempo','discrepancia','conflicto_interes')");
           $this->db->where('actual',true);
+
+          if(array_key_exists('fields', $param)){
+              $this->db->select($param['fields']);
+          }
+          if(array_key_exists('conditions', $param)){
+              $this->db->where($param['conditions']);
+          }
+          if(array_key_exists('order', $param)){
+              $this->db->order_by($param['order']['field'], $param['order']['type']);
+          }
+          //pr($this->db);
           $result = $this->db->get('foro.historico_revision hr');
           $salida = $result->result_array();
           $result->free_result();
@@ -424,9 +437,9 @@ class Gestor_revision_model extends MY_Model {
     }
 
     /**
-     * Devuelve la información de los registros de la tabla catalogos
-     * @author
-     * @date 21/05/2018
+     * Insertar revisiones correspondientes a sección 'Sin comite'
+     * @author JZDP
+     * @date 26/05/2018
      * @return array
      */
     public function insert_asignar_revisor($datos) {
@@ -469,6 +482,77 @@ class Gestor_revision_model extends MY_Model {
                 $resultado['msg'] = "Ocurrió un error durante el guardado, por favor intentelo de nuevo más tarde.";
             } else {
                 $this->db->trans_commit();
+                //$resultado['data'] = $taller_id;
+                $resultado['result'] = TRUE;
+            }
+
+
+        } else {
+            $resultado['msg'] = 'No existen folios disponibles para la asignación, verifique el estado de los trabajos.';
+        }
+        return $resultado;
+    }
+
+    /**
+     * Insertar revisiones correspondientes a sección 'Requiere atención'
+     * @author JZDP
+     * @date 28/05/2018
+     * @return array
+     */
+    public function insert_asignar_revisor_requiere_atencion($datos) {
+        $resultado = array('result'=>null, 'msg'=>'', 'data'=>null);
+        $this->db->trans_begin(); //Definir inicio de transacción
+        $folios = implode("','", $datos['folios']);
+
+        //$validar_folios = $this->get_sn_comite(array('conditions'=>"hr.folio in ('".$folios."')")); //Validar situación y/o estado de los trabajos
+        $validar_folios = $this->get_requiere_atencion(array('conditions'=>"hr.folio = '".$folios."'")); //Validar situación y/o estado de los trabajos
+        pr($datos); pr($validar_folios);
+        if($validar_folios['success']==true) //En caso de que se encuentren datos
+        {
+            $revision = $historico = $revision_anterior = array(); //Arreglo que contendrá asignaciones por añadir
+            $i=0;
+            foreach ($datos['usuarios'] as $key_u => $usuario) { //Se recorren los usuarios por asociar
+                //foreach ($folios as $key_f => $folio) { //Se recorren los trabajos que fueron localizados
+                    $revision[$i]['folio'] = $folios;
+                    $revision[$i]['activo'] = true;
+                    $revision[$i]['id_usuario'] = $usuario;
+                    $i++;
+                //}
+            }
+            //pr($revision); exit();
+            $this->db->insert_batch('foro.revision', $revision); //Inserción en tabla revision
+
+            $this->db->where("folio IN ('".$folios."')");
+            $this->db->update('foro.historico_revision', array('actual'=>false)); ///Se actualiza el estado en el historico de la revisión
+
+            $historico[$i]['folio'] = $folios;
+            $historico[$i]['actual'] = true;
+            $historico[$i]['clave_estado'] = 'asignado';
+            $this->db->insert_batch('foro.historico_revision', $historico); //Inserción en tabla historico_revision, se agrega nuevo estado para la revisión
+
+            $i=0;
+            foreach ($validar_folios['result'] as $key_f => $folio) { //Se recorren los trabajos que fueron localizados
+                //pr($folio);                
+                if($folio['activo']==true AND $folio['conflicto_interes']==true){ //En caso de que en los registros se localicen incidencias por conflicto de interes se colocan como inactivos
+                    $revision_anterior[$i] = $folio['id_revision'];
+                } elseif ($folio['activo']==true AND $folio['revisado']==false AND $folio['fuera_tiempo']==true) { //En caso de que en los registros se localicen incidencias por periodo fuera de tiempo se colocan como inactivos
+                    $revision_anterior[$i] = $folio['id_revision'];
+                }
+                $i++;
+            }
+            //pr($revision_anterior); exit();
+            if($revision_anterior>0){ //En caso de que existan conflictos de interes o sea fuera de tiempo se actualiza tabla de revisión.
+              $this->db->where("id_revision IN (".implode(",", $revision_anterior).")");
+              $this->db->update('foro.revision', array('activo'=>false)); ///Se actualiza el estado en el historico de la revisión
+            }
+
+            if ($this->db->trans_status() === FALSE){
+                $this->db->trans_rollback();
+                $resultado['result'] = FALSE;
+                $resultado['msg'] = "Ocurrió un error durante el guardado, por favor intentelo de nuevo más tarde.";
+            } else {
+                $this->db->trans_commit();
+                //$this->db->trans_rollback();
                 //$resultado['data'] = $taller_id;
                 $resultado['result'] = TRUE;
             }
