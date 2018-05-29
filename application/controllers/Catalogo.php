@@ -825,6 +825,10 @@ class Catalogo extends MY_Controller {
                   $crud->callback_column('lang',array($this,'_callback_cambiar_valores_gestion_trabajo'));
               }
 
+
+              $crud->callback_read_field('lang',array($this,'_callback_leer_investigador'));
+              //pr($crud);
+
               $crud->callback_before_insert(array($this,'_callback_insertar_estado_trabajo'));
 
               $data_view['output'] = $crud->render();
@@ -835,6 +839,12 @@ class Catalogo extends MY_Controller {
               $this->template->getTemplate();
           }
 
+
+           function _callback_leer_investigador($value, $primary_key) {
+              pr($value);
+              pr ($primary_key);
+              return '+30 ' . $value;
+          }
 
           /**
            * Función que hace la gestión de opciones
