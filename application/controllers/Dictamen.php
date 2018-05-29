@@ -14,6 +14,7 @@ class Dictamen extends General_revision {
             'evaluado', 'aceptado', 'rechazado', 'listado_trabajo', 'generales', 'evaluacion', 'en_revision', 'mensajes', 'detalle_revision', 'detalle_trabajo']; //Grupo de idiomas para el controlador actual
         parent::__construct();
         $this->load->model('Dictamen_model', 'dictamen');
+        $this->load->model('Convocatoria_model', 'convocatoria');
     }
 
     /**
@@ -23,10 +24,17 @@ class Dictamen extends General_revision {
         $datos['mensajes'] = $this->obtener_grupos_texto('mensajes', $this->obtener_idioma())['mensajes'];
         $output['data_revisados'] = $this->revisados_sin_asignar();
         $output['data_dictamen'] = $this->revisados_asignados();
-        //pr($output);
+        //pr($output['data_dictamen']);
         $output['language_text'] = $this->language_text['evaluado'];
+        $output['count_cartel'] = $this->dictamen->count_registros_dictamen(false,'C');
+        $output['count_oratoria'] = $this->dictamen->count_registros_dictamen(false,'O');
+        $output['config_asignacion'] = $this->tipo_asignacion();
+        $output['cupo'] = $this->cupo();
+        $output['cerrar_proceso_btn'] = $this->convocatoria->get_activa()[0]['revision'];
+        
         $output['list_revisados'] = $this->load->view('revision_trabajo_investigacion/estados/lista_revisados.php', $output, true);
         $output['textos_idioma_nav'] = $this->obtener_grupos_texto('tabs_gestor', $this->obtener_idioma())['tabs_gestor'];
+
         $main_content = $this->load->view('revision_trabajo_investigacion/listas_gestor.php', $output, true);
         $this->template->setMainContent($main_content);
         $this->template->getTemplate();
@@ -85,8 +93,8 @@ class Dictamen extends General_revision {
      */
     private function combinar_trabajo_revisores($trabajo, $revisores)
     {
-    	pr($revisores);
-    	pr($trabajo);
+    	//pr($revisores);
+    	//pr($trabajo);
         /*TEST*/
         /*
         $trabajo = [];
@@ -244,25 +252,38 @@ class Dictamen extends General_revision {
     }
 
     /**
+    * Activa algun tipo de asignacion
+    * @author clapas
+    * @date 29/05/2018
+    */
+    public function activar_asignacion($tipo)
+    {
+    	$this->dictamen->activar_asignacion();
+    }
+
+    /**
      * Asigna de manera manual el dictamen de un trabajo
      * @author clapas
      * @date 28/05/2018
      * @param 
      * @return json
      */
-    public function asignacion_manual($folio, $sugerencia) {
-        $this->load->model('Dictamen_model', 'dictamen');
+    public function asignacion_manual() {
         $asig_manual = $this->tipo_asignacion()['manual'];
 
         if ($asig_manual) {
             $this->load->model('Evaluacion_revision_model', 'evaluacion_revision');
-            //$post = $this->input->post(null,true);
+            $post = $this->input->post(null,true);
+            $folio = $post['folio'];
+            $sugerencia = $post['sugerencia'];
+
             $usuario = $this->get_datos_sesion()['id_usuario'];
             $asignar = true;
             $aceptado = true;
             $msg = "Ocurrio un error al actualizar la asignacion";
             $success = false;
 
+          if(!is_null($folio) && !is_null($sugerencia)){
             switch ($sugerencia) {
                 case 'O':
                     $max_oratoria = $this->cupo()['oratoria'];
@@ -310,8 +331,9 @@ class Dictamen extends General_revision {
                     $success = true;
                 }
             }
-
-            return json_encode(array('success' => $success, 'msg' => $msg));
+          }
+          header('Content-Type: application/json; charset=utf-8;');
+          echo json_encode(array('success' => $success, 'msg' => $msg));
         }
     }
 

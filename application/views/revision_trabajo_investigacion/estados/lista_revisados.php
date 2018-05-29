@@ -1,16 +1,22 @@
 <!-- contadores de lugares para oratoria y lugares para cartel -->
+<?php echo js("revision/asignar_dictamen.js"); ?>
+
+<?php 
+$manual = $config_asignacion['manual'];
+$sistema = $config_asignacion['sistema'];
+?>
 <div class="col-sm-12">
   <div class="col-sm-3">
     <h4 class="text-center"> <?php echo $language_text['lbl_oral'];?></h4>
-    <h3 class="text-center">10 / 20</h3>
+    <h3 class="text-center"><?php echo $count_oratoria.' / '.$cupo['oratoria'];?></h3>
   </div>
   <div class="col-sm-3">
     <h4 class="text-center"> <?php echo $language_text['lbl_cartel'];?></h4>
-    <h3 class="text-center">10 / 20</h3>
+    <h3 class="text-center"><?php echo $count_cartel.' / '.$cupo['cartel'];?></h3>
   </div>
   <div class="col-sm-2">
     <h4 class="text-center">Total de asignaciones<?php //echo $language_text['lbl_cartel'];?></h4>
-    <h3 class="text-center">1 / 55</h3>
+    <h3 class="text-center"><?php echo ($count_oratoria + $count_cartel).' / '.($cupo['oratoria'] + $cupo['cartel']);?></h3>
 
   </div>
   <div class="col-sm-4">
@@ -25,7 +31,11 @@
 
   </div>
   <div class="col-sm-4">
+    <?php 
+    if($cerrar_proceso_btn){
+    ?>
     <a href="<?php echo site_url("/dictamen/cierre_convocatoria"); ?>" class="btn btn-theme btn-block submit-button" type="button"><?php echo $language_text['btn_cerrar'];?><span class="glyphicon glyphicon-new-window"></span></a>
+    <?php } ?>
   </div>
   <div class="col-sm-2">
 
@@ -77,7 +87,14 @@
               <th scope="col"><?php echo $language_text['col_r2'];?></th>
               <th scope="col"><?php echo $language_text['col_r3'];?></th>
               <th scope="col"><?php echo $language_text['col_puntaje'];?></th>
-              <th><?php echo $language_text['col_sugerencia'];?></th>
+              <?php
+              if($manual)
+              {
+                echo '<th>';
+                echo $language_text['col_sugerencia'];
+                echo '</th>';
+              }
+              ?>
               <th scope="col"><?php echo $language_text['col_opciones'];?></th>
             </tr>
           </thead>
@@ -94,7 +111,7 @@
                   {
                     ?>
               <tr>
-                <td scope="row"><?php echo $row['folio'];?></td>
+                <td scope="row" class="row_folio"><?php echo $row['folio'];?></td>
                 <td><?php echo $row['titulo'];?></td>
                 <td>
                   <?php
@@ -106,11 +123,21 @@
                 <td><?php echo $row['revisor2'];?></td>
                 <td><?php if(isset($row['revisor3'])) echo $row['revisor3'];?></td>
                 <td><?php echo $row['promedio'];?></td>
-                <td><?php echo $row['sugerencia'];?></td>
+                <?php if($manual){ ?>
                 <td>
-
-                  <a href="ver_resumen" style="color:#f05a29;"><?php echo $language_text['btn_vrevision'];?></a><br>
-                  <a id="asignar" href="ver_resumen" style="color:#f05a29;"><?php echo $language_text['btn_asignar'];?></a>
+                  <select class="select_asignacion">
+                    <option value="Q">Sin asignar</option>
+                    <option value="O">Oratoria</option>
+                    <option value="C">Cartel</option>
+                    <option value="R">Rechazado</option>
+                  </select>
+                </td>
+                <?php } ?>
+                <td>
+                  <a href="#" style="color:#f05a29;"><?php echo $language_text['btn_vrevision'];?></a><br>
+                  <?php  if($manual){ ?>
+                  <a id="btn_asignar" href="#" style="color:#f05a29;"><?php echo $language_text['btn_asignar'];?></a>
+                  <?php } ?>
                 </td>
               </tr>
               <?php

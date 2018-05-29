@@ -190,6 +190,47 @@ class Dictamen_model extends MY_Model {
       }
     }
 
+    /**
+    * Activa algun tipo de asignacion
+    * @author clapas
+    * @date 29/05/2018
+    * @param char A si es automatica, M si es manual
+    * @return boolean true si se pudo realizar el cambio, false en otro caso 
+    */
+    public function activar_asignacion($tipo)
+    {
+      $salida = false;
+      $this->db->flush_cache();
+      $this->db->reset_query();
+      $this->db->trans_begin();
+
+      $config = '{"manual" : false, "sistema" : false }';
+      switch ($tipo) {
+        case 'A':
+          $config = '{"manual" : false, "sistema" : true }';
+          break;
+
+        case 'M':
+          $config = '{"manual" : true, "sistema" : false }';
+          break;
+      }
+
+      $this->db->set(array('valor'=>$config));
+      $this->db->where('llave','ordenamiento');
+      $this->db->update('foro.configuracion');
+      if ($this->db->trans_status() === FALSE)
+      {
+          $this->db->trans_rollback();
+      } else
+      {
+          $this->db->trans_commit();
+          $salida = true;
+      }
+
+      $this->db->flush_cache();
+      $this->db->reset_query();
+      return $salida;
+    }
 
     /**
     * Devuelve los trabajos que podran ser asignados de manera automatica
