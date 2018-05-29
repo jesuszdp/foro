@@ -39,28 +39,158 @@ class Dictamen extends General_revision {
      * @return array
      */
     private function revisados_sin_asignar() {
-        $resultado = [];
-        // Filtros para obtener los trabajos sin asignar
-        $param = array(
-            'where' => array(
-                'd.aceptado' => null,
-                'd.sugerencia' => null
-            ),
-            'order_by' => 'd.promedio, ti.fecha'
-        );
-        $resultado['trabajos'] = $this->dictamen->get_trabajos_evaluados($param);
-        // Obtenemos el listado de los revisores
-        $param = array(
-            'where' => array(
-                'd.aceptado' => null,
-                'd.sugerencia' => null,
-                'r.activo' => true
-            ),
-            'order_by' => 'hr.folio, r.fecha_asignacion'
-        );
-        $resultado['revisores'] = $this->dictamen->get_revisores($param);
-        //pr($resultado);
-        return $resultado;
+      $resultado = [];
+      // Filtros para obtener los trabajos sin asignar
+      $param = array(
+          'where' => array(
+              'd.aceptado' => null,
+              'd.sugerencia' => null
+          ),
+          'order_by' => 'd.promedio, ti.fecha'
+      );
+      /*
+      $resultado['trabajos'] = $this->dictamen->get_trabajos_evaluados($param);
+      // Obtenemos el listado de los revisores
+      $param = array(
+          'where' => array(
+              'd.aceptado' => null,
+              'd.sugerencia' => null,
+              'r.activo' => true
+          ),
+          'order_by' => 'hr.folio, r.fecha_asignacion'
+      );
+      */
+      $trabajo = $this->dictamen->get_trabajos_evaluados($param);
+      // Obtenemos el listado de los revisores
+      $param = array(
+      		'where' => array(
+      				'd.aceptado' => null,
+      				'd.sugerencia' => null,
+      				'r.activo' => true
+      			),
+      		'order_by' => 'hr.folio, r.fecha_asignacion'
+      	);
+      $revisores = $this->dictamen->get_revisores($param);
+      $resultado['success'] = 'success';
+      $resultado['result'] = $this->combinar_trabajo_revisores($trabajo, $revisores);
+      return $resultado;
+    }
+
+
+    /**
+     *
+     * @author AleSpock
+     * @date 28/05/2018
+     * @return array
+     */
+    private function combinar_trabajo_revisores($trabajo, $revisores)
+    {
+    	pr($revisores);
+    	pr($trabajo);
+        /*TEST*/
+        /*
+        $trabajo = [];
+        $revisores = [];
+        $trabajo[] = [
+            'hr.folio'=> 'ABCD3',
+            'hr.titulo'=> 'Titulo 1',
+            'metodologia'=> 'Cuantitativa',
+            'promedio'=> '8',
+        ];
+        $trabajo[] = [
+            'hr.folio'=> '12345',
+            'hr.titulo'=> 'Titulo 2',
+            'metodologia'=> 'Cualitativa',
+            'promedio'=> '4',
+        ];
+        $trabajo[] = [
+            'hr.folio'=> '1324',
+            'hr.titulo'=> 'Titulo 3',
+            'metodologia'=> 'Cuantitativa',
+            'promedio'=> '10',
+        ];
+        $revisores = [];
+        $revisores[] = [
+            'hr.folio' => 'ABCD3',
+            'nombre_revisor' => 'Juan Pérez',
+            'r.sugerencia' => 'Oratoria'
+        ];
+        $revisores[] = [
+            'hr.folio' => 'ABCD3',
+            'nombre_revisor' => 'Pablo Juarez',
+            'r.sugerencia' => 'Oratoria'
+        ];
+        $revisores[] = [
+            'hr.folio' => 'ABCD3',
+            'nombre_revisor' => 'Carla Hernandez',
+            'r.sugerencia' => 'Oratoria'
+        ];
+        $revisores[] = [
+            'hr.folio' => '12345',
+            'nombre_revisor' => 'Juan Pérez',
+            'r.sugerencia' => 'Cartel'
+        ];
+        $revisores[] = [
+            'hr.folio' => '12345',
+            'nombre_revisor' => 'Pablo Juarez',
+            'r.sugerencia' => 'Oratoria'
+        ];
+        $revisores[] = [
+            'hr.folio' => '12345',
+            'nombre_revisor' => 'Carla Hernandez',
+            'r.sugerencia' => 'Oratoria'
+        ];
+        $revisores[] = [
+            'hr.folio' => '1324',
+            'nombre_revisor' => 'Juan Pérez',
+            'r.sugerencia' => 'Oratoria'
+        ];
+        $revisores[] = [
+            'hr.folio' => '1324',
+            'nombre_revisor' => 'jose Pérez',
+            'r.sugerencia' => 'Cartel'
+        ];
+        $revisores[] = [
+            'hr.folio' => '1324',
+            'nombre_revisor' => 'Carla Hernandez',
+            'r.sugerencia' => 'Cartel'
+        ];
+
+        /*TEST*/
+
+        $array_resultados = [];
+        if (count($trabajo) < 1)
+        {
+            return $array_resultados;
+        }
+
+        if (count($revisores) < 1)
+        {
+            return $array_resultados;
+        }
+
+
+        foreach ($trabajo as $key_trabajo => $value_trabajo)
+        {
+            $resultado['folio'] = $value_trabajo['folio'];
+            $resultado['titulo'] = $value_trabajo['titulo'];
+            $resultado['metodologia'] = $value_trabajo['metodologia'];
+            $resultado['promedio'] = $value_trabajo['promedio'];
+            $resultado['sugerencia'] = $value_trabajo['sugerencia'];
+            $offset = 1;
+            foreach ($revisores as $key_revisores => $value_revisores)
+            {
+                if($value_revisores['folio'] == $value_trabajo['folio'])
+                {
+                    $revisor_sugerencia = $value_revisores['nombre_revisor'] . ": " . $value_revisores['sugerencia'];
+                    $llave = "revisor".($offset);
+                    $offset += 1;
+                    $resultado[$llave] = $revisor_sugerencia;
+                }
+            }
+            $array_resultados[] = $resultado;
+        }
+        return $array_resultados;
     }
 
     /**

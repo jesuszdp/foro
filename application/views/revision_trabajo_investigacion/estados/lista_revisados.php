@@ -102,14 +102,14 @@
                   echo $metodologia[$lenguaje];
                   ?>
                 </td>
-                <td><?php echo $row['revisor'];?></td>
-                <td><?php echo $row['revisor'];?></td>
-                <td><?php echo $row['revisor'];?></td>
-                <td><?php echo $row['promedio_revision'];?></td>
-                <td><?php echo $row['propuesta_dictamen'];?></td>
+                <td><?php echo $row['revisor1'];?></td>
+                <td><?php echo $row['revisor2'];?></td>
+                <td><?php if(isset($row['revisor3'])) echo $row['revisor3'];?></td>
+                <td><?php echo $row['promedio'];?></td>
+                <td><?php echo $row['sugerencia'];?></td>
                 <td>
 
-                  <a href="ver_resumen" style="color:#f05a29;"><?php echo $language_text['btn_vdetalle'];?></a><br>
+                  <a href="ver_resumen" style="color:#f05a29;"><?php echo $language_text['btn_vrevision'];?></a><br>
                   <a id="asignar" href="ver_resumen" style="color:#f05a29;"><?php echo $language_text['btn_asignar'];?></a>
                 </td>
               </tr>
@@ -119,7 +119,7 @@
           else
           {
             ?>
-            <h3>No hay trabajos aceptados!</h3>
+            <h3>No hay trabajos revisados</h3>
             <?php
 
           }
@@ -127,7 +127,7 @@
         else
         {
           ?>
-          <h3><?php echo $data_revisados['msg'];?></h3>
+          <h3>No hay trabajos revisados</h3>
           <?php
         }
         ?>
