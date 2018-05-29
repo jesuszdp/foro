@@ -6,6 +6,10 @@ if (!defined('BASEPATH'))
 $config['upload_us'] = '/assets/us/uploads/'; //Rutas uploads
 $config['upload_perfil'] = '/assets/us/perfil/'; //Rutas uploads
 
+$config['upload_header_carta'] ='/xampp/htdocs/foro_v2/assets/img/dictamen/header.png';
+$config['upload_footer_carta'] ='/xampp/htdocs/foro_v2/assets/img/dictamen/footer.png';
+$config['upload_fondo_carta'] ='/xampp/htdocs/foro_v2/assets/img/dictamen/fondo.png';
+
 $config['upload_config'] = array(
     'comprobantes' => array(
         'upload_path' => '.' . $config['upload_us'],
@@ -110,9 +114,9 @@ $config['menu_configuradores'] = array('MENU', 'MODAL', 'EXTERNO');
 $config['menu_configuradores_no_sesion'] = array('MENU_LIBRE');
 
 $config['estados_transicion_evaluacion'] = array(
-"CT"=>"",    
-""=>"",    
-""=>"",    
-""=>"",    
-    
+"CT"=>"",
+""=>"",
+""=>"",
+""=>"",
+
 );
