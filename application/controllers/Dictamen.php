@@ -49,7 +49,7 @@ class Dictamen extends General_revision {
             ),
           'order_by' => 'd.promedio, ti.fecha'
         );
-      $resultado['trabajos'] = $this->dictamen->get_trabajos_evaluados($param);
+      $trabajo = $this->dictamen->get_trabajos_evaluados($param);
       // Obtenemos el listado de los revisores
       $param = array(
       		'where' => array(
@@ -59,9 +59,125 @@ class Dictamen extends General_revision {
       			),
       		'order_by' => 'hr.folio, r.fecha_asignacion'
       	);
-      $resultado['revisores'] = $this->dictamen->get_revisores($param);
-      //pr($resultado);
+      $revisores = $this->dictamen->get_revisores($param);
+      $resultado['success'] = 'success';
+      $resultado['result'] = $this->combinar_trabajo_revisores($trabajo, $revisores);
       return $resultado;
+    }
+
+
+    /**
+     *
+     * @author AleSpock
+     * @date 28/05/2018
+     * @return array
+     */
+    private function combinar_trabajo_revisores($trabajo, $revisores)
+    {
+    	pr($revisores);
+    	pr($trabajo);
+        /*TEST*/
+        $trabajo = [];
+        $revisores = [];
+        $trabajo[] = [
+            'hr.folio'=> 'ABCD3',
+            'hr.titulo'=> 'Titulo 1',
+            'metodologia'=> 'Cuantitativa',
+            'promedio'=> '8',
+        ];
+        $trabajo[] = [
+            'hr.folio'=> '12345',
+            'hr.titulo'=> 'Titulo 2',
+            'metodologia'=> 'Cualitativa',
+            'promedio'=> '4',
+        ];
+        $trabajo[] = [
+            'hr.folio'=> '1324',
+            'hr.titulo'=> 'Titulo 3',
+            'metodologia'=> 'Cuantitativa',
+            'promedio'=> '10',
+        ];
+
+        $revisores = [];
+        $revisores[] = [
+            'hr.folio' => 'ABCD3',
+            'nombre_revisor' => 'Juan Pérez',
+            'r.sugerencia' => 'Oratoria'
+        ];
+        $revisores[] = [
+            'hr.folio' => 'ABCD3',
+            'nombre_revisor' => 'Pablo Juarez',
+            'r.sugerencia' => 'Oratoria'
+        ];
+        $revisores[] = [
+            'hr.folio' => 'ABCD3',
+            'nombre_revisor' => 'Carla Hernandez',
+            'r.sugerencia' => 'Oratoria'
+        ];
+        $revisores[] = [
+            'hr.folio' => '12345',
+            'nombre_revisor' => 'Juan Pérez',
+            'r.sugerencia' => 'Cartel'
+        ];
+        $revisores[] = [
+            'hr.folio' => '12345',
+            'nombre_revisor' => 'Pablo Juarez',
+            'r.sugerencia' => 'Oratoria'
+        ];
+        $revisores[] = [
+            'hr.folio' => '12345',
+            'nombre_revisor' => 'Carla Hernandez',
+            'r.sugerencia' => 'Oratoria'
+        ];
+        $revisores[] = [
+            'hr.folio' => '1324',
+            'nombre_revisor' => 'Juan Pérez',
+            'r.sugerencia' => 'Oratoria'
+        ];
+        $revisores[] = [
+            'hr.folio' => '1324',
+            'nombre_revisor' => 'jose Pérez',
+            'r.sugerencia' => 'Cartel'
+        ];
+        $revisores[] = [
+            'hr.folio' => '1324',
+            'nombre_revisor' => 'Carla Hernandez',
+            'r.sugerencia' => 'Cartel'
+        ];
+
+        /*TEST*/
+
+        $array_resultados = [];
+        if (count($trabajo) < 1)
+        {
+            return $array_resultados;
+        }
+
+        if (count($revisores) < 1)
+        {
+            return $array_resultados;
+        }
+
+        foreach ($trabajo as $key_trabajo => $value_trabajo)
+        {
+            $resultado['folio'] = $value_trabajo['hr.folio'];
+            $resultado['titulo'] = $value_trabajo['hr.titulo'];
+            $resultado['metodologia'] = $value_trabajo['metodologia'];
+            $resultado['promedio'] = $value_trabajo['promedio'];
+            $offset = 1;
+            foreach ($revisores as $key_revisores => $value_revisores)
+            {
+                if($value_revisores['hr.folio'] == $value_trabajo['hr.folio'])
+                {
+                    $revisor_sugerencia = $value_revisores['nombre_revisor'] . ": " . $value_revisores['r.sugerencia'];
+                    $llave = "revisor".($offset);
+                    $offset += 1;
+                    $resultado[$llave] = $revisor_sugerencia;
+                }
+            }
+            $array_resultados[] = $resultado;
+        }
+        return $array_resultados;
     }
 
     /**
