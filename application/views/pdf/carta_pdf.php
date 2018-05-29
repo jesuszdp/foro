@@ -15,18 +15,18 @@
       /* background-image: url(../../../assets/img/dictamen/fondo.png); */
     }
   </style>
+
   <body>
     <div class="col-sm-12">
-        <img class="cabecera" src="C:\xampp\htdocs\foro_2\assets\img\dictamen\header.png" alt="">
+        <img class="cabecera" src="<?php echo $this->config->item('upload_header_carta') ?>">
     </div>
     <div class="col-sm-12">
-      <h3>Estimado <?php echo $language_text['asunto_recuperar_contrasenia'];?> : </h3>
-      <p> </p>
+      <h3>Estimado <?php// echo $language_text['asunto_recuperar_contrasenia'];?> : </h3>
+      <p class="text-justfy"> <?php echo $language_text['asunto_recuperar_contrasenia'];?> </p>
     </div>
     <footer>
-      <img class="cabecera" src="C:\xampp\htdocs\foro_2\assets\img\dictamen\footer.png" alt="">
+      <!-- <img class="cabecera" src="C:\xampp\htdocs\foro_v2\assets\img\dictamen\footer.png" alt=""> -->
+      <img class="cabecera" src="<?php echo $this->config->item('upload_footer_carta') ?>" >
     </footer>
-
-
   </body>
 </html>
