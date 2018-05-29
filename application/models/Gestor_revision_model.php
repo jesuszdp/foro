@@ -541,7 +541,7 @@ class Gestor_revision_model extends MY_Model {
                 $i++;
             }
             //pr($revision_anterior); exit();
-            if($revision_anterior>0){ //En caso de que existan conflictos de interes o sea fuera de tiempo se actualiza tabla de revisión.
+            if(count($revision_anterior)>0){ //En caso de que existan conflictos de interes o sea fuera de tiempo se actualiza tabla de revisión.
               $this->db->where("id_revision IN (".implode(",", $revision_anterior).")");
               $this->db->update('foro.revision', array('activo'=>false)); ///Se actualiza el estado en el historico de la revisión
             }
