@@ -1,22 +1,28 @@
 <!-- contadores de lugares para oratoria y lugares para cartel -->
+<?php echo js("revision/asignar_dictamen.js"); ?>
+
+<?php
+$manual = $config_asignacion['manual'];
+$sistema = $config_asignacion['sistema'];
+?>
 <div class="col-sm-12">
   <div class="col-sm-3">
     <h4 class="text-center"> <?php echo $language_text['lbl_oral'];?></h4>
-    <h3 class="text-center">10 / 20</h3>
+    <h3 class="text-center"><?php echo $count_oratoria.' / '.$cupo['oratoria'];?></h3>
   </div>
   <div class="col-sm-3">
     <h4 class="text-center"> <?php echo $language_text['lbl_cartel'];?></h4>
-    <h3 class="text-center">10 / 20</h3>
+    <h3 class="text-center"><?php echo $count_cartel.' / '.$cupo['cartel'];?></h3>
   </div>
   <div class="col-sm-2">
     <h4 class="text-center">Total de asignaciones<?php //echo $language_text['lbl_cartel'];?></h4>
-    <h3 class="text-center">1 / 55</h3>
+    <h3 class="text-center"><?php echo ($count_oratoria + $count_cartel).' / '.($cupo['oratoria'] + $cupo['cartel']);?></h3>
 
   </div>
   <div class="col-sm-4">
     <h4 class="text-center"> <?php echo $language_text['lbl_tipos_de_asignacion'];?></h4>
     <br>
-    <button id="show" type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal2"> <a  style="color:#fff;"><?php echo $language_text['btn_manual'];?></a> </button>
+    <a id="btn_manual" type="button" class="btn btn-theme btn-block submit-button"> <span  style="color:#fff;"><?php echo $language_text['btn_manual'];?></span> </a>
   </div>
 </div>
 <div class="col-sm-12">
@@ -25,13 +31,17 @@
 
   </div>
   <div class="col-sm-4">
-    <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal2"> <a  style="color:#fff;"><?php echo $language_text['btn_cerrar'];?></a> </button>
+    <?php
+    if($cerrar_proceso_btn){
+    ?>
+    <a href="<?php echo site_url("/dictamen/cierre_convocatoria"); ?>" class="btn btn-theme btn-block submit-button" type="button"><?php echo $language_text['btn_cerrar'];?><span class="glyphicon glyphicon-new-window"></span></a>
+    <?php } ?>
   </div>
   <div class="col-sm-2">
 
   </div>
   <div class="col-sm-4">
-    <button id="hide" type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" data-toggle="modal" data-target="#exampleModal2"> <a  style="color:#fff;"><?php echo $language_text['btn_automatico'];?></a> </button>
+    <a id="btn_automatico" type="button" class="btn btn-theme btn-block submit-button"> <span  style="color:#fff;"><?php echo $language_text['btn_automatico'];?></span> </a>
 
   </div>
 </div>
@@ -77,7 +87,14 @@
               <th scope="col"><?php echo $language_text['col_r2'];?></th>
               <th scope="col"><?php echo $language_text['col_r3'];?></th>
               <th scope="col"><?php echo $language_text['col_puntaje'];?></th>
-              <th><?php echo $language_text['col_sugerencia'];?></th>
+              <?php
+              if($manual)
+              {
+                echo '<th>';
+                echo $language_text['col_sugerencia'];
+                echo '</th>';
+              }
+              ?>
               <th scope="col"><?php echo $language_text['col_opciones'];?></th>
             </tr>
           </thead>
@@ -94,7 +111,7 @@
                   {
                     ?>
               <tr>
-                <td scope="row"><?php echo $row['folio'];?></td>
+                <td scope="row" class="row_folio"><?php echo $row['folio'];?></td>
                 <td><?php echo $row['titulo'];?></td>
                 <td>
                   <?php
@@ -102,15 +119,25 @@
                   echo $metodologia[$lenguaje];
                   ?>
                 </td>
-                <td><?php echo $row['revisor'];?></td>
-                <td><?php echo $row['revisor'];?></td>
-                <td><?php echo $row['revisor'];?></td>
-                <td><?php echo $row['promedio_revision'];?></td>
-                <td><?php echo $row['propuesta_dictamen'];?></td>
+                <td><?php echo $row['revisor1'];?></td>
+                <td><?php echo $row['revisor2'];?></td>
+                <td><?php if(isset($row['revisor3'])) echo $row['revisor3'];?></td>
+                <td><?php echo $row['promedio'];?></td>
+                <?php if($manual){ ?>
                 <td>
-
-                  <a href="ver_resumen" style="color:#f05a29;"><?php echo $language_text['btn_vdetalle'];?></a><br>
-                  <a id="asignar" href="ver_resumen" style="color:#f05a29;"><?php echo $language_text['btn_asignar'];?></a>
+                  <select class="select_asignacion">
+                    <option value="Q">Sin asignar</option>
+                    <option value="O">Oratoria</option>
+                    <option value="C">Cartel</option>
+                    <option value="R">Rechazado</option>
+                  </select>
+                </td>
+                <?php } ?>
+                <td>
+                  <a <a href="<?php echo site_url('/gestion_revision/ver_resumen/'.base64_encode($row['folio'])); ?>"  style="color:#f05a29;"><?php echo $language_text['btn_vrevision'];?></a><br>
+                  <?php  if($manual){ ?>
+                  <a id="btn_asignar" href="#" style="color:#f05a29;"><?php echo $language_text['btn_asignar'];?></a>
+                  <?php } ?>
                 </td>
               </tr>
               <?php
@@ -119,7 +146,7 @@
           else
           {
             ?>
-            <h3>No hay trabajos aceptados!</h3>
+            <h3>No hay trabajos revisados</h3>
             <?php
 
           }
@@ -127,7 +154,7 @@
         else
         {
           ?>
-          <h3><?php echo $data_revisados['msg'];?></h3>
+          <h3>No hay trabajos revisados</h3>
           <?php
         }
         ?>
@@ -156,7 +183,7 @@
      </div>
      <div id="hideEvaluacion" class="panel " style="display:none;">
        <div class="panel-body">
-         <div id="seccionesEva">
+
           <!-- Aqui va la tabla de asignados -->
           <table class="table">
             <thead>
@@ -186,7 +213,7 @@
                     {
                       ?>
                 <tr>
-                  <td scope="row"><?php echo $row['folio'];?></td>
+                  <td scope="row" class="row_folio"><?php echo $row['folio'];?></td>
                   <td><?php echo $row['titulo'];?></td>
                   <td>
                     <?php
@@ -194,15 +221,26 @@
                     echo $metodologia[$lenguaje];
                     ?>
                   </td>
-                  <td><?php echo $row['revisor'];?></td>
-                  <td><?php echo $row['revisor'];?></td>
-                  <td><?php echo $row['revisor'];?></td>
-                  <td><?php echo $row['promedio_revision'];?></td>
-                  <td><?php echo $row['propuesta_dictamen'];?></td>
+                  <td><?php echo $row['revisor1'];?></td>
+                  <td><?php echo $row['revisor2'];?></td>
+                  <td><?php if(isset($row['revisor3'])) echo $row['revisor3'];?></td>
+                  <td><?php echo $row['promedio'];?></td>
+                  <?php if($manual){ ?>
+                  <td>
+                    <select class="select_asignacion">
+                      <option value="Q">Sin asignar</option>
+                      <option value="O" <?php if($row['sugerencia']=='O') echo 'selected';?> >Oratoria</option>
+                      <option value="C" <?php if($row['sugerencia']=='C') echo 'selected';?> >Cartel</option>
+                      <option value="R">Rechazado</option>
+                    </select>
+                  </td>
+                  <?php } ?>
                   <td>
 
-                    <a href="ver_resumen" style="color:#f05a29;"><?php echo $language_text['btn_vdetalle'];?></a><br>
-                    <a id="asignar" href="ver_resumen" style="color:#f05a29;"><?php echo $language_text['btn_asignar'];?></a>
+                    <a href="<?php echo site_url('/gestion_revision/ver_resumen/'.base64_encode($row['folio'])); ?>" style="color:#f05a29;"><?php echo $language_text['btn_vrevision'];?></a><br>
+                    <?php  if($manual){ ?>
+                    <a id="btn_asignar" href="#" style="color:#f05a29;"><?php echo $language_text['btn_asignar'];?></a>
+                    <?php } ?>
                   </td>
                 </tr>
                 <?php
@@ -211,7 +249,7 @@
             else
             {
               ?>
-              <h3>No hay trabajos aceptados!</h3>
+              <h3>No hay trabajos revisados</h3>
               <?php
 
             }
@@ -219,7 +257,7 @@
           else
           {
             ?>
-            <h3><?php echo $data_dictamen['msg'];?></h3>
+            <h3>No hay trabajos revisados</h3>
             <?php
           }
           ?>
@@ -237,7 +275,7 @@
           ?>
 
            <br>
-         </div>
+
 
 
         </div>

@@ -91,11 +91,13 @@ class General_revision extends MY_Controller {
 
           // Asignamos los trabajos para oratoria
           $candidatos_oratoria = $this->dictamen->trabajos_candidatos($max_oratoria);
+          //pr($candidatos_oratoria);
           if (count($candidatos_oratoria > 0)) {
             $folios_oratoria = [];
             foreach ($candidatos_oratoria as $key => $value) {
                 $folios_oratoria[$key] = $value['folio'];
             }
+            //pr($folios_oratoria);
             $param = array(
                 'where_in' => array('folio', $folios_oratoria),
                 'values' => array(
@@ -108,12 +110,14 @@ class General_revision extends MY_Controller {
             {
               // Asignamos los trabajos para cartel
               $candidatos_cartel = $this->dictamen->trabajos_candidatos($max_cartel,$max_oratoria);
-              if(count($candidatos_cartel) > $max_oratoria)
+              if(count($candidatos_cartel) > 0)
               {
+                ////pr($candidatos_cartel);
                 $folios_cartel = [];
                 foreach ($candidatos_cartel as $key => $value) {
                   $folios_cartel[$key] = $value['folio'];
                 }
+                ////pr($folios_cartel);
                 $param = array(
                   'where_in' => array('folio',$folios_cartel),
                   'values' => array(

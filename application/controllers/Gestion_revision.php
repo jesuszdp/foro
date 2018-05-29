@@ -27,7 +27,7 @@ class Gestion_revision extends General_revision {
      * @description genera el espacio de la evaluación
      *
      */
-    public function listado_control($tipo = null) {
+    public function listado_control($tipo = Gestion_revision::SN_COMITE) {
         $datos['mensajes'] = $this->obtener_grupos_texto('mensajes', $this->obtener_idioma())['mensajes'];
         switch ($tipo) {
             case Gestion_revision::SN_COMITE:
@@ -76,7 +76,7 @@ class Gestion_revision extends General_revision {
 
     private function sn_comite() {
       $lenguaje = obtener_lenguaje_actual();
-      $respuesta_model = $this->gestion_revision->get_sn_comite();
+      $respuesta_model = $this->gestion_revision->get_sn_comite(array('order'=>'folio asc'));
       $result = array('success'=>$respuesta_model['success'],'msg'=>$respuesta_model['msg'],'result'=>[]);
       foreach ($respuesta_model['result'] as $row) {
         $result['result'][$row['folio']]['folio'] = $row['folio'];
@@ -89,7 +89,7 @@ class Gestion_revision extends General_revision {
 
     private function requiere_atencion() {
       $lenguaje = obtener_lenguaje_actual();
-      $respuesta_model = $this->gestion_revision->get_requiere_atencion();
+      $respuesta_model = $this->gestion_revision->get_requiere_atencion(array('order'=>'folio asc, id_revision asc'));
       $result = array('success'=>$respuesta_model['success'],'msg'=>$respuesta_model['msg'],'result'=>[]);
       foreach ($respuesta_model['result'] as $row) {
         $result['result'][$row['folio']]['folio'] = $row['folio'];
@@ -109,7 +109,7 @@ class Gestion_revision extends General_revision {
 
     private function en_revision() {
       $lenguaje = obtener_lenguaje_actual();
-      $respuesta_model = $this->gestion_revision->get_en_revision();
+      $respuesta_model = $this->gestion_revision->get_en_revision(array('order'=>'folio asc, id_revision asc'));
       $result = array('success'=>$respuesta_model['success'],'msg'=>$respuesta_model['msg'],'result'=>[]);
       foreach ($respuesta_model['result'] as $row) {
         $result['result'][$row['folio']]['folio'] = $row['folio'];
@@ -124,22 +124,6 @@ class Gestion_revision extends General_revision {
       return $result;
     }
 
-    /**
-     * @author AleSpock
-     * @date 24/05/2018
-     * @param type
-     * @description Función que muestra la vista del resumen de un trabajo de investigación
-     */
-    private function revisados_sin_asignar() {
-      $respuesta_model = $this->gestion_revision->get_revisados();
-      //pr($respuesta_model);
-      return $respuesta_model;
-    }
-    private function asignados() {
-      // $respuesta_model = $this->gestion_revision->get_revisados();
-      // pr($respuesta_model);
-      // return $respuesta_model;
-    }
 
     private function aceptados() {
       $lenguaje = obtener_lenguaje_actual();
@@ -303,6 +287,28 @@ class Gestion_revision extends General_revision {
       }
 
       return $estado_actual_revisor;
+    }
+
+    /**
+     * @author JZDP
+     * @Fecha 23/05/2018
+     * @param string $folio Identificador del trabajo de investigación
+     * @description Genera el listado de revisores disponibles para la asignación de trabajo de investigación
+     *
+     */
+    public function asignar_revisor_bd(){
+      if($this->input->is_ajax_request()){ //Validar que se realice una petición ajax
+        if($this->input->post()){ //Se valida que se envien datos
+          //pr($this->input->post());
+          $id = $this->input->post(null, true);
+          $datos['usuarios'] = array_map("decrypt_base64", $id['usuarios']); ///Obtener identificadores de usuarios
+          $datos['folios'] = array_map("decrypt_base64", explode(',', $id['folios'])); //Obtener identificadores de folios
+          $datos['resultado'] = $this->gestion_revision->insert_asignar_revisor($datos);
+          //print_r($id);
+          //pr($datos);
+          $this->load->view('revision_trabajo_investigacion/asignar_revisor_bd.php', $datos);
+        }
+      }
     }
 
 

@@ -190,6 +190,47 @@ class Dictamen_model extends MY_Model {
       }
     }
 
+    /**
+    * Activa algun tipo de asignacion
+    * @author clapas
+    * @date 29/05/2018
+    * @param char A si es automatica, M si es manual
+    * @return boolean true si se pudo realizar el cambio, false en otro caso 
+    */
+    public function activar_asignacion($tipo)
+    {
+      $salida = false;
+      $this->db->flush_cache();
+      $this->db->reset_query();
+      $this->db->trans_begin();
+
+      $config = '{"manual" : false, "sistema" : false }';
+      switch ($tipo) {
+        case 'A':
+          $config = '{"manual" : false, "sistema" : true }';
+          break;
+
+        case 'M':
+          $config = '{"manual" : true, "sistema" : false }';
+          break;
+      }
+
+      $this->db->set(array('valor'=>$config));
+      $this->db->where('llave','ordenamiento');
+      $this->db->update('foro.configuracion');
+      if ($this->db->trans_status() === FALSE)
+      {
+          $this->db->trans_rollback();
+      } else
+      {
+          $this->db->trans_commit();
+          $salida = true;
+      }
+
+      $this->db->flush_cache();
+      $this->db->reset_query();
+      return $salida;
+    }
 
     /**
     * Devuelve los trabajos que podran ser asignados de manera automatica
@@ -199,7 +240,7 @@ class Dictamen_model extends MY_Model {
     * @param int offset, uno antes de los que se toman en cuenta
     * @return array
     */
-    public function trabajos_candidatos($cupo_total,$offset=null)
+    public function trabajos_candidatos($cupo_total,$offset=0)
     {
       $res = [];
       try{
@@ -211,6 +252,8 @@ class Dictamen_model extends MY_Model {
         $this->db->join('foro.trabajo_investigacion ti','d.folio = ti.folio');
         $this->db->join('foro.convocatoria c','ti.id_convocatoria = c.id_convocatoria');
 
+        $this->db->where(array('d.tipo_exposicion'=>null,'d.aceptado != '=>false,'c.activo'=>true));
+        $this->db->or_where('d.aceptado',null);
         $this->db->order_by('d.promedio, ti.fecha','desc');
 
         if(!is_null($offset))
@@ -221,6 +264,7 @@ class Dictamen_model extends MY_Model {
           $res = $this->db->get('foro.dictamen d',$cupo_total);
         }
 
+        //pr($this->db->last_query());
         return $res->result_array();
 
       }catch(Exception $ex){
@@ -247,6 +291,7 @@ class Dictamen_model extends MY_Model {
       if(isset($param['where_in']))
       {
         $this->db->where_in($param['where_in'][0],$param['where_in'][1]);
+        //pr($param['where_in']);
       }
 
       if(isset($param['where']))
@@ -289,7 +334,9 @@ class Dictamen_model extends MY_Model {
           'id_usuario' => null
         );
 
+
       $this->db->set($valores);
+      $this->db->where(array('tipo_exposicion'=>null,'aceptado'=>true));
       $this->db->update('foro.dictamen');
 
       if ($this->db->trans_status() === FALSE)
@@ -317,6 +364,7 @@ class Dictamen_model extends MY_Model {
     */
     public function count_registros_dictamen($dictaminado,$filtro)
     {
+
       $this->db->flush_cache();
       $this->db->reset_query();
 
@@ -345,7 +393,7 @@ class Dictamen_model extends MY_Model {
             break;
 
           case 'Q':
-            $filtros = array('aceptado'=>true,'sugerencia'=>null);
+            $filtros = array('aceptado'=>null,'sugerencia'=>null);
             break;
           
           default:
@@ -356,6 +404,7 @@ class Dictamen_model extends MY_Model {
 
       $this->db->where($filtros);
       $this->db->from('foro.dictamen');
-      return $this->db->count_all();
+
+      return $this->db->count_all_results();
     }
 }
