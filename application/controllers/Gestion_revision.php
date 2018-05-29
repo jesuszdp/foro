@@ -305,6 +305,28 @@ class Gestion_revision extends General_revision {
       return $estado_actual_revisor;
     }
 
+    /**
+     * @author JZDP
+     * @Fecha 23/05/2018
+     * @param string $folio Identificador del trabajo de investigación
+     * @description Genera el listado de revisores disponibles para la asignación de trabajo de investigación
+     *
+     */
+    public function asignar_revisor_bd(){
+      if($this->input->is_ajax_request()){ //Validar que se realice una petición ajax
+        if($this->input->post()){ //Se valida que se envien datos
+          //pr($this->input->post());
+          $id = $this->input->post(null, true);
+          $datos['usuarios'] = array_map("decrypt_base64", $id['usuarios']); ///Obtener identificadores de usuarios
+          $datos['folios'] = array_map("decrypt_base64", explode(',', $id['folios'])); //Obtener identificadores de folios
+          $datos['resultado'] = $this->gestion_revision->insert_asignar_revisor($datos);
+          //print_r($id);
+          //pr($datos);
+          $this->load->view('revision_trabajo_investigacion/asignar_revisor_bd.php', $datos);
+        }
+      }
+    }
+
 
     /**
      * @author JZDP
