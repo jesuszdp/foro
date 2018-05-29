@@ -398,8 +398,7 @@ class Dictamen_model extends MY_Model {
 
       $this->db->where($filtros);
       $this->db->from('foro.dictamen');
-      $valor = $this->db->count_all();
 
-      return $this->db->count_all();
+      return $this->db->count_all_results();
     }
 }

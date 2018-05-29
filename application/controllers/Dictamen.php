@@ -24,10 +24,10 @@ class Dictamen extends General_revision {
         $datos['mensajes'] = $this->obtener_grupos_texto('mensajes', $this->obtener_idioma())['mensajes'];
         $output['data_revisados'] = $this->revisados_sin_asignar();
         $output['data_dictamen'] = $this->revisados_asignados();
-        pr($output['data_dictamen']);
+        //pr($output['data_dictamen']);
         $output['language_text'] = $this->language_text['evaluado'];
         $output['count_cartel'] = $this->dictamen->count_registros_dictamen(false,'C');
-        pr($this->dictamen->count_registros_dictamen(false,'C'));
+        //pr($this->dictamen->count_registros_dictamen(false,'C'));
         $output['count_oratoria'] = $this->dictamen->count_registros_dictamen(false,'O');
         $output['config_asignacion'] = $this->tipo_asignacion();
         $output['cupo'] = $this->cupo();
