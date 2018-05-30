@@ -108,6 +108,7 @@ class Evaluacion extends General_revision {
 //        pr($this->input->post());
         if ($this->input->post()) {//valida post
             $data = $this->input->post(null, true);
+//            pr($data);
             $id_user = $this->get_datos_sesion(En_datos_sesion::ID_USUARIO);
             if (!is_null($this->input->post('conflicto', true)) && !is_null($this->input->post("educativo", true))) {//No tiene conflicto de interes y tambien es tema educativo
                 $this->carga_validaciones('valida_evaluacion_revision', $secciones);
