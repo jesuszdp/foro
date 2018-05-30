@@ -74,8 +74,9 @@ $sistema = $config_asignacion['sistema'];
     </div>
     <div id="hideTrabajo" class="panel" style="display:none;">
       <h1 class="page-head-line"></h1>
-      <div class="panel-body">
+      <div class="panel-body" >
         <!-- Aqui va la tabla de sin asignar -->
+        <div style="overflow-x:auto;">
         <table class="table">
           <thead>
             <tr>
@@ -136,7 +137,7 @@ $sistema = $config_asignacion['sistema'];
                 <td>
                   <a <a href="<?php echo site_url('/gestion_revision/ver_resumen/'.base64_encode($row['folio'])); ?>"  style="color:#f05a29;"><?php echo $language_text['btn_vrevision'];?></a><br>
                   <?php  if($manual){ ?>
-                  <a id="btn_asignar" href="#" style="color:#f05a29;"><?php echo $language_text['btn_asignar'];?></a>
+                  <a class="btn_asignar" href="#" style="color:#f05a29;"><?php echo $language_text['btn_asignar'];?></a>
                   <?php } ?>
                 </td>
               </tr>
@@ -173,6 +174,7 @@ $sistema = $config_asignacion['sistema'];
 
 
          </div>
+        </div>
      </div>
 
      <div class="sectionEvaluacion" id="secEvaluacion">
@@ -183,7 +185,7 @@ $sistema = $config_asignacion['sistema'];
      </div>
      <div id="hideEvaluacion" class="panel " style="display:none;">
        <div class="panel-body">
-
+          <div style="overflow-x:auto;">
           <!-- Aqui va la tabla de asignados -->
           <table class="table">
             <thead>
@@ -239,7 +241,7 @@ $sistema = $config_asignacion['sistema'];
 
                     <a href="<?php echo site_url('/gestion_revision/ver_resumen/'.base64_encode($row['folio'])); ?>" style="color:#f05a29;"><?php echo $language_text['btn_vrevision'];?></a><br>
                     <?php  if($manual){ ?>
-                    <a id="btn_asignar" href="#" style="color:#f05a29;"><?php echo $language_text['btn_asignar'];?></a>
+                    <a class="btn_asignar" href="#" style="color:#f05a29;"><?php echo $language_text['btn_asignar'];?></a>
                     <?php } ?>
                   </td>
                 </tr>
@@ -264,6 +266,7 @@ $sistema = $config_asignacion['sistema'];
 
           </tbody>
           </table>
+          </div>
           <?php
           }
           else

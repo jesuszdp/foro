@@ -22,7 +22,7 @@
     </div>
     <div class="col-sm-12">
       <h3>Estimado <?php// echo $language_text['asunto_recuperar_contrasenia'];?> : </h3>
-      <p class="text-justfy"> <?php echo $language_text['asunto_recuperar_contrasenia'];?> </p>
+      <p class="text-justify"> <?php echo $language_text['asunto_recuperar_contrasenia'];?> </p>
     </div>
     <footer>
       <!-- <img class="cabecera" src="C:\xampp\htdocs\foro_v2\assets\img\dictamen\footer.png" alt=""> -->

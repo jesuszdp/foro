@@ -38,7 +38,7 @@ $(document).ready(function() {
 		}
 	});
 
-	$("#btn_asignar").click(function() {
+	$(".btn_asignar").click(function() {
 		var $row = $(this).closest("tr");    // Find the row
 	    var $text = $row.find(".row_folio").text(); // Find the text
 	    var $text_slct = $row.find(".select_asignacion").val();
