@@ -52,6 +52,8 @@
                                 <?php echo form_open('' . $datos['folio'], array('id' => 'form_evaluacion')); ?>
                                 <input type="hidden" value="<?php echo $datos['folio']; ?>" name="folio">
                                 <input type="hidden" value="<?php echo $datos['id_tipo_metodologia']; ?>" name="tipo_metodologia">
+                                <input type="hidden" value="1" name="tabseccioncontrol_one" id="tabseccioncontrol_one">
+                                
                                 <div id="eval_principal">
                                     <?php echo $evaluacion; ?>
                                 </div>

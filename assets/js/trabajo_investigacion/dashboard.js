@@ -5,7 +5,7 @@ $(document).ready(function () {
 function registros() {
     var name_fields = obtener_cabeceras();
     grid = $('#jsDashboardInvestigadores').jsGrid({
-        height: "600px",
+        height: "1000px",
         width: "100%",
 //        deleteConfirm: "¿Deseas eliminar este registro?",
         filtering: true,
@@ -15,7 +15,7 @@ function registros() {
         selecting: false,
         paging: true,
         autoload: true,
-        pageSize: 4,
+        pageSize: 10,
         rowClick: function (args) {
             //console.log(args);
         },

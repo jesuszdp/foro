@@ -1,8 +1,7 @@
 $(document).ready(function () {
-    actualiza_tabs("rubro");
-    $(".rubro").click(function () {
-        controla_tabs_visibles(this);
-    });
+//    $(".rubro").click(function () {
+//        controla_tabs_visibles(this);
+//    });
     $(".evalua").change(function () {
         control_opciones(this);
     });
@@ -14,23 +13,28 @@ $(document).ready(function () {
             opciones_secciones(this);
         }
     });
+    $(".seccion_tab_data").each(function () {//Valida que este seleccionado
+        select_tabs_data(this);
+    });
     control_opciones();
 });
 
+function select_tabs_data(element) {
+    var seccion = $(element).data("identificadorseccion");
+    var tabs = document.getElementById("tabseccioncontrol_one").value;
+    if (seccion == tabs) {
+        $(element).addClass("active");
+        $('#tab_' + seccion).addClass("in active");
+    } else {
+        $(element).removeClass("active");
+        $('#tab_' + seccion).removeClass("in active");
+    }
+
+}
+
 function actualiza_tabs(element) {
-    $(".todosRubros").each(function () {
-        var seccion = $(this).data("identificadorseccion");
-        var estado = $("#tabseccioncontrol_" + seccion).val();
-        if (estado == 1) {
-            $("#rubro" + seccion).show(1000, function () {//muestra
-
-            });
-        } else {
-            $("#rubro" + seccion).hide(1000, function () {//Oculta
-
-            });
-        }
-    });
+    var seccion = $(element).data("identificadorseccion");
+    $("#tabseccioncontrol_one").val(seccion);
 }
 
 function controla_tabs_visibles(element) {

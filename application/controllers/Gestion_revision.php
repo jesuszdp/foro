@@ -59,6 +59,7 @@ class Gestion_revision extends General_revision {
             case Gestion_revision::RECHAZADOS:
                 $output['data_rechazados'] = $this->rechazados();
                 //pr($datos);
+                $output['opciones_secciones'] = $this->obtener_grupos_texto('rechazado', $this->obtener_idioma())['rechazado'];
                 $output['language_text'] = $this->language_text['rechazado'];
                 $output['list_rechazados'] = $this->load->view('revision_trabajo_investigacion/estados/lista_rechazados.php', $output, true);
                 break;

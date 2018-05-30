@@ -264,6 +264,12 @@ class grocery_CRUD_Field_Types
 
 			break;
 			case 'true_false':
+                                if($value===false){
+                                    $value = 0;
+                                }
+                                if($value===true){
+                                    $value = 1;
+                                }
 				if(is_array($field_info->extras) && array_key_exists($value,$field_info->extras)) {
 					$value = $field_info->extras[$value];
 				} else if(isset($this->default_true_false_text[$value])) {
@@ -562,8 +568,6 @@ class grocery_CRUD_Model_Driver extends grocery_CRUD_Field_Types
 
 	protected function set_ajax_list_queries($state_info = null)
 	{
-        $field_types = $this->get_field_types();
-
 		if(!empty($state_info->per_page))
 		{
 			if(empty($state_info->page) || !is_numeric($state_info->page) )
@@ -594,16 +598,9 @@ class grocery_CRUD_Model_Driver extends grocery_CRUD_Field_Types
 
                     if (isset($temp_relation[$search_field])) {
                         if (is_array($temp_relation[$search_field])) {
-                            $temp_where_query_array = [];
-
                             foreach ($temp_relation[$search_field] as $relation_field) {
-                                $escaped_text = $this->basic_model->escape_str($search_text);
-                                $temp_where_query_array[] = $relation_field . ' LIKE \'%' . $escaped_text . '%\'';
+                                $this->or_like($relation_field , $search_text);
                             }
-                            if (!empty($temp_where_query_array)) {
-                                $this->where('(' . implode(' OR ', $temp_where_query_array) . ')', null);
-                            }
-
                         } else {
                             $this->like($temp_relation[$search_field] , $search_text);
                         }
@@ -633,7 +630,6 @@ class grocery_CRUD_Model_Driver extends grocery_CRUD_Field_Types
 					$this->like($state_info->search->field , $state_info->search->text);
 				}
 			}
-            // Search all field
 			else
 			{
 				$columns = $this->get_columns();
@@ -644,9 +640,6 @@ class grocery_CRUD_Model_Driver extends grocery_CRUD_Field_Types
 					foreach($this->where as $where)
 						$this->basic_model->having($where[0],$where[1],$where[2]);
 
-                $temp_where_query_array = [];
-                $basic_table = $this->get_table();
-
 				foreach($columns as $column)
 				{
 					if(isset($temp_relation[$column->field_name]))
@@ -655,32 +648,23 @@ class grocery_CRUD_Model_Driver extends grocery_CRUD_Field_Types
 						{
 							foreach($temp_relation[$column->field_name] as $search_field)
 							{
-                                $escaped_text = $this->basic_model->escape_str($search_text);
-                                $temp_where_query_array[] = $search_field . ' LIKE \'%' . $escaped_text . '%\'';
+								$this->or_like($search_field, $search_text);
 							}
 						}
 						else
 						{
-                            $escaped_text = $this->basic_model->escape_str($search_text);
-                            $temp_where_query_array[] = $temp_relation[$column->field_name] . ' LIKE \'%' . $escaped_text . '%\'';
+							$this->or_like($temp_relation[$column->field_name], $search_text);
 						}
 					}
 					elseif(isset($this->relation_n_n[$column->field_name]))
 					{
 						//@todo have a where for the relation_n_n statement
 					}
-					elseif (
-					    isset($field_types[$column->field_name]) &&
-                        !in_array($field_types[$column->field_name]->type, array('date', 'datetime', 'timestamp'))
-                    ) {
-                        $escaped_text = $this->basic_model->escape_str($search_text);
-                        $temp_where_query_array[] =  '`' . $basic_table . '`.' . $column->field_name . ' LIKE \'%' . $escaped_text . '%\'';
+					else
+					{
+						$this->or_like($column->field_name, $search_text);
 					}
 				}
-
-                if (!empty($temp_where_query_array)) {
-                    $this->where('(' . implode(' OR ', $temp_where_query_array) . ')', null);
-                }
 			}
 		}
 	}
@@ -1189,19 +1173,17 @@ class grocery_CRUD_Model_Driver extends grocery_CRUD_Field_Types
 
 	protected function _get_field_names_to_search(array $relation_values)
 	{
-		if(!strstr($relation_values[2],'{')) {
+		if(!strstr($relation_values[2],'{'))
 			return $this->_unique_join_name($relation_values[0]).'.'.$relation_values[2];
-		} else {
+		else
+		{
 			$relation_values[2] = ' '.$relation_values[2].' ';
 			$temp1 = explode('{',$relation_values[2]);
 			unset($temp1[0]);
 
 			$field_names_array = array();
-			foreach($temp1 as $field) {
-				list($field_name) = explode('}',$field);
-				$field_name = $this->_unique_join_name($relation_values[0]).'.'. $field_name;
-				$field_names_array[] = $field_name;
-			}
+			foreach($temp1 as $field)
+				list($field_names_array[]) = explode('}',$field);
 
 			return $field_names_array;
 		}
@@ -1596,7 +1578,6 @@ class grocery_CRUD_Layout extends grocery_CRUD_Model_Driver
 
 		$data->total_results = $this->get_total_results();
 
-        $data->dialog_forms = $this->config->dialog_forms;
 		$data->columns 				= $this->get_columns();
 
 		$data->success_message		= $this->get_success_message_at_list($state_info);
@@ -1652,10 +1633,6 @@ class grocery_CRUD_Layout extends grocery_CRUD_Model_Driver
 			$this->set_echo_and_die();
 			$this->_theme_view('list.php',$data);
 		}
-
-        if (!empty($this->upload_fields)) {
-            $this->load_js_fancybox();
-        }
 	}
 
 	protected function exportToExcel($state_info = null)
@@ -2252,7 +2229,10 @@ class grocery_CRUD_Layout extends grocery_CRUD_Model_Driver
 			 </label> </div>";
 
 		$false_string =  is_array($field_info->extras) && array_key_exists(0,$field_info->extras) ? $field_info->extras[0] : $this->default_true_false_text[0];
-		$checked = $value === '0' || ($value_is_null && $field_info->default === '0') ? "checked = 'checked'" : "";
+                /*pr($false_string);
+                echo(':'.$value.'-'.$field_info->default.':');
+                pr(gettype($value));*/
+		$checked = $value === '0' || $value === '' || ($value_is_null && $field_info->default === '0') ? "checked = 'checked'" : "";
 		$input .=
 			"<div class=\"radio\"><label>
 				<input id='field-{$field_info->name}-false' type=\"radio\" name=\"{$field_info->name}\" value=\"0\" $checked />
@@ -2317,7 +2297,7 @@ class grocery_CRUD_Layout extends grocery_CRUD_Model_Driver
 		}
 		else
 		{
-			$input = "<textarea id='field-{$field_info->name}' name='{$field_info->name}' class='form-control'>$value</textarea>";
+			$input = "<textarea id='field-{$field_info->name}' name='{$field_info->name}'>$value</textarea>";
 		}
 		return $input;
 	}
@@ -3144,15 +3124,13 @@ class grocery_CRUD_States extends grocery_CRUD_Layout
             case 16: //export to excel
             case 17: //print
                 $state_info = (object)array();
-                $data = !empty($_POST) ? $_POST : $_GET;
-
-                if(!empty($data['per_page']))
+                if(!empty($_POST['per_page']))
                 {
-                    $state_info->per_page = is_numeric($data['per_page']) ? $data['per_page'] : null;
+                    $state_info->per_page = is_numeric($_POST['per_page']) ? $_POST['per_page'] : null;
                 }
-                if(!empty($data['page']))
+                if(!empty($_POST['page']))
                 {
-                    $state_info->page = is_numeric($data['page']) ? $data['page'] : null;
+                    $state_info->page = is_numeric($_POST['page']) ? $_POST['page'] : null;
                 }
                 //If we request an export or a print we don't care about what page we are
                 if($state_code === 16 || $state_code === 17)
@@ -3160,29 +3138,29 @@ class grocery_CRUD_States extends grocery_CRUD_Layout
                     $state_info->page = 1;
                     $state_info->per_page = 1000000; //a very big number!
                 }
-                if(!empty($data['order_by'][0]))
+                if(!empty($_POST['order_by'][0]))
                 {
-                    $state_info->order_by = $data['order_by'];
+                    $state_info->order_by = $_POST['order_by'];
                 }
-                if(!empty($data['search_text']))
+                if(!empty($_POST['search_text']))
                 {
-                    if(empty($data['search_field']))
+                    if(empty($_POST['search_field']))
                     {
-                        $search_text = strip_tags($data['search_field']);
-                        $state_info->search = (object)array('field' => null , 'text' => $data['search_text']);
+                        $search_text = strip_tags($_POST['search_field']);
+                        $state_info->search = (object)array('field' => null , 'text' => $_POST['search_text']);
                     }
                     else
                     {
-                        if (is_array($data['search_field'])) {
+                        if (is_array($_POST['search_field'])) {
                             $search_array = array();
-                            foreach ($data['search_field'] as $search_key => $search_field_name) {
-                                $search_array[$search_field_name] = !empty($data['search_text'][$search_key]) ? $data['search_text'][$search_key] : '';
+                            foreach ($_POST['search_field'] as $search_key => $search_field_name) {
+                                $search_array[$search_field_name] = !empty($_POST['search_text'][$search_key]) ? $_POST['search_text'][$search_key] : '';
                             }
                             $state_info->search	= $search_array;
                         } else {
                             $state_info->search	= (object)array(
-                                'field' => strip_tags($data['search_field']) ,
-                                'text' => $data['search_text'] );
+                                'field' => strip_tags($_POST['search_field']) ,
+                                'text' => $_POST['search_text'] );
                         }
                     }
                 }
@@ -3570,7 +3548,6 @@ class Grocery_CRUD extends grocery_CRUD_States
 	protected $callback_column			= array();
 	protected $callback_add_field		= array();
 	protected $callback_edit_field		= array();
-	protected $callback_read_field		= array();
 	protected $callback_upload			= null;
 	protected $callback_before_upload	= null;
 	protected $callback_after_upload	= null;
@@ -4942,18 +4919,6 @@ class Grocery_CRUD extends grocery_CRUD_States
 
 		return $this;
 	}
-
-    /**
-     * @param $field
-     * @param mixed|callable|null $callback
-     * @return $this
-     */
-    public function callback_read_field($field, $callback = null)
-    {
-        $this->callback_read_field[$field] = $callback;
-
-        return $this;
-    }
 
 	/**
 	 *

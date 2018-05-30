@@ -1,5 +1,6 @@
 <?php
 // pr($data_rechazados);
+// pr($opciones_secciones);
 if(!empty($data_rechazados))
 
 {
