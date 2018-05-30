@@ -1,8 +1,5 @@
 <!-- contadores de lugares para oratoria y lugares para cartel -->
 <?php echo js("revision/asignar_dictamen.js"); ?>
-cierre_convocatoria       /dictamen/cierre_convocatoria {"es":"cierre_convocatoria","en":"cierre_convocatoria"}
-activar_asignacion        /dictamen/activar_asignacion  {"es":"activar_asignacion","en":"activar_asignacion"}
-asignacion_manual        /dictamen/asignacion_manual    {"es":"asignacion_manual","en":"asignacion_manual"}
 <?php
 $manual = $config_asignacion['manual'];
 $sistema = $config_asignacion['sistema'];
