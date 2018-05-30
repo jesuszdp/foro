@@ -135,7 +135,7 @@ $sistema = $config_asignacion['sistema'];
                 </td>
                 <?php } ?>
                 <td>
-                  <a <a href="<?php echo site_url('/gestion_revision/ver_resumen/'.base64_encode($row['folio'])); ?>"  style="color:#f05a29;"><?php echo $language_text['btn_vrevision'];?></a><br>
+                  <a <a href="<?php echo site_url('/gestion_revision/ver_resumen/'.encrypt_base64($row['folio'])); ?>"  style="color:#f05a29;"><?php echo $language_text['btn_vrevision'];?></a><br>
                   <?php  if($manual){ ?>
                   <a class="btn_asignar" href="#" style="color:#f05a29;"><?php echo $language_text['btn_asignar'];?></a>
                   <?php } ?>
@@ -239,7 +239,7 @@ $sistema = $config_asignacion['sistema'];
                   <?php } ?>
                   <td>
 
-                    <a href="<?php echo site_url('/gestion_revision/ver_resumen/'.base64_encode($row['folio'])); ?>" style="color:#f05a29;"><?php echo $language_text['btn_vrevision'];?></a><br>
+                    <a href="<?php echo site_url('/gestion_revision/ver_resumen/'.encrypt_base64($row['folio'])); ?>" style="color:#f05a29;"><?php echo $language_text['btn_vrevision'];?></a><br>
                     <?php  if($manual){ ?>
                     <a class="btn_asignar" href="#" style="color:#f05a29;"><?php echo $language_text['btn_asignar'];?></a>
                     <?php } ?>
