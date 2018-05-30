@@ -28,4 +28,36 @@ class Convocatoria_model extends CI_Model
         
         return $res->result_array();	
     }
+
+    /**
+    * Desactiva el registro, la revision o ambos de la convocatoria activa
+    * @author clapas
+    * @param boolean registro
+    * @param boolean revision
+    * @return boolean
+    */
+    public function estados_convocatoria($registro,$revision)
+    {
+      $salida = false;
+      $this->db->flush_cache();
+      $this->db->reset_query();
+      $this->db->trans_begin();
+
+      $this->db->set(array('registro'=>$registro,'revision'=>$revision));
+      $this->db->where('activo',true);
+      $this->db->update('foro.convocatoria');
+
+      if ($this->db->trans_status() === FALSE)
+      {
+          $this->db->trans_rollback();
+      } else
+      {
+          $this->db->trans_commit();
+          $salida = true;
+      }
+
+      $this->db->flush_cache();
+      $this->db->reset_query();
+      return $salida;
+    }
 }

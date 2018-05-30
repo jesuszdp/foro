@@ -230,7 +230,7 @@ class Dictamen extends General_revision {
                 'where' => array(
                     'd.aceptado' => true
                 ),
-                'order_by' => 'd.orden',
+                'order_by' => 'd.orden', 'd.promedio','ti.fecha',
                 'where_in' => array('d.sugerencia', array('O', 'C'))
             );
         }
@@ -347,7 +347,7 @@ class Dictamen extends General_revision {
         }
     }
 
-    /*
+      /*
       public function pruebas() {
       pr($this->cupo());
       pr($this->tipo_asignacion());
@@ -355,20 +355,52 @@ class Dictamen extends General_revision {
       $datos_sesion = $this->get_datos_sesion();
       pr($datos_sesion['id_usuario']);
       //pr($this->asignacion_manual('IMSS-CES-FNFIES-P-18-0001','C'));
-      pr($this->asignacion_automatica());
+      //pr($this->asignacion_automatica());
       }
      */
 
     public function cierre_convocatoria() {
-        $main = "";
-        $this->template->setMainContent($main);
-        $this->template->getTemplate();
+      $status = false;
+      $param = array(
+          'where' => array(
+              'd.aceptado' => true
+          ),
+          'order_by' => 'd.sugerencia', 'd.promedio','ti.fecha'
+      );
+      $trabajos = $this->dictamen->get_trabajos_evaluados($param);
+      //pr($trabajos);
+
+      //Cambiamos el estado de los folios
+      $this->load->model('Evaluacion_revision_model', 'evaluacion_revision');
+      $numero = 0;
+
+      foreach ($trabajos as $key => $value) {
+        $numero = $numero + 1;
+        $secuencial = sprintf("%04d", $numero);
+        $folio_dictamen = substr($value['folio'],0,17).$value['sugerencia'].substr($value['folio'],17,3).$secuencial;
+
+        $status = $this->dictamen->dictaminar($value['folio'],$folio_dictamen,$value['sugerencia']);
+        if($status)
+        {
+          $estado = 'aceptado_oral';
+
+          if($value['sugerencia'] == 'C')
+          {
+              $estado = 'aceptado_cartel';
+          }
+
+          $status = $this->evaluacion_revision->guardar_historico_estado($value['folio'], $estado);
+        }
+      }
+
+      if($status)
+      {
+        $this->load->model('Convocatoria_model','convocatoria');
+        $this->convocatoria->estados_convocatoria(false,false);
+      }
+      //pr($success);
+      header('Content-Type: application/json; charset=utf-8;');
+      echo json_encode(array('success' => $status));
     }
 
-    // public function modal_confirmación(){
-    //     $output = $this->load->view('revision_trabajo_investigacion/estados/modal/modal_confirmacion.php', $output, );
-    //     echo $output;
-    //
-    //
-    // }
 }

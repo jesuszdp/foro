@@ -19,6 +19,9 @@ $sistema = $config_asignacion['sistema'];
     <h3 class="text-center"><?php echo ($count_oratoria + $count_cartel).' / '.($cupo['oratoria'] + $cupo['cartel']);?></h3>
 
   </div>
+    <?php
+  if($cerrar_proceso_btn){
+  ?>
   <div class="col-sm-4">
     <h4 class="text-center"> <?php echo $language_text['lbl_tipos_de_asignacion'];?></h4>
     <br>
@@ -31,11 +34,7 @@ $sistema = $config_asignacion['sistema'];
 
   </div>
   <div class="col-sm-4">
-    <?php
-    if($cerrar_proceso_btn){
-    ?>
-    <a href="<?php echo site_url("/dictamen/cierre_convocatoria"); ?>" class="btn btn-theme btn-block submit-button" type="button"><?php echo $language_text['btn_cerrar'];?><span class="glyphicon glyphicon-new-window"></span></a>
-    <?php } ?>
+    <a id="btn_cerar_proceso" class="btn btn-theme btn-block submit-button" type="button"><?php echo $language_text['btn_cerrar'];?><span class="glyphicon glyphicon-new-window"></span></a>
   </div>
   <div class="col-sm-2">
 
@@ -44,6 +43,7 @@ $sistema = $config_asignacion['sistema'];
     <a id="btn_automatico" type="button" class="btn btn-theme btn-block submit-button"> <span  style="color:#fff;"><?php echo $language_text['btn_automatico'];?></span> </a>
 
   </div>
+  <?php } ?>
 </div>
 
 

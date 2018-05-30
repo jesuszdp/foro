@@ -414,4 +414,44 @@ class Dictamen_model extends MY_Model {
 
       return $this->db->count_all_results();
     }
+
+
+    /**
+    * Asigna los datos de dictamen a un trabajo
+    * @author clapas
+    * @date 30/05/2018
+    * @param folio_actual
+    * @param folio_dictamen
+    * @param sugerencia
+    */ 
+    public function dictaminar($folio_actual, $folio_dictamen, $sugerencia)
+    {
+      $salida = false;
+      $this->db->flush_cache();
+      $this->db->reset_query();
+      $this->db->trans_begin();
+
+      $valores = array(
+        'folio_dictamen' => $folio_dictamen,
+        'tipo_exposicion' => $sugerencia,
+        'fecha' => 'now()' 
+        );
+      $this->db->set($valores,false);
+      $this->db->where('folio',$folio_actual);
+      $this->db->update('foro.dictamen');
+
+      if ($this->db->trans_status() === FALSE)
+      {
+          $this->db->trans_rollback();
+      } else
+      {
+          $this->db->trans_commit();
+          $salida = true;
+      }
+
+      $this->db->flush_cache();
+      $this->db->reset_query();
+      return $salida; 
+      //return false;
+    }
 }

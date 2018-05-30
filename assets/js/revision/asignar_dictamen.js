@@ -39,6 +39,27 @@ $(document).ready(function() {
 		}
 	});
 
+
+	$('#btn_cerar_proceso').click(function() {
+		if(confirm("¿Está usted seguro de que quiere terminar esta convocatoria?")){
+			$.ajax({
+				url: site_url + '/dictamen/cierre_convocatoria',
+				type: 'GET'
+			})
+			.done(function() {
+				console.log("success");
+				location.reload();
+			})
+			.fail(function() {
+				console.log("error");
+			})
+			.always(function() {
+				console.log("complete");
+			});
+			
+		}
+	});
+
 	$(".btn_asignar").click(function() {
 		var $row = $(this).closest("tr");    // Find the row
 	    var $text = $row.find(".row_folio").text(); // Find the text
