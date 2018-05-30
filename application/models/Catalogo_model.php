@@ -536,4 +536,75 @@ class Catalogo_model extends MY_Model {
           }
           return $estado;
        }
+
+       /**
+        * Función que obtiene un estado del trabajo del foro
+        * @author Cheko
+        * @date 30/05/2018
+        * @param string $id Identificador de la sección
+        *
+        */
+        public function obtener_estado_trabajo($id=NULL){
+           $estado = array('success'=>false, 'msg'=>'Algo salio mal', 'result'=>[]);
+           try
+           {
+               if(is_null($id)){
+                 return $estado;
+               }
+               $this->db->flush_cache();
+               $this->db->reset_query();
+               $this->db->from("foro.estado_trabajo");
+               $this->db->where("clave_estado", $id);
+               $result = $this->db->get(); //pr($this->db->last_query());
+               //pr($result);
+               $salida = $result->result_array();
+               $result->free_result();
+               $this->db->flush_cache();
+               $this->db->reset_query();
+               $estado['success'] = true;
+               $estado['msg'] = "Se obtuvo el rango con exito";
+               $estado['result'] = $salida;
+           }
+           catch(Exception $ex)
+           {
+               $estado = array('success'=>false, 'msg'=>'Algo salio mal', 'result'=>[]);
+           }
+           return $estado;
+        }
+
+
+        /**
+         * Función que obtiene una opcion del foro
+         * @author Cheko
+         * @date 30/05/2018
+         * @param string $id Identificador de la sección
+         *
+         */
+         public function obtener_opcion($id=NULL){
+            $estado = array('success'=>false, 'msg'=>'Algo salio mal', 'result'=>[]);
+            try
+            {
+                if(is_null($id)){
+                  return $estado;
+                }
+                $this->db->flush_cache();
+                $this->db->reset_query();
+                $this->db->from("foro.opcion");
+                $this->db->where("id_opcion", $id);
+                $result = $this->db->get(); //pr($this->db->last_query());
+                //pr($result);
+                $salida = $result->result_array();
+                $result->free_result();
+                $this->db->flush_cache();
+                $this->db->reset_query();
+                $estado['success'] = true;
+                $estado['msg'] = "Se obtuvo el rango con exito";
+                $estado['result'] = $salida;
+            }
+            catch(Exception $ex)
+            {
+                $estado = array('success'=>false, 'msg'=>'Algo salio mal', 'result'=>[]);
+            }
+            return $estado;
+         }
 }

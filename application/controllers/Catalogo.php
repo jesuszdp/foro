@@ -614,7 +614,7 @@ class Catalogo extends MY_Controller {
         $this->template->getTemplate();
     }
 
-    function genero() {
+    public function genero() {
         //        try
 //        {
         $data_view = array();
@@ -656,7 +656,7 @@ class Catalogo extends MY_Controller {
      * @date 28/05/2018
      *
      */
-     function gestion_categorias(){
+     public function gestion_categorias(){
          $this->db->schema = 'catalogo';
          $crud = $this->new_crud();
          $crud->set_table('categorias');
@@ -664,7 +664,7 @@ class Catalogo extends MY_Controller {
          $crud->set_primary_key('id_categoria');
 
          $crud->columns("id_categoria","nombre", "clave_categoria", "activa");
-
+         $crud->change_field_type('id_categoria', 'hidden');
          $crud->add_fields('nombre','clave_categoria','activa');
          $crud->edit_fields('nombre','clave_categoria','activa');
          $crud->field_type('activa','true_false');
@@ -685,7 +685,7 @@ class Catalogo extends MY_Controller {
       * @date 28/05/2018
       *
       */
-      function gestion_departamentos(){
+      public function gestion_departamentos(){
           $this->db->schema = 'catalogo';
           $crud = $this->new_crud();
           $crud->set_table('departamento');
@@ -693,6 +693,7 @@ class Catalogo extends MY_Controller {
           $crud->set_primary_key('clave_departamental');
 
           $crud->columns("clave_departamental","nombre", "clave_presupuestal","clave_unidad","es_unidad","anio");
+          $crud->change_field_type('clave_departamental', 'hidden');
           $crud->add_fields('nombre','clave_presupuestal','clave_unidad',"es_unidad","anio");
           $crud->edit_fields('nombre','clave_presupuestal','clave_unidad',"es_unidad","anio");
           $crud->field_type('es_unidad','true_false');
@@ -713,7 +714,7 @@ class Catalogo extends MY_Controller {
        * @date 28/05/2018
        *
        */
-       function gestion_unidades(){
+       public function gestion_unidades(){
            $this->db->schema = 'catalogo';
            $crud = $this->new_crud();
            $crud->set_table('unidad');
@@ -723,6 +724,7 @@ class Catalogo extends MY_Controller {
            $crud->columns('clave_unidad',"nombre",'id_delegacion',"clave_presupuestal", 'nivel_atencion','id_tipo_unidad',
            'es_umae','activo','latitud','longitud','direccion_fisica','entidad_federativa','anio','unidad_principal',
            'nombre_unidad_principal');
+           $crud->change_field_type('clave_unidad', 'hidden');
            $crud->add_fields("nombre",'id_delegacion',"clave_presupuestal", 'nivel_atencion','id_tipo_unidad',
            'es_umae','activo','latitud','longitud','direccion_fisica','entidad_federativa','anio','unidad_principal',
            'nombre_unidad_principal');
@@ -750,14 +752,13 @@ class Catalogo extends MY_Controller {
         * @date 28/05/2018
         *
         */
-        function gestion_configuracion(){
+        public function gestion_configuracion(){
             $this->db->schema = 'foro';
             $crud = $this->new_crud();
             $crud->set_table('configuracion');
             $crud->set_subject('configuracion');
-
-            $crud->required_fields('llave', 'valor');
-
+            $crud->columns("llave","valor");
+            $crud->change_field_type('llave', 'hidden');
             $data_view['output'] = $crud->render();
             $data_view['title'] = "Configuracion";
 
@@ -773,7 +774,7 @@ class Catalogo extends MY_Controller {
          * @date 28/05/2018
          *
          */
-         function gestion_convocatoria(){
+         public function gestion_convocatoria(){
              $this->db->schema = 'foro';
              $crud = $this->new_crud();
              $crud->set_table('convocatoria');
@@ -781,13 +782,13 @@ class Catalogo extends MY_Controller {
              $crud->set_primary_key('id_convocatoria');
 
              $crud->columns("id_convocatoria","nombre", "anio","activo","registro","revision");
+             $crud->change_field_type('id_convocatoria', 'hidden');
              $crud->add_fields('nombre','anio','activo',"registro","revision");
              $crud->edit_fields('nombre','anio','activo',"registro","revision");
-
              $crud->field_type('activo','true_false');
              $crud->field_type('registro','true_false');
              $crud->field_type('revision','true_false');
-             $crud->required_fields('id_convocatoria', 'anio');
+             $crud->required_fields('anio');
 
              $data_view['output'] = $crud->render();
              $data_view['title'] = "Convocatoria";
@@ -805,7 +806,7 @@ class Catalogo extends MY_Controller {
           * @date 28/05/2018
           *
           */
-          function gestion_estado_trabajo(){
+          public function gestion_estado_trabajo(){
               $this->db->schema = 'foro';
               $crud = $this->new_crud();
               $crud->set_table('estado_trabajo');
@@ -813,23 +814,37 @@ class Catalogo extends MY_Controller {
               $crud->set_primary_key('clave_estado');
 
               $crud->columns("clave_estado","lang", "descripcion", "activo");
-              $crud->fields('clave_estado','lang','Investigador','Gestor','Revisor','descripcion','activo');
+              $crud->fields('clave_estado','lang','investigador','gestor','revisor','descripcion','activo');
               $crud->change_field_type('lang', 'hidden');
-              // $crud->add_fields("clave_estado","clave_estado","Investigador","Gestor","Revisor","descripcion", "activo");
-              // $crud->edit_fields("lang", "descripcion", "activo");
-
+              $crud->change_field_type('clave_estado', 'hidden');
               $crud->field_type('activo','true_false');
-              $crud->required_fields('clave_estado', 'Investigador','Gestor','Revisor');
+
+              if($crud->getState() == 'edit'){
+                  $crud->change_field_type('lang', 'string');
+                  $crud->edit_fields("lang","descripcion", "activo");
+                  //falta editar los campos con json
+                  // $crud->callback_edit_field('investigador',array($this,'_callback_leer_editar_investigador'));
+                  // $crud->callback_edit_field('gestor',array($this,'_callback_leer_editar_gestor'));
+                  // $crud->callback_edit_field('revisor',array($this,'_callback_leer_editar_revisor'));
+                  // $crud->callback_before_update(array($this,'_callback_actualizar_estado_trabajo'));
+              }
 
               if($crud->getState() == 'success' || $crud->getState() == 'list'){
                   $crud->callback_column('lang',array($this,'_callback_cambiar_valores_gestion_trabajo'));
               }
 
+              if($crud->getState() == 'insert'){
+                  $crud->required_fields('clave_estado', 'Investigador','Gestor','Revisor');
+                  $crud->callback_before_insert(array($this,'_callback_insertar_estado_trabajo'));
+              }
 
-              $crud->callback_read_field('lang',array($this,'_callback_leer_investigador'));
-              //pr($crud);
+              if($crud->getState() == 'read'){
+                  $crud->callback_read_field('investigador',array($this,'_callback_leer_investigador'));
+                  $crud->callback_read_field('gestor',array($this,'_callback_leer_gestor'));
+                  $crud->callback_read_field('revisor',array($this,'_callback_leer_revisor'));
+              }
 
-              $crud->callback_before_insert(array($this,'_callback_insertar_estado_trabajo'));
+
 
               $data_view['output'] = $crud->render();
               $data_view['title'] = "Estado del trabajo";
@@ -840,12 +855,6 @@ class Catalogo extends MY_Controller {
           }
 
 
-           function _callback_leer_investigador($value, $primary_key) {
-              pr($value);
-              pr ($primary_key);
-              return '+30 ' . $value;
-          }
-
           /**
            * Función que hace la gestión de opciones
            * del trabajo de investigación
@@ -853,7 +862,7 @@ class Catalogo extends MY_Controller {
            * @date 28/05/2018
            *
            */
-           function gestion_opciones(){
+           public function gestion_opciones(){
                $this->db->schema = 'foro';
                $crud = $this->new_crud();
                $crud->set_table('opcion');
@@ -861,17 +870,30 @@ class Catalogo extends MY_Controller {
                $crud->set_primary_key('id_opcion');
 
                $crud->columns('id_opcion','id_seccion','descripcion','id_rango');
+               $crud->change_field_type('id_opcion','hidden');
                $crud->add_fields('id_seccion','descripcion','id_rango');
                $crud->edit_fields('id_seccion','descripcion','id_rango');
-
-               $crud->required_fields('id_opcion', 'id_seccion','descripcion');
-
-               $crud->callback_column($this->unique_field_name('id_seccion'),array($this,'_callback_cambiar_id_seccion'));
-               $crud->callback_column($this->unique_field_name('id_rango'),array($this,'_callback_cambiar_id_rango'));
-               $crud->callback_column('descripcion',array($this,'_callback_cambiar_valores'));
-
+               $crud->required_fields('id_seccion','descripcion');
                $crud->set_relation('id_seccion','seccion','id_seccion');
                $crud->set_relation('id_rango','rango','id_rango');
+
+               if($crud->getState() == 'success' || $crud->getState() == 'list'){
+                 $crud->callback_column($this->unique_field_name('id_seccion'),array($this,'_callback_cambiar_id_seccion'));
+                 $crud->callback_column($this->unique_field_name('id_rango'),array($this,'_callback_cambiar_id_rango'));
+                 $crud->callback_column('descripcion',array($this,'_callback_cambiar_valores'));
+               }
+
+               if($crud->getState() == 'read'){
+                  $crud->callback_read_field('descripcion',array($this,'_callback_leer_opciones_descripcion'));
+               }
+
+               if($crud->getState() == 'insert'){
+                  //faltan los selects que no aparezca el id si no la descripcion
+               }
+
+               if($crud->getState() == 'edit'){
+                  //faltan editar select y campos json
+               }
 
                $data_view['output'] = $crud->render();
                $data_view['title'] = "Opciones";
@@ -888,7 +910,7 @@ class Catalogo extends MY_Controller {
             * @date 28/05/2018
             *
             */
-            function gestion_rangos(){
+            public function gestion_rangos(){
                 $this->db->schema = 'foro';
                 $crud = $this->new_crud();
                 $crud->set_table('rango');
@@ -896,12 +918,27 @@ class Catalogo extends MY_Controller {
                 $crud->set_primary_key('id_rango');
 
                 $crud->columns("id_rango", 'cualitativa',"minimo", "maximo");
+                $crud->change_field_type('id_rango','hidden');
                 $crud->add_fields('cualitativa',"minimo", "maximo");
                 $crud->edit_fields('cualitativa',"minimo", "maximo");
+                $crud->required_fields('cualitativa');
 
-                $crud->required_fields('id_rango', 'cualitativa');
+                if($crud->getState() == 'success' || $crud->getState() == 'list'){
+                    $crud->callback_column('cualitativa',array($this,'_callback_cambiar_valores'));
+                }
 
-                $crud->callback_column('cualitativa',array($this,'_callback_cambiar_valores'));
+                if($crud->getState() == 'read'){
+                    $crud->callback_read_field('cualitativa',array($this,'_callback_leer_rangos_caulitativa'));
+                }
+
+                if($crud->getState() == 'insert'){
+                    $crud->callback_before_insert(array($this,'_callback_insertar_rango'));
+                }
+
+                if($crud->getState() == 'edit'){
+                    //falta editar campo json
+                }
+
 
                 $data_view['output'] = $crud->render();
                 $data_view['title'] = "Rangos";
@@ -919,7 +956,7 @@ class Catalogo extends MY_Controller {
              * @date 28/05/2018
              *
              */
-             function gestion_seccion(){
+             public function gestion_seccion(){
                  $this->db->schema = 'foro';
                  $crud = $this->new_crud();
                  $crud->set_table('seccion');
@@ -927,16 +964,29 @@ class Catalogo extends MY_Controller {
                  $crud->set_primary_key('id_seccion');
 
                  $crud->columns("id_seccion", "descripcion", "id_tipo_metodologia");
+                 $crud->change_field_type('id_seccion','hidden');
                  $crud->add_fields("descripcion", "id_tipo_metodologia");
                  $crud->edit_fields("descripcion", "id_tipo_metodologia");
-
-                 $crud->required_fields('id_seccion', 'descripcion');
-
-                 $crud->callback_column($this->unique_field_name('id_tipo_metodologia'),array($this,'_callback_cambiar_id_tipo_metodologia'));
-
+                 $crud->required_fields('descripcion');
                  $crud->set_relation('id_tipo_metodologia','tipo_metodologia','id_tipo_metodologia');
 
-                 $crud->callback_column('descripcion',array($this,'_callback_cambiar_valores'));
+                 if($crud->getState() == 'success' || $crud->getState() == 'list'){
+                    $crud->callback_column($this->unique_field_name('id_tipo_metodologia'),array($this,'_callback_cambiar_id_tipo_metodologia'));
+                    $crud->callback_column('descripcion',array($this,'_callback_cambiar_valores'));
+                 }
+
+                 if($crud->getState() == 'read'){
+                     $crud->callback_read_field('descripcion',array($this,'_callback_leer_seccion_descripcion'));
+                 }
+
+                 if($crud->getState() == 'edit'){
+                     //Falta cambiar el select y el campo de json
+                 }
+
+                 if($crud->getState() == 'insert'){
+                     $crud->callback_before_insert(array($this,'_callback_insertar_seccion'));
+                 }
+
 
                  $data_view['output'] = $crud->render();
                  $data_view['title'] = "Secciones";
@@ -954,7 +1004,7 @@ class Catalogo extends MY_Controller {
               * @date 28/05/2018
               *
               */
-              function gestion_tipo_metodologia(){
+              public function gestion_tipo_metodologia(){
                   $this->db->schema = 'foro';
                   $crud = $this->new_crud();
                   $crud->set_table('tipo_metodologia');
@@ -962,13 +1012,28 @@ class Catalogo extends MY_Controller {
                   $crud->set_primary_key('id_tipo_metodologia');
 
                   $crud->columns('id_tipo_metodologia', "activo", "lang");
+                  $crud->change_field_type('id_tipo_metodologia','hidden');
                   $crud->add_fields("activo", "lang");
                   $crud->edit_fields("activo", "lang");
 
                   $crud->field_type('activo','true_false');
-                  $crud->required_fields('id_tipo_metodologia');
 
-                  $crud->callback_column('lang',array($this,'_callback_cambiar_valores'));
+                  if($crud->getState() == 'success' || $crud->getState() == 'list'){
+                      $crud->callback_column('lang',array($this,'_callback_cambiar_valores'));
+                  }
+
+                  if($crud->getState() == 'read'){
+                      $crud->callback_read_field('lang',array($this,'_callback_leer_metodologia_lang'));
+                  }
+
+                  if($crud->getState() == 'edit'){
+                      //Falta cambiar el campo json
+                  }
+
+                  if($crud->getState() == 'insert'){
+                      $crud->callback_before_insert(array($this,'_callback_insertar_metodologia'));
+                  }
+
 
                   $data_view['output'] = $crud->render();
                   $data_view['title'] = "Tipos de metodología";
@@ -1101,16 +1166,290 @@ class Catalogo extends MY_Controller {
                  public function _callback_insertar_estado_trabajo($post_array){
                     $lenguaje = obtener_lenguaje_actual();
                     $lang = array('investigador'=>array('es'=>'','en'=>''),'gestor'=>array('es'=>'','en'=>''),'revisor'=>array('es'=>'','en'=>''));
-                    $lang['investigador'][$lenguaje] = $post_array['Investigador'];
-                    $lang['gestor'][$lenguaje] = $post_array['Gestor'];
-                    $lang['revisor'][$lenguaje] = $post_array['Revisor'];
+                    $lang['investigador'][$lenguaje] = $post_array['investigador'];
+                    $lang['gestor'][$lenguaje] = $post_array['gestor'];
+                    $lang['revisor'][$lenguaje] = $post_array['revisor'];
                     $post_array['lang'] = json_encode($lang);
-                    unset($post_array['Investigador']);
-                    unset($post_array['Gestor']);
-                    unset($post_array['Revisor']);
+                    unset($post_array['investigador']);
+                    unset($post_array['gestor']);
+                    unset($post_array['revisor']);
 
                     return $post_array;
                  }
+
+                 /**
+                  * Función que cambia el campo de investigador en
+                  * leer un estado del trabajo
+                  * @author Cheko
+                  * @date 30/05/2018
+                  */
+                  public function _callback_leer_investigador($value, $primary_key) {
+                      $lenguaje = obtener_lenguaje_actual();
+                      $estado_trabajo = $this->catalogo->obtener_estado_trabajo($primary_key);
+                      if($estado_trabajo['success']){
+                          if(count($estado_trabajo['result']) > 0){
+                              if(json_decode($estado_trabajo['result'][0]['lang'],true)['investigador'][$lenguaje] != ''){
+                                  return json_decode($estado_trabajo['result'][0]['lang'],true)['investigador'][$lenguaje];
+                              }
+                          }
+                      }
+                      return 'NA';
+                  }
+
+                  /**
+                   * Función que cambia el campo de gestor en
+                   * leer un estado del trabajo
+                   * @author Cheko
+                   * @date 30/05/2018
+                   */
+                   public function _callback_leer_gestor($value, $primary_key) {
+                       $lenguaje = obtener_lenguaje_actual();
+                       $estado_trabajo = $this->catalogo->obtener_estado_trabajo($primary_key);
+                       if($estado_trabajo['success']){
+                           if(count($estado_trabajo['result']) > 0){
+                                if(json_decode($estado_trabajo['result'][0]['lang'],true)['gestor'][$lenguaje] != ''){
+                                    return json_decode($estado_trabajo['result'][0]['lang'],true)['gestor'][$lenguaje];
+                                }
+                           }
+                       }
+                       return 'NA';
+                   }
+
+                   /**
+                    * Función que cambia el campo de revisor en
+                    * leer un estado del trabajo
+                    * @author Cheko
+                    * @date 30/05/2018
+                    *
+                    */
+                    public function _callback_leer_revisor($value, $primary_key) {
+                        $lenguaje = obtener_lenguaje_actual();
+                        $estado_trabajo = $this->catalogo->obtener_estado_trabajo($primary_key);
+                        if($estado_trabajo['success']){
+                            if(count($estado_trabajo['result']) > 0){
+                                if(json_decode($estado_trabajo['result'][0]['lang'],true)['revisor'][$lenguaje] != ''){
+                                    return json_decode($estado_trabajo['result'][0]['lang'],true)['revisor'][$lenguaje];
+                                }
+                            }
+                        }
+                        return 'NA';
+                    }
+
+                    /**
+                     * Función que cambia el campo de descripcion en
+                     * leer un opcion del foro
+                     * @author Cheko
+                     * @date 30/05/2018
+                     *
+                     */
+                     public function _callback_leer_opciones_descripcion($value, $primary_key){
+                         $lenguaje = obtener_lenguaje_actual();
+                         $opcion = $this->catalogo->obtener_opcion($primary_key);
+                         if($opcion['success']){
+                             if(count($opcion['result']) > 0){
+                                 if(json_decode($opcion['result'][0]['descripcion'],true)[$lenguaje] != ''){
+                                     return json_decode($opcion['result'][0]['descripcion'],true)[$lenguaje];
+                                 }
+                             }
+                         }
+                         return 'NA';
+                     }
+
+                     /**
+                      * Función que cambia el campo de cualitativa en
+                      * leer un rango del foro
+                      * @author Cheko
+                      * @date 30/05/2018
+                      *
+                      */
+                      public function  _callback_leer_rangos_caulitativa($value, $primary_key){
+                          $lenguaje = obtener_lenguaje_actual();
+                          $opcion = $this->catalogo->obtener_rango($primary_key);
+                          if($opcion['success']){
+                              if(count($opcion['result']) > 0){
+                                  if(json_decode($opcion['result'][0]['cualitativa'],true)[$lenguaje] != ''){
+                                      return json_decode($opcion['result'][0]['cualitativa'],true)[$lenguaje];
+                                  }
+                              }
+                          }
+                          return 'NA';
+                      }
+
+                      /**
+                       * Función que para manejar el insertar
+                       * un rango de Grocery CRUD
+                       * @author Cheko
+                       * @date 29/05/2018
+                       * @param array $post_array Arreglo de datos a insertar
+                       *
+                       */
+                      public function _callback_insertar_rango($post_array){
+                         $lenguaje = obtener_lenguaje_actual();
+                         $lang = array('es'=>'','en'=>'');
+                         $lang[$lenguaje] = $post_array['cualitativa'];
+                         $post_array['cualitativa'] = json_encode($lang);
+                         return $post_array;
+                      }
+
+                      /**
+                       * Función que cambia el campo de descripcion en
+                       * leer una seccion del foro
+                       * @author Cheko
+                       * @date 30/05/2018
+                       *
+                       */
+                      public function _callback_leer_seccion_descripcion($value, $primary_key){
+                          $lenguaje = obtener_lenguaje_actual();
+                          $opcion = $this->catalogo->obtener_seccion($primary_key);
+                          if($opcion['success']){
+                              if(count($opcion['result']) > 0){
+                                  if(json_decode($opcion['result'][0]['descripcion'],true)[$lenguaje] != ''){
+                                      return json_decode($opcion['result'][0]['descripcion'],true)[$lenguaje];
+                                  }
+                              }
+                          }
+                          return 'NA';
+                      }
+
+                      /**
+                       * Función que para manejar el insertar
+                       * una seccion de Grocery CRUD
+                       * @author Cheko
+                       * @date 29/05/2018
+                       * @param array $post_array Arreglo de datos a insertar
+                       *
+                       */
+                      public function _callback_insertar_seccion($post_array){
+                         $lenguaje = obtener_lenguaje_actual();
+                         $lang = array('es'=>'','en'=>'');
+                         $lang[$lenguaje] = $post_array['descripcion'];
+                         $post_array['descripcion'] = json_encode($lang);
+                         return $post_array;
+                      }
+
+                      /**
+                       * Función que cambia el campo de lang en
+                       * leer un tipo de metodologia del foro
+                       * @author Cheko
+                       * @date 30/05/2018
+                       *
+                       */
+                      public function _callback_leer_metodologia_lang($value, $primary_key){
+                          $lenguaje = obtener_lenguaje_actual();
+                          $opcion = $this->catalogo->obtener_tipo_metodologia($primary_key);
+                          if($opcion['success']){
+                              if(count($opcion['result']) > 0){
+                                  if(json_decode($opcion['result'][0]['lang'],true)[$lenguaje] != ''){
+                                      return json_decode($opcion['result'][0]['lang'],true)[$lenguaje];
+                                  }
+                              }
+                          }
+                          return 'NA';
+                      }
+
+                      /**
+                       * Función que para manejar el insertar
+                       * un tipo de metodologia de Grocery CRUD
+                       * @author Cheko
+                       * @date 29/05/2018
+                       * @param array $post_array Arreglo de datos a insertar
+                       *
+                       */
+                      public function _callback_insertar_metodologia($post_array){
+                         $lenguaje = obtener_lenguaje_actual();
+                         $lang = array('es'=>'','en'=>'');
+                         $lang[$lenguaje] = $post_array['lang'];
+                         $post_array['lang'] = json_encode($lang);
+                         return $post_array;
+                      }
+
+
+
+
+
+
+
+
+                    /**
+                     * Función que cambia el campo de investigador al
+                     * editar un estado del trabajo
+                     * @author Cheko
+                     * @date 30/05/2018
+                     *
+                     */
+                    public function _callback_leer_editar_investigador($value, $primary_key) {
+                        $lenguaje = obtener_lenguaje_actual();
+                        $estado_trabajo = $this->catalogo->obtener_estado_trabajo($primary_key);
+                        if($estado_trabajo['success']){
+                            if(count($estado_trabajo['result']) > 0){
+                                if(json_decode($estado_trabajo['result'][0]['lang'],true)['investigador'][$lenguaje] != ''){
+                                    return json_decode($estado_trabajo['result'][0]['lang'],true)['investigador'][$lenguaje];
+                                }
+                            }
+                        }
+                        return 'NA';
+                    }
+
+                    /**
+                     * Función que cambia el campo de investigador al
+                     * editar un estado del trabajo
+                     * @author Cheko
+                     * @date 30/05/2018
+                     *
+                     */
+                    public function _callback_leer_editar_gestor($value, $primary_key) {
+                        $lenguaje = obtener_lenguaje_actual();
+                        $estado_trabajo = $this->catalogo->obtener_estado_trabajo($primary_key);
+                        if($estado_trabajo['success']){
+                            if(count($estado_trabajo['result']) > 0){
+                                if(json_decode($estado_trabajo['result'][0]['lang'],true)['gestor'][$lenguaje] != ''){
+                                    return json_decode($estado_trabajo['result'][0]['lang'],true)['gestor'][$lenguaje];
+                                }
+                            }
+                        }
+                        return 'NA';
+                    }
+
+                    /**
+                     * Función que cambia el campo de investigador al
+                     * editar un estado del trabajo
+                     * @author Cheko
+                     * @date 30/05/2018
+                     *
+                     */
+                    public function _callback_leer_editar_revisor($value, $primary_key) {
+                        $lenguaje = obtener_lenguaje_actual();
+                        $estado_trabajo = $this->catalogo->obtener_estado_trabajo($primary_key);
+                        if($estado_trabajo['success']){
+                            if(count($estado_trabajo['result']) > 0){
+                                if(json_decode($estado_trabajo['result'][0]['lang'],true)['revisor'][$lenguaje] != ''){
+                                    return json_decode($estado_trabajo['result'][0]['lang'],true)['revisor'][$lenguaje].$value;
+                                }
+                            }
+                        }
+                        return 'NA';
+                    }
+
+                    /**
+                    * Funcion que filtra los campos para actualizar
+                    * los valores de un estado de trabajo del foro
+                    * @author Cheko
+                    * @date 30/05/2018
+                    *
+                    */
+                    public function _callback_actualizar_estado_trabajo($post_array, $primary_key){
+                        $lenguaje = obtener_lenguaje_actual();
+                        $lang = array('investigador'=>array('es'=>'','en'=>''),'gestor'=>array('es'=>'','en'=>''),'revisor'=>array('es'=>'','en'=>''));
+                        $lang['investigador'][$lenguaje] = $post_array['investigador'];
+                        $lang['gestor'][$lenguaje] = $post_array['gestor'];
+                        $lang['revisor'][$lenguaje] = $post_array['revisor'];
+                        $post_array['lang'] = json_encode($lang);
+                        unset($post_array['investigador']);
+                        unset($post_array['gestor']);
+                        unset($post_array['revisor']);
+
+                        return $post_array;
+                    }
 
 
 }
