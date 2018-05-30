@@ -53,7 +53,7 @@ class Dictamen extends General_revision {
         // Filtros para obtener los trabajos sin asignar
         $param = array(
             'where' => array(
-                'd.aceptado' => null,
+                'd.folio_dictamen' => null,
                 'd.sugerencia' => null
             ),
             'order_by' => 'd.promedio, ti.fecha'
@@ -74,7 +74,7 @@ class Dictamen extends General_revision {
         // Obtenemos el listado de los revisores
         $param = array(
             'where' => array(
-                'd.aceptado' => null,
+                'd.folio_dictamen' => null,
                 'd.sugerencia' => null,
                 'r.activo' => true
             ),

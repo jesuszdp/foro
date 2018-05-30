@@ -91,49 +91,51 @@ class General_revision extends MY_Controller {
 
           // Asignamos los trabajos para oratoria
           $candidatos_oratoria = $this->dictamen->trabajos_candidatos($max_oratoria);
+          $candidatos_cartel = $this->dictamen->trabajos_candidatos($max_cartel,$max_oratoria);
           //pr($candidatos_oratoria);
-          if (count($candidatos_oratoria > 0)) {
+          //pr($candidatos_cartel);
+
+          $oratoria_return = true;
+          $carte_return = true;
+
+          if (count($candidatos_oratoria > 0))
+          {  
             $folios_oratoria = [];
             foreach ($candidatos_oratoria as $key => $value) {
                 $folios_oratoria[$key] = $value['folio'];
             }
-            //pr($folios_oratoria);
-            $param = array(
+
+            $param_oratoria = array(
                 'where_in' => array('folio', $folios_oratoria),
                 'values' => array(
                     'sugerencia' => 'O',
                     'aceptado' => true
                 )
             );
-            
-            if($this->dictamen->actualizar_registro($param))
-            {
-              // Asignamos los trabajos para cartel
-              $candidatos_cartel = $this->dictamen->trabajos_candidatos($max_cartel,$max_oratoria);
-              if(count($candidatos_cartel) > 0)
-              {
-                ////pr($candidatos_cartel);
-                $folios_cartel = [];
-                foreach ($candidatos_cartel as $key => $value) {
-                  $folios_cartel[$key] = $value['folio'];
-                }
-                ////pr($folios_cartel);
-                $param = array(
-                  'where_in' => array('folio',$folios_cartel),
-                  'values' => array(
-                      'sugerencia' => 'C',
-                      'aceptado' => true
-                    )
-                );
-                if(!$this->dictamen->actualizar_registro($param))
-                {
-                  return false;
-                } // if cartel
-                
-              }
-              return true;
-            } // if oratoria
-          } // if existen trabajos
+
+            $oratoria_return =$this->dictamen->actualizar_registro($param_oratoria);
+          }
+
+          
+          if(count($candidatos_cartel > 0))
+          {
+            $folios_cartel = [];
+            foreach ($candidatos_cartel as $key => $value) {
+              $folios_cartel[$key] = $value['folio'];
+            }
+            $param_cartel = array(
+              'where_in' => array('folio',$folios_cartel),
+              'values' => array(
+                  'sugerencia' => 'C',
+                  'aceptado' => true
+                )
+            );
+
+            $carte_return = $this->dictamen->actualizar_registro($param_cartel);
+          }
+          
+          
+          return ($carte_return && $oratoria_return);
         } // if reset
         return false;
       } // if asignacion automatica
