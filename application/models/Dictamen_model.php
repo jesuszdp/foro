@@ -249,11 +249,18 @@ class Dictamen_model extends MY_Model {
 
         $this->db->select('d.folio');
 
+        $this->db->join('foro.historico_revision hr','d.folio = hr.folio');
         $this->db->join('foro.trabajo_investigacion ti','d.folio = ti.folio');
         $this->db->join('foro.convocatoria c','ti.id_convocatoria = c.id_convocatoria');
 
-        $this->db->where(array('d.tipo_exposicion'=>null,'d.aceptado != '=>false,'c.activo'=>true));
-        $this->db->or_where('d.aceptado',null);
+        $this->db->where(array(
+            'd.sugerencia'=>null,
+            'd.folio_dictamen'=>null,
+            'c.activo'=>true,
+            'hr.clave_estado'=>'evaluado',
+            'hr.actual' => true
+          )
+        );
         $this->db->order_by('d.promedio, ti.fecha','desc');
 
         if(!is_null($offset))
@@ -336,7 +343,7 @@ class Dictamen_model extends MY_Model {
 
 
       $this->db->set($valores);
-      $this->db->where(array('tipo_exposicion'=>null,'aceptado'=>true));
+      $this->db->where(array('folio_dictamen'=>null,'aceptado'=>true));
       $this->db->update('foro.dictamen');
 
       if ($this->db->trans_status() === FALSE)
