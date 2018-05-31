@@ -98,7 +98,7 @@ class General_revision extends MY_Controller {
           $oratoria_return = true;
           $carte_return = true;
 
-          if (count($candidatos_oratoria > 0))
+          if (count($candidatos_oratoria) > 0)
           {  
             $folios_oratoria = [];
             foreach ($candidatos_oratoria as $key => $value) {
@@ -117,7 +117,7 @@ class General_revision extends MY_Controller {
           }
 
           
-          if(count($candidatos_cartel > 0))
+          if(count($candidatos_cartel) > 0)
           {
             $folios_cartel = [];
             foreach ($candidatos_cartel as $key => $value) {

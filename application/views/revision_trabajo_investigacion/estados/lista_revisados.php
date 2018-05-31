@@ -14,7 +14,7 @@ $sistema = $config_asignacion['sistema'];
     <h3 class="text-center"><?php echo $count_cartel.' / '.$cupo['cartel'];?></h3>
   </div>
   <div class="col-sm-2">
-    <h4 class="text-center">Total de asignaciones<?php //echo $language_text['lbl_cartel'];?></h4>
+    <h4 class="text-center"><?php echo $language_text['lbl_total'];?><?php //echo $language_text['lbl_cartel'];?></h4>
     <h3 class="text-center"><?php echo ($count_oratoria + $count_cartel).' / '.($cupo['oratoria'] + $cupo['cartel']);?></h3>
 
   </div>
@@ -178,7 +178,7 @@ $sistema = $config_asignacion['sistema'];
 
      <div class="sectionEvaluacion" id="secEvaluacion">
        <h3 style="color: #fff;padding-top: 15px;padding-bottom: 15px;padding-left: 15px;">
-         Asignados
+         <?php echo $language_text['lbl_asignados']; ?>
        </h3>
        <img class="arrow-black" src="<?php echo asset_url(); ?>img/arrowdownblack.png" alt="">
      </div>

@@ -90,8 +90,6 @@ $(document).ready(function() {
 	    		console.log("complete");
 	    	});
 	    	
-	    }else{
-	    	alert("CANCELO");
 	    }
 	    // Let's test it out
 	});
