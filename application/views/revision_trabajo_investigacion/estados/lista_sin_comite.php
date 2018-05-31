@@ -36,9 +36,9 @@
                     <td><?php echo $row['titulo'];?></td>
                     <td><?php echo $row['metodologia'];?></td>
                     <td>
-                        <a type="button" data-f="<?php echo $folio_enc; ?>" data-toggle="modal" class="btn-asignar" data-target="#exampleModal" href=""><?php echo $opciones_secciones['btn_asignar'];?> <span class="glyphicon glyphicon-new-window"></a>
-                      <!-- <a type="button" data-f="<?php echo $folio_enc; ?>" data-toggle="modal" data-target="#exampleModal" href=""><?php echo $opciones_secciones['btn_ver'];?> <span class="glyphicon glyphicon-new-window"></a> -->
                       <a href="<?php echo site_url().'/registro_investigacion/ver/'.$row['folio']; ?>" type="button"><?php echo $opciones_secciones['btn_ver'];?> <span class="glyphicon glyphicon-new-window"/></a>
+                        <a type="button" data-f="<?php echo $folio_enc; ?>" data-toggle="modal" class="btn-asignar" data-target="#exampleModal" href=""><?php echo $opciones_secciones['btn_asignar'];?> <span class="glyphicon glyphicon-log-in"></a>
+                      <!-- <a type="button" data-f="<?php echo $folio_enc; ?>" data-toggle="modal" data-target="#exampleModal" href=""><?php echo $opciones_secciones['btn_ver'];?> <span class="glyphicon glyphicon-new-window"></a> -->
                     </td>
                   </tr>
                   <?php

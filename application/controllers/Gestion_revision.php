@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * Clase que contiene la gestion de catálogos
- * @version 	: 1.0.0
+ * @version   : 1.0.0
  * @author      : LEAS
  * */
 class Gestion_revision extends General_revision {
@@ -17,6 +17,7 @@ class Gestion_revision extends General_revision {
             'evaluado', 'aceptado', 'rechazado', 'listado_trabajo', 'generales', 'evaluacion', 'en_revision', 'mensajes', 'detalle_revision', 'detalle_trabajo']; //Grupo de idiomas para el controlador actual
         parent::__construct();
         $this->load->library('form_complete', 'security');
+        $this->load->helper('date');
         $this->load->model('Gestor_revision_model', 'gestion_revision');
     }
 
