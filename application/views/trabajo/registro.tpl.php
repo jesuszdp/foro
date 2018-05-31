@@ -285,7 +285,7 @@
           <br><br>
 			  	<div class="col-sm-offset-2 col-sm-8">
 			  	<center>
-			  		<button class="btn btn-theme animated flipInY visible" type="submit"><?php echo $language_text['registro_trabajo']['registrar_trabajo'];?></button>
+			  		<button class="btn btn-theme animated flipInY visible" type="submit" onclick="mostrar_loader();"><?php echo $language_text['registro_trabajo']['registrar_trabajo'];?></button>
 			  		<a href="<?php echo site_url('registro_investigacion');?>" class="btn btn-theme animated flipInY visible"><?php echo $language_text['template_general']['cancelar'];?></a>
 			  	</center>
 			  	</div>

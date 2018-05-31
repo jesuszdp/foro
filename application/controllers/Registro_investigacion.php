@@ -213,6 +213,7 @@ class Registro_investigacion extends MY_Controller {
                                     $output['msg'] = $lan_txt['registro_trabajo']['rti_success'];
                                     $output['msg_type'] = 'success';
                                     $output['folio'] = $folio;
+                                    $this->session->set_flashdata('limpiar_post_update_lenguaje', true);
                                     $this->index($output);
                                     return;
                                 } else {
