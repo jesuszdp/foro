@@ -80,7 +80,7 @@ class Gestor_revision_model extends MY_Model {
                 'hr.clave_estado', 'rn.tema_educacion', 'rn.conflicto_interes', 'rn.activo',
                 "CAST(rn.fecha_asignacion AS timestamp) + CAST('" . $dias_revision . " days' AS INTERVAL) fecha_limite_revision",
                 "(CASE WHEN CAST(rn.fecha_asignacion AS timestamp) + CAST('" . $dias_revision . " days' AS INTERVAL) < now() THEN true ELSE false END) fuera_tiempo",
-                '(SELECT count(folio) FROM foro.historico_revision WHERE folio=hr.folio) numero_revisiones'));
+                '(SELECT count(folio) FROM foro.revision WHERE folio=hr.folio) numero_revisiones'));
             $this->db->join('foro.trabajo_investigacion ti', 'hr.folio = ti.folio', 'left');
             $this->db->join('foro.tipo_metodologia ma', 'ti.id_tipo_metodologia = ma.id_tipo_metodologia', 'left');
             $this->db->join('foro.revision rn', 'hr.folio = rn.folio', 'left');
