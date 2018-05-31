@@ -25,7 +25,7 @@ class Evaluacion_revision_model extends MY_Model {
         $this->db->select($select);
         $this->db->where("llave", "dias_revision");
         $result = $this->db->get("foro.configuracion")->result_array();
-        if(!empty($result)){
+        if (!empty($result)) {
             $result = json_decode($result[0]["valor"], true);
             $conf = $result['dias'];
         }
@@ -200,6 +200,9 @@ class Evaluacion_revision_model extends MY_Model {
             , "clave_estado"];
         $this->db->select($select);
         $this->db->join('foro.historico_revision hr', 'rn.folio=hr.folio', 'inner');
+        $this->db->join('foro.trabajo_investigacion ti', 'hr.folio = ti.folio', 'left');
+        $this->db->join('foro.convocatoria cc', 'cc.id_convocatoria = ti.id_convocatoria', 'inner');
+        $this->db->where('cc.activo', true);
         $this->db->where("rn.id_usuario", $user_revisor);
         $this->db->where("hr.actual", TRUE);
         $this->db->where("rn.activo", TRUE);
@@ -207,6 +210,7 @@ class Evaluacion_revision_model extends MY_Model {
         $result = $this->db->get('foro.revision rn')->result_array();
 //        pr($this->db->last_query());
 //        pr($this->db->last_query());
+//        pr($result);
         return $result;
     }
 
@@ -226,6 +230,9 @@ class Evaluacion_revision_model extends MY_Model {
             , "clave_estado", "rn.promedio_revision"];
         $this->db->select($select);
         $this->db->join('foro.historico_revision hr', 'rn.folio=hr.folio', 'inner');
+        $this->db->join('foro.trabajo_investigacion ti', 'hr.folio = ti.folio', 'left');
+        $this->db->join('foro.convocatoria cc', 'cc.id_convocatoria = ti.id_convocatoria', 'inner');
+        $this->db->where('cc.activo', true);
         $this->db->where("hr.actual", TRUE);
         $this->db->where("rn.activo", TRUE);
         $this->db->where("rn.revisado", TRUE);
