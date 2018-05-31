@@ -8,7 +8,7 @@ function evaluacion(element) {
 }
 
 function resultado_evaluacion(path, form_recurso, elemento_resultado) {
-    mostrar_loader();
+    //mostrar_loader();
     apprise('Confirme que realmente desea continuar', {verify: true}, function (btnClick) {
         if (btnClick) {
             var dataSend = $(form_recurso).serialize();

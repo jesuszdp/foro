@@ -168,3 +168,16 @@ Elementos de formularios
 	list-style-type: circle;
 	margin-left: 50px;
 }
+#overlay {
+    background: rgba(0,0,0,.5);
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    z-index: 100000;
+    top: 0;
+    left: 0;
+    float: left;
+    text-align: center;
+    padding-top: 25%;
+    display: none;
+}
