@@ -16,7 +16,7 @@
             <!-- <td bgcolor="#ffffff" style="font-size: 0; line-height: 0; border-color: #ffffff;" height="10px" width="300px">
             </td> -->
             <td align="rigth" bgcolor="#ffffff" style="font-size: 0; line-height: 0; border-color: #70bbd9;" height="10">
-              <img src="http://aplicativosweb_die.imss.gob.mx/foro_trabajos/assets/img/logo_foro_naranja.png" alt="" width="700" height="146" style="display: block;" />
+              <img src="<?=asset_url();?>/img/correos/logo_foro_naranja.png" alt="" width="700" height="146" style="display: block;" />
             </td>
           </tr>
           <tr>
