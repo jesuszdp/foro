@@ -35,7 +35,7 @@
                     ?>
                             <td><?php echo (isset($revisor['revisor'])) ? $revisor['revisor'] : '';?><br>
                                 <?php echo (isset($revisor['clave_estado'])) ? '<b>'.$revisor['clave_estado'].'</b>' : '';?><br>
-                                <?php echo (isset($revisor['fecha_limite_revision'])) ? $revisor['fecha_limite_revision'] : '';?>
+                                <?php echo (isset($revisor['fecha_limite_revision'])) ? nice_date($revisor['fecha_limite_revision'], 'd-m-Y h:i') : '';?>
                             </td>
                     <?php
                         }
@@ -47,8 +47,9 @@
                     ?>
                     <td><?php echo $row['numero_revisiones'];?></td>
                     <td>
-                      <a href="" type="button" data-animation="flipInY" data-animation-delay="100" data-toggle="modal" data-target="#exampleModal"><?php echo $opciones_secciones['btn_ver'];?> <span class="glyphicon glyphicon-new-window"></a>
-                      <a href="" type="button" data-animation="flipInY" data-animation-delay="100" data-f="<?php echo $folio_enc; ?>" class="btn-asignar" data-toggle="modal" data-target="#exampleModal"><?php echo $opciones_secciones['btn_asignar'];?> <span class="glyphicon glyphicon-new-window"></a>
+                      <!-- <a href="" type="button" data-animation="flipInY" data-animation-delay="100" data-toggle="modal" data-target="#exampleModal"><?php echo $opciones_secciones['btn_ver'];?> <span class="glyphicon glyphicon-new-window"></a>  -->
+                      <a href="<?php echo site_url().'/registro_investigacion/ver/'.$row['folio']; ?>" type="button" style="display:inline-table;"><?php echo $opciones_secciones['btn_ver'];?> <span class="glyphicon glyphicon-new-window"/></a>
+                      <a href="" type="button" data-animation="flipInY" data-animation-delay="100" data-f="<?php echo $folio_enc; ?>" class="btn-asignar" data-toggle="modal" data-target="#exampleModal" style="display:inline-table;"><?php echo $opciones_secciones['btn_asignar'];?> <span class="glyphicon glyphicon-log-in"></a>
                     </td
                   </tr>
 <?php

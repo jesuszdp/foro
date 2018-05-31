@@ -100,30 +100,39 @@ class Evaluacion extends General_revision {
     }
 
     public function guardar_evaluacion() {
-        $param = array(
-            "where" => ['id_tipo_metodologia' => null],
-            "or_where_in" => ['id_tipo_metodologia' => $this->input->post("tipo_metodologia", null)]
-        );
-        $secciones = $this->evaluacion->get_secciones($param, $this->obtener_idioma());
+        $id_usuario = $this->get_datos_sesion(En_datos_sesion::ID_USUARIO);
+        $acceso_revisar_investigacion = $this->valida_acceso_revisar_investigacion($this->input->post("folio", true), $id_usuario);
+        if ($acceso_revisar_investigacion) {
+
+            $param = array(
+                "where" => ['id_tipo_metodologia' => null],
+                "or_where_in" => ['id_tipo_metodologia' => $this->input->post("tipo_metodologia", null)]
+            );
+            $secciones = $this->evaluacion->get_secciones($param, $this->obtener_idioma());
 //        pr($this->input->post());
-        if ($this->input->post()) {//valida post
-            $data = $this->input->post(null, true);
+            if ($this->input->post()) {//valida post
+                $data = $this->input->post(null, true);
 //            pr($data);
-            $id_user = $this->get_datos_sesion(En_datos_sesion::ID_USUARIO);
-            if (!is_null($this->input->post('conflicto', true)) && !is_null($this->input->post("educativo", true))) {//No tiene conflicto de interes y tambien es tema educativo
-                $this->carga_validaciones('valida_evaluacion_revision', $secciones);
-                if ($this->form_validation->run() == TRUE) {
-                    $output = $this->guarda_evaluacion_revision($secciones);
-                } else {
-                    
+                $id_user = $this->get_datos_sesion(En_datos_sesion::ID_USUARIO);
+                if (!is_null($this->input->post('conflicto', true)) && !is_null($this->input->post("educativo", true))) {//No tiene conflicto de interes y tambien es tema educativo
+                    $this->carga_validaciones('valida_evaluacion_revision', $secciones);
+                    if ($this->form_validation->run() == TRUE) {
+                        $output = $this->guarda_evaluacion_revision($secciones);
+                    } else {
+                        
+                    }
+                } else {//Guarda la evaluación con confricto de interes o es de caracter de interes
+                    $output = $this->guarda_conflicto_tema_educativo();
                 }
-            } else {//Guarda la evaluación con confricto de interes o es de caracter de interes
-                $output = $this->guarda_conflicto_tema_educativo();
             }
+            $output['data'] = $data;
+            $html = $this->get_vista_evaluacion($secciones, $this->input->post("tipo_metodologia", null));
+            $output['html'] = $html;
+        } else {
+            $output['html'] = "";
+            $output[En_tpmsg::__default] = En_tpmsg::WARNING;
+            $output['message'] = $this->language_text['evaluacion']['danger_update'];
         }
-        $output['data'] = $data;
-        $html = $this->get_vista_evaluacion($secciones, $this->input->post("tipo_metodologia", null));
-        $output['html'] = $html;
 
         echo json_encode($output);
     }

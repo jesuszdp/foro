@@ -40,6 +40,8 @@ class Revision_model extends MY_Model {
             $this->db->join("foro.trabajo_investigacion ti", "hr.folio=ti.folio", 'inner');
             $this->db->join("foro.revision r", "r.folio=ti.folio", 'inner');
             $this->db->join("foro.tipo_metodologia ma", "ti.id_tipo_metodologia=ma.id_tipo_metodologia", 'left');
+            $this->db->join('foro.convocatoria cc', 'cc.id_convocatoria = ti.id_convocatoria', 'inner');
+            $this->db->where('cc.activo', true);
             //$this->db->where("clave_estado", "asignado");
             $this->db->where("hr.actual", TRUE);
             $this->db->where("r.id_usuario", $this->session->userdata('die_sipimss')['usuario']['id_usuario']);

@@ -38,7 +38,7 @@
                       ?>
                               <td><?php echo (isset($revisor['revisor'])) ? $revisor['revisor'] : '';?><br>
                                 <?php echo (isset($revisor['clave_estado'])) ? '<b>'.$revisor['clave_estado'].'</b>' : '';?><br>
-                                <?php echo (isset($revisor['fecha_limite_revision'])) ? $revisor['fecha_limite_revision'] : '';?>
+                                <?php echo (isset($revisor['fecha_limite_revision'])) ? nice_date($revisor['fecha_limite_revision'], 'd-m-Y h:i') : '';?>
                               </td>
                       <?php
                           }

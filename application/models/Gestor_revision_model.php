@@ -37,6 +37,8 @@ class Gestor_revision_model extends MY_Model {
             $this->db->select(array('hr.folio folio', 'ti.titulo titulo', 'ma.lang metodologia'));
             $this->db->join('foro.trabajo_investigacion ti', 'hr.folio = ti.folio', 'left');
             $this->db->join('foro.tipo_metodologia ma', 'ti.id_tipo_metodologia = ma.id_tipo_metodologia', 'left');
+            $this->db->join('foro.convocatoria cc', 'cc.id_convocatoria = ti.id_convocatoria', 'inner');
+            $this->db->where('cc.activo', true);
             $this->db->where('clave_estado', 'sin_asignacion');
             $this->db->where('actual', true);
             if (array_key_exists('fields', $param)) {
@@ -80,10 +82,12 @@ class Gestor_revision_model extends MY_Model {
                 'hr.clave_estado', 'rn.tema_educacion', 'rn.conflicto_interes', 'rn.activo',
                 "CAST(rn.fecha_asignacion AS timestamp) + CAST('" . $dias_revision . " days' AS INTERVAL) fecha_limite_revision",
                 "(CASE WHEN CAST(rn.fecha_asignacion AS timestamp) + CAST('" . $dias_revision . " days' AS INTERVAL) < now() THEN true ELSE false END) fuera_tiempo",
-                '(SELECT count(folio) FROM foro.historico_revision WHERE folio=hr.folio) numero_revisiones'));
+                '(SELECT count(folio) FROM foro.revision WHERE folio=hr.folio) numero_revisiones'));
             $this->db->join('foro.trabajo_investigacion ti', 'hr.folio = ti.folio', 'left');
             $this->db->join('foro.tipo_metodologia ma', 'ti.id_tipo_metodologia = ma.id_tipo_metodologia', 'left');
             $this->db->join('foro.revision rn', 'hr.folio = rn.folio', 'left');
+            $this->db->join('foro.convocatoria cc', 'cc.id_convocatoria = ti.id_convocatoria', 'inner');
+            $this->db->where('cc.activo', true);
             $this->db->where("(hr.clave_estado IN('fuera_tiempo','discrepancia','conflicto_interes') OR ((CAST(rn.fecha_asignacion AS timestamp) + CAST('3 days' AS INTERVAL)) < now() and revisado=false))");
             $this->db->where('actual', true);
             $this->db->where('rn.activo', true);
@@ -133,6 +137,8 @@ class Gestor_revision_model extends MY_Model {
             $this->db->join('foro.trabajo_investigacion ti', 'hr.folio = ti.folio', 'left');
             $this->db->join('foro.tipo_metodologia ma', 'ti.id_tipo_metodologia = ma.id_tipo_metodologia', 'left');
             $this->db->join('foro.revision rn', 'hr.folio = rn.folio', 'left');
+            $this->db->join('foro.convocatoria cc', 'cc.id_convocatoria = ti.id_convocatoria', 'inner');
+            $this->db->where('cc.activo', true);
             $this->db->where_in('hr.clave_estado', array('fuera_tiempo', 'discrepancia', 'conflicto_interes', 'asignado'));
             $this->db->where('actual', true);
             $this->db->where('rn.activo', true);
@@ -185,6 +191,8 @@ class Gestor_revision_model extends MY_Model {
             $this->db->join('foro.trabajo_investigacion ti', 'hr.folio = ti.folio', 'left');
             $this->db->join('foro.tipo_metodologia ma', 'ti.id_tipo_metodologia = ma.id_tipo_metodologia', 'left');
             $this->db->join('foro.revision rn', 'hr.folio = rn.folio', 'left');
+            $this->db->join('foro.convocatoria cc', 'cc.id_convocatoria = ti.id_convocatoria', 'inner');
+            $this->db->where('cc.activo', true);
             $this->db->where('hr.clave_estado', 'evaluado');
             $this->db->where("actual", TRUE);
             $result = $this->db->get();
@@ -228,6 +236,8 @@ class Gestor_revision_model extends MY_Model {
             $this->db->join('foro.tipo_metodologia ma', 'ti.id_tipo_metodologia = ma.id_tipo_metodologia', 'left');
             $this->db->join('foro.revision rn', 'hr.folio = rn.folio', 'left');
             $this->db->join('foro.dictamen dn', 'rn.folio=dn.folio', 'left');
+            $this->db->join('foro.convocatoria cc', 'cc.id_convocatoria = ti.id_convocatoria', 'inner');
+            $this->db->where('cc.activo', true);
             $this->db->where_in("hr.clave_estado", ['aceptado_oral', 'aceptado_cartel']);
             $this->db->where("actual", TRUE);
             $result = $this->db->get();
@@ -272,6 +282,8 @@ class Gestor_revision_model extends MY_Model {
             $this->db->join("foro.tipo_metodologia ma", "ti.id_tipo_metodologia=ma.id_tipo_metodologia", 'left');
             $this->db->join("foro.revision rn", "hr.folio=rn.folio", 'left');
             $this->db->join("foro.dictamen dn", "rn.folio=dn.folio", 'left');
+            $this->db->join('foro.convocatoria cc', 'cc.id_convocatoria = ti.id_convocatoria', 'inner');
+            $this->db->where('cc.activo', true);
             $this->db->where("hr.clave_estado", "rechazado");
             $this->db->where("actual", TRUE);
             $result = $this->db->get();
@@ -314,6 +326,8 @@ class Gestor_revision_model extends MY_Model {
             $this->db->join('foro.trabajo_investigacion ti', 'hr.folio = ti.folio', 'left');
             $this->db->join('foro.revision rn', 'hr.folio=rn.folio', 'left');
             $this->db->join('foro.dictamen dn', 'rn.folio=dn.folio', 'left');
+            $this->db->join('foro.convocatoria cc', 'cc.id_convocatoria = ti.id_convocatoria', 'inner');
+            $this->db->where('cc.activo', true);
             $this->db->where("rn.folio", $folio);
             $this->db->where("dn.aceptado", TRUE);
             $this->db->where("hr.clave_estado", 'evaluado');
@@ -398,6 +412,8 @@ class Gestor_revision_model extends MY_Model {
             $this->db->join('foro.revision rn', 'hr.folio=rn.folio', 'left');
             $this->db->join('foro.dictamen dn', 'rn.folio=dn.folio', 'left');
             $this->db->join('sistema.informacion_usuario iu', 'rn.id_usuario=iu.id_usuario', 'left');
+             $this->db->join('foro.convocatoria cc', 'cc.id_convocatoria = ti.id_convocatoria', 'inner');
+            $this->db->where('cc.activo', true);
             $this->db->where("rn.folio", $folio);
             $this->db->where("dn.aceptado", TRUE);
             $this->db->where("hr.clave_estado", 'evaluado');

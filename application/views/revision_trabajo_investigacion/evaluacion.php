@@ -95,29 +95,33 @@ echo $language_text['evaluacion']['lbl_conflicto'];
                                     <?php echo form_error_format("evaluacion_calificacion_" . $value_secciones['id_seccion']); //agrega div para mostrar error    ?>
                                 </div>
                                 <br>
-                                <?php foreach ($opciones_secciones[$value_secciones['id_seccion']] as $opciones) { ?>
-                                    <?php
-                                    echo $this->form_complete->create_element(
-                                            array(
-                                                'id' => 'calidad_' . $value_secciones['id_seccion'],
-                                                'name' => 'calidad_' . $value_secciones['id_seccion'],
-                                                'type' => 'radio',
-                                                'value' => $opciones['id_opcion'],
-                                                'attributes' => array(
-                                                    "class" => "radios_opcion",
-                                                    "data-min" => $opciones['minimo'],
-                                                    "data-max" => $opciones['maximo'],
-                                                    "data-identificadorseccion" => $value_secciones['id_seccion'],
-                                                    "onchange" => "opciones_secciones(this);",
+                                <div class="col-md-12 text-left">
+                                    <?php foreach ($opciones_secciones[$value_secciones['id_seccion']] as $opciones) { ?>
+                                        <?php
+                                        echo $this->form_complete->create_element(
+                                                array(
+                                                    'id' => 'calidad_' . $value_secciones['id_seccion'],
+                                                    'name' => 'calidad_' . $value_secciones['id_seccion'],
+                                                    'type' => 'radio',
+                                                    'value' => $opciones['id_opcion'],
+                                                    'attributes' => array(
+                                                        "class" => "radios_opcion",
+                                                        "data-min" => $opciones['minimo'],
+                                                        "data-max" => $opciones['maximo'],
+                                                        "data-identificadorseccion" => $value_secciones['id_seccion'],
+                                                        "onchange" => "opciones_secciones(this);",
+                                                    )
                                                 )
-                                            )
-                                    );
-                                    echo $opciones['descripcion'];
-                                    ?>
-                                    <br>
-                                    <br>
-                                <?php } ?>
-                                <?php echo form_error_format("seleccion_opcion_evaluacion_" . $value_secciones['id_seccion']); //agrega div para mostrar error   ?>
+                                        );
+                                        echo $opciones['descripcion'];
+                                        ?>
+                                        <br>
+                                        <br>
+                                    <?php } ?>
+                                </div>
+                                <div class="col-md-12 text-left">
+                                    <?php echo form_error_format("seleccion_opcion_evaluacion_" . $value_secciones['id_seccion']); //agrega div para mostrar error   ?>
+                                </div>
                             </div>
                         </div>
                     </div>

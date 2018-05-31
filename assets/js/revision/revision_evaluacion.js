@@ -8,6 +8,7 @@ function evaluacion(element) {
 }
 
 function resultado_evaluacion(path, form_recurso, elemento_resultado) {
+    //mostrar_loader();
     apprise('Confirme que realmente desea continuar', {verify: true}, function (btnClick) {
         if (btnClick) {
             var dataSend = $(form_recurso).serialize();
@@ -26,9 +27,13 @@ function resultado_evaluacion(path, form_recurso, elemento_resultado) {
                     console.log(json);
                     $(elemento_resultado).html(json.html);
                     get_mensaje_general_evaluacion(json.message, json.tp_message, 10000);
-                    if(json.tp_message == 'success'){
+                    if (json.tp_message == 'success') {
+                        $(elemento_resultado).html("");
                         alert(json.message);
                         document.location.href = site_url + "/revision/trabajos_investigacion_evaluacion";
+                    } else if (json.tp_message == 'warning') {
+                        document.location.href = site_url + "/revision/trabajos_investigacion_evaluacion";
+
                     }
                 } catch (err) {//No es un json 
                     json = {html: "", msj: "Hola", tpmsj: "succes"}
@@ -41,6 +46,8 @@ function resultado_evaluacion(path, form_recurso, elemento_resultado) {
                 ocultar_loader();
             });
         } else {
+            remove_loader();
+            ocultar_loader();
             return false;
         }
     });
