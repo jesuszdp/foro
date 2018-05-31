@@ -329,7 +329,7 @@ class Gestor_revision_model extends MY_Model {
             $this->db->join('foro.convocatoria cc', 'cc.id_convocatoria = ti.id_convocatoria', 'inner');
             $this->db->where('cc.activo', true);
             $this->db->where("rn.folio", $folio);
-            $this->db->where("dn.aceptado", TRUE);
+            //$this->db->where("dn.aceptado", TRUE);
             $this->db->where("hr.clave_estado", 'evaluado');
             $this->db->where("actual", TRUE);
             $this->db->group_by(array('ti.titulo', 'rn.promedio_revision', 'hr.clave_estado', 'dn.tipo_exposicion'));
@@ -372,11 +372,13 @@ class Gestor_revision_model extends MY_Model {
             $this->db->join('foro.seccion sc', 'dr.id_seccion=sc.id_seccion', 'left');
             $this->db->join('foro.dictamen dn', 'rn.folio=dn.folio', 'left');
             $this->db->where("rn.folio", $folio);
-            $this->db->where("dn.aceptado", TRUE);
+            //$this->db->where("dn.aceptado", TRUE);
             $this->db->where("hr.clave_estado", 'evaluado');
             $this->db->where("actual", TRUE);
+            $this->db->where("sc.id_seccion is not null");
             $this->db->group_by('sc.id_seccion');
             $result = $this->db->get('foro.historico_revision hr');
+            //pr($this->db->last_query());
             $salida = $result->result_array();
             $result->free_result();
             $this->db->flush_cache();
@@ -415,10 +417,11 @@ class Gestor_revision_model extends MY_Model {
              $this->db->join('foro.convocatoria cc', 'cc.id_convocatoria = ti.id_convocatoria', 'inner');
             $this->db->where('cc.activo', true);
             $this->db->where("rn.folio", $folio);
-            $this->db->where("dn.aceptado", TRUE);
+            //$this->db->where("dn.aceptado", TRUE);
             $this->db->where("hr.clave_estado", 'evaluado');
             $this->db->where("actual", TRUE);
             $result = $this->db->get('foro.historico_revision hr');
+            //pr($this->db->last_query());
             $salida = $result->result_array();
             $result->free_result();
             $this->db->flush_cache();

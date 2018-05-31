@@ -185,7 +185,7 @@
                                                       echo $seccion[$lenguaje];
                                                   ?>
                                               </td>
-                                              <td><?php echo $row['avg']; ?></td>
+                                              <td><?php echo number_format($row['avg'],2); ?></td>
                                             </tr>
                                         <?php
                                             }
