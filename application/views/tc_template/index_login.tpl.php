@@ -195,6 +195,7 @@
                         <li data-animation="flipInY" data-animation-delay="300"><a href="https://www.facebook.com/SaberIMSS/" class="facebook"><i class="fa fa-facebook"></i></a></li>
                         <li><a href="https://www.youtube.com/channel/UCvlda6Uw7N_pZAH_fxE9ZYA" target="_blank" class="youtube"><i class="fa fa-youtube"></i></a></li>
                     </ul>
+                    <a target="_blank" href="<?php echo site_url().'/inicio/ver_creditos' ?>">Creditos</a>
                 </div>
                 <!-- <span class="copyright" data-animation="fadeInUp" data-animation-delay="100">&copy; 2018 Instituto Mexicano del Seguro Social.</span>-->
                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 text-center">
@@ -276,7 +277,7 @@
         </div>
         <!-- <div class="modal-footer">
           <button type="button" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block" class="btn btn-primary">Guardar</button>
-        </div> -->  
+        </div> -->
       </div>
     </div>
 </div>

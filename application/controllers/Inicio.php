@@ -98,7 +98,7 @@ class Inicio extends MY_Controller {
         $foro_educacion = $this->session->userdata(En_datos_sesion::__INSTANCIA);
         if (isset($foro_educacion['usuario']['id_usuario'])) {
             $this->redireccion_inicio($foro_educacion);
-        } else {//De inicio aquí es donde entra 
+        } else {//De inicio aquí es donde entra
             $this->load->model('Catalogo_model', 'catalogo');
 
             $this->template->setTitle('XV Foro Nacional y I Foro Internacional de Educación en Salud');
@@ -108,6 +108,15 @@ class Inicio extends MY_Controller {
             $this->template->getTemplate(true, 'tc_template/index_login.tpl.php');
         }
     }
+
+
+        public function ver_creditos()
+            {
+                $output = [];
+                $main_content = $this->load->view('creditos.php', $output, TRUE);
+                $this->template->setMainContent($main_content);
+                $this->template->getTemplate();
+            }
 
     private function redireccion_inicio(&$foro_educacion) {
         //pr($foro_educacion); pr(count($foro_educacion['usuario']['niveles_acceso']));
@@ -130,7 +139,7 @@ class Inicio extends MY_Controller {
         $foro_educacion = $this->session->userdata(En_datos_sesion::__INSTANCIA);
         if (isset($foro_educacion['usuario']['id_usuario'])) {
             redirect(site_url('inicio/inicio'));
-        } else {//De inicio aquí es donde entra 
+        } else {//De inicio aquí es donde entra
             $data['language_text'] = $this->language_text; //Asigna textos de lenguaje para el template de login
 
             $this->load->model('Catalogo_model', 'catalogo');
@@ -325,7 +334,7 @@ class Inicio extends MY_Controller {
                     exit();
                 }
 //                pr($output['registro_valido']['msg']);
-//                
+//
 //                registro_valido
 //                pr($output['registro_valido']);
             } else {
@@ -370,6 +379,7 @@ class Inicio extends MY_Controller {
             }
         }
     }
+
 
     public function p404() {
         $output = [];
