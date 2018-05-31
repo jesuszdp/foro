@@ -28,8 +28,12 @@ function resultado_evaluacion(path, form_recurso, elemento_resultado) {
                     $(elemento_resultado).html(json.html);
                     get_mensaje_general_evaluacion(json.message, json.tp_message, 10000);
                     if (json.tp_message == 'success') {
+                        $(elemento_resultado).html("");
                         alert(json.message);
                         document.location.href = site_url + "/revision/trabajos_investigacion_evaluacion";
+                    } else if (json.tp_message == 'warning') {
+                        document.location.href = site_url + "/revision/trabajos_investigacion_evaluacion";
+
                     }
                 } catch (err) {//No es un json 
                     json = {html: "", msj: "Hola", tpmsj: "succes"}
