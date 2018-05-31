@@ -1,9 +1,12 @@
 $(document).ready(function() {
 	$('#btn_manual').click(function() {
-		if(confirm("Si continua se perderán la asignación actual")){
+		if(confirm(confirmacion_manual)){
 			$.ajax({
 				url: site_url + '/dictamen/activar_asignacion/M',
-				type: 'GET'
+				type: 'GET',
+				beforeSend: function (xhr) {
+           			mostrar_loader();
+       			}
 			})
 			.done(function() {
 				console.log("success");
@@ -14,16 +17,21 @@ $(document).ready(function() {
 			})
 			.always(function() {
 				console.log("complete");
+				remove_loader();
+       			ocultar_loader();
 			});
 			
 		}
 	});
 
 	$('#btn_automatico').click(function() {
-		if(confirm("Si continua se perderán la asignación actual")){
+		if(confirm(confirmacion_automatica)){
 			$.ajax({
 				url: site_url + '/dictamen/activar_asignacion/A',
-				type: 'GET'
+				type: 'GET',
+				beforeSend: function (xhr) {
+           			mostrar_loader();
+       			}
 			})
 			.done(function() {
 				console.log("success");
@@ -34,6 +42,8 @@ $(document).ready(function() {
 			})
 			.always(function() {
 				console.log("complete");
+				remove_loader();
+       			ocultar_loader();
 			});
 			
 		}
@@ -41,10 +51,13 @@ $(document).ready(function() {
 
 
 	$('#btn_cerar_proceso').click(function() {
-		if(confirm("¿Está usted seguro de que quiere terminar esta convocatoria?")){
+		if(confirm(confirmacion_cierre_convocatoria)){
 			$.ajax({
 				url: site_url + '/dictamen/cierre_convocatoria',
-				type: 'GET'
+				type: 'GET',
+				beforeSend: function (xhr) {
+           			mostrar_loader();
+       			}
 			})
 			.done(function() {
 				console.log("success");
@@ -55,6 +68,8 @@ $(document).ready(function() {
 			})
 			.always(function() {
 				console.log("complete");
+				remove_loader();
+       			ocultar_loader();
 			});
 			
 		}
@@ -65,7 +80,23 @@ $(document).ready(function() {
 	    var $text = $row.find(".row_folio").text(); // Find the text
 	    var $text_slct = $row.find(".select_asignacion").val();
 
-	    if(confirm("Confirmar")){
+	    var confirmar = 'Confirmar';
+	    switch($text_slct){
+	    	case 'C':
+	    		confirmar = confirmacion_acartel;
+	    	break;
+	    	case 'R':
+	    		confirmar = confirmacion_rechazado;
+	    	break;
+	    	case 'O':
+	    		confirmar = confirmacion_aoral;
+	    	break;
+	    	case 'Q':
+	    		confirmar = confirmacion_sa;
+	    	break;
+	    }
+
+	    if(confirm(confirmar)){
             var datos = {
             	folio: $text,
             	sugerencia: $text_slct
@@ -75,7 +106,10 @@ $(document).ready(function() {
 	    		url:  site_url + '/dictamen/asignacion_manual',
 	    		type: 'POST',
 	    		dataType: 'json',
-	    		data: datos
+	    		data: datos,
+	    		beforeSend: function (xhr) {
+           			mostrar_loader();
+       			}
 	    	})
 	    	.done(function(json) {
 	    		console.log("success");
@@ -88,6 +122,8 @@ $(document).ready(function() {
 	    	})
 	    	.always(function() {
 	    		console.log("complete");
+	    		remove_loader();
+       			ocultar_loader();
 	    	});
 	    	
 	    }

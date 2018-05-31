@@ -201,6 +201,13 @@ class Registro_investigacion extends MY_Controller {
                                 $status = $this->trabajo->nuevo($datos);
                                 if ($status) {
                                     //Enviamos un correo notificando que se registro el trabajo
+                                  $this->enviar_correo_registro($datos_sesion['email'],
+                                    $datos = array(
+                                      'folio' => $folio,
+                                      'investigador' => $datos_sesion['nombre'].' '.$datos_sesion['apellido_paterno'].' '.$datos_sesion['apellido_materno'],
+                                      'titulo' => $post['titulo_trabajo']
+                                      )
+                                    );
                                     //$this->enviar_correo_registro($datos_sesion['email'],$folio,$post['titulo_trabajo'],$lan_txt['correo']['asunto_nuevo_trabajo'],$lan_txt['correo']['cuerpo_nuevo_trabajo']);
 
                                     $output['msg'] = $lan_txt['registro_trabajo']['rti_success'];
@@ -236,16 +243,19 @@ class Registro_investigacion extends MY_Controller {
         if (!$status) {
             $output['trabajo'] = $post;
         }
+        /*else{
+          $this->session->set_flashdata('limpiar_post_update_lenguaje', true);
+        }*/
         $main_content = $this->load->view('trabajo/registro.tpl.php', $output, true);
         $this->template->setMainContent($main_content);
         $this->template->getTemplate();
     }
 
-    private function enviar_correo_registro($email, $folio, $titulo, $asunto, $texto) {
+    private function enviar_correo_registro($email, $datos) {
         $this->load->config('email');
         $this->load->library('My_phpmailer');
         $mailStatus = $this->my_phpmailer->phpmailerclass();
-        /*
+        
           $mailStatus->SMTPOptions = array(
           'ssl' => array(
           'verify_peer' => false,
@@ -253,11 +263,12 @@ class Registro_investigacion extends MY_Controller {
           'allow_self_signed' => true
           )
           );
-         */
-        $mailStatus->SMTPAuth = false;
-        $emailStatus = $this->procesar_correo($texto, array('{{$folio}}' => $folio, '{{$titulo}}' => $titulo));
+         
+        //$mailStatus->SMTPAuth = false;
+        $emailStatus = $this->load->view('correo_foro/recepcion.php', $datos, true);
+        //$emailStatus = $this->procesar_correo($texto, array('{{$folio}}' => $folio, '{{$titulo}}' => $titulo));
         $mailStatus->addAddress($email);
-        $mailStatus->Subject = utf8_decode($asunto);
+        $mailStatus->Subject = 'Recepcion de trabajo de Investigacion';
         $mailStatus->msgHTML($emailStatus);
         $mailStatus->send();
     }

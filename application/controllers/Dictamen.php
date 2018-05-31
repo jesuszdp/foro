@@ -11,7 +11,7 @@ class Dictamen extends General_revision {
 
     public function __construct() {
         $this->grupo_language_text = ['sin_comite', 'req_atencion', 'en_revision',
-            'evaluado', 'aceptado', 'rechazado', 'listado_trabajo', 'generales', 'evaluacion', 'en_revision', 'mensajes', 'detalle_revision', 'detalle_trabajo', 'sugerencia']; //Grupo de idiomas para el controlador actual
+            'evaluado', 'aceptado', 'rechazado', 'listado_trabajo', 'generales', 'evaluacion', 'en_revision', 'mensajes', 'detalle_revision', 'detalle_trabajo', 'sugerencia','asignar_dictamen']; //Grupo de idiomas para el controlador actual
         parent::__construct();
         $this->load->model('Dictamen_model', 'dictamen');
         $this->load->model('Convocatoria_model', 'convocatoria');
@@ -26,6 +26,8 @@ class Dictamen extends General_revision {
         $output['data_dictamen'] = $this->revisados_asignados();
         //pr($output['data_dictamen']);
         $output['language_text'] = $this->language_text['evaluado'];
+        $output['lan_text_asignacion'] = $this->language_text['asignar_dictamen'];
+        //pr($output['lan_text_asignacion']);
 
         $output['count_cartel'] = $this->dictamen->count_registros_dictamen(false, 'C');
         //pr($this->dictamen->count_registros_dictamen(false,'C'));
@@ -372,6 +374,8 @@ class Dictamen extends General_revision {
 
       //Cambiamos el estado de los folios
       $this->load->model('Evaluacion_revision_model', 'evaluacion_revision');
+      $this->load->model('Trabajo_model', 'trabajo_inv');
+      $total_trabajos = $this->trabajo_inv->numero_trabajos();
       $numero = 0;
 
       foreach ($trabajos as $key => $value) {
@@ -390,6 +394,17 @@ class Dictamen extends General_revision {
           }
 
           $status = $this->evaluacion_revision->guardar_historico_estado($value['folio'], $estado);
+          //Enviamos un correo notificando que se acepto su trabajo
+          $this->enviar_correo_aceptado($value['email'],
+            $datos = array(
+            'folio' => $value['folio'],
+            'investigador' => $value['nombre'].' '.$value['apellido_paterno'].' '.$value['apellido_materno'],
+            'titulo' => $value['titulo'],
+            'total_trabajos' => $total_trabajos,
+            'aceptados' => count($trabajos),
+            'tipo' => ($value['sugerencia']=='O')?'exposición oral':'exposición con cartel'
+            ));
+          
         }
       }
 
@@ -401,6 +416,50 @@ class Dictamen extends General_revision {
       //pr($success);
       header('Content-Type: application/json; charset=utf-8;');
       echo json_encode(array('success' => $status));
+    }
+
+    
+    public function prueba_correo()
+    {
+      $param = array(
+          'where' => array(
+              'd.aceptado' => true
+          ),
+          'order_by' => 'd.sugerencia', 'd.promedio','ti.fecha'
+      );
+      pr($this->dictamen->get_trabajos_evaluados($param));
+      $datos = array(
+        'folio' => 'IMSS-CES-FNFIES-P-18-0001',
+        'investigador' => 'Juan Perez',
+        'titulo' => 'Titulo del trabajo',
+        'total_trabajos' => 400,
+        'aceptados' => 200,
+        'tipo' => 'cartel'
+        );
+
+      $correo = $this->load->view('correo_foro/aceptado.php', $datos, true);
+      pr($correo);
+    }
+    
+    private function enviar_correo_aceptado($email, $datos) {
+        $this->load->config('email');
+        $this->load->library('My_phpmailer');
+        $mailStatus = $this->my_phpmailer->phpmailerclass();
+        
+          $mailStatus->SMTPOptions = array(
+          'ssl' => array(
+          'verify_peer' => false,
+          'verify_peer_name' => false,
+          'allow_self_signed' => true
+          )
+          );
+         
+        //$mailStatus->SMTPAuth = false;
+        $emailStatus = $this->load->view('correo_foro/aceptado.php', $datos, true);
+        $mailStatus->addAddress($email);
+        $mailStatus->Subject = 'Dictamen de evaluacion';
+        $mailStatus->msgHTML($emailStatus);
+        $mailStatus->send();
     }
 
 }

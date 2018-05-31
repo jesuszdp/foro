@@ -21,10 +21,12 @@ class Dictamen_model extends MY_Model {
         $this->db->flush_cache();
         $this->db->reset_query();
 
-        $this->db->select(array('hr.folio','ti.titulo','tm.lang metodologia','d.promedio', 'd.sugerencia', 'd.orden'));
+        $this->db->select(array('hr.folio','ti.titulo','tm.lang metodologia','d.promedio', 'd.sugerencia', 'd.orden','iu.nombre', 'iu.apellido_paterno','iu.apellido_materno','iu.email'));
 
         $this->db->join('foro.trabajo_investigacion ti','hr.folio = ti.folio','inner');
         $this->db->join('foro.tipo_metodologia tm','ti.id_tipo_metodologia = tm.id_tipo_metodologia','inner');
+        $this->db->join('foro.autor a','ti.folio = a.folio_investigacion','inner');
+        $this->db->join('sistema.informacion_usuario iu', 'iu.id_informacion_usuario = a.id_informacion_usuario', 'inner');
         $this->db->join('foro.dictamen d','hr.folio = d.folio','inner');
         $this->db->join('foro.convocatoria c','ti.id_convocatoria = c.id_convocatoria','inner');
 
@@ -32,7 +34,8 @@ class Dictamen_model extends MY_Model {
           array(
             'c.activo'=>true,
             'hr.clave_estado' => 'evaluado',
-            'hr.actual' => true
+            'hr.actual' => true,
+            'a.registro' => true,
           )
         );
         
@@ -55,7 +58,9 @@ class Dictamen_model extends MY_Model {
         $this->db->flush_cache();
         $this->db->reset_query();    
 
-        return $res->result_array();
+        $reusltado = $res->result_array();
+        //pr($this->db->last_query());
+        return $reusltado;
 
       }catch(Exception $ex){
         return [];

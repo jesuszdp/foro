@@ -1,7 +1,7 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 $config['email'] = Array(
-	'debug' => 0,
+	'debug' => 1,
     /*'protocol' => 'smtp',
 	'crypt' => 'tls',
     //'host' => 'tls://smtp.gmail.com',

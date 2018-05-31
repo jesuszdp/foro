@@ -1,4 +1,11 @@
 <!-- contadores de lugares para oratoria y lugares para cartel -->
+<script type="text/javascript">
+  <?php 
+  foreach ($lan_text_asignacion as $key => $value) {
+    echo "var ".$key."='".$value."';\n";
+  }
+  ?>
+</script>
 <?php echo js("revision/asignar_dictamen.js"); ?>
 <?php
 $manual = $config_asignacion['manual'];
@@ -226,16 +233,16 @@ $sistema = $config_asignacion['sistema'];
                   <td><?php echo $row['revisor2'];?></td>
                   <td><?php if(isset($row['revisor3'])) echo $row['revisor3'];?></td>
                   <td><?php echo $row['promedio'];?></td>
-                  <?php if($manual){ ?>
                   <td>
+                  <?php if($manual){ ?>
                     <select class="select_asignacion">
                       <option value="Q">Sin asignar</option>
                       <option value="O" <?php if($row['sugerencia']=='O') echo 'selected';?> >Oratoria</option>
                       <option value="C" <?php if($row['sugerencia']=='C') echo 'selected';?> >Cartel</option>
                       <option value="R">Rechazado</option>
                     </select>
+                  <?php } else { echo $row['sugerencia']; } ?>
                   </td>
-                  <?php } ?>
                   <td>
 
                     <a href="<?php echo site_url('/gestion_revision/ver_resumen/'.encrypt_base64($row['folio'])); ?>" style="color:#f05a29;"><?php echo $language_text['btn_vrevision'];?></a><br>
