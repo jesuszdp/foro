@@ -43,7 +43,7 @@
                 </tr>
                 <tr>
                   <td style="text-align:justify;">
-                    El Comité de Selección de trabajos de investigación para el  <b>XV Edición Nacional y primera Internacional del Foro de Educación en Salud</b>, a celebrarse del 04 al 09 de noviembre del 2018 en la Ciudad de Cancún, Quintana Roo,  recibió más de <b> <?php echo $total_trabajos;?> </b>trabajos. Sin embargo, por motivos de espacio solo fue posible aceptar <?php echo $aceptados;?>, por lo que tenemos el agrado de comentarle que su proyecto:
+                    El Comité de Selección de trabajos de investigación para la <b>XV Edición Nacional y primera Internacional del Foro de Educación en Salud</b>, a celebrarse del 04 al 09 de noviembre del 2018 en la Ciudad de Cancún, Quintana Roo,  recibió más de <b> <?php echo $total_trabajos;?> </b>trabajos. Sin embargo, por motivos de espacio solo fue posible aceptar <?php echo $aceptados;?>, por lo que tenemos el agrado de comentarle que su proyecto:
                   </td>
                 </tr>
                 <tr>
@@ -54,11 +54,6 @@
                 <tr>
                   <td style="text-align:justify;">
                     Ha sido aceptado para ser presentado en modalidad de <b><?php echo $tipo;?></b>. La información sobre el lugar y día de su presentación le será proporcionada oportunamente por este medio, a través de la Coordinación del Evento.
-                  </td>
-                </tr>
-                <tr>
-                  <td >
-                    <p>Sin otro particular, le enviamos un cordial saludo.</p>
                   </td>
                 </tr>
               </table>

@@ -144,7 +144,7 @@ class Dictamen extends General_revision {
                 'where' => array(
                     'd.aceptado' => true
                 ),
-                'order_by' => 'd.orden', 'd.promedio','ti.fecha',
+                'order_by' => 'd.sugerencia', 'd.promedio','ti.fecha',
                 'where_in' => array('d.sugerencia', array('O', 'C'))
             );
         }
