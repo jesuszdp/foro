@@ -59,7 +59,61 @@ class Dictamen_model extends MY_Model {
         $this->db->reset_query();    
 
         $reusltado = $res->result_array();
-        //pr($this->db->last_query());
+        return $reusltado;
+
+      }catch(Exception $ex){
+        return [];
+      }
+    }
+
+    /**
+    * Devuelve la informacion de los trabajos que han sido o no se asignaron 
+    * para el envio de correo
+    * @author clapas
+    * @date 25/05/2018
+    * @return array
+    */
+    public function get_trabajos_rechazados_sa($param = [])
+    {
+      try{
+        $this->db->flush_cache();
+        $this->db->reset_query();
+
+        $this->db->select(array('hr.folio','ti.titulo','iu.nombre', 'iu.apellido_paterno','iu.apellido_materno','iu.email'));
+
+        $this->db->join('foro.trabajo_investigacion ti','hr.folio = ti.folio','inner');
+        $this->db->join('foro.autor a','ti.folio = a.folio_investigacion','inner');
+        $this->db->join('sistema.informacion_usuario iu', 'iu.id_informacion_usuario = a.id_informacion_usuario', 'inner');
+        $this->db->join('foro.convocatoria c','ti.id_convocatoria = c.id_convocatoria','inner');
+
+        $this->db->where(
+          array(
+            'c.activo'=>true,
+            'hr.actual' => true,
+            'a.registro' => true
+          )
+        );
+        
+        if(isset($param['where']))
+        {
+          $this->db->where($param['where']);
+        }
+
+        if(isset($param['where_in']))
+        {
+          $this->db->where_in($param['where_in'][0],$param['where_in'][1]);
+        }
+
+        if(isset($param['order_by']))
+        {
+          $this->db->order_by($param['order_by'],'desc');
+        }
+
+        $res = $this->db->get('foro.historico_revision hr');
+        $this->db->flush_cache();
+        $this->db->reset_query();    
+
+        $reusltado = $res->result_array();
         return $reusltado;
 
       }catch(Exception $ex){
@@ -276,7 +330,6 @@ class Dictamen_model extends MY_Model {
           $res = $this->db->get('foro.dictamen d',$cupo_total);
         }
 
-        //pr($this->db->last_query());
         return $res->result_array();
 
       }catch(Exception $ex){
@@ -303,7 +356,6 @@ class Dictamen_model extends MY_Model {
       if(isset($param['where_in']))
       {
         $this->db->where_in($param['where_in'][0],$param['where_in'][1]);
-        //pr($param['where_in']);
       }
 
       if(isset($param['where']))

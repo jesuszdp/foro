@@ -24,13 +24,10 @@ class Dictamen extends General_revision {
         $datos['mensajes'] = $this->obtener_grupos_texto('mensajes', $this->obtener_idioma())['mensajes'];
         $output['data_revisados'] = $this->revisados_sin_asignar();
         $output['data_dictamen'] = $this->revisados_asignados();
-        //pr($output['data_dictamen']);
         $output['language_text'] = $this->language_text['evaluado'];
         $output['lan_text_asignacion'] = $this->language_text['asignar_dictamen'];
-        //pr($output['lan_text_asignacion']);
-
+        $output['lan_sugerencias'] = $this->language_text['sugerencia'];
         $output['count_cartel'] = $this->dictamen->count_registros_dictamen(false, 'C');
-        //pr($this->dictamen->count_registros_dictamen(false,'C'));
         $output['count_oratoria'] = $this->dictamen->count_registros_dictamen(false, 'O');
         $output['config_asignacion'] = $this->tipo_asignacion();
         $output['cupo'] = $this->cupo();
@@ -60,18 +57,6 @@ class Dictamen extends General_revision {
             ),
             'order_by' => 'd.promedio, ti.fecha'
         );
-        /*
-          $resultado['trabajos'] = $this->dictamen->get_trabajos_evaluados($param);
-          // Obtenemos el listado de los revisores
-          $param = array(
-          'where' => array(
-          'd.aceptado' => null,
-          'd.sugerencia' => null,
-          'r.activo' => true
-          ),
-          'order_by' => 'hr.folio, r.fecha_asignacion'
-          );
-         */
         $trabajo = $this->dictamen->get_trabajos_evaluados($param);
         // Obtenemos el listado de los revisores
         $param = array(
@@ -97,79 +82,7 @@ class Dictamen extends General_revision {
     private function combinar_trabajo_revisores($trabajo, $revisores) {
         $lang = $this->obtener_idioma();
         $sugerencias = $this->obtener_grupos_texto(array('sugerencia'), $lang);
-        //pr($revisores);
-        //pr($trabajo);
-        /* TEST */
-        /*
-          $trabajo = [];
-          $revisores = [];
-          $trabajo[] = [
-          'hr.folio'=> 'ABCD3',
-          'hr.titulo'=> 'Titulo 1',
-          'metodologia'=> 'Cuantitativa',
-          'promedio'=> '8',
-          ];
-          $trabajo[] = [
-          'hr.folio'=> '12345',
-          'hr.titulo'=> 'Titulo 2',
-          'metodologia'=> 'Cualitativa',
-          'promedio'=> '4',
-          ];
-          $trabajo[] = [
-          'hr.folio'=> '1324',
-          'hr.titulo'=> 'Titulo 3',
-          'metodologia'=> 'Cuantitativa',
-          'promedio'=> '10',
-          ];
-          $revisores = [];
-          $revisores[] = [
-          'hr.folio' => 'ABCD3',
-          'nombre_revisor' => 'Juan Pérez',
-          'r.sugerencia' => 'Oratoria'
-          ];
-          $revisores[] = [
-          'hr.folio' => 'ABCD3',
-          'nombre_revisor' => 'Pablo Juarez',
-          'r.sugerencia' => 'Oratoria'
-          ];
-          $revisores[] = [
-          'hr.folio' => 'ABCD3',
-          'nombre_revisor' => 'Carla Hernandez',
-          'r.sugerencia' => 'Oratoria'
-          ];
-          $revisores[] = [
-          'hr.folio' => '12345',
-          'nombre_revisor' => 'Juan Pérez',
-          'r.sugerencia' => 'Cartel'
-          ];
-          $revisores[] = [
-          'hr.folio' => '12345',
-          'nombre_revisor' => 'Pablo Juarez',
-          'r.sugerencia' => 'Oratoria'
-          ];
-          $revisores[] = [
-          'hr.folio' => '12345',
-          'nombre_revisor' => 'Carla Hernandez',
-          'r.sugerencia' => 'Oratoria'
-          ];
-          $revisores[] = [
-          'hr.folio' => '1324',
-          'nombre_revisor' => 'Juan Pérez',
-          'r.sugerencia' => 'Oratoria'
-          ];
-          $revisores[] = [
-          'hr.folio' => '1324',
-          'nombre_revisor' => 'jose Pérez',
-          'r.sugerencia' => 'Cartel'
-          ];
-          $revisores[] = [
-          'hr.folio' => '1324',
-          'nombre_revisor' => 'Carla Hernandez',
-          'r.sugerencia' => 'Cartel'
-          ];
-
-          /*TEST */
-
+        
         $array_resultados = [];
         if (count($trabajo) < 1) {
             return $array_resultados;
@@ -190,7 +103,6 @@ class Dictamen extends General_revision {
             foreach ($revisores as $key_revisores => $value_revisores) {
                 if ($value_revisores['folio'] == $value_trabajo['folio']) {
                     $sug = '';
-//                pr($sugerencias['sugerencia']);
                     if (trim($value_revisores['sugerencia']) != '' && isset($sugerencias['sugerencia'][$value_revisores['sugerencia']])) {
                         $sug = $sugerencias['sugerencia'][$value_revisores['sugerencia']];
                     }
@@ -263,7 +175,6 @@ class Dictamen extends General_revision {
      * @date 29/05/2018
      */
     public function activar_asignacion($tipo) {
-        //pr($tipo);
         $success = $this->dictamen->activar_asignacion($tipo);
 
         if ($tipo == 'A') {
@@ -337,7 +248,6 @@ class Dictamen extends General_revision {
                             'id_usuario' => $usuario
                         )
                     );
-                    //pr($param);
                     if ($this->dictamen->actualizar_registro($param)) {
                         $msg = "Se actualizo la asignacion";
                         $success = true;
@@ -357,9 +267,10 @@ class Dictamen extends General_revision {
       $datos_sesion = $this->get_datos_sesion();
       pr($datos_sesion['id_usuario']);
       //pr($this->asignacion_manual('IMSS-CES-FNFIES-P-18-0001','C'));
-      //pr($this->asignacion_automatica());
+      pr($this->asignacion_automatica());
       }
-     */
+      */
+     
 
     public function cierre_convocatoria() {
       $status = false;
@@ -370,7 +281,6 @@ class Dictamen extends General_revision {
           'order_by' => 'd.sugerencia', 'd.promedio','ti.fecha'
       );
       $trabajos = $this->dictamen->get_trabajos_evaluados($param);
-      //pr($trabajos);
 
       //Cambiamos el estado de los folios
       $this->load->model('Evaluacion_revision_model', 'evaluacion_revision');
@@ -395,7 +305,7 @@ class Dictamen extends General_revision {
 
           $status = $this->evaluacion_revision->guardar_historico_estado($value['folio'], $estado);
           //Enviamos un correo notificando que se acepto su trabajo
-          $this->enviar_correo_aceptado($value['email'],
+          $this->enviar_correo_dictamen(true,$value['email'],
             $datos = array(
             'folio' => $value['folio'],
             'investigador' => $value['nombre'].' '.$value['apellido_paterno'].' '.$value['apellido_materno'],
@@ -406,28 +316,58 @@ class Dictamen extends General_revision {
             ));
           
         }
+      }// for aceptados
+
+      //Notificamos de trabajos rechazados
+      $lista_rechazados = $this->dictamen->get_trabajos_rechazados_sa(array('hr.clave_estado'=>'rechazado'));
+      foreach ($lista_rechazados as $key => $value) {
+        $this->enviar_correo_dictamen(false,$value['email'],
+            $datos = array(
+            'folio' => $value['folio'],
+            'investigador' => $value['nombre'].' '.$value['apellido_paterno'].' '.$value['apellido_materno'],
+            'titulo' => $value['titulo'],
+            'total_trabajos' => $total_trabajos,
+            'aceptados' => count($trabajos)
+            ));
       }
+      $lista_sa = $this->dictamen->get_trabajos_rechazados_sa(array('hr.clave_estado'=>'evaluado'));
+      foreach ($lista_rechazados as $key => $value) {
+        $this->enviar_correo_dictamen(false,$value['email'],
+            $datos = array(
+            'folio' => $value['folio'],
+            'investigador' => $value['nombre'].' '.$value['apellido_paterno'].' '.$value['apellido_materno'],
+            'titulo' => $value['titulo'],
+            'total_trabajos' => $total_trabajos,
+            'aceptados' => count($trabajos)
+            ));
+      }
+      
 
       if($status)
       {
         $this->load->model('Convocatoria_model','convocatoria');
         $this->convocatoria->estados_convocatoria(false,false);
       }
-      //pr($success);
       header('Content-Type: application/json; charset=utf-8;');
       echo json_encode(array('success' => $status));
     }
 
-    
+    /*
     public function prueba_correo()
     {
+      
       $param = array(
           'where' => array(
               'd.aceptado' => true
           ),
           'order_by' => 'd.sugerencia', 'd.promedio','ti.fecha'
       );
+      
       pr($this->dictamen->get_trabajos_evaluados($param));
+      $lista_sa = $this->dictamen->get_trabajos_rechazados_sa(array('where'=>array('hr.clave_estado'=>'evaluado')));
+      $lista_r = $this->dictamen->get_trabajos_rechazados_sa(array('where'=>array('hr.clave_estado'=>'rechazado')));
+      pr($lista_sa);
+      pr($lista_r);
       $datos = array(
         'folio' => 'IMSS-CES-FNFIES-P-18-0001',
         'investigador' => 'Juan Perez',
@@ -437,11 +377,12 @@ class Dictamen extends General_revision {
         'tipo' => 'cartel'
         );
 
-      $correo = $this->load->view('correo_foro/aceptado.php', $datos, true);
+      $correo = $this->load->view('correo_foro/rechazado.php', $datos, true);
       pr($correo);
     }
+    */
     
-    private function enviar_correo_aceptado($email, $datos) {
+    private function enviar_correo_dictamen($aceptado,$email, $datos) {
         $this->load->config('email');
         $this->load->library('My_phpmailer');
         $mailStatus = $this->my_phpmailer->phpmailerclass();
@@ -456,6 +397,11 @@ class Dictamen extends General_revision {
          
         //$mailStatus->SMTPAuth = false;
         $emailStatus = $this->load->view('correo_foro/aceptado.php', $datos, true);
+        if(!$aceptado)
+        {
+          $emailStatus = $this->load->view('correo_foro/rechazado.php', $datos, true);
+        }
+
         $mailStatus->addAddress($email);
         $mailStatus->Subject = 'Dictamen de evaluacion';
         $mailStatus->msgHTML($emailStatus);

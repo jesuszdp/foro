@@ -92,9 +92,7 @@ class General_revision extends MY_Controller {
           // Asignamos los trabajos para oratoria
           $candidatos_oratoria = $this->dictamen->trabajos_candidatos($max_oratoria);
           $candidatos_cartel = $this->dictamen->trabajos_candidatos($max_cartel,($max_oratoria+1));
-          //pr($candidatos_oratoria);
-          //pr($candidatos_cartel);
-
+          
           $oratoria_return = true;
           $carte_return = true;
 
@@ -136,6 +134,7 @@ class General_revision extends MY_Controller {
           
           
           return ($carte_return && $oratoria_return);
+          
         } // if reset
         return false;
       } // if asignacion automatica

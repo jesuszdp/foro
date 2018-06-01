@@ -237,11 +237,11 @@ $sistema = $config_asignacion['sistema'];
                   <?php if($manual){ ?>
                     <select class="select_asignacion">
                       <option value="Q">Sin asignar</option>
-                      <option value="O" <?php if($row['sugerencia']=='O') echo 'selected';?> >Oratoria</option>
-                      <option value="C" <?php if($row['sugerencia']=='C') echo 'selected';?> >Cartel</option>
-                      <option value="R">Rechazado</option>
+                      <option value="O" <?php if($row['sugerencia']=='O') echo 'selected';?> ><?php echo $lan_sugerencias['O'];?></option>
+                      <option value="C" <?php if($row['sugerencia']=='C') echo 'selected';?> ><?php echo $lan_sugerencias['C'];?></option>
+                      <option value="R"><?php echo $lan_sugerencias['R'];?></option>
                     </select>
-                  <?php } else { echo $row['sugerencia']; } ?>
+                  <?php } else { echo $lan_sugerencias[$row['sugerencia']]; } ?>
                   </td>
                   <td>
 
