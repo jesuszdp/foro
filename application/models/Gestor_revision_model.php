@@ -317,22 +317,23 @@ class Gestor_revision_model extends MY_Model {
             $this->db->flush_cache();
             $this->db->reset_query();
             $this->db->select(array(
-                "ti.titulo", "AVG(rn.promedio_revision),hr.clave_estado",
-                "CASE WHEN dn.tipo_exposicion='O' THEN 'Aceptado para exposición oral'
-                WHEN dn.tipo_exposicion='C' THEN 'Aceptado para exposición con cartel'
-                WHEN dn.tipo_exposicion='R' THEN 'Rechazado'
-                END AS tipo_exposicion"
+                "ti.titulo", "dn.promedio", "hr.clave_estado", "dn.tipo_exposicion", "dn.sugerencia"
+//                "CASE WHEN dn.tipo_exposicion='O' THEN 'Aceptado para exposición oral'
+//                WHEN dn.tipo_exposicion='C' THEN 'Aceptado para exposición con cartel'
+//                WHEN dn.tipo_exposicion='R' THEN 'Rechazado'
+//                END AS tipo_exposicion"
             ));
             $this->db->join('foro.trabajo_investigacion ti', 'hr.folio = ti.folio', 'left');
             $this->db->join('foro.revision rn', 'hr.folio=rn.folio', 'left');
             $this->db->join('foro.dictamen dn', 'rn.folio=dn.folio', 'left');
             $this->db->join('foro.convocatoria cc', 'cc.id_convocatoria = ti.id_convocatoria', 'inner');
             $this->db->where('cc.activo', true);
+            $this->db->where("rn.revisado", true);
             $this->db->where("rn.folio", $folio);
             //$this->db->where("dn.aceptado", TRUE);
             $this->db->where("hr.clave_estado", 'evaluado');
-            $this->db->where("actual", TRUE);
-            $this->db->group_by(array('ti.titulo', 'rn.promedio_revision', 'hr.clave_estado', 'dn.tipo_exposicion'));
+            $this->db->where("hr.actual", TRUE);
+//            $this->db->group_by(array('ti.titulo', 'rn.promedio_revision', 'hr.clave_estado', 'dn.tipo_exposicion', "dn.promedio"));
             $result = $this->db->get('foro.historico_revision hr');
             $salida = $result->result_array();
             $result->free_result();
@@ -374,14 +375,14 @@ class Gestor_revision_model extends MY_Model {
             $this->db->where("rn.folio", $folio);
             //$this->db->where("dn.aceptado", TRUE);
             $this->db->where("hr.clave_estado", 'evaluado');
-            $this->db->where("actual", TRUE);
+            $this->db->where("hr.actual", TRUE);
+            $this->db->where("rn.revisado", TRUE);
             $this->db->where("sc.id_seccion is not null");
             $this->db->group_by('sc.id_seccion');
             $result = $this->db->get('foro.historico_revision hr');
-            //pr($this->db->last_query());
             $salida = $result->result_array();
+//            pr($this->db->last_query());
             $result->free_result();
-            $this->db->flush_cache();
             $this->db->reset_query();
             $estado['success'] = true;
             $estado['msg'] = "Se obtuvo el reporte con exito";
