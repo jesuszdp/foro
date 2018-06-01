@@ -28,6 +28,7 @@ class Registro_investigacion extends MY_Controller {
         $lang = $this->obtener_idioma();
         $output['lang'] = $lang;
         $output['language_text'] = $this->obtener_grupos_texto(array('listado_trabajo'), $lang);
+        $output['convocatoria_activa'] =  $convocatoria = $this->convocatoria->get_activa();;
         $listado_trabajos = $this->trabajo->listado_trabajos_autor($id_informacion_usuario, $lang);
 
         foreach ($listado_trabajos as $key => $value) {
@@ -145,7 +146,7 @@ class Registro_investigacion extends MY_Controller {
                         $id_informacion_usuario = $datos_sesion['id_informacion_usuario'];
 
                         //Obtenemos el id de la convocatoria
-                        $convocatoria = $this->convocatoria->get_activa()[0];
+                        $convocatoria = $this->convocatoria->get_activa(true)[0];
                         $id_convocatoria = $convocatoria['id_convocatoria'];
 
                         // Armamos el folio

@@ -122,11 +122,16 @@ class Gestion_revision extends General_revision {
             $result['result'][$row['folio']]['titulo'] = $row['titulo'];
             $estado_incidencia = (isset($array_incidencias[$row['clave_estado']])) ? $row['clave_estado'] . " " : "";
             $result['result'][$row['folio']]['clave_estado'] = ($row['fuera_tiempo'] == 1 && $row['revisado'] == 0 ) ? $estado_incidencia . En_estado_revision::FUERA_TIEMPO : $row['clave_estado'];
-            /*if ($row['fuera_tiempo'] == 1 && $row['revisado'] == 0 && isset($result['result'][$row['folio']]['clave_estado']) && strpos($result['result'][$row['folio']]['clave_estado'], En_estado_revision::FUERA_TIEMPO) === FALSE) {
-              $result['result'][$row['folio']]['clave_estado'] .= En_estado_revision::FUERA_TIEMPO;
+//            pr($result['result'][$row['folio']]['clave_estado']);
+//            pr($row['clave_estado']);
+//            pr(strpos($result['result'][$row['folio']]['clave_estado'], $row['clave_estado']));
+            if ($row['fuera_tiempo'] == 1 && $row['revisado'] == FALSE && strpos($result['result'][$row['folio']]['clave_estado'], En_estado_revision::FUERA_TIEMPO) === FALSE) {
+                $result['result'][$row['folio']]['clave_estado'] .= " " . En_estado_revision::FUERA_TIEMPO;
             } else {
-              $result['result'][$row['folio']]['clave_estado'] = $row['clave_estado'];
-            }*/
+                if (strpos($result['result'][$row['folio']]['clave_estado'], $row['clave_estado']) === FALSE) {
+                    $result['result'][$row['folio']]['clave_estado'] .= " " . $row['clave_estado'];
+                }
+            }
             $result['result'][$row['folio']]['revisores'][$row['id_usuario']]['revisor'] = $row['revisor'];
             $result['result'][$row['folio']]['revisores'][$row['id_usuario']]['clave_estado'] = ($row['revisado'] == true) ? 'Revisado' : 'Sin revisar';
             $result['result'][$row['folio']]['revisores'][$row['id_usuario']]['fecha_limite_revision'] = $row['fecha_limite_revision'];
