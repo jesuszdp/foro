@@ -322,7 +322,7 @@ class Dictamen extends General_revision {
             ));
       }
       $lista_sa = $this->dictamen->get_trabajos_rechazados_sa(array('hr.clave_estado'=>'evaluado'));
-      foreach ($lista_rechazados as $key => $value) {
+      foreach ($lista_sa as $key => $value) {
         $this->enviar_correo_dictamen(false,$value['email'],
             $datos = array(
             'folio' => $value['folio'],
