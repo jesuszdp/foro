@@ -57,7 +57,6 @@ class Dictamen_model extends MY_Model {
         $res = $this->db->get('foro.historico_revision hr');
         $this->db->flush_cache();
         $this->db->reset_query();    
-
         $reusltado = $res->result_array();
         return $reusltado;
 
@@ -329,7 +328,6 @@ class Dictamen_model extends MY_Model {
         {
           $res = $this->db->get('foro.dictamen d',$cupo_total);
         }
-
         return $res->result_array();
 
       }catch(Exception $ex){

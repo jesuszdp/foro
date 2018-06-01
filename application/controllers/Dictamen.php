@@ -259,17 +259,8 @@ class Dictamen extends General_revision {
         }
     }
 
-      /*
-      public function pruebas() {
-      pr($this->cupo());
-      pr($this->tipo_asignacion());
-      $this->dictamen->reset_orden();
-      $datos_sesion = $this->get_datos_sesion();
-      pr($datos_sesion['id_usuario']);
-      //pr($this->asignacion_manual('IMSS-CES-FNFIES-P-18-0001','C'));
-      pr($this->asignacion_automatica());
-      }
-      */
+      
+      
      
 
     public function cierre_convocatoria() {
@@ -352,35 +343,7 @@ class Dictamen extends General_revision {
       echo json_encode(array('success' => $status));
     }
 
-    /*
-    public function prueba_correo()
-    {
-      
-      $param = array(
-          'where' => array(
-              'd.aceptado' => true
-          ),
-          'order_by' => 'd.sugerencia', 'd.promedio','ti.fecha'
-      );
-      
-      pr($this->dictamen->get_trabajos_evaluados($param));
-      $lista_sa = $this->dictamen->get_trabajos_rechazados_sa(array('where'=>array('hr.clave_estado'=>'evaluado')));
-      $lista_r = $this->dictamen->get_trabajos_rechazados_sa(array('where'=>array('hr.clave_estado'=>'rechazado')));
-      pr($lista_sa);
-      pr($lista_r);
-      $datos = array(
-        'folio' => 'IMSS-CES-FNFIES-P-18-0001',
-        'investigador' => 'Juan Perez',
-        'titulo' => 'Titulo del trabajo',
-        'total_trabajos' => 400,
-        'aceptados' => 200,
-        'tipo' => 'cartel'
-        );
-
-      $correo = $this->load->view('correo_foro/rechazado.php', $datos, true);
-      pr($correo);
-    }
-    */
+    
     
     private function enviar_correo_dictamen($aceptado,$email, $datos) {
         $this->load->config('email');
