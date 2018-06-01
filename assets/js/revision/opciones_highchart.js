@@ -65,27 +65,19 @@ function chart(id_chart, tabla, titulo, ytext, color) {
 }
 
 function progresBar(id_chart, tabla, titulo, ytext, color, promedioFinal){
-      var valor;
-      if(promedio => 0 || promedio < 20){
+      var valor = 0;
+      promedioFinal = parseInt(promedioFinal);
+      if(promedioFinal >= 0 && promedioFinal <= 4){
         valor = "Muy malo"
-      }
-
-      if(promedio => 20 || promedio < 40){
+      } else if(promedioFinal >= 5 && promedioFinal <= 8){
         valor = "Malo"
-      }
-
-      if(promedio => 40 || promedio < 60){
+      } else if(promedioFinal >= 9 && promedioFinal <= 12){
         valor = "Regular"
-      }
-
-      if(promedio => 60 || promedio < 80){
+      } else if(promedioFinal >= 13 && promedioFinal <= 16){
         valor = "Bueno"
+      } else if(promedioFinal >= 17 && promedioFinal <= 20){
+        valor = "Muy Bueno"
       }
-
-      if(promedio => 80 || promedio <= 100){
-        valor = "Bueno"
-      }
-
       Highcharts.setOptions({
        chart: {
          inverted: true,
@@ -142,19 +134,19 @@ function progresBar(id_chart, tabla, titulo, ytext, color, promedioFinal){
        yAxis: {
          plotBands: [{
            from: 0,
-           to: 25,
+           to: 5,
            color: '#e43b5f'
          }, {
-           from: 25,
-           to: 50,
+           from: 5,
+           to: 10,
            color: '#ffc800'
          }, {
-           from: 50,
-           to: 75,
+           from: 10,
+           to: 15,
            color: '#6ac0b1'
          }, {
-           from: 75,
-           to: 100,
+           from: 15,
+           to: 20,
            color: '#21908e'
          }],
          title: null
@@ -162,7 +154,7 @@ function progresBar(id_chart, tabla, titulo, ytext, color, promedioFinal){
        series: [{
          data: [{
            y: promedioFinal,
-           target: 100
+           target: 20
          }]
        }]
       });
