@@ -26,7 +26,11 @@ class Convocatoria_model extends CI_Model
         $this->db->flush_cache();
         $this->db->reset_query();    
         
-        return $res->result_array();	
+        if(!empty($res)){
+            return $res[0]['revision'];
+        }
+        
+        return FALSE;	
     }
 
     /**
