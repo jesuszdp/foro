@@ -279,6 +279,7 @@ class Dictamen extends General_revision {
       $total_trabajos = $this->trabajo_inv->numero_trabajos();
       $numero = 0;
 
+      //pr($trabajos);
       foreach ($trabajos as $key => $value) {
         $numero = $numero + 1;
         $secuencial = sprintf("%04d", $numero);
@@ -310,7 +311,8 @@ class Dictamen extends General_revision {
       }// for aceptados
 
       //Notificamos de trabajos rechazados
-      $lista_rechazados = $this->dictamen->get_trabajos_rechazados_sa(array('hr.clave_estado'=>'rechazado'));
+      $lista_rechazados = $this->dictamen->get_trabajos_rechazados_sa(array('where'=>array('hr.clave_estado'=>'rechazado')));
+      //pr($lista_rechazados);
       foreach ($lista_rechazados as $key => $value) {
         $this->enviar_correo_dictamen(false,$value['email'],
             $datos = array(
@@ -321,7 +323,8 @@ class Dictamen extends General_revision {
             'aceptados' => count($trabajos)
             ));
       }
-      $lista_sa = $this->dictamen->get_trabajos_rechazados_sa(array('hr.clave_estado'=>'evaluado'));
+      $lista_sa = $this->dictamen->get_trabajos_rechazados_sa(array('where'=>array('hr.clave_estado'=>'evaluado')));
+      //pr($lista_sa);
       foreach ($lista_sa as $key => $value) {
         $this->enviar_correo_dictamen(false,$value['email'],
             $datos = array(
@@ -369,6 +372,8 @@ class Dictamen extends General_revision {
         $mailStatus->Subject = 'Dictamen de evaluacion';
         $mailStatus->msgHTML($emailStatus);
         $mailStatus->send();
+        //$mail->ClearAddresses();
+        //$mail->ClearAttachments();
     }
 
 }

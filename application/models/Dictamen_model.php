@@ -111,7 +111,7 @@ class Dictamen_model extends MY_Model {
         $res = $this->db->get('foro.historico_revision hr');
         $this->db->flush_cache();
         $this->db->reset_query();    
-
+        pr($this->db->last_query());
         $reusltado = $res->result_array();
         return $reusltado;
 
