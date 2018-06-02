@@ -47,7 +47,7 @@ class Gestor_revision_model extends MY_Model {
               $this->db->where($param['conditions']);
           }
           if(array_key_exists('order', $param)){
-              $this->db->order_by($param['order']['field'], $param['order']['type']);
+              $this->db->order_by($param['order']);
           }
           $result = $this->db->get('foro.historico_revision hr');
           $salida = $result->result_array();
@@ -88,8 +88,9 @@ class Gestor_revision_model extends MY_Model {
           $this->db->join('foro.trabajo_investigacion ti', 'hr.folio = ti.folio','left');
           $this->db->join('foro.tipo_metodologia ma', 'ti.id_tipo_metodologia = ma.id_tipo_metodologia','left');
           $this->db->join('foro.revision rn', 'hr.folio = rn.folio','left');
-          $this->db->where("hr.clave_estado IN('fuera_tiempo','discrepancia','conflicto_interes')");
+          $this->db->where("(hr.clave_estado IN('fuera_tiempo','discrepancia','conflicto_interes') OR ((CAST(rn.fecha_asignacion AS DATE) + CAST('3 days' AS INTERVAL)) < now() and revisado=false))");
           $this->db->where('actual',true);
+          $this->db->where('rn.activo',true);
 
           if(array_key_exists('fields', $param)){
               $this->db->select($param['fields']);
@@ -98,10 +99,10 @@ class Gestor_revision_model extends MY_Model {
               $this->db->where($param['conditions']);
           }
           if(array_key_exists('order', $param)){
-              $this->db->order_by($param['order']['field'], $param['order']['type']);
+              $this->db->order_by($param['order']);
           }
-          //pr($this->db);
           $result = $this->db->get('foro.historico_revision hr');
+          //pr($this->db->last_query());
           $salida = $result->result_array();
           $result->free_result();
           $this->db->flush_cache();
@@ -139,6 +140,16 @@ class Gestor_revision_model extends MY_Model {
           $this->db->join('foro.revision rn', 'hr.folio = rn.folio','left');
           $this->db->where_in('hr.clave_estado', array('fuera_tiempo','discrepancia','conflicto_interes','asignado'));
           $this->db->where('actual',true);
+          $this->db->where('rn.activo',true);
+          if(array_key_exists('fields', $param)){
+              $this->db->select($param['fields']);
+          }
+          if(array_key_exists('conditions', $param)){
+              $this->db->where($param['conditions']);
+          }
+          if(array_key_exists('order', $param)){
+              $this->db->order_by($param['order']);
+          }
           $result = $this->db->get('foro.historico_revision hr'); //pr($this->db->last_query());
           $salida = $result->result_array();
           $result->free_result();
