@@ -258,15 +258,15 @@ class Registro_investigacion extends MY_Controller {
         $this->load->library('My_phpmailer');
         $mailStatus = $this->my_phpmailer->phpmailerclass();
         
-          $mailStatus->SMTPOptions = array(
+        /*  $mailStatus->SMTPOptions = array(
           'ssl' => array(
           'verify_peer' => false,
           'verify_peer_name' => false,
           'allow_self_signed' => true
           )
-          );
+          );*/
          
-        //$mailStatus->SMTPAuth = false;
+        $mailStatus->SMTPAuth = false;
         $emailStatus = $this->load->view('correo_foro/recepcion.php', $datos, true);
         //$emailStatus = $this->procesar_correo($texto, array('{{$folio}}' => $folio, '{{$titulo}}' => $titulo));
         $mailStatus->addAddress($email);

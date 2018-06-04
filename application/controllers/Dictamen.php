@@ -353,15 +353,15 @@ class Dictamen extends General_revision {
         $this->load->library('My_phpmailer');
         $mailStatus = $this->my_phpmailer->phpmailerclass();
         
-          $mailStatus->SMTPOptions = array(
+        /*  $mailStatus->SMTPOptions = array(
           'ssl' => array(
           'verify_peer' => false,
           'verify_peer_name' => false,
           'allow_self_signed' => true
           )
-          );
+          );*/
          
-        //$mailStatus->SMTPAuth = false;
+        $mailStatus->SMTPAuth = false;
         $emailStatus = $this->load->view('correo_foro/aceptado.php', $datos, true);
         if(!$aceptado)
         {
