@@ -199,6 +199,58 @@ class MY_Controller extends CI_Controller {
      * @param type $file
      */
     public function ver_archivo($file = null) {
+        //$string_values = get_elementos_lenguaje(array(En_catalogo_textos::COMPROBANTE));
+        if (is_null($file)) {
+            $data_error['heading'] = $this->language_text['generales']['error_404_generales'];
+            $data_error['message'] = $this->language_text['generales']['archivo_inexistente_generales'];
+            echo $this->load->view('errors/html/error_404.php', $data_error, TRUE);
+            exit();
+        }
+        if (!is_null($file)) {
+            $file_id = decrypt_base64($file); ///Decodificar url, evitar hack
+            //pr($file_id);
+            $this->load->model("Files_model", "fm");
+            $result_file = $this->fm->get_file($file_id); //Se valida que exista registro en base de datos
+            //pr($result_file);
+            if (!empty($result_file)) {
+//                $ruta_archivo = base_url($result_file[0]['ruta'] . $result_file[0]['nombre_fisico'] . '.' . $result_file[0]['nombre_extencion']);
+                //$ruta_archivo = '.' . $result_file[0]['ruta'] . $result_file[0]['nombre_fisico'];
+                $ruta_archivo = $result_file[0]['ruta'] . $result_file[0]['nombre_fisico'];
+                if (file_exists($ruta_archivo)) {                    
+                    $ext = pathinfo($archivo[0]['COM_NOMBRE'], PATHINFO_EXTENSION);
+                    header('Content-Description: File Transfer');
+                    if ($ext != $this->config->item('upload_config')['comprobantes']['allowed_types']) {
+                        header('Content-Type: application/octet-stream');
+                    } else {
+                        header('Content-type: application/pdf');
+                    }
+                    header('Content-Disposition: inline; filename="' . $result_file[0]['nombre_fisico'] .'"');
+                    header('Content-Transfer-Encoding: binary');
+                    header('Expires: 0');
+                    header('Cache-Control: must-revalidate');
+                    header('Pragma: public');
+                    header('Content-Length: ' . filesize($ruta_archivo));
+                    ob_clean();
+                    flush();
+                    //readfile($ruta_archivo);
+                    echo file_get_contents($ruta_archivo);
+                    exit;
+                }
+            } else {
+                $html = '<div role="alert" class="alert alert-success" style="padding:25px; margin-bottom:80px;"><button aria-label="Close" data-dismiss="alert" class="close" type="button"><span aria-hidden="true">×</span></button><h4>' . $this->string_values['general']['archivo_inexistente'] . '</h4></div>';
+            }
+        }
+        if (isset($html)) {
+            $this->template->setMainContent($html);
+            $this->template->getTemplate();
+        }
+    }    
+    
+    /**
+     *
+     * @param type $file
+     */
+    /*public function ver_archivo($file = null) {
 //        $string_values = get_elementos_lenguaje(array(En_catalogo_textos::COMPROBANTE));
         if (is_null($file)) {
             $data_error['heading'] = $this->language_text['generales']['error_404_generales'];
@@ -232,7 +284,7 @@ class MY_Controller extends CI_Controller {
             $this->template->setMainContent($html);
             $this->template->getTemplate();
         }
-    }
+    }*/
 
     /**
      *
@@ -387,4 +439,4 @@ class MY_Controller extends CI_Controller {
 }
 
 include_once APPPATH . 'core/General_revision.php';
-include_once APPPATH . 'core/General_reportes.php';
+//include_once APPPATH . 'core/General_reportes.php';

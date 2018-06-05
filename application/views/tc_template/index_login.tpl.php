@@ -197,20 +197,25 @@
                                 <li data-animation="flipInY" data-animation-delay="300"><a href="https://www.facebook.com/SaberIMSS/" class="facebook"><i class="fa fa-facebook"></i></a></li>
                                 <li><a href="https://www.youtube.com/channel/UCvlda6Uw7N_pZAH_fxE9ZYA" target="_blank" class="youtube"><i class="fa fa-youtube"></i></a></li>
                             </ul>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-justify">
+                                <?php if(isset($language_text['generales']['legal'])){
+                                    echo $language_text['generales']['legal'];
+                                } ?>
+                            </div>
                             <a target="_blank" href="<?php echo site_url() . '/inicio/ver_creditos' ?>">Creditos</a>
                         </div>
                         <!-- <span class="copyright" data-animation="fadeInUp" data-animation-delay="100">&copy; 2018 Instituto Mexicano del Seguro Social.</span>-->
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 text-center">
+                        <!-- <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 text-center">
                             <a href="https://www.gob.mx/presidencia/" class="scroll-to">
                                 <img src="<?php echo asset_url(); ?>img/logo-presidencia.png" />
                             </a>
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-2 text-center">
+                        </div> -->
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 text-left">
                             <a href="http://www.qroo.gob.mx/sedetur" class="scroll-to">
                                 <img src="<?php echo asset_url(); ?>img/logo-Cancun.png" />
                             </a>
                         </div>
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-2 text-center">
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 text-center">
                             <!-- <span class="copyright" data-animation="fadeInUp" data-animation-delay="100">&copy; 2018 IMSS, <a href="#">Aviso legal</a>.</span> -->
                             <a href="http://www.fundacionimss.org.mx/" class="scroll-to">
                                 <img src="<?php echo asset_url(); ?>img/logo-fundacion-imss.png" />
