@@ -109,29 +109,28 @@ class Inicio extends MY_Controller {
         }
     }
 
-
-        public function ver_creditos()
-            {
-                $output = [];
-                $main_content = $this->load->view('creditos.php', $output, TRUE);
-                $this->template->setMainContent($main_content);
-                $this->template->getTemplate();
-            }
+    public function ver_creditos() {
+        $output = [];
+        $main_content = $this->load->view('creditos.php', $output, TRUE);
+        $this->template->setMainContent($main_content);
+        $this->template->getTemplate();
+    }
 
     private function redireccion_inicio(&$foro_educacion) {
-        //pr($foro_educacion); pr(count($foro_educacion['usuario']['niveles_acceso']));
-        //pr(LNiveles_acceso::Investigador); pr($foro_educacion['usuario']['niveles_acceso']['0']['clave_rol']);
-        //pr($foro_educacion['usuario']['niveles_acceso']['0']['clave_rol'] == LNiveles_acceso::Investigador);
+        $redirect = array(LNiveles_acceso::Investigador => '/registro_investigacion/index',
+            LNiveles_acceso::Revisor => '/revision/trabajos_investigacion_evaluacion',
+            'default' => 'inicio/inicio',
+        );
         ///Redirección de investigador
-        if (isset($foro_educacion['usuario']['niveles_acceso']['0']['clave_rol']) && $foro_educacion['usuario']['niveles_acceso']['0']['clave_rol'] == LNiveles_acceso::Investigador && count($foro_educacion['usuario']['niveles_acceso']) == 1) {
-            redirect(site_url('/registro_investigacion/index'));
-            ////Redirección de revisor
-        } else if (isset($foro_educacion['usuario']['niveles_acceso']['0']['clave_rol']) && $foro_educacion['usuario']['niveles_acceso']['0']['clave_rol'] == LNiveles_acceso::Mesa && count($foro_educacion['usuario']['niveles_acceso']) == 1) {
-            redirect(site_url('/registro_investigacion/index'));
-        } else if (isset($foro_educacion['usuario']['niveles_acceso']['0']['clave_rol']) && $foro_educacion['usuario']['niveles_acceso']['0']['clave_rol'] == LNiveles_acceso::Revisor && count($foro_educacion['usuario']['niveles_acceso']) == 1) {
-            redirect(site_url('/revision/trabajos_investigacion_evaluacion'));
+        if (isset($foro_educacion['usuario']['niveles_acceso'][0]['clave_rol'])) {
+            $rol = $foro_educacion['usuario']['niveles_acceso'][0]['clave_rol'];
+            if (isset($redirect[$rol])) {
+                redirect(site_url($redirect[$rol])); //Redirección de moderador
+            } else {
+                redirect(site_url($redirect['default'])); //Redirección de moderador
+            }
         } else {
-            redirect(site_url('inicio/inicio')); //Redirección de moderador
+            redirect(site_url($redirect['default'])); //Redirección de moderador
         }
     }
 
@@ -379,7 +378,6 @@ class Inicio extends MY_Controller {
             }
         }
     }
-
 
     public function p404() {
         $output = [];

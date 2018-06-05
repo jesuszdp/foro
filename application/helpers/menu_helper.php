@@ -40,6 +40,9 @@ if (!function_exists('render_menu_no_sesion')) {
                                 case 'MODAL':
                                     echo ' data-toggle="modal" data-target="#my_modal" onclick="modal_menu(\'' . $enlace . '\')"';
                                     break;
+                                case 'MODAL_GENE':
+                                    echo ' data-toggle="modal" data-target="#my_modal" onclick="modal_menu(\'' . $enlace . '\')"';
+                                    break;
                             }
                         }
                         ?>
@@ -107,6 +110,9 @@ if (!function_exists('render_menu')) {
                                 echo ' target="_blank" ';
                                 break;
                             case 'MODAL':
+                                echo ' data-toggle="modal" data-target="#my_modal" onclick="modal_menu(\'' . $enlace . '\')"';
+                                break;
+                            case 'MODAL_GENE':
                                 echo ' data-toggle="modal" data-target="#my_modal" onclick="modal_menu(\'' . $enlace . '\')"';
                                 break;
                         }

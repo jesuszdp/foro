@@ -109,9 +109,9 @@ $config['status_sistema'] = 'P';
 *
 *
 **/
-$config['menu_configuradores'] = array('MENU', 'MODAL', 'EXTERNO');
+$config['menu_configuradores'] = array('MENU', 'MODAL', 'EXTERNO','MODAL_GENE');
 
-$config['menu_configuradores_no_sesion'] = array('MENU_LIBRE');
+$config['menu_configuradores_no_sesion'] = array('MENU_LIBRE','MODAL_GENE');
 
 $config['estados_transicion_evaluacion'] = array(
 "CT"=>"",
