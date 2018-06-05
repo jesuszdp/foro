@@ -7,7 +7,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @version 	: 1.0.0
  * @author      : JZDP AND LEAS
  * */
-class Reportes extends MY_Controller {
+class Reportes_institucion extends General_reportes {
 
     const LISTA = 'lista', NUEVA = 'agregar', EDITAR = 'editar',
             CREAR = 'crear', LEER = 'leer', ACTUALIZAR = 'actualizar', ELIMINAR = 'eliminar',
@@ -16,5 +16,5 @@ class Reportes extends MY_Controller {
     function __construct() {
         parent::__construct();
     }
-    
+
 }
