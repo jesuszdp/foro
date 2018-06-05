@@ -28,7 +28,11 @@ class Registro_investigacion extends MY_Controller {
         $lang = $this->obtener_idioma();
         $output['lang'] = $lang;
         $output['language_text'] = $this->obtener_grupos_texto(array('listado_trabajo'), $lang);
-        $output['convocatoria_activa'] =  $convocatoria = $this->convocatoria->get_activa();
+        $convocatoria = $this->convocatoria->get_activa(true);
+        $output['convocatoria_activa'] = false;
+        if(!empty($convocatoria) && $convocatoria[0]['registro'] == true){
+            $output['convocatoria_activa'] = true;
+        }
         $listado_trabajos = $this->trabajo->listado_trabajos_autor($id_informacion_usuario, $lang);
 
         foreach ($listado_trabajos as $key => $value) {

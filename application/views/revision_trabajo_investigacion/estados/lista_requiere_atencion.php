@@ -24,8 +24,13 @@
               <?php
               foreach ($data_req_atencion['result'] as $row)
               {
-                //pr($row);
-                if($row['mostrar']>0){
+                $bandera=false;
+                foreach ($row['mostrar'] as $key_m => $incidencias) { ///Validar incidencias
+                  if($incidencias>0){
+                    $bandera=true;
+                  }
+                }
+                if($bandera){ //En caso de ocurrir alguna incidencia se muestra el registro
                   $folio_enc = encrypt_base64($row['folio']);
                   ?>
                   <tr>

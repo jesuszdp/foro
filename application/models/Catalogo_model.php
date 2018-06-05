@@ -359,6 +359,8 @@ class Catalogo_model extends MY_Model {
             "clave_pais", "lang"
         );
         $this->db->select($select);
+        //$this->db->order_by("lang->>'es' ASC");
+        $this->db->order_by("clave_pais");
         $result = $this->db->get('catalogo.pais')->result_array();
         $this->db->flush_cache();
         $this->db->reset_query();

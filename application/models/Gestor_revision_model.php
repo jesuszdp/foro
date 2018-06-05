@@ -376,6 +376,7 @@ class Gestor_revision_model extends MY_Model {
             //$this->db->where("dn.aceptado", TRUE);
             $this->db->where("hr.clave_estado", 'evaluado');
             $this->db->where("hr.actual", TRUE);
+            $this->db->where("rn.activo", TRUE);
             $this->db->where("rn.revisado", TRUE);
             $this->db->where("sc.id_seccion is not null");
             $this->db->group_by('sc.id_seccion');
@@ -421,6 +422,7 @@ class Gestor_revision_model extends MY_Model {
             //$this->db->where("dn.aceptado", TRUE);
             $this->db->where("hr.clave_estado", 'evaluado');
             $this->db->where("actual", TRUE);
+            $this->db->where("rn.activo", TRUE);
             $result = $this->db->get('foro.historico_revision hr');
             //pr($this->db->last_query());
             $salida = $result->result_array();

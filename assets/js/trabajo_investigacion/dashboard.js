@@ -168,7 +168,7 @@ function tablero_contador(contadores) {
 function get_detalle(item) {
     console.log(item);
     var ruta = site_url + "/registro_investigacion/ver/" + item.folio;
-    var liga = '<a href="' + ruta + '" class="btn btn-theme animated flipInY visible pull-right" title="'+ language_text.listado_trabajo.accion_ver_detalle_inv +'">' +
+    var liga = '<a href="' + ruta + '" class="btn btn-theme animated flipInY visible pull-right" style="padding: 15px 15px;" title="'+ language_text.listado_trabajo.accion_ver_detalle_inv +'">' +
             '<i class="fa fa-eye" aria-hidden="true"></i>' +
             '</a>';
     return liga;
