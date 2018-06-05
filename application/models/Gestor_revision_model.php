@@ -88,7 +88,7 @@ class Gestor_revision_model extends MY_Model {
             $this->db->join('foro.revision rn', 'hr.folio = rn.folio', 'left');
             $this->db->join('foro.convocatoria cc', 'cc.id_convocatoria = ti.id_convocatoria', 'inner');
             $this->db->where('cc.activo', true);
-            $this->db->where("(hr.clave_estado IN('fuera_tiempo','discrepancia','conflicto_interes') OR ((CAST(rn.fecha_asignacion AS timestamp) + CAST('3 days' AS INTERVAL)) < now() and revisado=false))");
+            $this->db->where("(hr.clave_estado IN('fuera_tiempo','discrepancia','conflicto_interes','asignado') OR ((CAST(rn.fecha_asignacion AS timestamp) + CAST('3 days' AS INTERVAL)) < now() and revisado=false))");
             $this->db->where('actual', true);
             $this->db->where('rn.activo', true);
 

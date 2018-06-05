@@ -73,7 +73,7 @@ class Dictamen_model extends MY_Model {
         $this->db->flush_cache();
         $this->db->reset_query();
 
-        $this->db->select(array('hr.folio', 'r.id_usuario', 'r.sugerencia', 'concat(iu.nombre,iu.apellido_paterno, iu.apellido_materno) nombre_revisor', 'r.fecha_asignacion'));
+        $this->db->select(array('hr.folio', 'r.id_usuario', 'r.sugerencia', 'concat(iu.nombre, \' \', iu.apellido_paterno, \' \', iu.apellido_materno) nombre_revisor', 'r.fecha_asignacion'));
 
         $this->db->join('foro.trabajo_investigacion ti','hr.folio = ti.folio','inner');
         $this->db->join('foro.revision r','hr.folio = r.folio','inner');
