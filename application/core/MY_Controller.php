@@ -439,4 +439,4 @@ class MY_Controller extends CI_Controller {
 }
 
 include_once APPPATH . 'core/General_revision.php';
-//include_once APPPATH . 'core/General_reportes.php';
+include_once APPPATH . 'core/General_reportes.php';
