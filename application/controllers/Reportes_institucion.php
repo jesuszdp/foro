@@ -32,11 +32,11 @@ class Reportes_institucion extends General_reportes {
       $output['view_reporte'] = $this->load->view('reportes/imss/top_registrados.php', $output, true);
       break;
       case Reportes_institucion::PORCENTAJE_REGISTRO_DELEGACION_UMAE:
-      $result = $this->porcentaje_registro_delegacion_umae();
+      $output['porcentaje'] = $this->porcentaje_registro_delegacion_umae();
       $output['view_reporte'] = $this->load->view('reportes/imss/porcentaje_registrados.php', $output, true);
       break;
       case Reportes_institucion::CALIDAD_DELEGACION_UMAE:
-      $result = $this->calidad_delegacion_umae();
+      $output['calidad'] = $this->calidad_delegacion_umae();
       $output['view_reporte'] = $this->load->view('reportes/imss/calidad.php', $output, true);
       break;
     }
@@ -67,7 +67,6 @@ class Reportes_institucion extends General_reportes {
   *
   */
   public function porcentaje_registro_delegacion_umae() {
-
   }
 
   /**
@@ -77,7 +76,10 @@ class Reportes_institucion extends General_reportes {
   *
   */
   public function calidad_delegacion_umae() {
-
+    return array(
+      'umae' => $this->reporteimss->calidad_umae(),
+      'delegacion' => $this->reporteimss->calidad_delegacion()
+    );
   }
 
 }
