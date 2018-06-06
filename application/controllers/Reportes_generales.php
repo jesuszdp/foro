@@ -14,30 +14,30 @@ class Reportes_generales extends General_reportes {
     function __construct() {
         $this->grupo_language_text = [];
         parent::__construct();
-        $this->load->model('Reportes_generales_model', 'reporteg');
+        //$this->load->model('Reportes_generales_model', 'reporteg');
     }
 
     /**
-     * @author 
+     * @author
      * @Fecha 05/06/2018
-     * @description: 
+     * @description:
      *
      */
-    public function reportes($tipo = Reportes_generales::TOP_DELEGACION_UMAE) {
+    public function reportes($tipo = Reportes_generales::TOTAL_EXPOSICION_C_O_R) {
 //        $output['tabs'] = $this->config_tabs();
         $output['tabs'] = $tipo;
         switch ($tipo) {
             case Reportes_generales::TOTAL_EXPOSICION_C_O_R:
-                $output = $this->total_trabajos_nacionales_extranjeros();
-                $output['view_reporte'] = $this->load->view('reportes/generales/.php', $output, true);
+                $output = $this->total_exposicion();
+                $output['view_reporte'] = $this->load->view('reportes/generales/total_exposicion.php', $output, true);
                 break;
             case Reportes_generales::TOTAL_NACIONAL_EXTRANJERO:
-                $result = $this->calidad_nacionales_externos();
-                $output['view_reporte'] = $this->load->view('reportes/generales/.php', $output, true);
+                $result = $this->total_nacional_extranjero();
+                $output['view_reporte'] = $this->load->view('reportes/generales/total_nacionales_extranjeros.php', $output, true);
                 break;
             case Reportes_generales::TOTAL_GENERO:
-                $result = $this->calidad_extranjeros_institucion();
-                $output['view_reporte'] = $this->load->view('reportes/generales/.php', $output, true);
+                $result = $this->total_por_genero();
+                $output['view_reporte'] = $this->load->view('reportes/generales/total_por_genero.php', $output, true);
                 break;
         }
 //        $output['textos_idioma_nav'] = $this->obtener_grupos_texto('tabs_gestor', $this->obtener_idioma())['tabs_gestor'];
@@ -47,34 +47,34 @@ class Reportes_generales extends General_reportes {
     }
 
     /**
-     * @author 
+     * @author
      * @Fecha 05/06/2018
      * @description muestra informacion del total de exposisción
      *
      */
     public function total_exposicion() {
-        
+
     }
 
     /**
-     * @author 
+     * @author
      * @Fecha 05/06/2018
-     * @description muestra información del total de investigación registrada 
-     * nacional y esxtranjera 
+     * @description muestra información del total de investigación registrada
+     * nacional y esxtranjera
      *
      */
-    public function total_nacional_extrangero() {
-        
+    public function total_nacional_extranjero() {
+
     }
 
     /**
-     * @author 
+     * @author
      * @Fecha 05/06/2018
      * @description muestra informacion del total de registros de investigación por genero
      *
      */
     public function total_por_genero() {
-        
+
     }
 
 }
