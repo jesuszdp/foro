@@ -79,7 +79,7 @@ class Dictamen extends General_revision {
      * @date 28/05/2018
      * @return array
      */
-    private function combinar_trabajo_revisores($trabajo, $revisores) {
+    /*private function combinar_trabajo_revisores($trabajo, $revisores) {
         $lang = $this->obtener_idioma();
         $sugerencias = $this->obtener_grupos_texto(array('sugerencia'), $lang);
         
@@ -101,6 +101,42 @@ class Dictamen extends General_revision {
             $resultado['sugerencia'] = $value_trabajo['sugerencia'];
             $offset = 1;
             foreach ($revisores as $key_revisores => $value_revisores) {
+                if ($value_revisores['folio'] == $value_trabajo['folio']) {
+                    $sug = '';
+                    if (trim($value_revisores['sugerencia']) != '' && isset($sugerencias['sugerencia'][$value_revisores['sugerencia']])) {
+                        $sug = $sugerencias['sugerencia'][$value_revisores['sugerencia']];
+                    }
+                    $revisor_sugerencia = $value_revisores['nombre_revisor'] . ": " . $sug;
+                    $llave = "revisor" . ($offset);
+                    $offset += 1;
+                    $resultado[$llave] = $revisor_sugerencia;
+                }
+            }
+            $array_resultados[] = $resultado;
+            pr($resultado);
+        }
+        return $array_resultados;
+    }*/
+
+    private function combinar_trabajo_revisores($trabajo, $revisores) {
+        $lang = $this->obtener_idioma();
+        $sugerencias = $this->obtener_grupos_texto(array('sugerencia'), $lang);
+        
+        $array_resultados = [];
+        if (count($trabajo) < 1 OR count($revisores) < 1) {
+            return $array_resultados;
+        }
+
+        foreach ($trabajo as $key_trabajo => $value_trabajo) {
+            $resultado = array('revisor1'=>'','revisor2'=>'','revisor3'=>'');
+            $resultado['folio'] = $value_trabajo['folio'];
+            $resultado['titulo'] = $value_trabajo['titulo'];
+            $resultado['metodologia'] = $value_trabajo['metodologia'];
+            $resultado['promedio'] = $value_trabajo['promedio'];
+            $resultado['sugerencia'] = $value_trabajo['sugerencia'];
+            $offset = 1;
+            foreach ($revisores as $key_revisores => $value_revisores) {
+                //$revisor_sugerencia = '';
                 if ($value_revisores['folio'] == $value_trabajo['folio']) {
                     $sug = '';
                     if (trim($value_revisores['sugerencia']) != '' && isset($sugerencias['sugerencia'][$value_revisores['sugerencia']])) {

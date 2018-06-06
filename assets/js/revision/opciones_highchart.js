@@ -134,18 +134,22 @@ function progresBar(id_chart, tabla, titulo, ytext, color, promedioFinal){
        yAxis: {
          plotBands: [{
            from: 0,
-           to: 5,
+           to: 4,
            color: '#e43b5f'
          }, {
-           from: 5,
-           to: 10,
+           from: 4,
+           to: 8,
+           color: '#ff9125'
+         }, {
+           from: 8,
+           to: 12,
            color: '#ffc800'
          }, {
-           from: 10,
-           to: 15,
+           from: 12,
+           to: 16,
            color: '#6ac0b1'
          }, {
-           from: 15,
+           from: 16,
            to: 20,
            color: '#21908e'
          }],

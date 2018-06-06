@@ -19,7 +19,7 @@ class Convocatoria_model extends CI_Model {
 
         $this->db->where('activo', true);
         $res = $this->db->get('foro.convocatoria')->result_array();
-
+        
         $this->db->flush_cache();
         $this->db->reset_query();
 
