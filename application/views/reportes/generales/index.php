@@ -33,9 +33,9 @@
               <div class="row faq   animated fadeInUp visible" data-animation="fadeInUp" data-animation-delay="100">
                 <div class="col-sm-6 col-md-6 pull-left">
                   <ul id="tabs-faq" class="style1 nav">
-                    <li class="control" id="tab_1" data-tab="1"><a href="<?php echo base_url("index.php/reportes_generales/reportes/1"); ?>" data-toggle="tab"><i class="fa fa-plus"></i> <span class="faq-inner">Total de exposiciónes</span></a></li>
-                    <li class="control" id="tab_2" data-tab="2"><a href="<?php echo base_url("index.php/reportes_generales/reportes/2"); ?>"data-toggle="tab"><i class="fa fa-plus"></i> <span class="faq-inner">Total de participantes nacionales y extranjeros </span></a></li>
-                    <li class="control" id="tab_3" data-tab="3"><a href="<?php echo base_url("index.php/reportes_generales/reportes/3"); ?>" data-toggle="tab"><i class="fa fa-plus"></i> <span class="faq-inner">Total de participantes por género</span></a></li>
+                    <li class="control in active" id="tab_1"><a href="<?php echo base_url("index.php/reportes_generales/reportes/1"); ?>" ><i class="fa fa-plus"></i> <span class="faq-inner">Total de exposiciónes</span></a></li>
+                    <li class="control" id="tab_2"><a href="<?php echo base_url("index.php/reportes_generales/reportes/2"); ?>"><i class="fa fa-plus"></i> <span class="faq-inner">Total de participantes nacionales y extranjeros </span></a></li>
+                    <li class="control" id="tab_3"><a href="<?php echo base_url("index.php/reportes_generales/reportes/3"); ?>" ><i class="fa fa-plus"></i> <span class="faq-inner">Total de participantes por género</span></a></li>
                     <!-- <li class="active"><a href="#tab-981039400543" data-toggle="tab"><i class="fa fa-angle-right"></i> <span class="faq-inner">Calidad de trabajos IMSS nacionales</span></a></li> -->
                   </ul>
                 </div>
@@ -69,21 +69,23 @@
 
 <script>
 $(document).ready(function(){
-    $(".control").click(function(){
-        select_tabs_data(this);
-    });
+//    $(".control").click(function(){
+//        select_tabs_data(this);
+//    });
+select_tabs_data();
 });
 
-function select_tabs_data(element) {
-    var seccion = $(element).data("tab");
-    console.log(seccion);
-  //  var tabs = document.getElementById("tab").value;
+function select_tabs_data() {
+//    var seccion = $(element).data("tab");
+   var seccion = <?php echo $tabs; ?>;
+   console.log(seccion);
+ //  var tabs = document.getElementById("tab").value;
 
-    $('.control').each(function()
-      {
-        $(this).removeClass("in active");
-      }
-    );
-    $('#tab_' + seccion).addClass("in active");
+   $('.control').each(function()
+     {
+       $(this).removeClass("in active");
+     }
+   );
+   $('#tab_' + seccion).addClass("in active");
 }
 </script>
