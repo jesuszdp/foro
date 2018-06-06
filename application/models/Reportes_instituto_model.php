@@ -69,4 +69,49 @@ class Reportes_instituto_model extends MY_Model {
 
     return $res->result_array();
 	}
+
+	/**
+	* Devuelve el promedio de los trabajos evaluados por umae
+	* @author clapas
+	* @date 06/06/2018
+	* @return array
+	**/
+	public function calidad_umae($value='')
+	{
+		$this->db->flush_cache();
+    $this->db->reset_query();
+
+    $this->db->select(array('u.nombre_unidad_principal' , 'avg(tr.promedio) promedio'));
+    $this->db->join('catalogo.unidad u','tr.clave_unidad = u.clave_unidad','right');
+    $this->db->where('u.es_umae',true);
+    $this->db->group_by('u.nombre_unidad_principal');
+    $this->db->order_by('avg(tr.promedio) is null',false);
+    $this->db->order_by('avg(tr.promedio)','desc');
+    $this->db->order_by('u.nombre_unidad_principal','asc');
+		$res = $this->db->get('foro.trabajos_registrados_imss tr');
+
+    return $res->result_array();
+	}
+
+	/**
+	* Devuelve el promedio de los trabajos evaluados por delegacion
+	* @author clapas
+	* @date 06/06/2018
+	* @return array
+	**/
+	public function calidad_delegacion()
+	{
+		$this->db->flush_cache();
+    $this->db->reset_query();
+
+    $this->db->select(array('d.nombre' , 'avg(tr.promedio) promedio'));
+		$this->db->join('catalogo.delegaciones d', 'tr.clave_delegacional = d.clave_delegacional and tr.es_umae = false', 'right' ,false);
+		$this->db->group_by('d.nombre');
+		$this->db->order_by('avg(tr.promedio) is null',false);
+    $this->db->order_by('avg(tr.promedio)','desc');
+    $this->db->order_by('d.nombre','asc');
+  	$res = $this->db->get('foro.trabajos_registrados_imss tr');
+
+    return $res->result_array();
+	}
 }

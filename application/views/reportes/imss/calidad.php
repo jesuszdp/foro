@@ -9,10 +9,12 @@
 <div class="tab-content lv2">
   <div id="tab-lv21-first" class="tab-pane fade in active">
     <div class="timeline">
+    <?php pr($calidad['umae']); ?>
     </div>
   </div>
   <div id="tab-lv21-second" class="tab-pane fade in">
     <div class="timeline">
+    <?php pr($calidad['delegacion']); ?>
     </div>
   </div>
 </div>
