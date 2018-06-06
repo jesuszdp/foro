@@ -9,20 +9,41 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * */
 class Reportes_generales extends General_reportes {
 
-    const TOP_DELEGACION_UMAE = 'lista', TRABAJO_REGISTRADO_DEL_UMAE = 'agregar', CALIDAD_DEL_UMAE = 'editar';
+    const TOTAL_EXPOSICION_C_O_R = 1, TOTAL_NACIONAL_EXTRANJERO = 2, TOTAL_GENERO = 3;
 
     function __construct() {
+        $this->grupo_language_text = [];
         parent::__construct();
+        $this->load->model('Reportes_generales_model', 'reporteg');
     }
 
     /**
      * @author 
      * @Fecha 05/06/2018
-     * @description muestra informacion del total de exposisción
+     * @description: 
      *
      */
-    public function reportes($tipo = 1) {
-        
+    public function reportes($tipo = Reportes_generales::TOP_DELEGACION_UMAE) {
+//        $output['tabs'] = $this->config_tabs();
+        $output['tabs'] = $tipo;
+        switch ($tipo) {
+            case Reportes_generales::TOTAL_EXPOSICION_C_O_R:
+                $output = $this->total_trabajos_nacionales_extranjeros();
+                $output['view_reporte'] = $this->load->view('reportes/generales/.php', $output, true);
+                break;
+            case Reportes_generales::TOTAL_NACIONAL_EXTRANJERO:
+                $result = $this->calidad_nacionales_externos();
+                $output['view_reporte'] = $this->load->view('reportes/generales/.php', $output, true);
+                break;
+            case Reportes_generales::TOTAL_GENERO:
+                $result = $this->calidad_extranjeros_institucion();
+                $output['view_reporte'] = $this->load->view('reportes/generales/.php', $output, true);
+                break;
+        }
+//        $output['textos_idioma_nav'] = $this->obtener_grupos_texto('tabs_gestor', $this->obtener_idioma())['tabs_gestor'];
+        $main_content = $this->load->view('reportes/generales/index.php', $output, true);
+        $this->template->setMainContent($main_content);
+        $this->template->getTemplate();
     }
 
     /**

@@ -13,7 +13,9 @@ class Reportes_calidad extends General_reportes {
             CAL_EXTRANJEROS_EXTERNOS = 4, CAL_NACIONALES_IMSS = 5, CAL_POR_GENERO = 6;
 
     function __construct() {
+        $this->grupo_language_text = [];
         parent::__construct();
+        $this->load->model('Reportes_calidad_model', 'reportec');
     }
 
 //    private function config_tabs() {
