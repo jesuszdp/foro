@@ -58,7 +58,8 @@ class Reportes_generales extends General_reportes {
     public function total_exposicion() {
       return array(
         'exposiciones' => $this->reporteg->total_exposiciones(),
-        'rechazados' => $this->reporteg->total_rechazados_exposiciones()
+        'rechazados' => $this->reporteg->total_rechazados_exposiciones(),
+        'no_trabajo_educacion' => $this->reporteg->total_rechazados_no_tema_educacion()
       );
     }
 
