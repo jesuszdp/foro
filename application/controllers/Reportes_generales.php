@@ -28,14 +28,17 @@ class Reportes_generales extends General_reportes {
         $output['tabs'] = $tipo;
         switch ($tipo) {
             case Reportes_generales::TOTAL_EXPOSICION_C_O_R:
+                //$output['language_text'] = $this->language_text[''];
                 $output ['total_exposicion'] = $this->total_exposicion();
                 $output['view_reporte_exposicion'] = $this->load->view('reportes/generales/total_exposicion.php', $output, true);
                 break;
             case Reportes_generales::TOTAL_NACIONAL_EXTRANJERO:
+                //$output['language_text'] = $this->language_text[''];
                 $output ['total_n_e'] = $this->total_nacional_extranjero();
                 $output['view_reporte_n_e'] = $this->load->view('reportes/generales/total_nacionales_extranjeros.php', $output, true);
                 break;
             case Reportes_generales::TOTAL_GENERO:
+              //  $output['language_text'] = $this->language_text[''];
                 $output ['total_genero'] = $this->total_por_genero();
                 $output['view_reporte_genero'] = $this->load->view('reportes/generales/total_por_genero.php', $output, true);
                 break;
@@ -53,7 +56,10 @@ class Reportes_generales extends General_reportes {
      *
      */
     public function total_exposicion() {
-
+      return array(
+        'exposiciones' => $this->reporteg->total_exposiciones(),
+        'rechazados' => $this->reporteg->total_rechazados_exposiciones()
+      );
     }
 
     /**

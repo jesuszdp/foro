@@ -22,6 +22,7 @@ class Reportes_generales_model extends MY_Model {
       $this->db->from('foro.dictamen');
       $this->db->group_by('sugerencia');
       $result = $this->db->get();
+      return $result->result_array();
     }
 
     /**
@@ -37,6 +38,7 @@ class Reportes_generales_model extends MY_Model {
       $this->db->from('foro.dictamen');
       $this->db->where('sugerencia = false');
       $result = $this->db->get();
+      return $result->result_array();
     }
 
     /**
@@ -53,8 +55,9 @@ class Reportes_generales_model extends MY_Model {
       $this->db->join('foro.trabajo_investigacion ti on d.folio = ti.folio');
       $this->db->join('foro.autor au on ti.folio = au.folio_investigacion and au.registro = true');
       $this->db->join('sistema.informacion_usuario iu on iu.id_informacion_usuario = au.id_informacion_usuario');
-      $this->db->group_by('iu.sexo'); 
+      $this->db->group_by('iu.sexo');
       $result = $this->db->get();
+      return $result->result_array();
     }
 
 
