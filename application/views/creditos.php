@@ -1,4 +1,4 @@
-<div class="col-sm-12">
+<!-- <div class="col-sm-12">
   <br>
   <h1 class="section-title">
         <span data-animation="flipInY" data-animation-delay="300" class="icon-inner animated flipInY visible">
@@ -6,7 +6,7 @@
                 <i class="fa rhex fa-stack-2x"></i><i class="fa fa-sign-in fa-stack-1x"></i>
             </span>
         </span>
-        <span data-animation="fadeInRight" data-animation-delay="500" class="title-inner animated fadeInRight visible">Creditos</span>
+        <span data-animation="fadeInRight" data-animation-delay="500" class="title-inner animated fadeInRight visible">Créditos</span>
     </h1>
 </div>
 <div class="col-sm-12">
@@ -24,4 +24,7 @@
   <h4 class="text-center">Dr. Daniel Yepez Ramirez</h4>
   <h2 class="text-center">IDI</h2>
   <h4 class="text-center">Dra. Mariana Medina Reyes</h4>
-</div>
+</div> -->
+<?php if(isset($language_text['generales']['creditos_texto'])) {
+    echo $language_text['generales']['creditos_texto'];
+} ?>

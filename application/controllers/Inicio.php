@@ -111,6 +111,7 @@ class Inicio extends MY_Controller {
 
     public function ver_creditos() {
         $output = [];
+        $output['language_text'] = $this->language_text; //Asigna textos de lenguaje para el template de login
         $main_content = $this->load->view('creditos.php', $output, TRUE);
         $this->template->setMainContent($main_content);
         $this->template->getTemplate();

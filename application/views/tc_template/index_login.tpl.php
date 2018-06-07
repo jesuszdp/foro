@@ -202,7 +202,10 @@
                                     echo $language_text['generales']['legal'];
                                 } ?>
                             </div>
-                            <a target="_blank" href="<?php echo site_url() . '/inicio/ver_creditos' ?>">Creditos</a>
+                            <?php if(isset($language_text['generales']['creditos_titulo'])){
+                                echo $language_text['generales']['creditos_titulo'];
+                            } ?>
+                            <!-- a target="_blank" href="<?php //echo site_url() . '/inicio/ver_creditos' ?>">Creditos</a -->
                         </div>
                         <!-- <span class="copyright" data-animation="fadeInUp" data-animation-delay="100">&copy; 2018 Instituto Mexicano del Seguro Social.</span>-->
                         <!-- <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 text-center">
