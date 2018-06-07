@@ -29,6 +29,18 @@ class Reportes_calidad extends General_reportes {
 //        ];
 //        return $output;
 //    }
+    private function bibliotecas_graficas($array_delete = []) {
+        $output = [
+            'a' => 'highcharts/highcharts.js',
+            'b' => 'highcharts/highcharts-3d.js',
+            'c' => 'highcharts/data.js',
+            'd' => 'highcharts/modules/exporting.js',
+        ];
+        foreach ($array_delete as $value) {
+            unset($output[$value]);
+        }
+        return $output;
+    }
 
     /**
      * @author 
@@ -39,38 +51,36 @@ class Reportes_calidad extends General_reportes {
      */
     public function reportes($tipo = Reportes_calidad::TOTAL_TRABAJOS_NACIONALES_EXTERNOS) {
 //        $output['tabs'] = $this->config_tabs();
+        $output['tabs'] = $tipo;
+        $output['bibliotecas_graficas'] = $this->bibliotecas_graficas(['b']); //Elimina la biblioteca b
         switch ($tipo) {
             case Reportes_calidad::TOTAL_TRABAJOS_NACIONALES_EXTERNOS:
-                $output['tabs'] = Reportes_calidad::TOTAL_TRABAJOS_NACIONALES_EXTERNOS;
-                $output = $this->total_trabajos_nacionales_extranjeros();
+                $output['bibliotecas_graficas'] = $this->bibliotecas_graficas(); //Todas las bibliotecas
+                $result = $this->total_trabajos_nacionales_extranjeros($output);
                 $output['view_reporte'] = $this->load->view('reportes/calidad/totales_nacionales_extranjeros.php', $output, true);
                 break;
             case Reportes_calidad::CAL_NACIONALES_EXTERNOS:
-                $output['tabs'] = Reportes_calidad::CAL_NACIONALES_EXTERNOS;
-                $result = $this->calidad_nacionales_externos();
+                $result = $this->calidad_nacionales_externos($output);
                 $output['view_reporte'] = $this->load->view('reportes/calidad/calidad_nacionales_externos.php', $output, true);
                 break;
             case Reportes_calidad::CAL_EXTRANJEROS_IMSS:
-                $output['tabs'] = Reportes_calidad::CAL_EXTRANJEROS_IMSS;
-                $result = $this->calidad_extranjeros_institucion();
+                $result = $this->calidad_extranjeros_institucion($output);
                 $output['view_reporte'] = $this->load->view('reportes/calidad/calidad_extranjero_imss.php', $output, true);
                 break;
             case Reportes_calidad::CAL_EXTRANJEROS_EXTERNOS:
-                $output['tabs'] = Reportes_calidad::CAL_EXTRANJEROS_EXTERNOS;
-                $result = $this->calidad_extranjeros_externos();
+                $result = $this->calidad_extranjeros_externos($output);
                 $output['view_reporte'] = $this->load->view('reportes/calidad/calidad_extranjeros_externos.php', $output, true);
                 break;
             case Reportes_calidad::CAL_NACIONALES_IMSS:
-                $output['tabs'] = Reportes_calidad::CAL_NACIONALES_IMSS;
-                $result = $this->calidad_nacionales_institucion();
+                $result = $this->calidad_nacionales_institucion($output);
                 $output['view_reporte'] = $this->load->view('reportes/calidad/calidad_nacionales_imss.php', $output, true);
                 break;
             case Reportes_calidad::CAL_POR_GENERO:
-                $output['tabs'] = Reportes_calidad::CAL_POR_GENERO;
-                $result = $this->calidad_por_genero();
+                $result = $this->calidad_por_genero($output);
                 $output['view_reporte'] = $this->load->view('reportes/calidad/calidad_por_genero.php', $output, true);
                 break;
         }
+//        pr($output['view_reporte']);
 //        $output['textos_idioma_nav'] = $this->obtener_grupos_texto('tabs_gestor', $this->obtener_idioma())['tabs_gestor'];
         $main_content = $this->load->view('reportes/calidad/index.php', $output, true);
         $this->template->setMainContent($main_content);
@@ -84,8 +94,9 @@ class Reportes_calidad extends General_reportes {
      * nacionales y extranjeros tanto institucionales (IMSS) como externos
      *
      */
-    private function total_trabajos_nacionales_extranjeros() {
-        
+    private function total_trabajos_nacionales_extranjeros(&$output = null) {
+        $output['data']['data'] = $this->reportec->get_total_trabajos_nacionales_extranjeros()[0];
+        $output['data']['title'] = "Reporte de total de trabajos nacionales y extranjeros";
     }
 
     /**
@@ -95,7 +106,7 @@ class Reportes_calidad extends General_reportes {
      * nacionales y extranjeros tanto institucionales (IMSS) como externos
      *
      */
-    private function calidad_nacionales_institucion() {
+    private function calidad_nacionales_institucion($output = null) {
         
     }
 
@@ -106,7 +117,7 @@ class Reportes_calidad extends General_reportes {
      * 
      *
      */
-    private function calidad_nacionales_externos() {
+    private function calidad_nacionales_externos($output = null) {
         
     }
 
@@ -117,7 +128,7 @@ class Reportes_calidad extends General_reportes {
      * 
      *
      */
-    private function calidad_extranjeros_institucion() {
+    private function calidad_extranjeros_institucion($output = null) {
         
     }
 
@@ -128,7 +139,7 @@ class Reportes_calidad extends General_reportes {
      * 
      *
      */
-    private function calidad_extranjeros_externos() {
+    private function calidad_extranjeros_externos($output = null) {
         
     }
 
@@ -139,7 +150,7 @@ class Reportes_calidad extends General_reportes {
      * 
      *
      */
-    private function calidad_por_genero() {
+    private function calidad_por_genero($output = null) {
         
     }
 

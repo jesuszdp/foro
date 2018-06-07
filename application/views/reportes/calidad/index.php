@@ -1,9 +1,9 @@
-<?php ?>
-
+<?php foreach ($bibliotecas_graficas as $value) { ?>
+    <script src = "<?php echo asset_url() . $value; ?>"></script>
+<?php } ?>
+<?php echo js("/reportes/general_reportes.js"); ?>
 
 <div class="content-area">
-
-    <!-- <div id="main"> -->
     <section class="page-section background-img">
         <div class="container">
             <div class="row">
@@ -67,11 +67,9 @@
 
     function select_tabs_data() {
         var seccion = <?php echo $tabs; ?>;
-        $('.control').each(function ()
-        {
+        $('.control').each(function () {
             $(this).removeClass("in active");
-        }
-        );
+        });
         $('#tab_' + seccion).addClass("in active");
     }
 </script>
