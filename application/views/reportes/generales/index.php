@@ -14,7 +14,7 @@
         <div class="wpb_column vc_column_container vc_col-sm-8">
           <div class="vc_column-inner ">
             <div class="wpb_wrapper">
-              <h3 class="section-title ">
+              <h3 class="section-title">
                 <span data-animation="flipInY" data-animation-delay="300" class="icon-inner animated flipInY visible"><span class="fa-stack"><i class="fa rhex fa-stack-2x"></i><i class="fa fa-question fa-stack-1x"></i></span></span>
                 <span data-animation="fadeInRight" data-animation-delay="500" class="title-inner animated fadeInRight visible">Reportes generales</span><br><br>
               </h3>

@@ -14,7 +14,7 @@ class Reportes_generales extends General_reportes {
     function __construct() {
         $this->grupo_language_text = [];
         parent::__construct();
-        //$this->load->model('Reportes_generales_model', 'reporteg');
+        $this->load->model('Reportes_generales_model', 'reporteg');
     }
 
     /**
@@ -28,16 +28,16 @@ class Reportes_generales extends General_reportes {
         $output['tabs'] = $tipo;
         switch ($tipo) {
             case Reportes_generales::TOTAL_EXPOSICION_C_O_R:
-                $output = $this->total_exposicion();
-                $output['view_reporte'] = $this->load->view('reportes/generales/total_exposicion.php', $output, true);
+                $output ['total_exposicion'] = $this->total_exposicion();
+                $output['view_reporte_exposicion'] = $this->load->view('reportes/generales/total_exposicion.php', $output, true);
                 break;
             case Reportes_generales::TOTAL_NACIONAL_EXTRANJERO:
-                $result = $this->total_nacional_extranjero();
-                $output['view_reporte'] = $this->load->view('reportes/generales/total_nacionales_extranjeros.php', $output, true);
+                $output ['total_n_e'] = $this->total_nacional_extranjero();
+                $output['view_reporte_n_e'] = $this->load->view('reportes/generales/total_nacionales_extranjeros.php', $output, true);
                 break;
             case Reportes_generales::TOTAL_GENERO:
-                $result = $this->total_por_genero();
-                $output['view_reporte'] = $this->load->view('reportes/generales/total_por_genero.php', $output, true);
+                $output ['total_genero'] = $this->total_por_genero();
+                $output['view_reporte_genero'] = $this->load->view('reportes/generales/total_por_genero.php', $output, true);
                 break;
         }
 //        $output['textos_idioma_nav'] = $this->obtener_grupos_texto('tabs_gestor', $this->obtener_idioma())['tabs_gestor'];
@@ -76,5 +76,7 @@ class Reportes_generales extends General_reportes {
     public function total_por_genero() {
 
     }
+
+
 
 }
