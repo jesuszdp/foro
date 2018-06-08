@@ -47,10 +47,11 @@ class Reportes_institucion extends General_reportes {
   }
 
   /**
-  * @author 
-  * @Fecha 05/06/2018
-  * @description Muestra el total por del
-  *
+  * Devuelve la informacion del numero total de trabajos registrados por delegacion y umae
+  * se toman en cuenta unicamente trabajos evaluados
+  * @author clapas
+  * @date 05/06/2018
+  * @return array
   */
   public function top_delegacion_umae() {
     $umae = $this->reporteimss->top_umae();
@@ -77,18 +78,47 @@ class Reportes_institucion extends General_reportes {
   *
   */
   public function porcentaje_registro_delegacion_umae() {
+    $total_umae = $this->reporteimss->total_registros(true);
+    $total_delegacion = $this->reporteimss->total_registros(false);
+    $umae = $this->reporteimss->top_umae();
+    $data_umae = [];
+    foreach ($umae as $key => $value) {
+      $porcentaje = ($value['total'] == 0)? $value['total'] : ($value['total']*100/$total_umae);
+      $data_umae[$key] = array($value['nombre_unidad_principal'],$porcentaje);
+    }
+    $delegacion = $this->reporteimss->top_delegacion();
+    $data_delegacion = [];
+    foreach ($delegacion as $key => $value) {
+      $porcentaje = ($value['total'] == 0)? $value['total'] : ($value['total']*100/$total_delegacion);
+      $data_delegacion[$key] = array($value['nombre'],$porcentaje);
+    }
+    return array(
+      'umae' => $data_umae,
+      'delegacion' => $data_delegacion
+    );
   }
 
   /**
-  * @author 
-  * @Fecha 05/06/2018
-  * @description muestra informacion del total de registros de investigación por genero
-  *
+  * Devuelve la informacion de la calidad de trabajos registrados por delegacion y umae
+  * se toman en cuenta unicamente trabajos evaluados
+  * @author clapas
+  * @date 05/06/2018
+  * @return array
   */
   public function calidad_delegacion_umae() {
+    $umae = $this->reporteimss->calidad_umae();
+    $data_umae = [];
+    foreach ($umae as $key => $value) {
+      $data_umae[$key] = array($value['nombre_unidad_principal'],$value['promedio']);
+    }
+    $delegacion = $this->reporteimss->calidad_delegacion();
+    $data_delegacion = [];
+    foreach ($delegacion as $key => $value) {
+      $data_delegacion[$key] = array($value['nombre'],$value['promedio']);
+    }
     return array(
-      'umae' => $this->reporteimss->calidad_umae(),
-      'delegacion' => $this->reporteimss->calidad_delegacion()
+      'umae' => $data_umae,
+      'delegacion' => $data_delegacion
     );
   }
 
