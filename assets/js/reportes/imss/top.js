@@ -31,23 +31,11 @@ function grafica_umae() {
         enabled: false
     },
     tooltip: {
-        pointFormat: 'Trabajos registrados: <b>{point.y:.1f}</b>'
+        pointFormat: 'Trabajos registrados: <b>{point.y}</b>'
     },
     series: [{
         name: 'Population',
-        data: data_grafica_umae,
-        dataLabels: {
-            enabled: true,
-            rotation: -90,
-            color: '#FFFFFF',
-            align: 'right',
-            format: '{point.y:.1f}', // one decimal
-            y: 10, // 10 pixels down from the top
-            style: {
-                fontSize: '13px',
-                fontFamily: 'Verdana, sans-serif'
-            }
-        }
+        data: data_grafica_umae
     }]
   });
 }
@@ -80,23 +68,11 @@ function grafica_delegacion() {
         enabled: false
     },
     tooltip: {
-        pointFormat: 'Trabajos registrados: <b>{point.y:.1f}</b>'
+        pointFormat: 'Trabajos registrados: <b>{y}</b>'
     },
     series: [{
         name: 'Population',
         data: data_grafica_delegacion,
-        dataLabels: {
-            enabled: true,
-            rotation: -90,
-            color: '#FFFFFF',
-            align: 'right',
-            format: '{point.y:.1f}', // one decimal
-            y: 10, // 10 pixels down from the top
-            style: {
-                fontSize: '13px',
-                fontFamily: 'Verdana, sans-serif'
-            }
-        }
     }]
   });
 }
