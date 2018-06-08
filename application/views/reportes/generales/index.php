@@ -1,4 +1,6 @@
-<?php ?>
+<?php foreach ($bibliotecas_graficas as $value) { ?>
+    <script src = "<?php echo asset_url() . $value; ?>"></script>
+<?php } ?>
 
 
 <!-- listas de reportes generales -->
@@ -31,7 +33,7 @@
           <div class="vc_column-inner vc_custom_1417508840067">
             <div class="wpb_wrapper">
               <div class="row faq   animated fadeInUp visible" data-animation="fadeInUp" data-animation-delay="100">
-                <div class="col-sm-6 col-md-6 pull-left">
+                <div class="col-sm-4 col-md-4 pull-left">
                   <ul id="tabs-faq" class="style1 nav">
                     <li class="control in active" id="tab_1"><a href="<?php echo base_url("index.php/reportes_generales/reportes/1"); ?>" ><i class="fa fa-plus"></i> <span class="faq-inner">Total de exposiciónes</span></a></li>
                     <li class="control" id="tab_2"><a href="<?php echo base_url("index.php/reportes_generales/reportes/2"); ?>"><i class="fa fa-plus"></i> <span class="faq-inner">Total de participantes nacionales y extranjeros </span></a></li>
@@ -39,7 +41,7 @@
                     <!-- <li class="active"><a href="#tab-981039400543" data-toggle="tab"><i class="fa fa-angle-right"></i> <span class="faq-inner">Calidad de trabajos IMSS nacionales</span></a></li> -->
                   </ul>
                 </div>
-                <div class="col-sm-6 col-md-6 pull-right">
+                <div class="col-sm-8 col-md-8 pull-right">
                   <div class="tab-content">
                     <div class="tab-pane fade active in">
                       <!-- grafica -->
@@ -49,12 +51,7 @@
                       }
                       ?>
                     </div>
-                    <!-- <div id="tab-961039400543" class="tab-pane fade">
-                      <img src="../public/img/4.png" alt="">
-                    </div>
-                    <div id="tab-971039400543" class="tab-pane fade">
-                      <img src="../public/img/genero.png" alt="">
-                  </div>               -->
+
               </div>
             </div>
           </div>
@@ -67,25 +64,17 @@
 </section>
 </div>
 
-<script>
-$(document).ready(function(){
-//    $(".control").click(function(){
-//        select_tabs_data(this);
-//    });
-select_tabs_data();
-});
 
-function select_tabs_data() {
-//    var seccion = $(element).data("tab");
-   var seccion = <?php echo $tabs; ?>;
-   console.log(seccion);
- //  var tabs = document.getElementById("tab").value;
+<script type="text/javascript">
+    $(document).ready(function () {
+        select_tabs_data();
+    });
 
-   $('.control').each(function()
-     {
-       $(this).removeClass("in active");
-     }
-   );
-   $('#tab_' + seccion).addClass("in active");
-}
+    function select_tabs_data() {
+        var seccion = <?php echo $tabs; ?>;
+        $('.control').each(function () {
+            $(this).removeClass("in active");
+        });
+        $('#tab_' + seccion).addClass("in active");
+    }
 </script>
