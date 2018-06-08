@@ -27,17 +27,14 @@
                         <div class="vc_column-inner vc_custom_1417508840067">
                             <div class="wpb_wrapper">
                                 <div class="row faq   animated fadeInUp visible" data-animation="fadeInUp" data-animation-delay="100">
-                                    <div class="col-sm-6 col-md-6 pull-left">
+                                    <div class="col-sm-4 col-md-4 pull-left">
                                         <ul id="tabs-faq" class="style1 nav">
-                                            <li id="tab_1" class="control in active"> <a href="<?php echo base_url("index.php/reportes_calidad/reportes/1"); ?>"><strong><?php echo 'tab_sc'; ?></strong> <br/></a></li>
-                                            <li id="tab_2" class="control"> <a href="<?php echo base_url("index.php/reportes_calidad/reportes/2"); ?>" ><strong><?php echo 'tab_ra'; ?></strong> <br/></a></li>
-                                            <li id="tab_3" class="control"> <a href="<?php echo base_url("index.php/reportes_calidad/reportes/3"); ?>"><strong><?php echo 'tab_er'; ?></strong> <br/></a></li>
-                                            <li id="tab_4" class="control"> <a href="<?php echo base_url("index.php/reportes_calidad/reportes/4"); ?>"><strong><?php echo 'tab_rv'; ?></strong></a></li>
-                                            <li id="tab_5" class="control"> <a href="<?php echo base_url("index.php/reportes_calidad/reportes/5"); ?>"><strong><?php echo 'tab_ac'; ?></strong> <br/></a></li>
-                                            <li id="tab_6" class="control"> <a href="<?php echo base_url("index.php/reportes_calidad/reportes/6"); ?>"><strong><?php echo 'tab_rx'; ?></strong> <br/></a></li>
+                                            <li id="tab_1" class="control in active"> <a href="<?php echo base_url("index.php/reportes_calidad/reportes/1"); ?>"><strong><?php echo $language_text['reportes_calidad']['total_trabajos']; ?></strong> <br/></a></li>
+                                            <li id="tab_4" class="control"> <a href="<?php echo base_url("index.php/reportes_calidad/reportes/4"); ?>"><strong><?php echo $language_text['reportes_calidad']['calidad_ext_nac_ins']; ?></strong></a></li>
+                                            <li id="tab_6" class="control"> <a href="<?php echo base_url("index.php/reportes_calidad/reportes/6"); ?>"><strong><?php echo $language_text['reportes_calidad']['calidad_genero']; ?></strong> <br/></a></li>
                                         </ul>
                                     </div>
-                                    <div class="col-sm-6 col-md-6 pull-right">
+                                    <div class="col-sm-8 col-md-8 pull-right">
                                         <div class="tab-content">
                                             <div class="tab-pane fade active in">
                                                 <!-- grafica -->

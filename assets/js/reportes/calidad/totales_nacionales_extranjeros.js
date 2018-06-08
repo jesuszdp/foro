@@ -33,15 +33,17 @@ Highcharts.chart('progressBar', {
             type: 'pie',
             name: 'Browser share',
             data: [
-                ['trabajos_nacionales', parseFloat(data_grafica.data.trabajos_nacionales)],
-                ['trabajos_extranjeros', parseFloat(data_grafica.data.trabajos_extranjeros)],
+                [language_text.reportes_calidad.nac_inst, parseFloat(data_grafica.data.trabajos_nacionales_imss)],
+                [language_text.reportes_calidad.ext_inst, parseFloat(data_grafica.data.trabajos_extranjeros_imss)],
+                [language_text.reportes_calidad.nac_no_inst, parseFloat(data_grafica.data.trabajos_nacionales_no_imss)],
+                [language_text.reportes_calidad.ext_no_inst, parseFloat(data_grafica.data.trabajos_extranjeros_no_imss)],
 //                ['total_trabajos', parseFloat(data_grafica.data.total_trabajos)],
-                {
-                    name: 'total_trabajos',
-                    y: parseFloat(data_grafica.data.total_trabajos),
-                    sliced: true,
-                    selected: true
-                },
+//                {
+//                    name: 'total_trabajos',
+//                    y: parseFloat(data_grafica.data.total_trabajos),
+//                    sliced: true,
+//                    selected: true
+//                },
             ]
         }]
 });

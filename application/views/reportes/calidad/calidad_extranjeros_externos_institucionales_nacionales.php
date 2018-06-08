@@ -7,4 +7,4 @@
         data_grafica = <?php echo json_encode($data); ?>;
 </script>
 
-<?php echo js("/reportes/calidad/calidad_por_genero.js"); ?>
+<?php echo js("/reportes/calidad/calidad_extranjeros_externos_institucionales_nacionales.js"); ?>

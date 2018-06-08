@@ -48,6 +48,7 @@ function registros() {
                     dataType: "json"
                 })
                         .done(function (result) {
+                            console.log(result);
                             var estado_tmp;
                             var nombre_metodologia_tmp;
                             var contadores = {total_delegacion: 0, total_umae: 0, total_externos: 0, total_internos: 0};
@@ -75,6 +76,7 @@ function registros() {
                                                 break;
                                             case "3":
                                                 contadores.total_umae = contadores.total_umae + 1;//Cuenta nivel 3 como umae
+                                                break;
                                         }
                                     } else {
                                         contadores.total_externos = contadores.total_externos + 1;//Cuenta externos
@@ -145,7 +147,6 @@ function cabeceras_no_exportar() {
     var arr_header = {
         acciones: 'Acciones',
     }
-
     return arr_header;
 }
 
@@ -168,7 +169,7 @@ function tablero_contador(contadores) {
 function get_detalle(item) {
     console.log(item);
     var ruta = site_url + "/registro_investigacion/ver/" + item.folio;
-    var liga = '<a href="' + ruta + '" class="btn btn-theme animated flipInY visible pull-right" style="padding: 15px 15px;" title="'+ language_text.listado_trabajo.accion_ver_detalle_inv +'">' +
+    var liga = '<a href="' + ruta + '" class="btn btn-theme animated flipInY visible pull-right" title="'+ language_text.listado_trabajo.accion_ver_detalle_inv +'">' +
             '<i class="fa fa-eye" aria-hidden="true"></i>' +
             '</a>';
     return liga;

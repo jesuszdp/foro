@@ -11,7 +11,7 @@ function get_data_trabajos_calidad() {
     for (var i in objeto_datos) {
         if (objeto_datos.hasOwnProperty(i)) {
             objeto = objeto_datos[i];
-            data_r.push([i, parseFloat(objeto["promedio"]), parseFloat(objeto["total_trabajos"])]);
+            data_r.push([language_text.reportes_calidad[i], parseFloat(objeto["promedio"]), parseFloat(objeto["total_trabajos"])]);
         }
     }
     return data_r;
@@ -22,10 +22,10 @@ Highcharts.chart('progressBar', {
         type: 'variwide'
     },
     title: {
-        text: language_text.reportes_calidad.calidad_genero_t
+        text: language_text.reportes_calidad.calidad_ext_nac_t
     },
     subtitle: {
-        text: language_text.reportes_calidad.calidad_genero_st_fmo
+        text: language_text.reportes_calidad.calidad_ext_nac_ins_st
     },
     xAxis: {
         type: 'category',
