@@ -53,9 +53,19 @@ class Reportes_institucion extends General_reportes {
   *
   */
   public function top_delegacion_umae() {
+    $umae = $this->reporteimss->top_umae();
+    $data_umae = [];
+    foreach ($umae as $key => $value) {
+      $data_umae[$key] = array($value['nombre_unidad_principal'],$value['total']);
+    }
+    $delegacion = $this->reporteimss->top_delegacion();
+    $data_delegacion = [];
+    foreach ($delegacion as $key => $value) {
+      $data_delegacion[$key] = array($value['nombre'],$value['total']);
+    }
     return array(
-      'umae' => $this->reporteimss->top_umae(),
-      'delegacion' => $this->reporteimss->top_delegacion()
+      'umae' => $data_umae,
+      'delegacion' => $data_delegacion
     );
   }
 
