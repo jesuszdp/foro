@@ -86,7 +86,6 @@ class Reportes_calidad extends General_reportes {
      */
     private function total_trabajos_nacionales_extranjeros(&$output = null) {
         $output['data']['data'] = $this->reportec->get_total_trabajos_nacionales_extranjeros()[0];
-        $output['data']['title'] = "Reporte de total de trabajos nacionales y extranjeros evaluados";
     }
 
     /**
@@ -105,8 +104,6 @@ class Reportes_calidad extends General_reportes {
         foreach ($param as $key => $value) {
             $output['data']['data'][$key] = $this->reportec->get_calidad_institucion_externos_nacionales_extranjeros($value)[0];
         }
-        $output['data']['title'] = "Reporte de calidad extranjeros y nacionales";
-        $output['data']['sub_title'] = "institucionales y no institucionales";
     }
 
     /**
@@ -118,56 +115,6 @@ class Reportes_calidad extends General_reportes {
      */
     private function calidad_por_genero(&$output = null) {
         $output['data']['data'] = $this->reportec->get_calidad_por_genero();
-        $output['data']['title'] = "Reporte de calidad por genero";
-        $output['data']['sub_title'] = "Masculino, Femenino, Otro";
-    }
-
-    /**
-     * @author 
-     * @Fecha 05/06/2018
-     * @description muestra información del total trabajos 
-     * nacionales y extranjeros tanto institucionales (IMSS) como externos
-     *
-     */
-    private function calidad_nacionales_institucion(&$output = null) {
-        $output['data']['data']['delegacion'] = $this->reportec->get_calidad_nacionales_institucion_delegacion();
-        $output['data']['data']['umae'] = $this->reportec->get_calidad_nacionales_institucion_umae();
-        $output['data']['title'] = "Reporte de calidad nacional IMSS";
-    }
-
-    /**
-     * @author 
-     * @Fecha 05/06/2018
-     * @description 
-     * 
-     *
-     */
-    private function calidad_nacionales_externos($output = null) {
-        
-    }
-
-    /**
-     * @author 
-     * @Fecha 05/06/2018
-     * @description 
-     * 
-     *
-     */
-    private function calidad_extranjeros_institucion(&$output = null) {
-        $output['data']['data']['delegacion'] = $this->reportec->get_calidad_nacionales_institucion_delegacion(FALSE);
-        $output['data']['data']['umae'] = $this->reportec->get_calidad_nacionales_institucion_umae(FALSE);
-        $output['data']['title'] = "Reporte de calidad extranjero IMSS";
-    }
-
-    /**
-     * @author 
-     * @Fecha 05/06/2018
-     * @description 
-     * 
-     *
-     */
-    private function calidad_extranjeros_externos(&$output = null) {
-        
     }
 
 }
