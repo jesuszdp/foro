@@ -53,11 +53,11 @@ class Reportes_calidad extends General_reportes {
     public function reportes($tipo = Reportes_calidad::TOTAL_TRABAJOS_NACIONALES_EXTERNOS) {
 //        $output['tabs'] = $this->config_tabs();
         $output['tabs'] = $tipo;
-        $output['bibliotecas_graficas'] = $this->bibliotecas_graficas(['a', 'e']); //
+        $output['bibliotecas_graficas'] = $this->bibliotecas_graficas(['a', 'e', 'd']); //
         $output['language_text'] = $this->language_text;
         switch ($tipo) {
             case Reportes_calidad::TOTAL_TRABAJOS_NACIONALES_EXTERNOS:
-                $output['bibliotecas_graficas'] = $this->bibliotecas_graficas(['a', 'b']); //Todas las bibliotecas
+                $output['bibliotecas_graficas'] = $this->bibliotecas_graficas(['a', 'b', 'd']); //Todas las bibliotecas
                 $result = $this->total_trabajos_nacionales_extranjeros($output);
                 $output['view_reporte'] = $this->load->view('reportes/calidad/totales_nacionales_extranjeros.php', $output, true);
                 break;
