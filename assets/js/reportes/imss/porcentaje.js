@@ -6,48 +6,45 @@ $(document).ready(function() {
 function grafica_umae() {
   Highcharts.chart('grafica_umae', {
     chart: {
-        type: 'column'
+      plotBackgroundColor: null,
+      plotBorderWidth: null,
+      plotShadow: false,
+      type: 'pie'
     },
     title: {
-        text: 'Porcentaje de trabajos registrados por UMAE'
-    },
-    xAxis: {
-        type: 'category',
-        labels: {
-            rotation: -60,
-            style: {
-                fontSize: '13px',
-                fontFamily: 'Verdana, sans-serif'
-            }
-        }
-    },
-    yAxis: {
-        min: 0,
-        title: {
-            text: 'UMAE'
-        }
-    },
-    legend: {
-        enabled: false
+      text: 'Porcentaje de trabajos registrados por UMAE'
     },
     tooltip: {
-        pointFormat: 'Trabajos registrados: <b>{point.y:.1f}%</b>'
+      pointFormat: '<b>{point.percentage:.1f}%</b>'
+    },
+    plotOptions: {
+      
+      pie: {
+        allowPointSelect: true,
+        cursor: 'pointer',
+        dataLabels: {
+          enabled: true,
+          format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+          style: {
+            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+          }
+        }
+      }
+      /*/
+      pie: {
+          allowPointSelect: true,
+          cursor: 'pointer',
+          dataLabels: {
+              enabled: false
+          },
+          showInLegend: true
+      }
+      */
     },
     series: [{
-        name: 'Population',
-        data: data_grafica_umae,
-        dataLabels: {
-            enabled: true,
-            rotation: -90,
-            color: '#FFFFFF',
-            align: 'right',
-            format: '{point.y:.1f}', // one decimal
-            y: 10, // 10 pixels down from the top
-            style: {
-                fontSize: '13px',
-                fontFamily: 'Verdana, sans-serif'
-            }
-        }
+      name: 'Brands',
+      colorByPoint: true,
+      data: data_grafica_umae
     }]
   });
 }
@@ -55,48 +52,45 @@ function grafica_umae() {
 function grafica_delegacion() {
   Highcharts.chart('grafica_delegacion', {
     chart: {
-        type: 'column'
+      plotBackgroundColor: null,
+      plotBorderWidth: null,
+      plotShadow: false,
+      type: 'pie'
     },
     title: {
-        text: 'Porcentaje de trabajos registrados por delegación'
-    },
-    xAxis: {
-        type: 'category',
-        labels: {
-            rotation: -60,
-            style: {
-                fontSize: '13px',
-                fontFamily: 'Verdana, sans-serif'
-            }
-        }
-    },
-    yAxis: {
-        min: 0,
-        title: {
-            text: 'UMAE'
-        }
-    },
-    legend: {
-        enabled: false
+      text: 'Porcentaje de trabajos registrados por delegación'
     },
     tooltip: {
-        pointFormat: '<b>{point.y:.1f}%</b>'
+      pointFormat: '<b>{point.percentage:.1f}%</b>'
+    },
+    plotOptions: {
+      
+      pie: {
+        allowPointSelect: true,
+        cursor: 'pointer',
+        dataLabels: {
+          enabled: true,
+          format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+          style: {
+            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+          }
+        }
+      }
+      /*/
+      pie: {
+          allowPointSelect: true,
+          cursor: 'pointer',
+          dataLabels: {
+              enabled: false
+          },
+          showInLegend: true
+      }
+      */
     },
     series: [{
-        name: 'Population',
-        data: data_grafica_delegacion,
-        dataLabels: {
-            enabled: true,
-            rotation: -90,
-            color: '#FFFFFF',
-            align: 'right',
-            format: '{point.y:.1f}', // one decimal
-            y: 10, // 10 pixels down from the top
-            style: {
-                fontSize: '13px',
-                fontFamily: 'Verdana, sans-serif'
-            }
-        }
+      name: 'Brands',
+      colorByPoint: true,
+      data: data_grafica_delegacion
     }]
   });
 }

@@ -10,17 +10,16 @@
     </ul>
   </div>
   <div class="tab-content lv1">
-    <!-- tab-sin-comite sin comité -->
-    <div id="tab-sin-comite" class="tab-pane fade in active">
-      <div class="tab-content lv2">
-        <div id="tab-lv21-comite" class="tab-pane fade in active">
+    <!--<div class="tab-pane fade in active">-->
+      <!--<div class="tab-content lv2">
+        <div id="tab-lv21-comite" class="tab-pane fade in active">-->
           <?php
           if (isset($view_reporte)) {
               echo $view_reporte;
           }
           ?>
-        </div>
-      </div>
-    </div>
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
   </div>
 </div>
