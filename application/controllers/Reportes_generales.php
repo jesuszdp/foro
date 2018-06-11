@@ -17,7 +17,21 @@ class Reportes_generales extends General_reportes {
         $this->load->model('Reportes_generales_model', 'reporteg');
     }
 
-    /**
+        public function bibliotecas_graficas($array_bibliotecas = ['a', 'c', 'd']) {
+             $coleccion = [
+                 'a' => 'highcharts/highcharts.js',
+                 'b' => 'highcharts/highcharts-3d.js',
+                 'c' => 'highcharts/data.js',
+                 'd' => 'highcharts/modules/exporting.js',
+                 'e' => 'highcharts/modules/variwide.js',
+             ];
+             $output = [];
+             foreach ($array_bibliotecas as $value) {
+                 $output[] = $coleccion[$value];
+             }
+             return $output;
+         }
+        /**
      * @author
      * @Fecha 05/06/2018
      * @description:
@@ -26,23 +40,27 @@ class Reportes_generales extends General_reportes {
     public function reportes($tipo = Reportes_generales::TOTAL_EXPOSICION_C_O_R) {
 //        $output['tabs'] = $this->config_tabs();
         $output['tabs'] = $tipo;
+        $output['bibliotecas_graficas'] = $this->bibliotecas_graficas(); //Elimina la biblioteca b
+        // pr($tipo);
         switch ($tipo) {
             case Reportes_generales::TOTAL_EXPOSICION_C_O_R:
                 //$output['language_text'] = $this->language_text[''];
-                $output ['total_exposicion'] = $this->total_exposicion();
-                $output['view_reporte_exposicion'] = $this->load->view('reportes/generales/total_exposicion.php', $output, true);
+                $this->total_exposicion($output);
+                // pr('***');
+                $output['view_reporte'] = $this->load->view('reportes/generales/total_exposicion.php', $output, true);
                 break;
             case Reportes_generales::TOTAL_NACIONAL_EXTRANJERO:
                 //$output['language_text'] = $this->language_text[''];
-                $output ['total_n_e'] = $this->total_nacional_extranjero();
-                $output['view_reporte_n_e'] = $this->load->view('reportes/generales/total_nacionales_extranjeros.php', $output, true);
+                $this->total_nacional_extranjero($output);
+                $output['view_reporte'] = $this->load->view('reportes/generales/total_nacionales_extranjeros.php', $output, true);
                 break;
             case Reportes_generales::TOTAL_GENERO:
               //  $output['language_text'] = $this->language_text[''];
-                $output ['total_genero'] = $this->total_por_genero();
-                $output['view_reporte_genero'] = $this->load->view('reportes/generales/total_por_genero.php', $output, true);
+                $this->total_por_genero($output);
+                $output['view_reporte'] = $this->load->view('reportes/generales/total_por_genero.php', $output, true);
                 break;
         }
+        // pr($output);
 //        $output['textos_idioma_nav'] = $this->obtener_grupos_texto('tabs_gestor', $this->obtener_idioma())['tabs_gestor'];
         $main_content = $this->load->view('reportes/generales/index.php', $output, true);
         $this->template->setMainContent($main_content);
@@ -50,37 +68,47 @@ class Reportes_generales extends General_reportes {
     }
 
     /**
-     * @author
+     * @author AlesSpock
      * @Fecha 05/06/2018
      * @description muestra informacion del total de exposisción
      *
      */
-    public function total_exposicion() {
-      return array(
-        'exposiciones' => $this->reporteg->total_exposiciones(),
-        'rechazados' => $this->reporteg->total_rechazados_exposiciones(),
-        'no_trabajo_educacion' => $this->reporteg->total_rechazados_no_tema_educacion()
+    public function total_exposicion(&$output) {
+      $output['data'] = array(
+        'exposiciones' => $this->reporteg->total_exposiciones(), //total de aceptados para exposicion
+        'rechazados' => $this->reporteg->total_rechazados_exposiciones(), // rechazados pero se evaluaron
+        'no_trabajo_educacion' => $this->reporteg->total_rechazados_no_tema_educacion() // se rechazaron pr que no era un tema de educaccion en salud y estos no se evaluan
       );
+
+
     }
 
     /**
-     * @author
+     * @author AlesSpock
      * @Fecha 05/06/2018
      * @description muestra información del total de investigación registrada
      * nacional y esxtranjera
      *
      */
-    public function total_nacional_extranjero() {
-
+    public function total_nacional_extranjero(&$output) {
+      $output['data']= array(
+        'nacionales_extranjeros' => $this->reporteg->total_nac_ext()
+      );
     }
 
     /**
-     * @author
+     * @author AlesSpock
      * @Fecha 05/06/2018
      * @description muestra informacion del total de registros de investigación por genero
      *
      */
-    public function total_por_genero() {
+    public function total_por_genero(&$output) {
+      $output['data'] = array(
+        'genero' => $this->reporteg->total_genero(),
+      );
+
+
+
 
     }
 

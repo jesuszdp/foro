@@ -33,6 +33,13 @@ Highcharts.chart('progressBar', {
             text: language_text.reportes_calidad.medicion_x
         }
     },
+    yAxis: {
+        min: 0,
+        max: 20,
+        title: {
+            text: language_text.reportes_calidad.medicion_y
+        }
+    },
     legend: {
         enabled: false
     },

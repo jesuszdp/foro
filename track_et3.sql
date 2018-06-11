@@ -31,10 +31,17 @@ insert into idiomas.traduccion values
 ,('calidad_ext_nac_ins','tab','reportes_calidad','{"es":"Calidad nacionales y extranjeros","en":""}')
 ,('calidad_genero','tab','reportes_calidad','{"es":"Calidad por genero","en":""}')
 ,('total_trabajos','tab','reportes_calidad','{"es":"Total trabajos nacionales y extranjeros evaluados","en":""}')
-,('medicion_x','lbl','reportes_calidad','{"es":"Calidad / Cantidad de trabajos","en":""}')
+,('medicion_x','lbl','reportes_calidad','{"es":"Cantidad de trabajos","en":""}')
+,('medicion_y','lbl','reportes_calidad','{"es":"Calidad","en":""}')
 ,('calidad_ext_nac_ins_t','title','reportes_calidad','{"es":"Calidad nacionales y extranjeros","en":""}')
 ,('calidad_ext_nac_ins_st','subtitle','reportes_calidad','{"es":"Institucionales y no Institucionales","en":""}')
 ,('calidad_ext_nac_t','title','reportes_calidad','{"es":"Total de trabajos nacionales y extranjeros evaluados","en":""}')
 ,('calidad_genero_t','title','reportes_calidad','{"es":"Calidad por genero","en":""}')
 ,('calidad_genero_st_fmo','subtitle','reportes_calidad','{"es":"Masculino, Femenino y Otro","en":""}')
+;
+
+insert into idiomas.traduccion values 
+('rep_sexo_F','radio','reportes','{"es":"Femenino","en":"Female"}')
+,('rep_sexo_M','radio','reportes','{"es":"Masculino","en":"Male"}')
+,('rep_sexo_O','radio','reportes','{"es":"Otro","en":"Another"}')
 ;
