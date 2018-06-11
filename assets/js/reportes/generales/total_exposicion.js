@@ -30,10 +30,10 @@ Highcharts.chart('container', {
 	        name: 'Brands',
 	        colorByPoint: true,
 	        data: [
-						['cartel', parseFloat(data_grafica.exposiciones[0]['count'])],
-						['oratoria', parseFloat(data_grafica.exposiciones[1]['count'])],
-						['rechazados', parseFloat(data_grafica.rechazados[0]['count'])],
-						['no_trabajo_educacion', parseFloat(data_grafica.no_trabajo_educacion[0]['count'])],
+						['Cartel', parseFloat(data_grafica.exposiciones[0]['count'])],
+						['Oratoria', parseFloat(data_grafica.exposiciones[1]['count'])],
+						['Rechazados', parseFloat(data_grafica.rechazados[0]['count'])],
+						['No son temas de educación', parseFloat(data_grafica.no_trabajo_educacion[0]['count'])],
 
 					]
 	    }]

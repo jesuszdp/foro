@@ -35,9 +35,9 @@
               <div class="row faq   animated fadeInUp visible" data-animation="fadeInUp" data-animation-delay="100">
                 <div class="col-sm-4 col-md-4 pull-left">
                   <ul id="tabs-faq" class="style1 nav">
-                    <li class="control in active" id="tab_1"><a href="<?php echo base_url("index.php/reportes_generales/reportes/1"); ?>" ><i class="fa fa-plus"></i> <span class="faq-inner">Total de exposiciónes</span></a></li>
-                    <li class="control" id="tab_2"><a href="<?php echo base_url("index.php/reportes_generales/reportes/2"); ?>"><i class="fa fa-plus"></i> <span class="faq-inner">Total de participantes nacionales y extranjeros </span></a></li>
-                    <li class="control" id="tab_3"><a href="<?php echo base_url("index.php/reportes_generales/reportes/3"); ?>" ><i class="fa fa-plus"></i> <span class="faq-inner">Total de participantes por género</span></a></li>
+                    <li class="control in active" id="tab_1"><a href="<?php echo base_url("index.php/reportes_generales/reportes/1"); ?>" ><i class="fa fa-plus"></i> <span class="faq-inner"><?php echo $language_text['reportes_generales']['tab_t_exposiciones']; ?></span></a></li>
+                    <li class="control" id="tab_2"><a href="<?php echo base_url("index.php/reportes_generales/reportes/2"); ?>"><i class="fa fa-plus"></i> <span class="faq-inner"><?php echo $language_text['reportes_generales']['tab_t_nac_ext']; ?></span></a></li>
+                    <li class="control" id="tab_3"><a href="<?php echo base_url("index.php/reportes_generales/reportes/3"); ?>" ><i class="fa fa-plus"></i> <span class="faq-inner"><?php echo $language_text['reportes_generales']['tab_t_genero']; ?></span></a></li>
                     <!-- <li class="active"><a href="#tab-981039400543" data-toggle="tab"><i class="fa fa-angle-right"></i> <span class="faq-inner">Calidad de trabajos IMSS nacionales</span></a></li> -->
                   </ul>
                 </div>

@@ -30,8 +30,10 @@ Highcharts.chart('container', {
 	        name: 'Brands',
 	        colorByPoint: true,
 	        data: [
-						['femenino', parseFloat(data_grafica.genero[0]['count'])],
-					  ['masculino', parseFloat(data_grafica.genero[1]['count'])],
+						['Femenino', parseFloat(data_grafica.genero[0]['count'])],
+					  ['Masculino', parseFloat(data_grafica.genero[1]['count'])],
+						//['Otro', parseFloat(data_grafica.genero[2]['count'])],
+
 
 					]
 	    }]

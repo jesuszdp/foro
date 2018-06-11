@@ -25,21 +25,6 @@ class Reportes_generales_model extends MY_Model {
       $result = $this->db->get();
       // pr($result);
       return $result->result_array();
-    //   $this->db->flush_cache();
-    //   $this->db->reset_query();
-    //   $select = array(
-    //       "sum(case when iu.clave_pais = 'MX' then 1 else 0 end) as trabajos_nacionales",
-    //       "sum(case when iu.clave_pais <> 'MX' then 1 else 0 end) as trabajos_extranjeros"
-    //       , "count(distinct ti.folio) total_trabajos"
-    //   );
-    //   $this->db->select($select);
-    //   $this->db->join("foro.dictamen d", "d.folio = ti.folio", "inner");
-    //   $this->db->join("foro.autor au", "au.folio_investigacion = ti.folio and au.registro", "inner", false);
-    //   $this->db->join("sistema.informacion_usuario iu", "iu.id_informacion_usuario = au.id_informacion_usuario", "inner");
-    //   $result = $this->db->get("foro.trabajo_investigacion ti")->result_array();
-    //   $this->db->flush_cache();
-    //   $this->db->reset_query();
-    //   return $result;
     }
 
     /**
@@ -68,11 +53,11 @@ class Reportes_generales_model extends MY_Model {
     public function total_rechazados_no_tema_educacion(){
       $this->db->flush_cache();
       $this->db->reset_query();
-      $this->db->select(array('count (rev.folio)'));
+      $this->db->select(array('count (distinct rev.folio)'));
       $this->db->from('foro.revision rev');
       //$this->db->join("foro.historico_revision hr","on", "rev.folio=hr.folio and hr.clave_estado='rechazado'","inner", false);
       $this->db->join("foro.historico_revision hr", "rev.folio=hr.folio and hr.clave_estado='rechazado'","inner", false);
-      $this->db->where('tema_educacion=false and revisado=true');
+      $this->db->where('tema_educacion=false and revisado=true and rev.activo=true');
       $result = $this->db->get();
       return $result->result_array();
     }
@@ -85,23 +70,12 @@ class Reportes_generales_model extends MY_Model {
     **/
 
     public function total_nac_ext(){
-      // $this->db->flush_cache();
-      // $this->db->reset_query();
-      // $this->db->select(array('clave_pais', 'count(d.folio)'));
-      // $this->db->from('foro.dictamen d');
-      // $this->db->join('foro.trabajo_investigacion ti', 'd.folio = ti.folio', 'inner');
-      // $this->db->join('foro.autor au',  'ti.folio = au.folio_investigacion and au.registro = true', 'inner', false);
-      // $this->db->join('sistema.informacion_usuario iu', 'iu.id_informacion_usuario = au.id_informacion_usuario', 'inner');
-      // $this->db->join("foro.convocatoria c", "c.id_convocatoria = ti.id_convocatoria", "inner");
-      // $this->db->group_by('iu.clave_pais');
-      // $result = $this->db->get();
-      // return $result->result_array();
+
       $this->db->flush_cache();
       $this->db->reset_query();
       $select = array(
           "sum(case when iu.clave_pais = 'MX' then 1 else 0 end) as trabajos_nacionales",
           "sum(case when iu.clave_pais <> 'MX' then 1 else 0 end) as trabajos_extranjeros"
-
       );
       $this->db->select($select);
       $this->db->join("foro.dictamen d", "d.folio = ti.folio", "inner");

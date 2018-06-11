@@ -12,7 +12,7 @@ class Reportes_generales extends General_reportes {
     const TOTAL_EXPOSICION_C_O_R = 1, TOTAL_NACIONAL_EXTRANJERO = 2, TOTAL_GENERO = 3;
 
     function __construct() {
-        $this->grupo_language_text = [];
+        $this->grupo_language_text = ['reportes_generales'];
         parent::__construct();
         $this->load->model('Reportes_generales_model', 'reporteg');
     }
@@ -41,21 +41,22 @@ class Reportes_generales extends General_reportes {
 //        $output['tabs'] = $this->config_tabs();
         $output['tabs'] = $tipo;
         $output['bibliotecas_graficas'] = $this->bibliotecas_graficas(); //Elimina la biblioteca b
+        $output['language_text'] = $this->language_text;
         // pr($tipo);
         switch ($tipo) {
             case Reportes_generales::TOTAL_EXPOSICION_C_O_R:
-                //$output['language_text'] = $this->language_text[''];
+                //$output['language_text'] = $this->language_text['reportes_generales'];
                 $this->total_exposicion($output);
                 // pr('***');
                 $output['view_reporte'] = $this->load->view('reportes/generales/total_exposicion.php', $output, true);
                 break;
             case Reportes_generales::TOTAL_NACIONAL_EXTRANJERO:
-                //$output['language_text'] = $this->language_text[''];
+              //  $output['language_text'] = $this->language_text['reportes_generales'];
                 $this->total_nacional_extranjero($output);
                 $output['view_reporte'] = $this->load->view('reportes/generales/total_nacionales_extranjeros.php', $output, true);
                 break;
             case Reportes_generales::TOTAL_GENERO:
-              //  $output['language_text'] = $this->language_text[''];
+                //$output['language_text'] = $this->language_text['reportes_generales'];
                 $this->total_por_genero($output);
                 $output['view_reporte'] = $this->load->view('reportes/generales/total_por_genero.php', $output, true);
                 break;
