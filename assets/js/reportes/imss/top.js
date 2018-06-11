@@ -24,7 +24,7 @@ function grafica_umae() {
     yAxis: {
         min: 0,
         title: {
-            text: 'UMAE'
+            text: yaxis
         }
     },
     legend: {
@@ -61,7 +61,7 @@ function grafica_delegacion() {
     yAxis: {
         min: 0,
         title: {
-            text: 'UMAE'
+            text: yaxis
         }
     },
     legend: {

@@ -86,14 +86,18 @@ class Reportes_institucion extends General_reportes {
     $umae = $this->reporteimss->top_umae();
     $data_umae = [];
     foreach ($umae as $key => $value) {
-      $porcentaje = ($value['total'] == 0)? $value['total'] : ($value['total']*100/$total_umae);
-      $data_umae[$key] = array($value['nombre_unidad_principal'],$porcentaje);
+      if($value['total'] > 0){
+        $porcentaje = ($value['total']*100/$total_umae);
+        $data_umae[$key] = array($value['nombre_unidad_principal'],$porcentaje);
+      }
     }
     $delegacion = $this->reporteimss->top_delegacion();
     $data_delegacion = [];
     foreach ($delegacion as $key => $value) {
-      $porcentaje = ($value['total'] == 0)? $value['total'] : ($value['total']*100/$total_delegacion);
-      $data_delegacion[$key] = array($value['nombre'],$porcentaje);
+      if($value['total'] > 0){
+        $porcentaje = ($value['total']*100/$total_delegacion);
+        $data_delegacion[$key] = array($value['nombre'],$porcentaje);
+      }
     }
     return array(
       'umae' => $data_umae,

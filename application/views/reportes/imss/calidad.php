@@ -8,6 +8,7 @@
   data_grafica_delegacion = <?php echo json_encode($calidad['delegacion']); ?>;
   titulo = '<?php echo $language_text['reportes_imss']['titulo_calidad']; ?>';
   tooltip_grafica = '<?php echo $language_text['reportes_imss']['tooltip_calidad']; ?>';
+  yaxis = '<?php echo $language_text['reportes_imss']['yaxis_top'];?>';
 </script>
 <?php echo js('reportes/imss/calidad.js'); ?>
 

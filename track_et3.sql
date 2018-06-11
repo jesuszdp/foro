@@ -59,3 +59,12 @@ INSERT INTO idiomas.traduccion (clave_traduccion, clave_tipo, clave_grupo, lang)
 ('tooltip_porcentaje','txt','reportes_imss','{"es":"Trabajos registrados:","en":""}'),
 ('tooltip_calidad','txt','reportes_imss','{"es":"Calificación promedio:","en":""}');
 COMMIT;
+
+-- CLAPAS: textos para reportes de institucion
+BEGIN;
+INSERT INTO idiomas.traduccion (clave_traduccion, clave_tipo, clave_grupo, lang) values
+('yaxis_top','lbl','reportes_imss','{"es":"Trabajos registrados","en":""}'),
+('yaxis_calidad','lbl','reportes_imss','{"es":"Promedio","en":""}'),
+('nota_porcentaje_umae','nota','reportes_imss','{"es":"Las UMAE que no aparecen en la gráfica no registraron trabajos de investigación","en":""}'),
+('nota_porcentaje_del','nota','reportes_imss','{"es":"Las delegaciones que no aparecen en la gráfica no registraron trabajos de investigación","en":""}');
+COMMIT;

@@ -63,11 +63,11 @@ class Reportes_instituto_model extends MY_Model {
 		$this->db->select(array('d.nombre', 'count(tr.folio)::int total'));
 		$this->db->join('catalogo.unidad u', 'tr.clave_unidad = u.clave_unidad AND u.es_umae = false','inner',false);
 		$this->db->join('catalogo.delegaciones d', 'tr.clave_delegacional = d.clave_delegacional', 'right');
+		$this->db->where('d.clave_delegacional !=','00');
 		$this->db->group_by('d.nombre');
 		$this->db->order_by('count(tr.folio)', 'desc');
 		$this->db->order_by('d.nombre' ,'asc');
 		$res = $this->db->get('foro.trabajos_registrados_imss tr');
-
 		return $res->result_array();
 	}
 
