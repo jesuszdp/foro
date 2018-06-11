@@ -45,3 +45,17 @@ insert into idiomas.traduccion values
 ,('rep_sexo_M','radio','reportes','{"es":"Masculino","en":"Male"}')
 ,('rep_sexo_O','radio','reportes','{"es":"Otro","en":"Another"}')
 ;
+
+-- CLAPAS: textos para reportes de institucion
+BEGIN;
+INSERT INTO idiomas.traduccion (clave_traduccion, clave_tipo, clave_grupo, lang) values
+('tab_top','tab','reportes_imss','{"es":"Top de trabajos registrados","en":""}'),
+('tab_porcentaje','tab','reportes_imss','{"es":"Porcentaje de trabajos registrados","en":""}'),
+('tab_calidad','tab','reportes_imss','{"es":"Calidad de trabajos evaluados","en":""}'),
+('titulo_top','title','reportes_imss','{"es":"Número de trabajos registrados por","en":""}'),
+('titulo_porcentaje','title','reportes_imss','{"es":"Porcentaje de trabajos registrados por","en":""}'),
+('titulo_calidad','title','reportes_imss','{"es":"Calidad de los trabajos evaluados por","en":""}'),
+('tooltip_top','txt','reportes_imss','{"es":"Trabajos registrados:","en":""}'),
+('tooltip_porcentaje','txt','reportes_imss','{"es":"Trabajos registrados:","en":""}'),
+('tooltip_calidad','txt','reportes_imss','{"es":"Calificación promedio:","en":""}');
+COMMIT;

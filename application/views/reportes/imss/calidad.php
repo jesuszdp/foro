@@ -6,6 +6,8 @@
 <script type="text/javascript">
   data_grafica_umae = <?php echo json_encode($calidad['umae']); ?>;
   data_grafica_delegacion = <?php echo json_encode($calidad['delegacion']); ?>;
+  titulo = '<?php echo $language_text['reportes_imss']['titulo_calidad']; ?>';
+  tooltip_grafica = '<?php echo $language_text['reportes_imss']['tooltip_calidad']; ?>';
 </script>
 <?php echo js('reportes/imss/calidad.js'); ?>
 

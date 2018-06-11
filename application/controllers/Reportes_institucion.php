@@ -25,6 +25,9 @@ class Reportes_institucion extends General_reportes {
   */
   public function reportes($tipo = Reportes_institucion::TOP_DELEGACION_UMAE) {
   //        $output['tabs'] = $this->config_tabs();
+    $lang = $this->obtener_idioma();
+    $output['lang'] = $lang;
+    $output['language_text'] = $this->obtener_grupos_texto(array('reportes_imss'), $lang);
     $output['tabs'] = $tipo;
     switch ($tipo) {
       case Reportes_institucion::TOP_DELEGACION_UMAE:

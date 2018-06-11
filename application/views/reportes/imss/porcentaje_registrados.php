@@ -6,6 +6,8 @@
 <script type="text/javascript">
   data_grafica_umae = <?php echo json_encode($porcentaje['umae']); ?>;
   data_grafica_delegacion = <?php echo json_encode($porcentaje['delegacion']); ?>;
+  titulo = '<?php echo $language_text['reportes_imss']['titulo_porcentaje']; ?>';
+  tooltip_grafica = '<?php echo $language_text['reportes_imss']['tooltip_porcentaje']; ?>';
 </script>
 <?php echo js('reportes/imss/porcentaje.js'); ?>
 <div class="schedule-tabs lv2">

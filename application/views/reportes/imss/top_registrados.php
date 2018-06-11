@@ -6,6 +6,8 @@
 <script type="text/javascript">
 	data_grafica_umae = <?php echo json_encode($top['umae']); ?>;
 	data_grafica_delegacion = <?php echo json_encode($top['delegacion']); ?>;
+  titulo = '<?php echo $language_text['reportes_imss']['titulo_top']; ?>';
+  tooltip_grafica = '<?php echo $language_text['reportes_imss']['tooltip_top']; ?>';
 </script>
 <?php echo js('reportes/imss/top.js'); ?>
 

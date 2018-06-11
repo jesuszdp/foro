@@ -9,7 +9,7 @@ function grafica_umae() {
         type: 'column'
     },
     title: {
-        text: 'Número de trabajos registrados por UMAE'
+        text: titulo + ' UMAE'
     },
     xAxis: {
         type: 'category',
@@ -31,7 +31,7 @@ function grafica_umae() {
         enabled: false
     },
     tooltip: {
-        pointFormat: 'Trabajos registrados: <b>{point.y}</b>'
+        pointFormat: tooltip_grafica + ' <b>{point.y}</b>'
     },
     series: [{
         name: 'Population',
@@ -46,7 +46,7 @@ function grafica_delegacion() {
         type: 'column'
     },
     title: {
-        text: 'Número de trabajos registrados por delegación'
+        text: titulo + ' delegación'
     },
     xAxis: {
         type: 'category',
@@ -68,7 +68,7 @@ function grafica_delegacion() {
         enabled: false
     },
     tooltip: {
-        pointFormat: 'Trabajos registrados: <b>{y}</b>'
+        pointFormat: tooltip_grafica + ' <b>{y}</b>'
     },
     series: [{
         name: 'Population',

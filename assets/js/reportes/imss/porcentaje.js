@@ -12,10 +12,10 @@ function grafica_umae() {
       type: 'pie'
     },
     title: {
-      text: 'Porcentaje de trabajos registrados por UMAE'
+      text: titulo + ' UMAE'
     },
     tooltip: {
-      pointFormat: '<b>{point.percentage:.1f}%</b>'
+      pointFormat: tooltip_grafica + ' <b>{point.percentage:.1f}%</b>'
     },
     plotOptions: {
       
@@ -58,10 +58,10 @@ function grafica_delegacion() {
       type: 'pie'
     },
     title: {
-      text: 'Porcentaje de trabajos registrados por delegación'
+      text: titulo + ' delegación'
     },
     tooltip: {
-      pointFormat: '<b>{point.percentage:.1f}%</b>'
+      pointFormat: tooltip_grafica + ' <b>{point.percentage:.1f}%</b>'
     },
     plotOptions: {
       
