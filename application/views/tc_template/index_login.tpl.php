@@ -39,6 +39,7 @@
         <![endif]-->
         <script type="text/javascript">
             var language_text = <?php echo json_encode($language_text); ?>;
+            var lang_system_ = "<?php echo $lang_system; ?>";
             var url = "<?php echo base_url(); ?>";
             var site_url = "<?php echo site_url(); ?>";
             var img_url_loader = "<?php echo base_url('assets/img/loader.gif'); ?>";
