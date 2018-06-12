@@ -9,7 +9,7 @@ Highcharts.chart('container', {
 	        type: 'pie'
 	    },
 	    title: {
-	        text: 'Total de trabajos registrados nacionales y extranjeros'
+	        text: language_text.reportes_generales.t_nac_ext
 	    },
 	    tooltip: {
 	        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -32,8 +32,8 @@ Highcharts.chart('container', {
 	        name: 'Brands',
 	        colorByPoint: true,
 	        data: [
-						['Trabajos nacionales', parseFloat(data_grafica.nacionales_extranjeros[0]['trabajos_nacionales'])],
-						['Trabajos extranjeros', parseFloat(data_grafica.nacionales_extranjeros[0]['trabajos_extranjeros'])],
+						[language_text.reportes_generales.lbl_nacionales, parseFloat(data_grafica.nacionales_extranjeros[0]['trabajos_nacionales'])],
+						[language_text.reportes_generales.lbl_extranjeros, parseFloat(data_grafica.nacionales_extranjeros[0]['trabajos_extranjeros'])],
 
 
 					]

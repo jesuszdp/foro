@@ -1,4 +1,6 @@
-// console.log('hola');
+jQuery(document).ready(function () {
+    console.log(language_text);
+});
 Highcharts.chart('container', {
 	    chart: {
 	        plotBackgroundColor: null,
@@ -7,7 +9,7 @@ Highcharts.chart('container', {
 	        type: 'pie'
 	    },
 	    title: {
-	        text: 'Total de trabajos registrados'
+	        text: language_text.reportes_generales.t_exposiciones
 	    },
 	    tooltip: {
 	        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -29,11 +31,11 @@ Highcharts.chart('container', {
 	    series: [{
 	        name: 'Brands',
 	        colorByPoint: true,
-	        data: [
-						['Cartel', parseFloat(data_grafica.exposiciones[0]['count'])],
-						['Oratoria', parseFloat(data_grafica.exposiciones[1]['count'])],
-						['Rechazados', parseFloat(data_grafica.rechazados[0]['count'])],
-						['No son temas de educación', parseFloat(data_grafica.no_trabajo_educacion[0]['count'])],
+	        data: [						
+						[language_text.reportes_generales.lbl_cartel, parseFloat(data_grafica.exposiciones[0]['count'])],
+						[language_text.reportes_generales.lbl_oratoria, parseFloat(data_grafica.exposiciones[1]['count'])],
+						[language_text.reportes_generales.lbl_rechazados, parseFloat(data_grafica.rechazados[0]['count'])],
+						[language_text.reportes_generales.lbl_rechazados_nte, parseFloat(data_grafica.no_trabajo_educacion[0]['count'])],
 
 					]
 	    }]

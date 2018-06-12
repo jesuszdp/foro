@@ -1,4 +1,7 @@
-// console.log('hola');
+jQuery(document).ready(function () {
+    console.log(language_text);
+});
+
 Highcharts.chart('container', {
 	    chart: {
 	        plotBackgroundColor: null,
@@ -7,7 +10,7 @@ Highcharts.chart('container', {
 	        type: 'pie'
 	    },
 	    title: {
-	        text: 'Total de trabajos registrados por género'
+	        text: language_text.reportes_generales.t_genero
 	    },
 	    tooltip: {
 	        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -30,9 +33,9 @@ Highcharts.chart('container', {
 	        name: 'Brands',
 	        colorByPoint: true,
 	        data: [
-						['Femenino', parseFloat(data_grafica.genero[0]['count'])],
-					  ['Masculino', parseFloat(data_grafica.genero[1]['count'])],
-						//['Otro', parseFloat(data_grafica.genero[2]['count'])],
+						[language_text.reportes_generales.lbl_femenino, parseFloat(data_grafica.genero[0]['count'])],
+					  [language_text.reportes_generales.lbl_masculino, parseFloat(data_grafica.genero[1]['count'])],
+						[language_text.reportes_generales.lbl_otro, parseFloat(data_grafica.genero[2]['count'])],
 
 
 					]

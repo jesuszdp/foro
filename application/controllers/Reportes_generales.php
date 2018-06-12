@@ -104,13 +104,11 @@ class Reportes_generales extends General_reportes {
      *
      */
     public function total_por_genero(&$output) {
+
       $output['data'] = array(
         'genero' => $this->reporteg->total_genero(),
       );
-
-
-
-
+      // pr($output);
     }
 
 
