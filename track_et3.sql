@@ -1,4 +1,4 @@
-
+BEGIN;
 /*Autor Claudia, vista para generar reporte de calidad por delegación*/
 create view foro.trabajos_registrados_imss as 
 select ti.folio, iu.matricula, left(u.clave_unidad,2) clave_delegacional , d.folio_dictamen, d.promedio, hiu.clave_departamental, u.clave_unidad, u.es_umae
@@ -29,14 +29,14 @@ insert into idiomas.traduccion values
 ,('nac_inst','lbl','reportes_calidad','{"es":"Nacionales IMSS","en":""}')
 ,('nac_no_inst','lbl','reportes_calidad','{"es":"Nacionales no IMSS","en":""}')
 ,('calidad_ext_nac_ins','tab','reportes_calidad','{"es":"Calidad nacionales y extranjeros","en":""}')
-,('calidad_genero','tab','reportes_calidad','{"es":"Calidad por genero","en":""}')
+,('calidad_genero','tab','reportes_calidad','{"es":"Calidad por género","en":""}')
 ,('total_trabajos','tab','reportes_calidad','{"es":"Total trabajos nacionales y extranjeros evaluados","en":""}')
 ,('medicion_x','lbl','reportes_calidad','{"es":"Cantidad de trabajos","en":""}')
 ,('medicion_y','lbl','reportes_calidad','{"es":"Calidad","en":""}')
 ,('calidad_ext_nac_ins_t','title','reportes_calidad','{"es":"Calidad nacionales y extranjeros","en":""}')
 ,('calidad_ext_nac_ins_st','subtitle','reportes_calidad','{"es":"Institucionales y no Institucionales","en":""}')
 ,('calidad_ext_nac_t','title','reportes_calidad','{"es":"Total de trabajos nacionales y extranjeros evaluados","en":""}')
-,('calidad_genero_t','title','reportes_calidad','{"es":"Calidad por genero","en":""}')
+,('calidad_genero_t','title','reportes_calidad','{"es":"Calidad por género","en":""}')
 ,('calidad_genero_st_fmo','subtitle','reportes_calidad','{"es":"Masculino, Femenino y Otro","en":""}')
 ;
 
@@ -46,7 +46,8 @@ insert into idiomas.traduccion values
 ,('rep_sexo_O','radio','reportes','{"es":"Otro","en":"Another"}')
 ;
 
--- CLAPAS: textos para reportes de institucion
+COMMIT;
+-- :CLAPAS textos para reportes de institucion
 BEGIN;
 INSERT INTO idiomas.traduccion (clave_traduccion, clave_tipo, clave_grupo, lang) values
 ('tab_top','tab','reportes_imss','{"es":"Top de trabajos registrados","en":""}'),
@@ -58,4 +59,40 @@ INSERT INTO idiomas.traduccion (clave_traduccion, clave_tipo, clave_grupo, lang)
 ('tooltip_top','txt','reportes_imss','{"es":"Trabajos registrados:","en":""}'),
 ('tooltip_porcentaje','txt','reportes_imss','{"es":"Trabajos registrados:","en":""}'),
 ('tooltip_calidad','txt','reportes_imss','{"es":"Calificación promedio:","en":""}');
+COMMIT;
+
+COMMIT;
+INSERT INTO idiomas.traduccion
+(clave_traduccion, clave_tipo, clave_grupo, lang)
+VALUES('reporte_general_title', 'lbl', 'reportes_generales', '{"es":"Reportes generales","en":""}');
+
+
+INSERT INTO idiomas.traduccion
+(clave_traduccion, clave_tipo, clave_grupo, lang)
+VALUES('reporte_general_title', 'lbl', 'reportes_generales', '{"es":"Reportes generales","en":""}');
+
+INSERT INTO idiomas.traduccion
+(clave_traduccion, clave_tipo, clave_grupo, lang)
+VALUES('tab_t_exposiciones', 'tab', 'reportes_generales', '{"es":"Total de trabajos registrados","en":""}');
+
+INSERT INTO idiomas.traduccion
+(clave_traduccion, clave_tipo, clave_grupo, lang)
+VALUES('t_exposiciones', 'lbl', 'reportes_generales', '{"es":"Total de trabajos registrados","en":""}');
+
+INSERT INTO idiomas.traduccion
+(clave_traduccion, clave_tipo, clave_grupo, lang)
+VALUES('tab_t_nac_ext', 'tab', 'reportes_generales', '{"es":"Total de trabajos de autores nacionales y extranjeros","en":""}');
+
+INSERT INTO idiomas.traduccion
+(clave_traduccion, clave_tipo, clave_grupo, lang)
+VALUES('t_nac_ext', 'lbl', 'reportes_generales', '{"es":"Total de trabajos de autores nacionales y extranjeros","en":""}');
+
+
+INSERT INTO idiomas.traduccion
+(clave_traduccion, clave_tipo, clave_grupo, lang)
+VALUES('tab_t_genero', 'tab', 'reportes_generales', '{"es":"Total de trabajos por género","en":""}');
+
+INSERT INTO idiomas.traduccion
+(clave_traduccion, clave_tipo, clave_grupo, lang)
+VALUES('t_genero', 'lbl', 'reportes_generales', '{"es":"Total de trabajos por género","en":""}');
 COMMIT;
