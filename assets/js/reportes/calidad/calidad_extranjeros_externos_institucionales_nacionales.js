@@ -2,12 +2,10 @@ jQuery(document).ready(function () {
 //    console.log(data_grafica.data);
 //    console.log(get_data_trabajos_calidad());
 });
-
 function get_data_trabajos_calidad() {
     var data_r = new Array();
     var objeto = null;
     var objeto_datos = data_grafica.data;
-
     for (var i in objeto_datos) {
         if (objeto_datos.hasOwnProperty(i)) {
             objeto = objeto_datos[i];
@@ -18,6 +16,7 @@ function get_data_trabajos_calidad() {
 }
 
 Highcharts.chart('progressBar', {
+    lang: textos_lenguaje(),
     chart: {
         type: 'variwide'
     },
@@ -43,6 +42,17 @@ Highcharts.chart('progressBar', {
     legend: {
         enabled: false
     },
+    exporting: {
+        buttons: {
+            contextButton: {
+                enabled: false,
+            },
+            exportButton: {
+                text: language_text.reportes.descarga_lbl,
+                menuItems: Highcharts.getOptions().exporting.buttons.contextButton.menuItems.splice(5)
+            },
+        }
+    },
     series: [{
             name: 'Calidad',
             data: get_data_trabajos_calidad(),
@@ -55,6 +65,6 @@ Highcharts.chart('progressBar', {
                         language_text.reportes.total_trabajos + ': <b> {point.z} </b><br>'
             },
             colorByPoint: true
-        }]
+        }],
 });
 

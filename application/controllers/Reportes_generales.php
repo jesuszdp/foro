@@ -9,29 +9,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * */
 class Reportes_generales extends General_reportes {
 
-    const TOTAL_EXPOSICION_C_O_R = 1, TOTAL_NACIONAL_EXTRANJERO = 2, TOTAL_GENERO = 3;
+    const TOTAL_EXPOSICION_C_O_R = 1, TOTAL_NACIONAL_EXTRANJERO = 2, TOTAL_GENERO = 3
+            , TOTAL_TRABAJOS_NACIONALES_EXTERNOS = 4, CAL_POR_GENERO = 6,
+            CAL_EXTRANJEROS_EXTERNOS_NACIONALES_INSTITUCIONALES = 5;
 
     function __construct() {
-        $this->grupo_language_text = ['reportes_generales'];
+        $this->grupo_language_text = ['reportes_generales', "reportes_calidad", "reportes"];
         parent::__construct();
         $this->load->model('Reportes_generales_model', 'reporteg');
     }
 
-        public function bibliotecas_graficas($array_bibliotecas = ['a', 'c', 'd']) {
-             $coleccion = [
-                 'a' => 'highcharts/highcharts.js',
-                 'b' => 'highcharts/highcharts-3d.js',
-                 'c' => 'highcharts/data.js',
-                 'd' => 'highcharts/modules/exporting.js',
-                 'e' => 'highcharts/modules/variwide.js',
-             ];
-             $output = [];
-             foreach ($array_bibliotecas as $value) {
-                 $output[] = $coleccion[$value];
-             }
-             return $output;
-         }
-        /**
+
+    /**
      * @author
      * @Fecha 05/06/2018
      * @description:
@@ -40,7 +29,7 @@ class Reportes_generales extends General_reportes {
     public function reportes($tipo = Reportes_generales::TOTAL_EXPOSICION_C_O_R) {
 //        $output['tabs'] = $this->config_tabs();
         $output['tabs'] = $tipo;
-        $output['bibliotecas_graficas'] = $this->bibliotecas_graficas(); //Elimina la biblioteca b
+        $output['bibliotecas_graficas'] = $this->bibliotecas_graficas(['a', 'e', 'd','f']); //Agrega por default las bibliotecas
         $output['language_text'] = $this->language_text;
         // pr($tipo);
         switch ($tipo) {
@@ -59,6 +48,19 @@ class Reportes_generales extends General_reportes {
                 //$output['language_text'] = $this->language_text['reportes_generales'];
                 $this->total_por_genero($output);
                 $output['view_reporte'] = $this->load->view('reportes/generales/total_por_genero.php', $output, true);
+                break;
+            case Reportes_generales::TOTAL_TRABAJOS_NACIONALES_EXTERNOS:
+//                $output['bibliotecas_graficas'] = $this->bibliotecas_graficas(['a', 'b', 'd']); //Todas las bibliotecas
+                $result = $this->total_trabajos_nacionales_extranjeros($output);
+                $output['view_reporte'] = $this->load->view('reportes/calidad/totales_nacionales_extranjeros.php', $output, true);
+                break;
+            case Reportes_generales::CAL_EXTRANJEROS_EXTERNOS_NACIONALES_INSTITUCIONALES:
+                $result = $this->calidad_institucion_externos_nacionales_extranjeros($output);
+                $output['view_reporte'] = $this->load->view('reportes/calidad/calidad_extranjeros_externos_institucionales_nacionales.php', $output, true);
+                break;
+            case Reportes_generales::CAL_POR_GENERO:
+                $result = $this->calidad_por_genero($output);
+                $output['view_reporte'] = $this->load->view('reportes/calidad/calidad_por_genero.php', $output, true);
                 break;
         }
         // pr($output);
@@ -104,13 +106,52 @@ class Reportes_generales extends General_reportes {
      *
      */
     public function total_por_genero(&$output) {
-
-      $output['data'] = array(
-        'genero' => $this->reporteg->total_genero(),
-      );
-      // pr($output);
+        $output['data'] = array(
+            'genero' => $this->reporteg->total_genero(),
+        );
     }
 
+    /**
+     * @author 
+     * @Fecha 05/06/2018
+     * @description muestra información del total trabajos 
+     * nacionales y extranjeros tanto institucionales (IMSS) como externos
+     *
+     */
+    private function total_trabajos_nacionales_extranjeros(&$output = null) {
+        $this->load->model('Reportes_calidad_model', 'reportec');
+        $output['data']['data'] = $this->reportec->get_total_trabajos_nacionales_extranjeros()[0];
+    }
 
+    /**
+     * @author 
+     * @Fecha 05/06/2018
+     * @description muestra información del total trabajos 
+     * nacionales y extranjeros tanto institucionales (IMSS) como externos
+     *
+     */
+    private function calidad_institucion_externos_nacionales_extranjeros(&$output = null) {
+        $this->load->model('Reportes_calidad_model', 'reportec');
+        $param["ext_inst"] = array('iu.es_imss = true', "iu.clave_pais <> 'MX'");
+        $param["ext_no_inst"] = array('iu.es_imss = false', "iu.clave_pais <> 'MX'");
+        $param["nac_inst"] = array('iu.es_imss = true', "iu.clave_pais = 'MX'");
+        $param["nac_no_inst"] = array('iu.es_imss = false', "iu.clave_pais = 'MX'");
+
+        foreach ($param as $key => $value) {
+            $output['data']['data'][$key] = $this->reportec->get_calidad_institucion_externos_nacionales_extranjeros($value)[0];
+        }
+    }
+
+    /**
+     * @author 
+     * @Fecha 05/06/2018
+     * @description 
+     * 
+     *
+     */
+    private function calidad_por_genero(&$output = null) {
+        $this->load->model('Reportes_calidad_model', 'reportec');
+        $output['data']['data'] = $this->reportec->get_calidad_por_genero();
+    }
 
 }
