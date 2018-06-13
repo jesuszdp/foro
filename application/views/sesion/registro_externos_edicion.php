@@ -6,7 +6,7 @@
 <section class="panel panel-default">
   <div class="container">
     <!-- Contact form -->
-      <?php echo form_open('inicio/registro/' . $tipo_registro, array('id' => 'registro_form' . $tipo_registro, 'autocomplete' => 'off')); ?>
+      <?php echo form_open('perfil/editar' . $tipo_edicion, array('id' => 'edit_form' . $tipo_edicion, 'autocomplete' => 'off')); ?>
       <br>
       <div class="col-sm-12 af-outer af-required">
         <div class="col-sm-3">
@@ -14,10 +14,11 @@
         <div class="col-sm-2">
           <label for=""><?php echo $language_text['registro_usuario']['ext_nombre']; ?></label>
         </div>
+
         <div class="form-group af-inner">
-          <?php echo $this->form_complete->create_element(array('id' => 'ext_nombre',
+          <?php echo $this->form_complete->create_element(array('id' => 'nombre',
               'type' => 'text',
-              'value' => isset($post['ext_nombre']) ? $post['ext_nombre'] : '',
+              'value' => isset($post['nombre']) ? $post['nombre'] : '',
               'style' => 'style="color:#000000;"',
               'attributes' => array(
                   'class' => 'form-control placeholder',
@@ -261,7 +262,7 @@
           <div class="col-sm-2">
           </div>
           <div class="col-sm-8">
-              <input type="button" id="regform_ext" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" value="<?php echo $language_text['registro_usuario']['registrar']; ?>" data-tpform="<?php echo $tipo_registro; ?>">
+              <input type="button" id="regform_ext" data-animation="flipInY" data-animation-delay="100" class="btn btn-theme btn-block submit-button" value="<?php echo $language_text['registro_usuario']['actualizar_registro']; ?>" data-tpform="<?php echo $tipo_edicion; ?>">
           </div>
           <br><br><br>
       </div>
@@ -283,7 +284,7 @@ if (isset($registro_valido)) {
 }
 ?>
 
-<div id="area_registro_<?php echo $tipo_registro; ?>" class="form area_registro">
+<div id="area_registro_<?php echo $tipo_edicion; ?>" class="form area_registro">
 
 </div>
 <!--
