@@ -1,7 +1,7 @@
 <?php foreach ($bibliotecas_graficas as $value) { ?>
     <script src = "<?php echo asset_url() . $value; ?>"></script>
 <?php } ?>
-
+<?php echo js("/reportes/general_reportes.js"); ?>
 
 <!-- listas de reportes generales -->
 
@@ -38,8 +38,8 @@
                                             <li class="control in active" id="tab_1"><a href="<?php echo base_url("index.php/reportes_generales/reportes/1"); ?>" ><i class="fa fa-plus"></i> <span class="faq-inner"><?php echo $language_text['reportes_generales']['tab_t_exposiciones']; ?></span></a></li>
                                             <li class="control" id="tab_2"><a href="<?php echo base_url("index.php/reportes_generales/reportes/2"); ?>"><i class="fa fa-plus"></i> <span class="faq-inner"><?php echo $language_text['reportes_generales']['tab_t_nac_ext']; ?></span></a></li>
                                             <li class="control" id="tab_3"><a href="<?php echo base_url("index.php/reportes_generales/reportes/3"); ?>" ><i class="fa fa-plus"></i> <span class="faq-inner"><?php echo $language_text['reportes_generales']['tab_t_genero']; ?></span></a></li>
-                                            <li id="tab_1" class="control"> <a href="<?php echo base_url("index.php/reportes_generales/reportes/4"); ?>"><i class="fa fa-plus"></i><span class="faq-inner"><?php echo $language_text['reportes_calidad']['total_trabajos']; ?></strong> <br/></a></li>
-                                            <li id="tab_4" class="control"> <a href="<?php echo base_url("index.php/reportes_generales/reportes/5"); ?>"><i class="fa fa-plus"></i><span class="faq-inner"><?php echo $language_text['reportes_calidad']['calidad_ext_nac_ins']; ?></strong></a></li>
+                                            <li id="tab_4" class="control"> <a href="<?php echo base_url("index.php/reportes_generales/reportes/4"); ?>"><i class="fa fa-plus"></i><span class="faq-inner"><?php echo $language_text['reportes_calidad']['total_trabajos']; ?></strong> <br/></a></li>
+                                            <li id="tab_5" class="control"> <a href="<?php echo base_url("index.php/reportes_generales/reportes/5"); ?>"><i class="fa fa-plus"></i><span class="faq-inner"><?php echo $language_text['reportes_calidad']['calidad_ext_nac_ins']; ?></strong></a></li>
                                             <li id="tab_6" class="control"> <a href="<?php echo base_url("index.php/reportes_generales/reportes/6"); ?>"><i class="fa fa-plus"></i><span class="faq-inner"><?php echo $language_text['reportes_calidad']['calidad_genero']; ?></strong> <br/></a></li>
                     <!-- <li class="active"><a href="#tab-981039400543" data-toggle="tab"><i class="fa fa-angle-right"></i> <span class="faq-inner">Calidad de trabajos IMSS nacionales</span></a></li> -->
                                         </ul>

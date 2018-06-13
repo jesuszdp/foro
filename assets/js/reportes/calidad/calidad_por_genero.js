@@ -15,32 +15,6 @@ function get_data_trabajos_calidad() {
     return data_r;
 }
 
-function textos_lenguaje() {
-    console.log("EL lenguaje actual del sistema es -> " + lang_system_);
-    console.log(lang_system_);
-    var lang_system = null;
-    if (lang_system_ != 'en') {
-        lang_system = {
-            contextButtonTitle: "Menú contextual",
-            downloadJPEG: "Descargar imagen JPEG",
-            downloadPDF: "Descargar documento PDF",
-            downloadPNG: "Descargar imagen PNG",
-            downloadSVG: "Descargar imagen en vectores SVG",
-            drillUpText: "Regresar a {series.name}",
-            loading: "Cargando...",
-            noData: "No hay datos que mostrar",
-            resetZoom: "Restablecer zoom",
-            printChart: "Imprimir gráfica",
-            resetZoomTitle: "Restablecer zoom nivel 1:1",
-            months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
-            shortMonths: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
-            weekdays: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"]
-        }
-    }
-    return lang_system;
-}
-
-
 Highcharts.chart('progressBar', {
     lang: textos_lenguaje(),
     chart: {
@@ -79,14 +53,23 @@ Highcharts.chart('progressBar', {
 //    tooltip: {
 //        pointFormat: 'Trabajos registrados: <b>{point.y:.1f}%</b>'
 //    },
+    exporting: {
+        buttons: {
+            contextButton: {
+                enabled: false,
+            },
+            exportButton: {
+                text: language_text.reportes.descarga_lbl,
+                menuItems: Highcharts.getOptions().exporting.buttons.contextButton.menuItems.splice(5)
+            },
+        }
+    },
     series: [{
             name: 'Calidad',
             data: get_data_trabajos_calidad(),
             dataLabels: {
                 enabled: true,
                 format: '{point.y:.0f}',
-                color: '#FFFFFF',
-                align: 'right',
             },
             tooltip: {
                 pointFormat: language_text.reportes.calidad + ': <b> {point.y}</b><br>' +

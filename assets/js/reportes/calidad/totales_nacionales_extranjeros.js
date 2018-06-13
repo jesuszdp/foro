@@ -1,50 +1,107 @@
 jQuery(document).ready(function () {
-    console.log(data_grafica.data);
+//    console.log(language_text);
+//    console.log(language_text);
+//     console.log(Highcharts.getOptions());
+console.log(Highcharts.getOptions());
 });
 
 
 Highcharts.chart('progressBar', {
+    lang: textos_lenguaje(),
     chart: {
-        type: 'pie',
-        options3d: {
-            enabled: true,
-            alpha: 45,
-            beta: 0
-        }
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
     },
     title: {
-        text: data_grafica.title
+        text: language_text.reportes_calidad.calidad_ext_nac_t
     },
     tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        pointFormat: '<br>' + language_text.reportes.total_gral + '<b>{point.y}</b><br>' +
+                '{series.name}: <b>{point.percentage:.1f}%'
     },
     plotOptions: {
         pie: {
             allowPointSelect: true,
             cursor: 'pointer',
-            depth: 35,
             dataLabels: {
                 enabled: true,
-                format: '{point.name}'
-            }
+                format: '<b>{point.name}</b><br> ' +
+                        language_text.reportes.total_gral + ': <b>{point.y}</b><br> ' +
+                        language_text.reportes.porcentaje_lbl + ': {point.percentage:.1f} % ',
+                style: {
+                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                }
+            },
+            showInLegend: false
+        }
+    },
+    exporting: {
+//        menuItemDefinitions: {
+//            // Custom definition
+//            label: {
+//                onclick: function () {
+//                    this.renderer.label(
+//                            'You just clicked a custom menu item',
+//                            100,
+//                            100
+//                            )
+//                            .attr({
+//                                fill: '#a4edba',
+//                                r: 5,
+//                                padding: 10,
+//                                zIndex: 10
+//                            })
+//                            .css({
+//                                fontSize: '1.5em'
+//                            })
+//                            .add();
+//                },
+//                text: 'Show label'
+//            }
+//        },
+        buttons: {
+            contextButton: {
+                enabled: false,
+//                menuItems: ['downloadPNG', 'downloadSVG', 'separator', 'label']
+            },
+            exportButton: {
+                text: language_text.reportes.descarga_lbl,
+                menuItems: Highcharts.getOptions().exporting.buttons.contextButton.menuItems.splice(5),
+            },
+//            printButton: {
+//                text: 'Print',
+//                onclick: function () {
+//                    this.print();
+//                }
+//            }
         }
     },
     series: [{
-            type: 'pie',
-            name: 'Browser share',
+            name: language_text.reportes.porcentaje_lbl,
+            colorByPoint: true,
             data: [
                 [language_text.reportes_calidad.nac_inst, parseFloat(data_grafica.data.trabajos_nacionales_imss)],
                 [language_text.reportes_calidad.ext_inst, parseFloat(data_grafica.data.trabajos_extranjeros_imss)],
                 [language_text.reportes_calidad.nac_no_inst, parseFloat(data_grafica.data.trabajos_nacionales_no_imss)],
                 [language_text.reportes_calidad.ext_no_inst, parseFloat(data_grafica.data.trabajos_extranjeros_no_imss)],
-//                ['total_trabajos', parseFloat(data_grafica.data.total_trabajos)],
-//                {
-//                    name: 'total_trabajos',
-//                    y: parseFloat(data_grafica.data.total_trabajos),
-//                    sliced: true,
-//                    selected: true
-//                },
             ]
-        }]
+        }],
+//    exporting: {
+//        buttons: {
+//            contextButton: {
+//                menuItems: [],
+//                onclick: function () {
+//                    console.log(this);
+//                    
+////                    this.exportChart({format: "pdf"});
+////                    chart.exportTest('application/pdf');
+//                }
+//            }
+//        }
+//    }
 });
+
+/* End of automation code */
 
