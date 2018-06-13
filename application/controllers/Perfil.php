@@ -15,41 +15,46 @@ class Perfil extends MY_Controller {
         $this->grupo_language_text = ['registro_usuario', 'sesion']; //Grupo de idiomas para el controlador actual
         parent::__construct();
 //        $this->load->model('Modulo_model', 'modulo');
+          $this->load->library('form_complete');
+          $this->load->library('seguridad');
+          $this->load->library('empleados_siap');
+          $this->load->library('form_validation');
+          $this->load->model('Usuario_model', 'usuario');
+          $this->load->model('Catalogo_model', 'catalogo');
     }
 
     public function index() {
-        
+
     }
 
     public function editar() {
-        $this->load->library('form_complete');
-        $this->load->model('Usuario_model', 'usuario');
-        $this->load->model('Catalogo_model', 'catalogo');
+
         $user_sesion = $this->get_datos_sesion();
         $es_imss = $this->get_datos_sesion(En_datos_sesion::ES_IMSS);
 
         if ($es_imss) {//Edición imsss
             $config['select_validation'] = "form_registro_usuario_internos";
-            $config['ruta_registro'] = "sesion/registro_internos.php";
+            $config['ruta_registro'] = "sesion/registro_internos_edicion.php";
             $config['tipo_registro'] = Usuario_model::SIAP;
             $output['tipo_registro'] = Perfil::INTERNOS;
         } else {//Es un externo
             $config['select_validation'] = "form_registro_usuario_externos";
-            $config['ruta_registro'] = "sesion/registro_externos.php";
+            $config['ruta_registro'] = "sesion/registro_externos_edicion.php";
             $config['tipo_registro'] = Usuario_model::NO_IMSS;
             $output['tipo_registro'] = Perfil::EXTERNOS;
         }
-//        pr($output);exit();
+        //pr($output);
+        //exit();
+
         $output['delegaciones'] = dropdown_options($this->catalogo->get_delegaciones(null, null), 'clave_delegacional', 'nombre');
         $output['paises'] = dropdown_options($this->catalogo->get_paises(), "clave_pais", "lang", $this->obtener_idioma());
         $output['language_text'] = $this->language_text;
         $output['post'] = $this->input->post(null, TRUE);
         $main_content = $this->load->view($config['ruta_registro'], $output, TRUE);
-
         $this->template->setMainContent($main_content);
         $this->template->getTemplate();
 //        if (!is_null($tipo_registro)) {
-////      
+////
 ////            $output["texts"] = $this->lang->line('formulario'); //textos del formulario
 //            $this->config->load('form_validation'); //Cargar archivo con validaciones
 //            $validations = $this->config->item($config['select_validation']); //Obtener validaciones de archivo general
@@ -87,7 +92,7 @@ class Perfil extends MY_Controller {
 //                    exit();
 //                }
 ////                pr($output['registro_valido']['msg']);
-////                
+////
 ////                registro_valido
 ////                pr($output['registro_valido']);
 //            } else {
@@ -103,8 +108,7 @@ class Perfil extends MY_Controller {
 //        }
     }
 
-    public function ver() {
-        $this->template->getTemplate();
-    }
+
+
 
 }
