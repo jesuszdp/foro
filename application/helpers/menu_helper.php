@@ -152,7 +152,7 @@ if (!function_exists('render_menu')) {
 if (!function_exists('update_lenguaje')) {
 
     /**
-     * 
+     *
      * @param type $clave_lenguaje
      */
     function update_lenguaje($clave_lenguaje = 'es') {
@@ -187,7 +187,7 @@ if (!function_exists('update_lenguaje_sistema')) {
      * @author LEAS
      * @fecha 02/05/2018
      * @param type $clave_lenguaje Modifica el lenguaje del sistema, es decir el predeterminado
-     * 
+     *
      */
     function update_lenguaje_sistema($clave_lenguaje = 'es') {
         $lenguaje = ['es' => 'spanish', 'en' => 'english'];

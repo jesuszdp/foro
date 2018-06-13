@@ -107,6 +107,7 @@ class Reportes_instituto_model extends MY_Model {
 
 		$this->db->select(array('d.nombre' , 'avg(tr.promedio)::int promedio'));
 		$this->db->join('catalogo.delegaciones d', 'tr.clave_delegacional = d.clave_delegacional and tr.es_umae = false', 'right' ,false);
+		$this->db->where('d.clave_delegacional !=','00');
 		$this->db->group_by('d.nombre');
 		$this->db->order_by('avg(tr.promedio) is null',false);
 		$this->db->order_by('avg(tr.promedio)','desc');

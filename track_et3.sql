@@ -61,7 +61,7 @@ INSERT INTO idiomas.traduccion (clave_traduccion, clave_tipo, clave_grupo, lang)
 ('tooltip_calidad','txt','reportes_imss','{"es":"Calificación promedio:","en":""}');
 COMMIT;
 
-COMMIT;
+BEGIN;
 INSERT INTO idiomas.traduccion
 (clave_traduccion, clave_tipo, clave_grupo, lang)
 VALUES('reporte_general_title', 'lbl', 'reportes_generales', '{"es":"Reportes generales","en":""}');
@@ -96,3 +96,45 @@ INSERT INTO idiomas.traduccion
 (clave_traduccion, clave_tipo, clave_grupo, lang)
 VALUES('t_genero', 'lbl', 'reportes_generales', '{"es":"Total de trabajos por género","en":""}');
 COMMIT;
+-- CLAPAS: textos para reportes de institucion
+BEGIN;
+INSERT INTO idiomas.traduccion (clave_traduccion, clave_tipo, clave_grupo, lang) values
+('yaxis_top','lbl','reportes_imss','{"es":"Trabajos registrados","en":""}'),
+('yaxis_calidad','lbl','reportes_imss','{"es":"Promedio","en":""}'),
+('nota_porcentaje_umae','nota','reportes_imss','{"es":"Las UMAE que no aparecen en la gráfica no registraron trabajos de investigación","en":""}'),
+('nota_porcentaje_del','nota','reportes_imss','{"es":"Las delegaciones que no aparecen en la gráfica no registraron trabajos de investigación","en":""}');
+COMMIT;
+
+-- AlesitaSpock
+
+BEGIN;
+INSERT INTO idiomas.traduccion(clave_traduccion, clave_tipo, clave_grupo, lang) VALUES
+('reporte_general_title', 'lbl', 'reportes_generales', '{"es":"Reportes generales","en":""}'),
+('tab_t_exposiciones', 'tab', 'reportes_generales', '{"es":"Total de trabajos registrados","en":""}'),
+('t_exposiciones', 'lbl', 'reportes_generales', '{"es":"Total de trabajos registrados","en":""}'),
+('lbl_cartel', 'lbl', 'reportes_generales', '{"es":"Cartel","en":""}'),
+('lbl_oratoria', 'lbl', 'reportes_generales', '{"es":"Oratoria","en":""}'),
+('lbl_rechazados', 'lbl', 'reportes_generales', '{"es":"Rechazados","en":""}'),
+('lbl_rechazados_nte', 'lbl', 'reportes_generales', '{"es":"No son temas de educación","en":""}'),
+('tab_t_nac_ext', 'tab', 'reportes_generales', '{"es":"Total de trabajos de autores nacionales y extranjeros","en":""}'),
+('t_nac_ext', 'lbl', 'reportes_generales', '{"es":"Total de trabajos de autores nacionales y extranjeros","en":""}'),
+('lbl_nacionales', 'lbl', 'reportes_generales', '{"es":"Trabajos nacionales","en":""}'),
+('lbl_extranjeros', 'lbl', 'reportes_generales', '{"es":"Trabajos extranjeros","en":""}'),
+('tab_t_genero', 'tab', 'reportes_generales', '{"es":"Total de trabajos por género","en":""}'),
+('lbl_femenino', 'lbl', 'reportes_generales', '{"es":"Femenino","en":""}'),
+('lbl_masculino', 'lbl', 'reportes_generales', '{"es":"Masculino","en":""}'),
+('lbl_otro', 'lbl', 'reportes_generales', '{"es":"Otro","en":""}');
+COMMIT;
+
+BEGIN;
+insert into idiomas.traduccion values 
+('descarga_lbl','lbl','reportes','{"es":"Descargar","en":"Download"}')
+, ('descarga_pdf','lbl','reportes','{"es":"Descargar documento PDF","en":"Download PDF document"}');
+COMMIT;
+
+BEGIN;
+insert into idiomas.traduccion values 
+('descarga_png','lbl','reportes','{"es":"Descargar documento PNG","en":"Download PNG document"}');
+COMMIT;
+
+
