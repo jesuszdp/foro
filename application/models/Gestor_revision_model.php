@@ -614,4 +614,45 @@ class Gestor_revision_model extends MY_Model {
         return $estado;
     }
 
+
+    /**
+    * Intercambia revisores, solo aplica para los que no requieren atencion
+    * @author clapas
+    * @date 13/06/2018
+    * @param array 
+    */
+    public function insert_asignar_revisor_en_revision($value=[])
+    {
+        $salida = false;
+        $this->db->flush_cache();
+        $this->db->reset_query();
+        $this->db->trans_begin();  
+
+        $where_update = array(
+            'folio' => $value['folio'],
+            'id_usuario' => $value['usuario_anterior']
+        );
+
+        $datos_insert = array(
+            'folio' => $value['folio'],
+            'id_usuario' => $value['usuario_nuevo'],
+            'activo' => true
+        );
+
+        $this->db->where($where_update);
+        $this->db->update('foro.revision',array('activo'=>false));
+        $this->db->insert('foro.revision',$datos_insert);
+
+        if ($this->db->trans_status() === FALSE) {
+            $this->db->trans_rollback();
+        } else {
+            $this->db->trans_commit();
+            $salida = true;
+        }
+
+        $this->db->flush_cache();
+        $this->db->reset_query();
+        return $salida;
+
+    }
 }

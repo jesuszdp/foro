@@ -135,6 +135,7 @@ class Gestion_revision extends General_revision {
                 }
             }
             $result['result'][$row['folio']]['revisores'][$row['id_usuario']]['revisor'] = $row['revisor'];
+            $result['result'][$row['folio']]['revisores'][$row['id_usuario']]['revisado'] = $row['revisado'];
             $result['result'][$row['folio']]['revisores'][$row['id_usuario']]['clave_estado'] = ($row['revisado'] == true) ? 'Revisado' : 'Sin revisar';
             $result['result'][$row['folio']]['revisores'][$row['id_usuario']]['fecha_limite_revision'] = $row['fecha_limite_revision'];
             $metodologia = json_decode($row['metodologia'], true);
@@ -253,6 +254,29 @@ class Gestion_revision extends General_revision {
     }
 
     /**
+     * Genera el listado de revisores disponibles para la asignación de trabajo de investigación en la sección 'En revision'
+     * @author clapas
+     * @date 13/06/2018
+     * @param string $folio Identificador del trabajo de investigación
+     * @param int $id_usuario Id de usuario del revisor que se desea modificar
+     *
+     */
+    public function asignar_revisor_en_revision($folio,$revisor) {
+        if ($this->input->is_ajax_request()) { //Validar que se realice una petición ajax
+            if (isset($folio) && !empty($folio)) { //Se valida que se envien datos
+                $folio = $this->security->xss_clean($folio); ///Limpiar parámetro
+                $revisor = $this->security->xss_clean($revisor); ///Limpiar parámetro
+                $datos['folio_enc'] = $folio;
+                $datos['usuario_anterior'] = $revisor;
+                $datos['folio'] = decrypt_base64($folio); //Desencriptar identificadores de trabajos
+                $condiciones = array('conditions' => "iu.id_usuario not in (select id_usuario from foro.revision r1 where r1.folio='" . decrypt_base64($folio) . "')"); //Generar condiciones para mostrar revisores.
+                $datos['revisores'] = $this->gestion_revision->get_revisores($condiciones)['result']; ///Obtener listado de revisores
+                $this->load->view('revision_trabajo_investigacion/asignar_revisor_en_revision.php', $datos);
+            }
+        }
+    }
+
+    /**
      * @author JZDP
      * @Fecha 25/05/2018
      * @param string $folio Identificador del trabajo de investigación
@@ -359,6 +383,31 @@ class Gestion_revision extends General_revision {
                 //print_r($id);
                 //pr($datos);
                 $this->load->view('revision_trabajo_investigacion/asignar_revisor_requiere_atencion_bd.php', $datos);
+            }
+        }
+    }
+
+    /**
+     * Realiza el cambio de revisor para los trabajos que no se hayan revisado 
+     * @author clapas
+     * @date 13/06/2018
+     */
+    public function asignar_revisor_en_revision_bd() {
+        $datos['resultado']= array('result' => null, 'msg' => 'Hubo un problema, inténtelo de nuevo', 'data' => null);
+        if ($this->input->is_ajax_request()) { //Validar que se realice una petición ajax
+            if ($this->input->post()) { //Se valida que se envien datos
+                //pr($this->input->post());
+                $post = $this->input->post(null, true);
+                $datos['usuario_nuevo'] = decrypt_base64($post['usuario_nuevo']); ///Obtener identificadores de usuarios
+                $datos['usuario_anterior'] = decrypt_base64($post['usuario_anterior']);
+                $datos['folio'] = decrypt_base64($post['folio']); //Obtener identificadores de folios
+                //pr($datos);
+                $resultado = $this->gestion_revision->insert_asignar_revisor_en_revision($datos);
+                if($resultado)
+                {
+                    $datos['resultado'] = array('result'=>$resultado, 'msg'=>'Se reasigno correctamente el revisor','data'=>null);
+                }
+                $this->load->view('revision_trabajo_investigacion/asignar_revisor_en_revision_bd.php', $datos);
             }
         }
     }

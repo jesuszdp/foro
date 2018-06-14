@@ -34,14 +34,24 @@
                     <td><?php  echo $row['metodologia'];?></td>
                     <td><?php  echo $row['clave_estado'];?></td>
                       <?php
-                          foreach ($row['revisores'] as $revisor) {
+                          //pr($row['revisores']);
+                          foreach ($row['revisores'] as $key => $value) {
+                            $folio_enc = encrypt_base64($row['folio']);
+                            $usuario_anterior = encrypt_base64($key);
                       ?>
-                              <td><?php echo (isset($revisor['revisor'])) ? $revisor['revisor'] : '';?><br>
-                                <?php echo (isset($revisor['clave_estado'])) ? '<b>'.$revisor['clave_estado'].'</b>' : '';?><br>
-                                <?php echo (isset($revisor['fecha_limite_revision'])) ? nice_date($revisor['fecha_limite_revision'], 'd-m-Y h:i') : '';?>
-                              </td>
+                            <td>
+                            <?php echo (isset($value['revisor'])) ? $value['revisor'] : '';?>
+                            <br>
+                            <?php echo (isset($value['clave_estado'])) ? '<b>'.$value['clave_estado'].'</b>' : '';?>
+                            <br>
+                            <?php echo (isset($value['fecha_limite_revision'])) ? nice_date($value['fecha_limite_revision'], 'd-m-Y h:i') : '';?>
+                            <br>
+                            <?php if(!$value['revisado']){ ?>
+                             <a href="" type="button" data-animation="flipInY" data-animation-delay="100" data-f="<?php echo $folio_enc; ?>" data-u="<?php echo $usuario_anterior; ?>" class="btn-asignar" data-toggle="modal" data-target="#exampleModal" style="display:inline-table;"><?php echo $opciones_secciones['btn_asignar'];?> <span class="glyphicon glyphicon-log-in"></a>
+                            </td>
                       <?php
-                          }
+                            }//if
+                          }//for
                           if(count($row['revisores']) < 3){
                       ?>
                           <td></td>
@@ -84,11 +94,19 @@
   }
 ?>
 
-  <script>
-  $("#comite").removeClass()
-  $("#atencion").removeClass()
-  $("#revision").addClass("active")
-  $("#revisados").removeClass()
-  $("#aceptados").removeClass()
-  $("#rechazados").removeClass()
-  </script>
+<script>
+$(document).ready(function () {
+    $(".btn-asignar").on('click', function (e) {
+        var f = $(this).data('f'); //Obtener datos para realizar envío
+        var u = $(this).data('u'); //Obtener datos para realizar envío
+        $("#modal_contenido").html('');
+        data_ajax(site_url + '/gestion_revision/asignar_revisor_en_revision/'+f+'/'+u, null, "#modal_contenido");
+    });
+});
+$("#comite").removeClass()
+$("#atencion").removeClass()
+$("#revision").addClass("active")
+$("#revisados").removeClass()
+$("#aceptados").removeClass()
+$("#rechazados").removeClass()
+</script>
