@@ -77,26 +77,26 @@ function grafica_umae() {
              }
              */
         },
-        exporting: {
-            buttons: {
-                contextButton: {
-                    enabled: false,
-                },
-                exportButton: {
-                    text: language_text.reportes.descarga_lbl,
-                    menuItems: Highcharts.getOptions().exporting.buttons.contextButton.menuItems.splice(5)
-                },
-            }, chartOptions: {// specific options for the exported image
-                plotOptions: {
-                    series: {
-                        dataLabels: {
-                            enabled: true
-                        }
-                    }
-                }
-            },
-            fallbackToExportServer: false
-        },
+//        exporting: {
+//            buttons: {
+//                contextButton: {
+//                    enabled: false,
+//                },
+//                exportButton: {
+//                    text: language_text.reportes.descarga_lbl,
+//                    menuItems: Highcharts.getOptions().exporting.buttons.contextButton.menuItems.splice(5)
+//                },
+//            }, chartOptions: {// specific options for the exported image
+//                plotOptions: {
+//                    series: {
+//                        dataLabels: {
+//                            enabled: true
+//                        }
+//                    }
+//                }
+//            },
+//            fallbackToExportServer: false
+//        },
         series: [{
                 name: 'Brands',
                 colorByPoint: true,

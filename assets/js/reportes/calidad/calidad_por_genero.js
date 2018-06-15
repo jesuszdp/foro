@@ -53,17 +53,17 @@ Highcharts.chart('progressBar', {
 //    tooltip: {
 //        pointFormat: 'Trabajos registrados: <b>{point.y:.1f}%</b>'
 //    },
-    exporting: {
-        buttons: {
-            contextButton: {
-                enabled: false,
-            },
-            exportButton: {
-                text: language_text.reportes.descarga_lbl,
-                menuItems: Highcharts.getOptions().exporting.buttons.contextButton.menuItems.splice(5)
-            },
-        }
-    },
+//    exporting: {
+//        buttons: {
+//            contextButton: {
+//                enabled: false,
+//            },
+//            exportButton: {
+//                text: language_text.reportes.descarga_lbl,
+//                menuItems: Highcharts.getOptions().exporting.buttons.contextButton.menuItems.splice(5)
+//            },
+//        }
+//    },
     series: [{
             name: 'Calidad',
             data: get_data_trabajos_calidad(),
