@@ -146,7 +146,7 @@ class Registro_investigacion extends MY_Controller {
                         $id_informacion_usuario = $datos_sesion['id_informacion_usuario'];
 
                         //Obtenemos el id de la convocatoria
-                        $convocatoria = $this->convocatoria->get_activa();
+                        $convocatoria = $this->convocatoria->get_activa(true)[0];
                         $id_convocatoria = $convocatoria['id_convocatoria'];
 
                         // Armamos el folio
