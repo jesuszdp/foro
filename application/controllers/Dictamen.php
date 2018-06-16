@@ -34,7 +34,7 @@ class Dictamen extends General_revision {
         $output['count_oratoria'] = $this->dictamen->count_registros_dictamen(false, 'O');
         $output['config_asignacion'] = $this->tipo_asignacion();
         $output['cupo'] = $this->cupo();
-        $output['cerrar_proceso_btn'] = $this->convocatoria->get_activa()[0]['revision'];
+        $output['cerrar_proceso_btn'] = $this->convocatoria->get_activa();
 
         $output['list_revisados'] = $this->load->view('revision_trabajo_investigacion/estados/lista_revisados.php', $output, true);
         $output['textos_idioma_nav'] = $this->obtener_grupos_texto('tabs_gestor', $this->obtener_idioma())['tabs_gestor'];
