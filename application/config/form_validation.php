@@ -318,12 +318,12 @@ $config['form_registro_usuario'] = array(
     array(
         'field' => 'reg_password',
         'label' => 'Contraseña',
-        'rules' => 'required' //|callback_valid_pass
+        'rules' => 'trim|required|min_length[8]' //|callback_valid_pass
     ),
     array(
         'field' => 'reg_repassword',
         'label' => 'Confirmación contraseña',
-        'rules' => 'required|matches[reg_password]'
+        'rules' => 'trim|required|matches[reg_password]'
     ),
     array(
         'field' => 'reg_captcha',

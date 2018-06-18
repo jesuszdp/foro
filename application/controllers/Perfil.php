@@ -82,23 +82,25 @@ class Perfil extends MY_Controller {
       $msg = '';
       $msg_type = 'danger';
       $success = false;
-      $datos_usuario = array(
-        'nombre' => $post['ext_nombre'],
-        'apellido_paterno' => $post['ext_ap'],
-        'apellido_materno' => $post['ext_am'],
-        'sexo' => $post['sexo'], 
-        'email' => $post['ext_mail'],
-        'telefono_personal' => $post['telefono_personal'],
-        'telefono_oficina' => $post['telefono_oficina'],
-        'clave_pais' => $post['pais_origen'],
-        'pais_institucion' => $post['pais_institucion'],
-        'institucion' => $post['institucion']
-      );
-      //pr($config);
+
+      if ($es_imss) {
+      }else{
+        $datos_usuario = array(
+          'nombre' => $post['ext_nombre'],
+          'apellido_paterno' => $post['ext_ap'],
+          'apellido_materno' => $post['ext_am'],
+          'sexo' => $post['sexo'], 
+          'email' => $post['ext_mail'],
+          'telefono_personal' => $post['telefono_personal'],
+          'telefono_oficina' => $post['telefono_oficina'],
+          'clave_pais' => $post['pais_origen'],
+          'pais_institucion' => $post['pais_institucion'],
+          'institucion' => $post['institucion']
+        );
+      }
       //pr($datos_usuario);
       $this->config->load('form_validation'); //Cargar archivo con validaciones
       $validations = $this->config->item($config['validaciones']); //Obtener validaciones de archivo general
-      //pr($validations);
       $this->set_textos_campos_validacion($validations, $this->language_text['registro_usuario']); //Modifica los textos del nombre de campo
       $this->form_validation->set_rules($validations);
 
@@ -122,12 +124,9 @@ class Perfil extends MY_Controller {
       $datos_usuario = $this->usuario->obtener_informacion_usuario(array('where'=>array('id_informacion_usuario'=>$id_info_u)))[0];
     } 
     
-    //pr($config);
-    //pr($output);
     $output ['datos_usuario']= $datos_usuario;
     $output['paises'] = dropdown_options($this->catalogo->get_paises(), "clave_pais", "lang", $this->obtener_idioma());
     $output['language_text'] = $this->language_text;
-    //pr($this->language_text);
 
     $main_content = $this->load->view($ruta_registro, $output, TRUE);
     $this->template->setMainContent($main_content);
@@ -135,4 +134,11 @@ class Perfil extends MY_Controller {
 
   }
 
+  public function password()
+  {
+    $output['language_text'] = $this->language_text;
+    $main_content = $this->load->view('sesion/cambiar_password.tpl.php', $output, TRUE);
+    $this->template->setMainContent($main_content);
+    $this->template->getTemplate();
+  }
 }

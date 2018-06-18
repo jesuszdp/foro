@@ -106,7 +106,7 @@
       <br><br>
       <div class="col-sm-3"></div>
       <div class="col-sm-7">
-        <?php echo form_error_format('ext_email');?>
+        <?php echo form_error_format('ext_mail');?>
       </div>
       <div class="col-sm-12 af-outer af-required">
         <div class="col-sm-2">
@@ -214,24 +214,3 @@
     <?php echo form_close(); ?>
   </div>
 </section>
-<br><br>
-<h1 class="section-title">
-  <span data-animation="flipInY" data-animation-delay="100" class="icon-inner animated flipInY visible"><span class="fa-stack"><i class="fa rhex fa-stack-2x"></i><i class="fa fa-ticket fa-stack-1x"></i></span></span>
-  <span data-animation="fadeInRight" data-animation-delay="100" class="title-inner animated fadeInRight visible">Modificar contraseña</span>
-</h1>
-<section class="panel panel-default">
-  <div class="container">
-  </div>
-</section>
-
-
-<!--
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("#regform_ext").on('click', function (e) {
-            var tipoform = $(this).data('tpform');
-            var div = "#r_" + tipoform;
-            data_ajax(site_url + '/inicio/registro/' + tipoform, '#registro_form' + tipoform, div);
-        });
-    });
-</script> -->
