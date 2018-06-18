@@ -123,9 +123,9 @@ INSERT INTO idiomas.traduccion(clave_traduccion, clave_tipo, clave_grupo, lang) 
 ('tab_t_genero', 'tab', 'reportes_generales', '{"es":"Total de trabajos por género","en":""}'),
 ('lbl_femenino', 'lbl', 'reportes_generales', '{"es":"Femenino","en":""}'),
 ('lbl_masculino', 'lbl', 'reportes_generales', '{"es":"Masculino","en":""}'),
-('lbl_otro', 'lbl', 'reportes_generales', '{"es":"Otro","en":""}');
-('actualizar_registro', 'button', 'registro_usuario', '{"es":"Actualizar","en":"Update"}');
-('lbl_departamento', 'lbl', 'registro_usuario', '{"es":"Departamento:","en":""}');
+('lbl_otro', 'lbl', 'reportes_generales', '{"es":"Otro","en":""}'),
+('actualizar_registro', 'button', 'registro_usuario', '{"es":"Actualizar","en":"Update"}'),
+('lbl_departamento', 'lbl', 'registro_usuario', '{"es":"Departamento:","en":""}'),
 ('lbl_unidad', 'lbl', 'registro_usuario', '{"es":"Unidad:","en":""}');
 
 COMMIT;

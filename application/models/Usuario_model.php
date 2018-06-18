@@ -822,4 +822,55 @@ class Usuario_model extends MY_Model {
         return (empty($query));
     }
 
+    /**
+    * Permite actualizar la informacion de un usuario
+    * @author clapas
+    * @date 15/06/2018
+    * @param array
+    * @return boolean
+    */
+    public function actualizar_informacion($params=array())
+    {
+        $salida = false;
+        $this->db->flush_cache();
+        $this->db->reset_query();
+
+        $this->db->trans_begin();
+        $this->db->where($params['where']);
+        $this->db->set($params['datos']);
+        $this->db->update('sistema.informacion_usuario');
+
+        if ($this->db->trans_status() === FALSE) {
+            $this->db->trans_rollback();
+        }else{
+            $this->db->trans_commit();
+            $salida = true;
+        }
+
+        return $salida;
+    }
+
+    /**
+    * Devuelve la informacion de un usuario
+    * @author clapas
+    * @date 18/06/2018
+    * @param array
+    * @return array
+    */
+    public function obtener_informacion_usuario($params=array())
+    {
+        $this->db->flush_cache();
+        $this->db->reset_query();
+
+        if(isset($params['select'])){
+            $this->db->where($params['select']);
+        }
+
+        if(isset($params['where'])){
+            $this->db->where($params['where']);
+        }
+
+        $query = $this->db->get('sistema.informacion_usuario');
+        return $query->result_array();
+    }
 }
