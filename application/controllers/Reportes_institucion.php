@@ -28,7 +28,7 @@ class Reportes_institucion extends General_reportes {
         $lang = $this->obtener_idioma();
         $output['lang'] = $lang;
         $output['language_text'] = $this->obtener_grupos_texto(array('reportes_imss'), $lang);
-        $output['bibliotecas_graficas'] = $this->bibliotecas_graficas(['a', 'e', 'd','f']);
+        $output['bibliotecas_graficas'] = $this->bibliotecas_graficas(['a', 'e', 'd','f','g']);
         $output['tabs'] = $tipo;
         switch ($tipo) {
             case Reportes_institucion::TOP_DELEGACION_UMAE:

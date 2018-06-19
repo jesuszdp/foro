@@ -22,6 +22,7 @@ class General_reportes extends MY_Controller {
             'd' => 'highcharts/modules/exporting.js',
             'e' => 'highcharts/modules/variwide.js',
             'f' => 'highcharts/modules/offline-exporting.js',
+            'g' => 'highcharts/highstock.js',
         ];
         $output = [];
         foreach ($array_bibliotecas as $value) {
