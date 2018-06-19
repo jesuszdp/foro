@@ -490,16 +490,23 @@ class Usuario_model extends MY_Model {
     }
 
     private function update_basicos($params = []) {
+        //pr($params);
+        $salida = false;
         $this->db->flush_cache();
         $this->db->reset_query();
-        $salida = false;
+
         $this->db->trans_begin();
-        $params['where'] = array(
-            'usuarios.id_usuario' => $params['id_usuario']
-        );
+        $this->db->where('id_usuario', $params['id_usuario']);
+        unset($params['id_usuario']);
+        $this->db->update('sistema.informacion_usuario', $params);
 
-
-        $resultado = $this->usuario->get_usuarios($params);
+        if ($this->db->trans_status() === FALSE) {
+            $this->db->trans_rollback();
+        }else{
+            $this->db->trans_commit();
+            $salida = true;
+        }
+        /*
         if (count($resultado) == 1) {
             $usuario = $resultado[0];
             $docente = array(
@@ -543,6 +550,7 @@ class Usuario_model extends MY_Model {
         }
         $this->db->flush_cache();
         $this->db->reset_query();
+        */
         return $salida;
     }
 

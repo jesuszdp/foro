@@ -142,3 +142,24 @@ insert into idiomas.traduccion values
 COMMIT;
 
 
+-- clapas 19/06/2018
+BEGIN;
+insert into idiomas.grupo (clave_grupo, nombre) values ('perfil_admin','Adminstracion del perfil')
+INSERT INTO idiomas.traduccion(clave_traduccion, clave_tipo, clave_grupo, lang) VALUES
+('matricula','lbl','perfil_admin','{"es":"","en":""}'),
+('rfc','lbl','perfil_admin','{"es":"","en":""}'),
+('curp','lbl','perfil_admin','{"es":"","en":""}'),
+('nombre','lbl','perfil_admin','{"es":"","en":""}'),
+('apellido_paterno','lbl','perfil_admin','{"es":"","en":""}'),
+('apellido_materno','lbl','perfil_admin','{"es":"","en":""}'),
+('sexo','lbl','perfil_admin','{"es":"","en":""}'),
+('clave_pais','lbl','perfil_admin','{"es":"","en":""}'),
+('email','lbl','perfil_admin','{"es":"","en":""}'),
+('telefono_personal','lbl','perfil_admin','{"es":"","en":""}'),
+('telefono_oficina','lbl','perfil_admin','{"es":"","en":""}'),
+('pais_institucion','lbl','perfil_admin','{"es":"","en":""}'),
+('institucion','lbl','perfil_admin','{"es":"","en":""}'),
+('categoria','lbl','perfil_admin','{"es":"","en":""}'),
+('unidad','lbl','perfil_admin','{"es":"","en":""}'),
+('departamento','lbl','perfil_admin','{"es":"","en":""}');
+COMMIT;
