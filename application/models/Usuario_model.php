@@ -5,6 +5,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Usuario_model extends MY_Model {
 
     const NO_SIAP = 'no_siap', SIAP = 'siap', NO_IMSS = 'no_imss';
+    const LIMIT = 10, LISTA = 'lista', BASICOS = 'basico', PASSWORD = 'password',
+            NIVELES_ACCESO = 'niveles', STATUS_ACTIVIDAD = 'actividad';
 
     public function __construct() {
         // Call the CI_Model constructor
@@ -451,19 +453,19 @@ class Usuario_model extends MY_Model {
         return $niveles;
     }
 
-    public function update($tipo = Usuario::BASICOS, $params = []) {
+    public function update($tipo = Usuario_model::BASICOS, $params = []) {
         $salida = false;
         switch ($tipo) {
-            case Usuario::BASICOS:
+            case Usuario_model::BASICOS:
                 $salida = $this->update_basicos($params);
                 break;
-            case Usuario::PASSWORD:
+            case Usuario_model::PASSWORD:
                 $salida = $this->update_password($params);
                 break;
-            case Usuario::NIVELES_ACCESO:
+            case Usuario_model::NIVELES_ACCESO:
                 $salida = $this->update_niveles_acceso($params);
                 break;
-            case Usuario::STATUS_ACTIVIDAD:
+            case Usuario_model::STATUS_ACTIVIDAD:
                 $salida = $this->update_status_actividad($params);
                 break;
         }

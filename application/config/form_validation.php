@@ -867,6 +867,19 @@ $config['form_editar_usuario_externos'] = array(
     )
 );
 
+$config['form_editar_password'] = array(
+    array(
+        'field' => 'reg_password',
+        'label' => 'Contraseña',
+        'rules' => 'trim|required|min_length[8]' //|callback_valid_pass
+    ),
+    array(
+        'field' => 'reg_repassword',
+        'label' => 'Confirmación contraseña',
+        'rules' => 'trim|required|matches[reg_password]'
+    )
+);
+
 // VALIDACIONES
 /*
              * isset

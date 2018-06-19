@@ -136,6 +136,38 @@ class Perfil extends MY_Controller {
 
   public function password()
   {
+    $post = $this->input->post(null,TRUE);
+
+    if($post){
+      $msg = '';
+      $msg_type = 'danger';
+      $success = false;
+
+      //pr($post);
+      $this->config->load('form_validation'); //Cargar archivo con validaciones
+      $validations = $this->config->item('form_editar_password'); //Obtener validaciones de archivo general
+      $this->set_textos_campos_validacion($validations, $this->language_text['registro_usuario']); //Modifica los textos del nombre de campo
+      $this->form_validation->set_rules($validations);
+
+      if ($this->form_validation->run() == TRUE) {
+        $user_sesion = $this->get_datos_sesion(); 
+
+        $param = array(
+          'pass' => $post['reg_password'],
+          'id_usuario' => $user_sesion['id_usuario'],
+        );
+
+        if($this->usuario->update('password',$param)){
+          $success = true;
+          $msg_type = 'success';
+          $msg = 'Su contraseña se actualizó correctamente';
+        }else{
+          $msg = 'Ocurrio un problema, intentelo de nuevo';
+        }
+        $output['salida'] = array( 'msg' => $msg, 'success' => $success, 'msg_type' => $msg_type );
+      }
+    }
+
     $output['language_text'] = $this->language_text;
     $main_content = $this->load->view('sesion/cambiar_password.tpl.php', $output, TRUE);
     $this->template->setMainContent($main_content);
