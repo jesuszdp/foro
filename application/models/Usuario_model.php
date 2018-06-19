@@ -5,6 +5,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Usuario_model extends MY_Model {
 
     const NO_SIAP = 'no_siap', SIAP = 'siap', NO_IMSS = 'no_imss';
+    const LIMIT = 10, LISTA = 'lista', BASICOS = 'basico', PASSWORD = 'password',
+            NIVELES_ACCESO = 'niveles', STATUS_ACTIVIDAD = 'actividad';
 
     public function __construct() {
         // Call the CI_Model constructor
@@ -451,19 +453,19 @@ class Usuario_model extends MY_Model {
         return $niveles;
     }
 
-    public function update($tipo = Usuario::BASICOS, $params = []) {
+    public function update($tipo = Usuario_model::BASICOS, $params = []) {
         $salida = false;
         switch ($tipo) {
-            case Usuario::BASICOS:
+            case Usuario_model::BASICOS:
                 $salida = $this->update_basicos($params);
                 break;
-            case Usuario::PASSWORD:
+            case Usuario_model::PASSWORD:
                 $salida = $this->update_password($params);
                 break;
-            case Usuario::NIVELES_ACCESO:
+            case Usuario_model::NIVELES_ACCESO:
                 $salida = $this->update_niveles_acceso($params);
                 break;
-            case Usuario::STATUS_ACTIVIDAD:
+            case Usuario_model::STATUS_ACTIVIDAD:
                 $salida = $this->update_status_actividad($params);
                 break;
         }
@@ -822,4 +824,55 @@ class Usuario_model extends MY_Model {
         return (empty($query));
     }
 
+    /**
+    * Permite actualizar la informacion de un usuario
+    * @author clapas
+    * @date 15/06/2018
+    * @param array
+    * @return boolean
+    */
+    public function actualizar_informacion($params=array())
+    {
+        $salida = false;
+        $this->db->flush_cache();
+        $this->db->reset_query();
+
+        $this->db->trans_begin();
+        $this->db->where($params['where']);
+        $this->db->set($params['datos']);
+        $this->db->update('sistema.informacion_usuario');
+
+        if ($this->db->trans_status() === FALSE) {
+            $this->db->trans_rollback();
+        }else{
+            $this->db->trans_commit();
+            $salida = true;
+        }
+
+        return $salida;
+    }
+
+    /**
+    * Devuelve la informacion de un usuario
+    * @author clapas
+    * @date 18/06/2018
+    * @param array
+    * @return array
+    */
+    public function obtener_informacion_usuario($params=array())
+    {
+        $this->db->flush_cache();
+        $this->db->reset_query();
+
+        if(isset($params['select'])){
+            $this->db->where($params['select']);
+        }
+
+        if(isset($params['where'])){
+            $this->db->where($params['where']);
+        }
+
+        $query = $this->db->get('sistema.informacion_usuario');
+        return $query->result_array();
+    }
 }

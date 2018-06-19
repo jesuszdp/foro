@@ -318,12 +318,12 @@ $config['form_registro_usuario'] = array(
     array(
         'field' => 'reg_password',
         'label' => 'Contraseña',
-        'rules' => 'required' //|callback_valid_pass
+        'rules' => 'trim|required|min_length[8]' //|callback_valid_pass
     ),
     array(
         'field' => 'reg_repassword',
         'label' => 'Confirmación contraseña',
-        'rules' => 'required|matches[reg_password]'
+        'rules' => 'trim|required|matches[reg_password]'
     ),
     array(
         'field' => 'reg_captcha',
@@ -813,6 +813,114 @@ $config["valida_evaluacion_revision"] = array(
         'label' => 'Observaciones',
         'rules' => 'required'
     ),
+);
+$config['form_editar_usuario_externos'] = array(
+    array(
+        'field' => 'ext_nombre',
+        'label' => 'Nombre',
+        'rules' => 'trim|required|max[100]|alpha_accent_space_dot_quot'
+    ),
+    array(
+        'field' => 'ext_ap',
+        'label' => '',
+        'rules' => 'trim|required|max[100]|alpha_accent_space_dot_quot' //|callback_valid_pass
+    ),
+    array(
+        'field' => 'ext_am',
+        'label' => '',
+        'rules' => 'trim|max[100]|alpha_accent_space_dot_quot' //|callback_valid_pass
+    ),
+    array(
+        'field' => 'ext_mail',
+        'label' => 'E-mail',
+        'rules' => 'trim|required|valida_correo_electronico' //|is_unico_datos_usuarios[email] //|callback_valid_pass
+    ),
+    array(
+        'field' => 'sexo',
+        'label' => 'Sexo',
+        'rules' => 'trim|required' //|callback_valid_pass
+    ),
+    array(
+        'field' => 'pais_institucion',
+        'label' => '',
+        'rules' => 'required'
+    ),
+    array(
+        'field' => 'institucion',
+        'label' => '',
+        'rules' => 'required|max[100]'
+    ),
+    array(
+        'field' => 'telefono_oficina',
+        'label' => '',
+        'rules' => 'max[50]|alpha_numeric_accent_space_dot'
+    ),
+    array(
+        'field' => 'telefono_personal',
+        'label' => '',
+        'rules' => 'required|max[50]|alpha_numeric_accent_space_dot'
+    ),
+    array(
+        'field' => 'pais_origen',
+        'label' => '',
+        'rules' => 'required'
+    )
+);
+
+$config['form_editar_usuario_internos'] = array(
+    array(
+        'field' => 'ext_nombre',
+        'label' => 'Nombre',
+        'rules' => 'trim|required|max[100]|alpha_accent_space_dot_quot'
+    ),
+    array(
+        'field' => 'ext_ap',
+        'label' => '',
+        'rules' => 'trim|required|max[100]|alpha_accent_space_dot_quot' //|callback_valid_pass
+    ),
+    array(
+        'field' => 'ext_am',
+        'label' => '',
+        'rules' => 'trim|max[100]|alpha_accent_space_dot_quot' //|callback_valid_pass
+    ),
+    array(
+        'field' => 'ext_mail',
+        'label' => 'E-mail',
+        'rules' => 'trim|required|valida_correo_electronico' //|is_unico_datos_usuarios[email] //|callback_valid_pass
+    ),
+    array(
+        'field' => 'sexo',
+        'label' => 'Sexo',
+        'rules' => 'trim|required' //|callback_valid_pass
+    ),
+    array(
+        'field' => 'telefono_oficina',
+        'label' => '',
+        'rules' => 'max[50]|alpha_numeric_accent_space_dot'
+    ),
+    array(
+        'field' => 'telefono_personal',
+        'label' => '',
+        'rules' => 'required|max[50]|alpha_numeric_accent_space_dot'
+    ),
+    array(
+        'field' => 'pais_origen',
+        'label' => '',
+        'rules' => 'required'
+    )
+);
+
+$config['form_editar_password'] = array(
+    array(
+        'field' => 'reg_password',
+        'label' => 'Contraseña',
+        'rules' => 'trim|required|min_length[8]' //|callback_valid_pass
+    ),
+    array(
+        'field' => 'reg_repassword',
+        'label' => 'Confirmación contraseña',
+        'rules' => 'trim|required|matches[reg_password]'
+    )
 );
 
 // VALIDACIONES
