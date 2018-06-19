@@ -22,15 +22,15 @@ function textos_lenguaje() {
     if (lang_system_ != 'en') {
         lang_system = {
             contextButtonTitle: "Menú contextual",
-            downloadJPEG: "Descargar imagen JPEG",
+            downloadJPEG: language_text.reportes.descarga_jpeg,
             downloadPDF: language_text.reportes.descarga_pdf,
             downloadPNG: language_text.reportes.descarga_png,
-            downloadSVG: "Descargar imagen en vectores SVG",
+            downloadSVG: language_text.reportes.descarga_svg,
             drillUpText: "Regresar a {series.name}",
             loading: "Cargando...",
             noData: "No hay datos que mostrar",
             resetZoom: "Restablecer zoom",
-            printChart: "Imprimir gráfica",
+            printChart: language_text.reportes.print_grafica_lbl,
             resetZoomTitle: "Restablecer zoom nivel 1:1",
             months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
             shortMonths: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],

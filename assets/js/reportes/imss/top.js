@@ -83,17 +83,17 @@ function grafica_delegacion() {
         tooltip: {
             pointFormat: tooltip_grafica + ' <b>{y}</b>'
         },
-        exporting: {
-            buttons: {
-                contextButton: {
-                    enabled: false,
-                },
-                exportButton: {
-                    text: language_text.reportes.descarga_lbl,
-                    menuItems: Highcharts.getOptions().exporting.buttons.contextButton.menuItems.splice(5)
-                },
-            }
-        },
+//        exporting: {
+//            buttons: {
+//                contextButton: {
+//                    enabled: false,
+//                },
+//                exportButton: {
+//                    text: language_text.reportes.descarga_lbl,
+//                    menuItems: Highcharts.getOptions().exporting.buttons.contextButton.menuItems.splice(5)
+//                },
+//            }
+//        },
         series: [{
                 name: 'Population',
                 data: data_grafica_delegacion,

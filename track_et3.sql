@@ -141,4 +141,19 @@ insert into idiomas.traduccion values
 ('descarga_png','lbl','reportes','{"es":"Descargar documento PNG","en":"Download PNG document"}');
 COMMIT;
 
+BEGIN;
+insert into idiomas.traduccion values 
+('print_grafica_lbl','lbl','reportes','{"es":"Imprimir gráfica","en":"Print chart"}')
+, ('descarga_svg','lbl','reportes','{"es":"Descargar imagen en vectores SVG","en":"Download SVG vector image"}');
+, ('descarga_jpeg','lbl','reportes','{"es":"Descargar imagen JPEG","en":"Download JPEG image"}');
+COMMIT;
 
+BEGIN;
+insert into idiomas.traduccion values 
+('genero_lbl','lbl','reportes','{"es":"Género","en":"Gender"}');
+COMMIT;
+
+BEGIN;
+insert into idiomas.traduccion values 
+('registros_lbl','lbl','reportes','{"es":"Registros","en":"Registros"}');
+COMMIT;
