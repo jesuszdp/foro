@@ -141,25 +141,36 @@ insert into idiomas.traduccion values
 ('descarga_png','lbl','reportes','{"es":"Descargar documento PNG","en":"Download PNG document"}');
 COMMIT;
 
-
--- clapas 19/06/2018
 BEGIN;
-insert into idiomas.grupo (clave_grupo, nombre) values ('perfil_admin','Adminstracion del perfil')
-INSERT INTO idiomas.traduccion(clave_traduccion, clave_tipo, clave_grupo, lang) VALUES
-('matricula','lbl','perfil_admin','{"es":"","en":""}'),
-('rfc','lbl','perfil_admin','{"es":"","en":""}'),
-('curp','lbl','perfil_admin','{"es":"","en":""}'),
-('nombre','lbl','perfil_admin','{"es":"","en":""}'),
-('apellido_paterno','lbl','perfil_admin','{"es":"","en":""}'),
-('apellido_materno','lbl','perfil_admin','{"es":"","en":""}'),
-('sexo','lbl','perfil_admin','{"es":"","en":""}'),
-('clave_pais','lbl','perfil_admin','{"es":"","en":""}'),
-('email','lbl','perfil_admin','{"es":"","en":""}'),
-('telefono_personal','lbl','perfil_admin','{"es":"","en":""}'),
-('telefono_oficina','lbl','perfil_admin','{"es":"","en":""}'),
-('pais_institucion','lbl','perfil_admin','{"es":"","en":""}'),
-('institucion','lbl','perfil_admin','{"es":"","en":""}'),
-('categoria','lbl','perfil_admin','{"es":"","en":""}'),
-('unidad','lbl','perfil_admin','{"es":"","en":""}'),
-('departamento','lbl','perfil_admin','{"es":"","en":""}');
+insert into idiomas.traduccion values 
+('print_grafica_lbl','lbl','reportes','{"es":"Imprimir gráfica","en":"Print chart"}')
+, ('descarga_svg','lbl','reportes','{"es":"Descargar imagen en vectores SVG","en":"Download SVG vector image"}');
+, ('descarga_jpeg','lbl','reportes','{"es":"Descargar imagen JPEG","en":"Download JPEG image"}');
+COMMIT;
+
+BEGIN;
+insert into idiomas.traduccion values 
+('genero_lbl','lbl','reportes','{"es":"Género","en":"Gender"}');
+COMMIT;
+
+BEGIN;
+insert into idiomas.traduccion values 
+('registros_lbl','lbl','reportes','{"es":"Registros","en":"Registros"}');
+COMMIT;
+
+
+BEGIN;
+insert into sistema.modulos values
+('REPORTES_MENU', '{"es":"Reportes","en":"Reports"}', '/reportes', null, true, null,1,'MENU', null)
+,('REPORTES_GENERALES', '{"es":"Reportes generales","en":"General Reports"}', '/reportes_generales/reportes', null, true, 'REPORTES_MENU',2,'MENU', null)
+,('REPORTES_IMSS', '{"es":"Reportes IMSS","en":"Reports IMSS"}', '/reportes_institucion/reportes', null, true, 'REPORTES_MENU',3,'MENU', null)
+;
+insert into sistema.roles_modulos values
+('REPORTES_MENU','SUPERADMIN',true)
+,('REPORTES_MENU','ADMIN',true)
+,('REPORTES_GENERALES','SUPERADMIN',true)
+,('REPORTES_GENERALES','ADMIN',true)
+,('REPORTES_IMSS','SUPERADMIN',true)
+,('REPORTES_IMSS','ADMIN',true)
+;
 COMMIT;
