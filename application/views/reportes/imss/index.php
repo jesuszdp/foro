@@ -1,10 +1,10 @@
-<?php //pr($language_text);  ?>
+<?php //pr($language_text);     ?>
 <!-- listas de estados -->
 <?php foreach ($bibliotecas_graficas as $value) { ?>
     <script src = "<?php echo asset_url() . $value; ?>"></script>
 <?php } ?>
 <?php echo js("/reportes/general_reportes.js"); ?>
-    
+
 <div class="schedule-wrapper clear" data-animation="fadeIn" data-animation-delay="200">
     <div class="schedule-tabs lv1">
         <ul id="tabs-lv1"  class="nav nav-justified">

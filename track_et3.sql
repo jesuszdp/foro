@@ -157,3 +157,20 @@ BEGIN;
 insert into idiomas.traduccion values 
 ('registros_lbl','lbl','reportes','{"es":"Registros","en":"Registros"}');
 COMMIT;
+
+
+BEGIN;
+insert into sistema.modulos values
+('REPORTES_MENU', '{"es":"Reportes","en":"Reports"}', '/reportes', null, true, null,1,'MENU', null)
+,('REPORTES_GENERALES', '{"es":"Reportes generales","en":"General Reports"}', '/reportes_generales/reportes', null, true, 'REPORTES_MENU',2,'MENU', null)
+,('REPORTES_IMSS', '{"es":"Reportes IMSS","en":"Reports IMSS"}', '/reportes_institucion/reportes', null, true, 'REPORTES_MENU',3,'MENU', null)
+;
+insert into sistema.roles_modulos values
+('REPORTES_MENU','SUPERADMIN',true)
+,('REPORTES_MENU','ADMIN',true)
+,('REPORTES_GENERALES','SUPERADMIN',true)
+,('REPORTES_GENERALES','ADMIN',true)
+,('REPORTES_IMSS','SUPERADMIN',true)
+,('REPORTES_IMSS','ADMIN',true)
+;
+COMMIT;

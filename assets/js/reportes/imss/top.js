@@ -1,13 +1,17 @@
 $(document).ready(function () {
-    grafica_umae();
     grafica_delegacion();
+    grafica_umae();
 });
 
 function grafica_umae() {
-    Highcharts.chart('grafica_umae', {
+    var $container = $('#grafica_umae');
+    var chart = new Highcharts.Chart({
         lang: textos_lenguaje(),
         chart: {
-            type: 'column'
+            type: 'column',
+            renderTo: $container[0],
+            height: 400,
+//            width: 100
         },
         title: {
             text: titulo + ' UMAE'
@@ -26,6 +30,10 @@ function grafica_umae() {
             min: 0,
             title: {
                 text: yaxis
+            },
+            scrollbar: {
+                enabled: true,
+                showFull: true
             }
         },
         legend: {
@@ -53,10 +61,13 @@ function grafica_umae() {
 }
 
 function grafica_delegacion() {
-    Highcharts.chart('grafica_delegacion', {
+    var $container = $('#grafica_delegacion');
+    var chart = new Highcharts.Chart({
         lang: textos_lenguaje(),
         chart: {
-            type: 'column'
+            type: 'column',
+            renderTo: $container[0],
+            height: 400,
         },
         title: {
             text: titulo + ' delegación'
@@ -69,6 +80,10 @@ function grafica_delegacion() {
                     fontSize: '13px',
                     fontFamily: 'Verdana, sans-serif'
                 }
+            },
+            scrollbar: {
+                enabled: true,
+                showFull: true
             }
         },
         yAxis: {
