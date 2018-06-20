@@ -414,6 +414,13 @@ class Usuario_model extends MY_Model {
             }
         }
 
+        if(isset($params['ilike'])){
+            foreach ($params['ilike'] as $key => $value) {
+                $this->db->like($key,strtoupper($value));
+                $this->db->or_like($key,strtolower($value));
+            }
+        }
+
         if (isset($params['limit']) && isset($params['offset']) && !isset($params['total'])) {
             $this->db->limit($params['limit'], $params['offset']);
         } else if (isset($params['limit']) && !isset($params['total'])) {
@@ -425,7 +432,8 @@ class Usuario_model extends MY_Model {
         }
         //pr($this->db->get_compiled_select());
         $query = $this->db->get();
-        //pr($this->db->last_query()); exit();
+        //pr($this->db->last_query()); 
+        //exit();
         if ($query) {
             $usuarios = $query->result_array();
             $query->free_result(); //Libera la memoria

@@ -89,18 +89,24 @@ class Usuario extends MY_Controller {
     }
 
     private function lista_usuarios(&$params = []) {
-
+        //pr($params);
         $filtros = $this->genera_filtros($params);
         $filtros['limit'] = isset($params['pageSize']) ? $params['pageSize'] : Usuario::LIMIT;
         $filtros['offset'] = isset($params['pageIndex']) ? ($filtros['limit'] * ($params['pageIndex'] - 1)) : 0;
-
+        /*
         $filtros['select'] = array(
             'usuarios.id_usuario', 'coalesce(inf.matricula, usuarios.username) matricula',
             'concat(inf.nombre, $$ $$, inf.apellido_paterno, $$ $$, inf.apellido_materno) nombre',
             'del.nombre delegacion', 'uni.nombre unidad', 'inf.es_imss', 'usuarios.activo',
             '(select array_agg(nombre) from sistema.roles R join sistema.usuario_rol UR on R.clave_rol=UR.clave_rol and UR.id_usuario=usuarios.id_usuario and UR.activo=true) as rol'
         );
+        */
+        $filtros['select'] = array(
+            'usuarios.id_usuario','usuarios.username', 'concat(inf.nombre, $$ $$, inf.apellido_paterno, $$ $$, inf.apellido_materno) nombre_completo', 'del.nombre delegacion', 'inf.es_imss', 'usuarios.activo','(select array_agg(nombre) from sistema.roles R join sistema.usuario_rol UR on R.clave_rol=UR.clave_rol and UR.id_usuario=usuarios.id_usuario and UR.activo=true) as rol'
+        );
+
         $usuarios['data'] = $this->usuario->get_usuarios($filtros); //exit();
+        //pr($usuarios['data']);
         $filtros['total'] = true;
         $total = $this->usuario->get_usuarios($filtros)[0]['total'];
         $usuarios['length'] = $total;
@@ -114,17 +120,22 @@ class Usuario extends MY_Controller {
         foreach ($params as $key => $value) {
             if ($value != '') {
                 switch ($key) {
+                    /*
                     case 'matricula':
                         $filtros['like']['usuarios.username'] = $value;
                         break;
+                        */
+                    case 'username':
+                        $filtros['where']['usuarios.username'] = $value;
+                        break;
                     case 'delegacion':
-                        $filtros['like']['del.nombre'] = $value;
+                        $filtros['ilike']['del.nombre'] = $value;
                         break;
                     case 'unidad':
                         $filtros['like']['uni.nombre'] = $value;
                         break;
-                    case 'nombre':
-                        $filtros['like']['inf.nombre'] = $value;
+                    case 'nombre_completo':
+                        $filtros['like']['concat(inf.nombre, $$ $$, inf.apellido_paterno, $$ $$, inf.apellido_materno)'] = $value;
                         break;
                     case 'es_imss':
                         $filtros['where']['inf.es_imss'] = $value;
