@@ -1,7 +1,13 @@
 $(document).ready(function () {
     grafica_umae();
     grafica_delegacion();
-    console.log(Highcharts.getOptions());
+    grafica_nivel_atencion();
+    $('.highcharts-container').each(function () {
+        $(this).width('100%');
+    });
+    $('.highcharts-root').each(function () {
+        $(this).width('100%');
+    });
 });
 
 function porcentajes_umae() {
@@ -10,7 +16,7 @@ function porcentajes_umae() {
     var data_r = new Array();
     var objeto = null;
     var objeto_datos = data_grafica.umae;
-    console.log("objeto_datos ---->");
+    console.log("objeto_datos ---->>>");
     console.log(objeto_datos);
     for (var i in objeto_datos) {
         if (objeto_datos.hasOwnProperty(i) && objeto_datos[i].total > 0) {
@@ -31,6 +37,22 @@ function porcentajes_delegacion() {
             data_r.push([objeto.nombre, parseFloat(objeto.total)]);
         }
     }
+//    console.log(language_text);
+//    console.log(data_r);
+    return data_r;
+}
+function porcentajes_nivel_atencion() {
+    var data_r = new Array();
+    var objeto_datos = data_grafica.nivel_atencion;
+    console.log('<- objeto_datos ->');
+    console.log(objeto_datos);
+    console.log(language_text);
+    if (objeto_datos.length > 0) {
+
+        data_r.push([language_text.reportes_imss.lbl_porcentaje_delegacion, parseFloat(objeto_datos[0]['delegacion'])]);
+        data_r.push([language_text.reportes_imss.lbl_porcentaje_umae, parseFloat(objeto_datos[0]['umae'])]);
+    }
+
 //    console.log(language_text);
 //    console.log(data_r);
     return data_r;
@@ -163,6 +185,56 @@ function grafica_delegacion() {
                 name: language_text.reportes.total_gral,
                 colorByPoint: true,
                 data: delegacion_graf
+            }]
+    });
+}
+
+function grafica_nivel_atencion() {
+    var delegacion_umae_graf = porcentajes_nivel_atencion();
+    Highcharts.chart('grafica_nivel_atencion', {
+        lang: textos_lenguaje(),
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: language_text.reportes_imss.titulo_porcentaje + ' delegación'
+        },
+        tooltip: {
+            pointFormat: language_text.reportes.total_gral + ' <b>{point.y}</b><br>' +
+                    language_text.reportes.porcentaje_lbl + ' <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b><br> ' +
+                            language_text.reportes.total_gral + ': <b>{point.y}</b><br> ' +
+                            language_text.reportes.porcentaje_lbl + ': {point.percentage:.1f} % ',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+            /*/
+             pie: {
+             allowPointSelect: true,
+             cursor: 'pointer',
+             dataLabels: {
+             enabled: false
+             },
+             showInLegend: true
+             }
+             */
+        },
+        series: [{
+                name: language_text.reportes.total_gral,
+                colorByPoint: true,
+                data: delegacion_umae_graf
             }]
     });
 }

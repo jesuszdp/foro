@@ -20,14 +20,12 @@
 
 <div class="tab-content lv2">
     <div id="tab-lv21-first" class="tab-pane fade in active">
-        <div class="timeline">
-            <?php //pr($top['umae']); ?>
+        <div class="ajuste">
             <div id="grafica_umae" style="width:100%; height:400px;"></div>
         </div>
     </div>
     <div id="tab-lv21-second" class="tab-pane fade in ">
-        <div class="timeline">
-            <?php //pr($top['delegacion']); ?>
+        <div class="ajuste">
             <div id="grafica_delegacion" style="width:100%; height:400px;"></div>
         </div>
     </div>

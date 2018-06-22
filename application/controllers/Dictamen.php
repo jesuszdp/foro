@@ -172,7 +172,7 @@ class Dictamen extends General_revision {
                 'where' => array(
                     'd.aceptado' => true
                 ),
-                'order_by' => 'd.promedio, ti.fecha',
+                'order_by' => 'd.promedio desc, ti.fecha desc',
                 'where_in' => array('d.sugerencia', array('O', 'C'))
             );
         } elseif ($manual) { // Filtros para obtener los trabajos asignados de forma manual
@@ -180,7 +180,7 @@ class Dictamen extends General_revision {
                 'where' => array(
                     'd.aceptado' => true
                 ),
-                'order_by' => 'd.sugerencia', 'd.promedio','ti.fecha',
+                'order_by' => 'd.sugerencia desc, d.promedio desc, ti.fecha desc',
                 'where_in' => array('d.sugerencia', array('O', 'C'))
             );
         }

@@ -1,5 +1,15 @@
 var data_grafica;
 
+function  obtener_rango_calidad(classe) {
+    console.log('highcharts-container---------------->');
+    console.log(classe);
+    $('.' + classe).each(function () {
+        console.log(this.name);
+        console.log(this);
+    });
+    return 'bien';
+}
+
 function  obtener_rango_calidad(promedio) {
     var valor = '';
     if (promedio >= 0 && promedio <= 4) {
@@ -17,8 +27,8 @@ function  obtener_rango_calidad(promedio) {
 }
 
 function textos_lenguaje() {
-    console.log("EL lenguaje actual del sistema es -> " + lang_system_);
-    console.log(lang_system_);
+//    console.log("EL lenguaje actual del sistema es -> " + lang_system_);
+//    console.log(lang_system_);
     if (lang_system_ != 'en') {
         lang_system = {
             contextButtonTitle: "Menú contextual",

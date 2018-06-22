@@ -86,6 +86,7 @@ class Reportes_institucion extends General_reportes {
         $output['data']['total_delegacion'] = $this->reporteimss->total_registros(false);
         $output['data']['umae'] = $this->reporteimss->top_umae();
         $output['data']['delegacion'] = $this->reporteimss->top_delegacion();
+        $output['data']['nivel_atencion'] = $this->reporteimss->top_delegacion_umae();
         return $output;
     }
 

@@ -1,6 +1,12 @@
 $(document).ready(function () {
     grafica_umae();
     grafica_delegacion();
+    $('.highcharts-container').each(function () {
+        $(this).width('100%');
+    });
+    $('.highcharts-root').each(function () {
+        $(this).width('100%');
+    });
 });
 
 function grafica_umae() {

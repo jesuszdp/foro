@@ -15,6 +15,7 @@ function get_data_trabajos_calidad() {
     }
     return data_r;
 }
+
 Highcharts.chart('progressBar', {
     lang: textos_lenguaje(),
     chart: {

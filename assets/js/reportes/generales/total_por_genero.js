@@ -9,6 +9,23 @@ jQuery(document).ready(function () {
     console.log(language_text);
 });
 
+function get_data_trabajos_calidad() {
+    var data_r = new Array();
+    var objeto = null;
+    var text_sexo = '';
+    var objeto_datos = data_grafica.genero;
+    for (var i in objeto_datos) {
+        if (objeto_datos.hasOwnProperty(i)) {
+            objeto = objeto_datos[i];
+            console.log(i);
+            text_sexo = language_text.reportes['rep_sexo_' + objeto.sexo];
+//            data_r.push([text_sexo, parseFloat(objeto["promedio"]), parseFloat(objeto["total_trabajos"])]);
+            data_r.push([text_sexo, parseFloat(objeto['count'])]);
+        }
+    }
+    return data_r;
+}
+
 Highcharts.chart('container', {
     lang: textos_lenguaje(),
     chart: {
@@ -54,10 +71,6 @@ Highcharts.chart('container', {
     series: [{
             name: language_text.reportes.porcentaje_lbl,
             colorByPoint: true,
-            data: [
-                [language_text.reportes_generales.lbl_femenino, parseFloat(data_grafica.genero[0]['count'])],
-                [language_text.reportes_generales.lbl_masculino, parseFloat(data_grafica.genero[1]['count'])],
-                [language_text.reportes_generales.lbl_otro, parseFloat(data_grafica.genero[2]['count'])],
-            ]
+            data: get_data_trabajos_calidad()
         }]
 });

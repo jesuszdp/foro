@@ -51,10 +51,11 @@ class Dictamen_model extends MY_Model {
 
         if(isset($param['order_by']))
         {
-          $this->db->order_by($param['order_by'],'desc');
+          $this->db->order_by($param['order_by']);
         }
 
         $res = $this->db->get('foro.historico_revision hr');
+//        pr($this->db->last_query());
         $this->db->flush_cache();
         $this->db->reset_query();    
         $reusltado = $res->result_array();

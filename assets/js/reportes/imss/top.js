@@ -1,6 +1,12 @@
 $(document).ready(function () {
     grafica_delegacion();
     grafica_umae();
+    $('.highcharts-container').each(function () {
+        $(this).width('100%');
+    });
+    $('.highcharts-root').each(function () {
+        $(this).width('100%');
+    });
 });
 
 function grafica_umae() {
@@ -10,8 +16,6 @@ function grafica_umae() {
         chart: {
             type: 'column',
             renderTo: $container[0],
-            height: 400,
-//            width: 100
         },
         title: {
             text: titulo + ' UMAE'
@@ -67,7 +71,6 @@ function grafica_delegacion() {
         chart: {
             type: 'column',
             renderTo: $container[0],
-            height: 400,
         },
         title: {
             text: titulo + ' delegación'
@@ -113,7 +116,7 @@ function grafica_delegacion() {
                 name: 'Population',
                 data: data_grafica_delegacion,
             }]
-    } 
+    }
 //    , function(chart) { // on complete
 //         console.log("chart = ");
 //        console.log(chart);
@@ -127,5 +130,4 @@ function grafica_delegacion() {
 //        
 //    }
     );
-
 }
