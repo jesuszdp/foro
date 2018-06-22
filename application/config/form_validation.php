@@ -729,17 +729,12 @@ $config['insert_catalogo_departamento'] = array(
 
 $config['update_catalogo_departamento'] = array(
     array(
-        'field' => 'id_departamento_instituto',
-        'label' => 'ID',
-        'rules' => 'required|is_numeric'
-    ),
-    array(
         'field' => 'clave_unidad',
         'label' => 'Clave unidad',
         'rules' => 'required'
     ),
     array(
-        'field' => 'departamento',
+        'field' => 'nombre',
         'label' => 'Nombre de la adscripción',
         'rules' => 'required'
     ),
