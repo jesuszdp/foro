@@ -609,4 +609,62 @@ class Catalogo_model extends MY_Model {
             }
             return $estado;
          }
+         public function insert_registro($nombre_tabla = null, &$params = [], $return_last_id = true) {
+             $this->db->flush_cache();
+             $this->db->reset_query();
+             $status = array('success' => false, 'message' => 'Nombre de tabla incorrecto', 'data' => []);
+             if (is_null($nombre_tabla)) {
+                 return $status;
+             }
+
+             try {
+                 $this->db->insert($nombre_tabla, $params);
+                 $status['success'] = true;
+                 $status['message'] = 'Agregado con éxito';
+                 if ($return_last_id) {
+                     $status['data'] = array('id_elemento' => $this->db->insert_id());
+                 }
+             } catch (Exception $ex) {
+
+             }
+             return $status;
+         }
+
+         public function update_registro($nombre_tabla = null, &$params = [], $where_ids = []) {
+             $this->db->flush_cache();
+             $this->db->reset_query();
+             $status = array('success' => false, 'message' => 'Nombre de tabla incorrecto', 'data' => []);
+             if (is_null($nombre_tabla)) {
+                 return $status;
+             }
+             try {
+                 $this->db->update($nombre_tabla, $params, $where_ids);
+                 $status['success'] = true;
+                 $status['message'] = 'Actualizado con éxito';
+             } catch (Exception $ex) {
+
+             }
+             return $status;
+         }
+
+         public function delete_registros($nombre_tabla = null, $where_ids = []) {
+             $this->db->flush_cache();
+             $this->db->reset_query();
+             $status = array('success' => false, 'message' => 'Nombre de tabla incorrecto', 'data' => []);
+             if (is_null($nombre_tabla)) {
+                 return $status;
+             }
+             try {
+                 foreach ($where_ids as $key => $value) {
+                     $this->db->where($key, $value);
+                 }
+                 $this->db->delete($nombre_tabla);
+                 $status['success'] = true;
+                 $status['message'] = 'Eliminado con éxito';
+             } catch (Exception $ex) {
+
+             }
+             $this->db->reset_query();
+             return $status;
+         }
 }
