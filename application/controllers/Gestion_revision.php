@@ -99,9 +99,11 @@ class Gestion_revision extends General_revision {
             $result['result'][$row['folio']]['titulo'] = $row['titulo'];
             $result['result'][$row['folio']]['clave_estado'] = $row['clave_estado'];
             $result['result'][$row['folio']]['revisores'][$row['id_usuario']]['revisor'] = $row['revisor'];
-            $result['result'][$row['folio']]['revisores'][$row['id_usuario']]['revisor'] = $row['revisor'];
+            $result['result'][$row['folio']]['revisores'][$row['id_usuario']]['activo'] = $row['activo'];
             //$result['result'][$row['folio']]['revisores'][$row['id_usuario']]['clave_estado'] = ($row['revisado']==true) ? 'Revisado' : 'Sin revisar';
-            $result['result'][$row['folio']]['revisores'][$row['id_usuario']]['clave_estado'] = $this->get_estado_revisor($row);
+            $estado_revisor = $this->get_estado_revisor($row);
+            $result['result'][$row['folio']]['revisores'][$row['id_usuario']]['clave_estado'] = $estado_revisor['estado_actual_revisor'];
+            $result['result'][$row['folio']]['mostrar'] = $estado_revisor['bandera'];
             $result['result'][$row['folio']]['revisores'][$row['id_usuario']]['fecha_limite_revision'] = $row['fecha_limite_revision'];
             $metodologia = json_decode($row['metodologia'], true);
             $result['result'][$row['folio']]['metodologia'] = $metodologia[$lenguaje];
@@ -289,25 +291,32 @@ class Gestion_revision extends General_revision {
         //pr($registro);
         //$lenguaje = obtener_lenguaje_actual();
         $estado_actual_revisor = '';
+        $bandera=0;
         if ($registro['revisado'] == false) {
             if ($registro['fuera_tiempo'] == true) {
                 $estado_actual_revisor = 'Fuera de tiempo';
+                $bandera++;
             } else {
                 $estado_actual_revisor = 'Sin revisión';
             }
         } else {
             if ($registro['conflicto_interes'] == true) {
                 $estado_actual_revisor = 'Conflicto de intereses';
+                $bandera++;
             } else {
                 if ($registro['clave_estado'] == 'discrepancia') {
                     $estado_actual_revisor = 'Discrepancia';
+                    $bandera++;
                 } else {
                     $estado_actual_revisor = 'Revisado';
                 }
             }
         }
+        //pr($bandera);
+        $resultado['estado_actual_revisor'] = $estado_actual_revisor;
+        $resultado['bandera'] = $bandera;
 
-        return $estado_actual_revisor;
+        return $resultado;
     }
 
     /**

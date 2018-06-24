@@ -208,7 +208,7 @@
         jQuery(document).ready(function () {
             //theme.init();
             var promedio = "<?php echo $promedioFinal['result'][0]['promedio']; ?>";
-            console.log(promedio);
+            //console.log(promedio);
             chart("graficas", "table", null, null, ['#0095bc', '#98c56e']);
             progresBar("progressBar", null, "Valoración del trabajo", null, null, Math.round(promedio));
         });

@@ -24,6 +24,8 @@
               <?php
               foreach ($data_req_atencion['result'] as $row)
               {
+                //pr($row);
+                if($row['mostrar']>0){
                   $folio_enc = encrypt_base64($row['folio']);
                   ?>
                   <tr>
@@ -52,7 +54,8 @@
                       <a href="" type="button" data-animation="flipInY" data-animation-delay="100" data-f="<?php echo $folio_enc; ?>" class="btn-asignar" data-toggle="modal" data-target="#exampleModal" style="display:inline-table;"><?php echo $opciones_secciones['btn_asignar'];?> <span class="glyphicon glyphicon-log-in"></a>
                     </td
                   </tr>
-<?php
+                <?php
+                }
               }
           }
           else

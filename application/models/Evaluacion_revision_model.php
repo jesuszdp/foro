@@ -203,6 +203,7 @@ class Evaluacion_revision_model extends MY_Model {
         $this->db->join('foro.trabajo_investigacion ti', 'hr.folio = ti.folio', 'left');
         $this->db->join('foro.convocatoria cc', 'cc.id_convocatoria = ti.id_convocatoria', 'inner');
         $this->db->where('cc.activo', true);
+        $this->db->where('cc.revision', true);
         $this->db->where("rn.id_usuario", $user_revisor);
         $this->db->where("hr.actual", TRUE);
         $this->db->where("rn.activo", TRUE);
@@ -233,6 +234,7 @@ class Evaluacion_revision_model extends MY_Model {
         $this->db->join('foro.trabajo_investigacion ti', 'hr.folio = ti.folio', 'left');
         $this->db->join('foro.convocatoria cc', 'cc.id_convocatoria = ti.id_convocatoria', 'inner');
         $this->db->where('cc.activo', true);
+        $this->db->where('cc.revision', true);
         $this->db->where("hr.actual", TRUE);
         $this->db->where("rn.activo", TRUE);
         $this->db->where("rn.revisado", TRUE);
