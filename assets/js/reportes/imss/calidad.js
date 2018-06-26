@@ -7,39 +7,43 @@ $(document).ready(function () {
     $('.highcharts-root').each(function () {
         $(this).width('100%');
     });
+    $('.highcharts-credits').each(function () {
+        $(this).css('display', 'none');
+    });
 });
 
 function grafica_umae() {
-    Highcharts.chart('grafica_umae', {
-        lang: textos_lenguaje(),
-        chart: {
-            type: 'column'
-        },
-        title: {
-            text: titulo + ' UMAE'
-        },
-        xAxis: {
-            type: 'category',
-            labels: {
-                rotation: -60,
-                style: {
-                    fontSize: '13px',
-                    fontFamily: 'Verdana, sans-serif'
-                }
-            }
-        },
-        yAxis: {
-            min: 0,
+    if (data_grafica_umae.length > 0) {
+        Highcharts.chart('grafica_umae', {
+            lang: textos_lenguaje(),
+            chart: {
+                type: 'column'
+            },
             title: {
-                text: yaxis
-            }
-        },
-        legend: {
-            enabled: false
-        },
-        tooltip: {
-            pointFormat: tooltip_grafica + ' <b>{point.y:.1f}</b>'
-        },
+                text: titulo + ' UMAE'
+            },
+            xAxis: {
+                type: 'category',
+                labels: {
+                    rotation: -60,
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    }
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: yaxis
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            tooltip: {
+                pointFormat: tooltip_grafica + ' <b>{point.y:.1f}</b>'
+            },
 //        exporting: {
 //            buttons: {
 //                contextButton: {
@@ -51,11 +55,15 @@ function grafica_umae() {
 //                },
 //            }
 //        },
-        series: [{
-                name: 'Population',
-                data: data_grafica_umae
-            }]
-    });
+            series: [{
+                    name: 'Population',
+                    data: data_grafica_umae
+                }]
+        });
+    } else {
+        $("#pie_porcentaje_umae").html("* " + language_text.reportes.lbl_sin_registros);
+        $("#grafica_umae").css("display", "none");
+    }
 }
 
 function grafica_delegacion() {

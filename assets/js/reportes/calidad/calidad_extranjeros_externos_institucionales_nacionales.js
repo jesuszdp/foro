@@ -1,6 +1,7 @@
 jQuery(document).ready(function () {
-//    console.log(data_grafica.data);
-//    console.log(get_data_trabajos_calidad());
+    $('.highcharts-credits').each(function () {
+        $(this).css('display', 'none');
+    });
 });
 function get_data_trabajos_calidad() {
     var data_r = new Array();

@@ -1,5 +1,7 @@
 jQuery(document).ready(function () {
-    console.log(language_text);
+    $('.highcharts-credits').each(function () {
+        $(this).css('display', 'none');
+    });
 });
 Highcharts.chart('container', {
     lang: textos_lenguaje(),

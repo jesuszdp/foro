@@ -23,6 +23,8 @@
     <div id="tab-lv21-first" class="tab-pane fade in active">
         <div class="ajuste">
             <div id="grafica_umae" style="width:100%; height:400px;"></div>
+            <br>
+            <div><p id="pie_porcentaje_umae"></p></div>
         </div>
     </div>
     <div id="tab-lv21-second" class="tab-pane fade in">

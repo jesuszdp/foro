@@ -7,45 +7,49 @@ $(document).ready(function () {
     $('.highcharts-root').each(function () {
         $(this).width('100%');
     });
+    $('.highcharts-credits').each(function () {
+        $(this).css('display', 'none');
+    });
 });
 
 function grafica_umae() {
     var $container = $('#grafica_umae');
-    var chart = new Highcharts.Chart({
-        lang: textos_lenguaje(),
-        chart: {
-            type: 'column',
-            renderTo: $container[0],
-        },
-        title: {
-            text: titulo + ' UMAE'
-        },
-        xAxis: {
-            type: 'category',
-            labels: {
-                rotation: -60,
-                style: {
-                    fontSize: '13px',
-                    fontFamily: 'Verdana, sans-serif'
-                }
-            }
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: yaxis
+    if (data_grafica_umae.length > 0) {
+        var chart = new Highcharts.Chart({
+            lang: textos_lenguaje(),
+            chart: {
+                type: 'column',
+                renderTo: $container[0],
             },
-            scrollbar: {
-                enabled: true,
-                showFull: true
-            }
-        },
-        legend: {
-            enabled: false
-        },
-        tooltip: {
-            pointFormat: tooltip_grafica + ' <b>{point.y}</b>'
-        },
+            title: {
+                text: titulo + ' UMAE'
+            },
+            xAxis: {
+                type: 'category',
+                labels: {
+                    rotation: -60,
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    }
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: yaxis
+                },
+                scrollbar: {
+                    enabled: true,
+                    showFull: true
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            tooltip: {
+                pointFormat: tooltip_grafica + ' <b>{point.y}</b>'
+            },
 //        exporting: {
 //            buttons: {
 //                contextButton: {
@@ -57,11 +61,15 @@ function grafica_umae() {
 //                },
 //            }
 //        },
-        series: [{
-                name: 'Population',
-                data: data_grafica_umae
-            }]
-    });
+            series: [{
+                    name: 'Population',
+                    data: data_grafica_umae
+                }]
+        });
+    } else {
+        $("#pie_porcentaje_umae").html("* " + language_text.reportes.lbl_sin_registros);
+        $("#grafica_umae").css("display", "none");
+    }
 }
 
 function grafica_delegacion() {

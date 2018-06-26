@@ -8,7 +8,7 @@
 <?php echo js('reportes/imss/porcentaje.js'); ?>
 <div class="schedule-tabs lv2">
     <ul id="tabs-lv21"  class="nav nav-justified">
-        <li class="in active"><a href="#tab-lv21-first" data-toggle="tab">Delegación/UMAE</a></li>
+        <li class="in active"><a href="#tab-lv21-first" data-toggle="tab">Nivel de atención</a></li>
         <li><a href="#tab-lv21-second" data-toggle="tab">UMAE</a></li>
         <li><a href="#tab-lv21-third" data-toggle="tab">Delegación</a></li>
     </ul>
@@ -25,7 +25,7 @@
         <div class="ajuste">
             <div id="grafica_umae" style="width: 100%; height: 400px; "></div>
             <br>
-            <div><p> *<?php echo $language_text['reportes_imss']['nota_porcentaje_umae']; ?> </p></div>
+            <div><p id="pie_porcentaje_umae"> *<?php echo $language_text['reportes_imss']['nota_porcentaje_umae']; ?> </p></div>
             <!--<div id="grafica_delegacion" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>-->
         </div>
     </div>
@@ -33,7 +33,7 @@
         <div class="ajuste">
             <div id="grafica_delegacion" style="width: 100; height: 400px;"></div>
             <br>
-            <div><p> *<?php echo $language_text['reportes_imss']['nota_porcentaje_del']; ?> </p></div>
+            <div><p id="pie_porcentaje_del"> *<?php echo $language_text['reportes_imss']['nota_porcentaje_del']; ?> </p></div>
         </div>
     </div>
 </div>

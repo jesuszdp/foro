@@ -1,8 +1,7 @@
 jQuery(document).ready(function () {
-//    console.log(language_text);
-//    console.log(language_text);
-//     console.log(Highcharts.getOptions());
-console.log(Highcharts.getOptions());
+    $('.highcharts-credits').each(function () {
+        $(this).css('display', 'none');
+    });
 });
 
 

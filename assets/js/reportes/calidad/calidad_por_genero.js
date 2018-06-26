@@ -1,4 +1,7 @@
 jQuery(document).ready(function () {
+    $('.highcharts-credits').each(function () {
+        $(this).css('display', 'none');
+    });
 });
 function get_data_trabajos_calidad() {
     var data_r = new Array();

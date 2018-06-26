@@ -56,7 +56,7 @@ insert into idiomas.traduccion values
 INSERT INTO idiomas.traduccion (clave_traduccion, clave_tipo, clave_grupo, lang) values
 ('tab_top','tab','reportes_imss','{"es":"Top de trabajos registrados","en":""}'),
 ('tab_porcentaje','tab','reportes_imss','{"es":"Porcentaje de trabajos registrados","en":""}'),
-('tab_calidad','tab','reportes_imss','{"es":"Calidad de trabajos evaluados","en":""}'),
+('tab_calidad','tab','reportes_imss','{"es":"Calidad de trabajos evaluados (promedio de evaluación)","en":"Calidad de trabajos evaluados (promedio de evaluación)"}'),
 ('titulo_top','title','reportes_imss','{"es":"Número de trabajos registrados por","en":""}'),
 ('titulo_porcentaje','title','reportes_imss','{"es":"Porcentaje de trabajos registrados por","en":""}'),
 ('titulo_calidad','title','reportes_imss','{"es":"Calidad de los trabajos evaluados por","en":""}'),
@@ -165,7 +165,9 @@ insert into sistema.roles_modulos values
 ,('total_gral','lbl','reportes','{"es":"Total","en":"Total"}');
 
 insert into idiomas.traduccion values 
- ('lbl_porcentaje_delegacion','lbl','reportes_imss','{"es":"Delegación","en":"Percentage"}')
-,('lbl_porcentaje_umae','lbl','reportes_imss','{"es":"UMAE","en":"Total"}');
+ ('lbl_porcentaje_delegacion','lbl','reportes_imss','{"es":"Delegación (nivel de atención 1 y 2)","en":"Delegación"}')
+,('lbl_porcentaje_umae','lbl','reportes_imss','{"es":"UMAE (nivel de atención 3)","en":"UMAE"}');
 insert into idiomas.traduccion values 
-('lbl_sin_registros','lbl','reportes','{"es":"No se encontraron registros","en":"Percentage"}')
+('lbl_sin_registros','lbl','reportes','{"es":"No se encontro información","en":"No se encontro rinformación"}');
+insert into idiomas.traduccion values 
+('title_nivel_atencion','title','reportes_imss','{"es":"Porcentaje de trabajos registrados por nivel de atención","en":"Porcentaje de trabajos registrados por nivel de atención"}');

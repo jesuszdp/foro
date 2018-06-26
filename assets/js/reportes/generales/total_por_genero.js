@@ -1,14 +1,8 @@
 jQuery(document).ready(function () {
-    $(".export2pdf").click(function () {
-        var chart = $('#container').highcharts();
-        chart.exportChartLocal({
-            type: 'application/pdf',
-            filename: 'my_pdf'
-        });
+    $('.highcharts-credits').each(function () {
+        $(this).css('display', 'none');
     });
-    console.log(language_text);
 });
-
 function get_data_trabajos_calidad() {
     var data_r = new Array();
     var objeto = null;
