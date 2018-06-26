@@ -48,7 +48,6 @@ function registros() {
                     dataType: "json"
                 })
                         .done(function (result) {
-                            console.log(result);
                             var estado_tmp;
                             var nombre_metodologia_tmp;
                             var contadores = {total_delegacion: 0, total_umae: 0, total_externos: 0, total_internos: 0};
@@ -64,9 +63,7 @@ function registros() {
                                 } catch (e) {
                                 }
                                 try {//Contadores
-                                    //console.log("REGISTRO: ", registro);
-                                    if (registro.es_imss == true || resgistro.es_imss == "Si") {
-                                        //console.log("ES IMSS");
+                                    if (registro.es_imss == true) {
                                         contadores.total_internos = contadores.total_internos + 1;//Cuenta internos
                                         registro.es_imss = language_text.dashboard.es_imss_si;
                                         //console.log(registro.nivel_atencion);
@@ -162,7 +159,7 @@ function exportar_investigacion(element) {
 }
 
 function tablero_contador(contadores) {
-    console.log(contadores);
+    //console.log(contadores);
     $("#externos").html(contadores.total_externos);
     $("#internos").html(contadores.total_internos);
     $("#delegacion").html(contadores.total_delegacion);
@@ -170,7 +167,7 @@ function tablero_contador(contadores) {
 }
 
 function get_detalle(item) {
-    console.log(item);
+    //console.log(item);
     var ruta = site_url + "/registro_investigacion/ver/" + item.folio;
     var liga = '<a href="' + ruta + '" class="btn btn-theme animated flipInY visible pull-right" title="'+ language_text.listado_trabajo.accion_ver_detalle_inv +'">' +
             '<i class="fa fa-eye" aria-hidden="true"></i>' +
