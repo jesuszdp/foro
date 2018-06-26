@@ -64,9 +64,12 @@ function registros() {
                                 } catch (e) {
                                 }
                                 try {//Contadores
-                                    if (registro.es_imss == true) {
+                                    //console.log("REGISTRO: ", registro);
+                                    if (registro.es_imss == true || resgistro.es_imss == "Si") {
+                                        //console.log("ES IMSS");
                                         contadores.total_internos = contadores.total_internos + 1;//Cuenta internos
                                         registro.es_imss = language_text.dashboard.es_imss_si;
+                                        //console.log(registro.nivel_atencion);
                                         switch (registro.nivel_atencion.toString()) {
                                             case "1":
                                                 contadores.total_delegacion = contadores.total_delegacion + 1;//Cuenta nivel 1 y 2 como delegación

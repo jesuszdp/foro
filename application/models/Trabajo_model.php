@@ -136,8 +136,8 @@ class Trabajo_model extends CI_Model {
         $this->db->select(array(
             "ti.folio", "ti.titulo", "ti.id_tipo_metodologia", "m.lang nombre_metodologia",
             "date(ti.fecha) fecha", "hr.clave_estado", "et.lang estado"
-            , "a.id_informacion_usuario", "iu.es_imss" 
-            ,"case when uni.es_umae then 3 else uni.nivel_atencion end as nivel_atencion"
+            , "a.id_informacion_usuario", "iu.es_imss"
+            ,"case when uni.es_umae then 3 else 1 end as nivel_atencion"
             , "concat(iu.nombre, ' ', iu.apellido_paterno, ' ', iu.apellido_materno) nombre_investigador"
         ), false);
         $this->db->where(array(
