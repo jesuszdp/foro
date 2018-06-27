@@ -188,11 +188,11 @@ class Gestion_revision extends General_revision {
         $output['promedioFinal'] = $this->gestion_revision->get_info_promedio_final_por_trabajo($folio);
 //        pr($this->language_text['evaluado']);
 //        pr($this->language_text['evaluado']);
-//        pr($output['promedioFinal']);
+        //pr($output['promedioFinal']);
         $output['revisores'] = $this->gestion_revision->get_revisores_por_trabajo($folio);
         $output['tablaSeccion'] = $this->gestion_revision->get_promedio_por_seccion_por_trabajo($folio);
 //        pr($output['tablaSeccion']);
-//        pr($output);
+        //pr($output);
         $main_content = $this->load->view('revision_trabajo_investigacion/resumen_trabajo_investigacion.php', $output, true);
         $this->template->setMainContent($main_content);
         $this->template->getTemplate();
@@ -388,7 +388,7 @@ class Gestion_revision extends General_revision {
     }
 
     /**
-     * Realiza el cambio de revisor para los trabajos que no se hayan revisado 
+     * Realiza el cambio de revisor para los trabajos que no se hayan revisado
      * @author clapas
      * @date 13/06/2018
      */

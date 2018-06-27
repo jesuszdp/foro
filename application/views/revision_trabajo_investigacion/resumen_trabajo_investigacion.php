@@ -70,7 +70,17 @@
                                                     <p style="color:whitesmoke;"><?php echo $promedioFinal['result'][0]['titulo']; ?></p>
                                                     <p style="color:whitesmoke;"><?php echo $language_text['evaluado']["lbl_prof"]; ?><small><?php echo $promedioFinal['result'][0]['promedio']; ?></small> </p>
                                                     <p style="color:whitesmoke;"><?php echo $language_text['evaluado']["lbl_resn"]; ?><small><?php echo $promedioFinal['result'][0]['clave_estado']; ?></small> </p>
-                                                    <p style="color:whitesmoke;"><?php echo $language_text['evaluado']['col_sugerencia']; ?><small><?php echo $language_text['evaluacion']["cbx_" . strtolower($promedioFinal['result'][0]['sugerencia'])]; ?></small> </p>
+                                                    <p style="color:whitesmoke;"><?php echo $language_text['evaluado']['col_sugerencia']; ?>
+                                                      <small>
+                                                      <?php
+                                                        if(isset($promedioFinal['result'][0]['sugerencia'])){
+                                                          echo $language_text['evaluacion']["cbx_".strtolower($promedioFinal['result'][0]['sugerencia'])];
+                                                        }else{
+                                                          echo "";
+                                                        }
+                                                      ?>
+                                                      </small>
+                                                    </p>
                                                     <?php
                                                 } else {
                                                     ?>
@@ -163,7 +173,7 @@
                                                                         echo $seccion[$lenguaje];
                                                                         ?>
                                                                     </td>
-                                                                    
+
                                                                     <td><?php echo number_format($row['avg'], 2); ?></td>
                                                                 </tr>
                                                                 <?php
