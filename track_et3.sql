@@ -1,4 +1,4 @@
-
+BEGIN;
 /*Autor Claudia, vista para generar reporte de calidad por delegación*/
 create or replace view foro.trabajos_registrados_imss as
 select ti.folio, iu.matricula, del.clave_delegacional, del.nombre, d.folio_dictamen, d.promedio, 
@@ -171,3 +171,5 @@ insert into idiomas.traduccion values
 ('lbl_sin_registros','lbl','reportes','{"es":"No se encontro información","en":"No se encontro rinformación"}');
 insert into idiomas.traduccion values 
 ('title_nivel_atencion','title','reportes_imss','{"es":"Porcentaje de trabajos registrados por nivel de atención","en":"Porcentaje de trabajos registrados por nivel de atención"}');
+
+COMMIT;
