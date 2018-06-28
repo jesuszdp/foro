@@ -134,7 +134,6 @@ function grafica_umae() {
 
 function grafica_delegacion() {
     var delegacion_graf = porcentajes_delegacion();
-    console.log("DELEGACION: ", delegacion_graf);
     if (delegacion_graf.length > 0) {
         Highcharts.chart('grafica_delegacion', {
             lang: textos_lenguaje(),
