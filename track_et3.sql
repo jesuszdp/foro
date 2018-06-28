@@ -5,7 +5,7 @@ select ti.folio, iu.matricula, del.clave_delegacional, del.nombre, d.folio_dicta
 hiu.clave_departamental, u.clave_unidad, u.es_umae, u.nivel_atencion, r.id_region, r.nombre region
 , cp.id_convocatoria, cp.nombre as convocatoria, cp.activo, cp.registro, cp.revision, cp.anio
 from foro.trabajo_investigacion ti
-inner join foro.dictamen d on ti.folio = d.folio
+left join foro.dictamen d on ti.folio = d.folio
 inner join foro.autor a on ti.folio = a.folio_investigacion
 inner join sistema.informacion_usuario iu on a.id_informacion_usuario = iu.id_informacion_usuario
 inner join sistema.historico_informacion_usuario hiu on iu.id_informacion_usuario = hiu.id_informacion_usuario and hiu.actual = true
@@ -15,7 +15,6 @@ inner join catalogo.delegaciones del on del.id_delegacion = u.id_delegacion
 left join catalogo.regiones r on r.id_region = del.id_region
 inner join foro.convocatoria cp on  cp.id_convocatoria = ti.id_convocatoria
 where a.registro = true and iu.es_imss = true;
-
 
 
 /*Registro de textos de idioma*/
