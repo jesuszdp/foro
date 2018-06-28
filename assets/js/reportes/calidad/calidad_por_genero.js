@@ -12,7 +12,7 @@ function get_data_trabajos_calidad() {
         if (objeto_datos.hasOwnProperty(i)) {
             objeto = objeto_datos[i];
             text_sexo = language_text.reportes['rep_sexo_' + i];
-//            data_r.push([text_sexo, parseFloat(objeto["promedio"]), parseFloat(objeto["total_trabajos"])]);
+            //data_r.push([text_sexo, parseFloat(objeto["promedio"]), parseFloat(objeto["total_trabajos"])]);
             data_r.push([text_sexo, parseFloat(objeto["promedio"])]);
         }
     }

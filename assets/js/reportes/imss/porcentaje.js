@@ -134,6 +134,7 @@ function grafica_umae() {
 
 function grafica_delegacion() {
     var delegacion_graf = porcentajes_delegacion();
+    console.log("DELEGACION: ", delegacion_graf);
     if (delegacion_graf.length > 0) {
         Highcharts.chart('grafica_delegacion', {
             lang: textos_lenguaje(),
@@ -148,7 +149,7 @@ function grafica_delegacion() {
             },
             tooltip: {
                 pointFormat: language_text.reportes.total_gral + ' <b>{point.y}</b><br>' +
-                        language_text.reportes.porcentaje_lbl + ' <b>{point.percentage:.1f}%</b>'
+                language_text.reportes.porcentaje_lbl + ' <b>{point.percentage:.1f}%</b>'
             },
             plotOptions: {
                 pie: {
@@ -156,8 +157,8 @@ function grafica_delegacion() {
                     cursor: 'pointer',
                     dataLabels: {
                         enabled: true,
-                        format: '<b>{point.name}</b><br> ' +
-                                language_text.reportes.total_gral + ': <b>{point.y}</b><br> ' +
+                        format: '<b>{point.name}</b>   ' +
+                                language_text.reportes.total_gral + ':<b>{point.y}</b><br> ' +
                                 language_text.reportes.porcentaje_lbl + ': {point.percentage:.1f} % ',
                         style: {
                             color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'

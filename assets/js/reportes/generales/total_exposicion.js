@@ -51,7 +51,7 @@ Highcharts.chart('container', {
             data: [
                 [language_text.reportes_generales.lbl_cartel, parseFloat(data_grafica.exposiciones[0]['count'])],
                 [language_text.reportes_generales.lbl_oratoria, parseFloat(data_grafica.exposiciones[1]['count'])],
-                [language_text.reportes_generales.lbl_rechazados, parseFloat(data_grafica.rechazados[0]['count'])],
+                // [language_text.reportes_generales.lbl_rechazados, parseFloat(data_grafica.rechazados[0]['count'])],
                 [language_text.reportes_generales.lbl_rechazados_nte, parseFloat(data_grafica.no_trabajo_educacion[0]['count'])],
             ]
         }]

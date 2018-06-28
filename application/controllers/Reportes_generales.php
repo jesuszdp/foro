@@ -112,9 +112,9 @@ class Reportes_generales extends General_reportes {
     }
 
     /**
-     * @author 
+     * @author
      * @Fecha 05/06/2018
-     * @description muestra información del total trabajos 
+     * @description muestra información del total trabajos
      * nacionales y extranjeros tanto institucionales (IMSS) como externos
      *
      */
@@ -124,9 +124,9 @@ class Reportes_generales extends General_reportes {
     }
 
     /**
-     * @author 
+     * @author
      * @Fecha 05/06/2018
-     * @description muestra información del total trabajos 
+     * @description muestra información del total trabajos
      * nacionales y extranjeros tanto institucionales (IMSS) como externos
      *
      */
@@ -143,10 +143,10 @@ class Reportes_generales extends General_reportes {
     }
 
     /**
-     * @author 
+     * @author
      * @Fecha 05/06/2018
-     * @description 
-     * 
+     * @description
+     *
      *
      */
     private function calidad_por_genero(&$output = null) {

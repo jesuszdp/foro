@@ -1,7 +1,7 @@
 BEGIN;
 /*Autor Claudia, vista para generar reporte de calidad por delegación*/
 create or replace view foro.trabajos_registrados_imss as
-select ti.folio, iu.matricula, del.clave_delegacional, del.nombre, d.folio_dictamen, d.promedio, 
+select ti.folio, iu.matricula, del.clave_delegacional, del.nombre, d.folio_dictamen, d.promedio,
 hiu.clave_departamental, u.clave_unidad, u.es_umae, u.nivel_atencion, r.id_region, r.nombre region
 , cp.id_convocatoria, cp.nombre as convocatoria, cp.activo, cp.registro, cp.revision, cp.anio
 from foro.trabajo_investigacion ti
@@ -19,17 +19,17 @@ where a.registro = true and iu.es_imss = true;
 
 
 /*Registro de textos de idioma*/
-insert into idiomas.grupo (clave_grupo, nombre) values 
+insert into idiomas.grupo (clave_grupo, nombre) values
 ('reportes', 'Reportes'), ('reportes_calidad', 'Reportes de calidad'), ('reportes_imss', 'Reportes imss'), ('reportes_generales', 'Reportes generales');
 
 insert into idiomas.tipo values ('subtitle','Subtitulo');
 
-insert into idiomas.traduccion values 
+insert into idiomas.traduccion values
 ('calidad','lbl','reportes','{"es":"Calidad","en":""}')
 , ('total_trabajos','lbl','reportes','{"es":"Total de trabajos","en":""}')
 ;
 
-insert into idiomas.traduccion values 
+insert into idiomas.traduccion values
 ('ext_inst','lbl','reportes_calidad','{"es":"Extranjeros IMSS","en":""}')
 , ('ext_no_inst','lbl','reportes_calidad','{"es":"Extranjeros no IMSS","en":""}')
 ,('nac_inst','lbl','reportes_calidad','{"es":"Nacionales IMSS","en":""}')
@@ -46,7 +46,7 @@ insert into idiomas.traduccion values
 ,('calidad_genero_st_fmo','subtitle','reportes_calidad','{"es":"Masculino, Femenino y Otro","en":""}')
 ;
 
-insert into idiomas.traduccion values 
+insert into idiomas.traduccion values
 ('rep_sexo_F','radio','reportes','{"es":"Femenino","en":"Female"}')
 ,('rep_sexo_M','radio','reportes','{"es":"Masculino","en":"Male"}')
 ,('rep_sexo_O','radio','reportes','{"es":"Otro","en":"Another"}')
@@ -96,24 +96,24 @@ INSERT INTO idiomas.traduccion(clave_traduccion, clave_tipo, clave_grupo, lang) 
 ('lbl_unidad', 'lbl', 'registro_usuario', '{"es":"Unidad:","en":""}');
 
 
-insert into idiomas.traduccion values 
+insert into idiomas.traduccion values
 ('descarga_lbl','lbl','reportes','{"es":"Descargar","en":"Download"}')
 , ('descarga_pdf','lbl','reportes','{"es":"Descargar documento PDF","en":"Download PDF document"}');
 
-insert into idiomas.traduccion values 
+insert into idiomas.traduccion values
 ('descarga_png','lbl','reportes','{"es":"Descargar documento PNG","en":"Download PNG document"}');
 
-insert into idiomas.traduccion values 
+insert into idiomas.traduccion values
 ('print_grafica_lbl','lbl','reportes','{"es":"Imprimir gráfica","en":"Print chart"}')
 , ('descarga_svg','lbl','reportes','{"es":"Descargar imagen en vectores SVG","en":"Download SVG vector image"}')
 , ('descarga_jpeg','lbl','reportes','{"es":"Descargar imagen JPEG","en":"Download JPEG image"}');
 
-insert into idiomas.traduccion values 
+insert into idiomas.traduccion values
 ('genero_lbl','lbl','reportes','{"es":"Género","en":"Gender"}');
 
 
 
-insert into idiomas.traduccion values 
+insert into idiomas.traduccion values
 ('registros_lbl','lbl','reportes','{"es":"Registros","en":"Registros"}');
 
 insert into sistema.modulos values
@@ -130,9 +130,9 @@ insert into sistema.roles_modulos values
 ,('REPORTES_IMSS','ADMIN',true)
 ;
 
-insert into sistema.modulos values 
+insert into sistema.modulos values
 ('ADMIN_CAT_FORO','{"es":"Administración de catálogos del foro","en":"Administración catálogos foro"}'
-, '#', null, true, 'ADMIN', 3, 'MENU', null); 
+, '#', null, true, 'ADMIN', 3, 'MENU', null);
 
 insert into sistema.roles_modulos values
 ('ADMIN_CAT_FORO','SUPERADMIN',true)
@@ -160,16 +160,22 @@ insert into sistema.roles_modulos values
 ,('PERMODPASS','REVISOR',true)
 ,('PERMODPASS','CONSULTA',true)
 ;
- insert into idiomas.traduccion values 
+ insert into idiomas.traduccion values
 ('porcentaje_lbl','lbl','reportes','{"es":"Porcentaje","en":"Percentage"}')
 ,('total_gral','lbl','reportes','{"es":"Total","en":"Total"}');
 
-insert into idiomas.traduccion values 
+insert into idiomas.traduccion values
  ('lbl_porcentaje_delegacion','lbl','reportes_imss','{"es":"Delegación (nivel de atención 1 y 2)","en":"Delegación"}')
 ,('lbl_porcentaje_umae','lbl','reportes_imss','{"es":"UMAE (nivel de atención 3)","en":"UMAE"}');
-insert into idiomas.traduccion values 
+insert into idiomas.traduccion values
 ('lbl_sin_registros','lbl','reportes','{"es":"No se encontro información","en":"No se encontro rinformación"}');
-insert into idiomas.traduccion values 
+insert into idiomas.traduccion values
 ('title_nivel_atencion','title','reportes_imss','{"es":"Porcentaje de trabajos registrados por nivel de atención","en":"Porcentaje de trabajos registrados por nivel de atención"}');
+
+
+-- Cambia el del titulo de reportes de "Total de trabajos registrados por Total de trabajos evaluados"
+update idiomas.traduccion
+set lang = '{"es":"Total de trabajos evaluados","en":""}'
+where clave_traduccion = 'tab_t_exposiciones';
 
 COMMIT;

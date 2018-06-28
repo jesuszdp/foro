@@ -18,9 +18,9 @@ class Reportes_institucion extends General_reportes {
     }
 
     /**
-     * @author 
+     * @author
      * @Fecha 05/06/2018
-     * @description: 
+     * @description:
      *
      */
     public function reportes($tipo = Reportes_institucion::TOP_DELEGACION_UMAE) {
@@ -75,10 +75,10 @@ class Reportes_institucion extends General_reportes {
     }
 
     /**
-     * @author 
+     * @author
      * @Fecha 05/06/2018
-     * @description muestra información del total de investigación registrada 
-     * nacional y esxtranjera 
+     * @description muestra información del total de investigación registrada
+     * nacional y esxtranjera
      *
      */
     public function porcentaje_registro_delegacion_umae(&$output) {
@@ -91,10 +91,10 @@ class Reportes_institucion extends General_reportes {
     }
 
     /**
-     * @author 
+     * @author
      * @Fecha 05/06/2018
-     * @description muestra información del total de investigación registrada 
-     * nacional y esxtranjera 
+     * @description muestra información del total de investigación registrada
+     * nacional y esxtranjera
      *
      */
 //  public function porcentaje_registro_delegacion_umae() {
