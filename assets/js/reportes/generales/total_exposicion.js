@@ -53,6 +53,9 @@ Highcharts.chart('container', {
                 [language_text.reportes_generales.lbl_oratoria, parseFloat(data_grafica.exposiciones[1]['count'])],
                 // [language_text.reportes_generales.lbl_rechazados, parseFloat(data_grafica.rechazados[0]['count'])],
                 [language_text.reportes_generales.lbl_rechazados_nte, parseFloat(data_grafica.no_trabajo_educacion[0]['count'])],
+                ["En revision", parseFloat(data_grafica.en_revision)],
+                ["Sin asignar",parseFloat(data_grafica.sin_asignacion)],
+                ["Sin comite", parseFloat(data_grafica.sin_comite)]
             ]
         }]
 });

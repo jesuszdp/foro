@@ -67,6 +67,7 @@ function grafica_umae() {
 }
 
 function grafica_delegacion() {
+  console.log("CHIDA: ", data_grafica_delegacion)
     Highcharts.chart('grafica_delegacion', {
         lang: textos_lenguaje(),
         chart: {

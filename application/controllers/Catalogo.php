@@ -480,7 +480,7 @@ class Catalogo extends MY_Controller {
     public function unidad_instituto($opcion = '', $id = null) {
         $this->load->model('Catalogo_model', 'catalogo');
         // $this->load->config('catalogos');
-        $filtros = $this->config->item('catalogo.unidades_instituto');
+        $filtros = $this->config->item('catalogo.unidad');
         $output = [];
         $output['js'] = '/catalogo/unidad_instituto.js';
         $output['exportar'] = site_url('catalogo/unidad_instituto/exportar');
@@ -502,10 +502,10 @@ class Catalogo extends MY_Controller {
                     'anio' => 'unidades.anio'
                         )
                 );
-                $registros['data'] = $this->catalogo->get_registros('catalogo.unidades_instituto unidades', $filtros);
+                $registros['data'] = $this->catalogo->get_registros('catalogo.unidad unidades', $filtros);
                 // $registros['query'] = $this->db->last_query();
                 $filtros['total'] = true;
-                $total = $this->catalogo->get_registros('catalogo.unidades_instituto unidades', $filtros)[0]['total'];
+                $total = $this->catalogo->get_registros('catalogo.unidad unidades', $filtros)[0]['total'];
                 $registros['length'] = $total;
                 header('Content-Type: application/json; charset=utf-8;');
                 echo json_encode($registros);
@@ -519,8 +519,8 @@ class Catalogo extends MY_Controller {
                 break;
             case Catalogo::EXPORTAR:
                 $file_name = 'catalogo_categorias_' . date('Ymd_his', time());
-                $filtros = $this->config->item('catalogo.unidades_instituto completo');
-                $registros['data'] = $this->catalogo->get_registros('catalogo.unidades_instituto unidades', $filtros);
+                $filtros = $this->config->item('catalogo.unidad completo');
+                $registros['data'] = $this->catalogo->get_registros('catalogo.unidad unidades', $filtros);
                 $registros['columnas'] = array(
                     'id_unidad_instituto', 'nombre', 'clave_unidad', 'anio',
                     'nivel_atencion', 'id_tipo_unidad', 'umae', 'clave_presupuestal',

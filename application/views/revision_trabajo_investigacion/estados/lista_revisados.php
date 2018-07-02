@@ -1,6 +1,6 @@
 <!-- contadores de lugares para oratoria y lugares para cartel -->
 <script type="text/javascript">
-  <?php 
+  <?php
   foreach ($lan_text_asignacion as $key => $value) {
     echo "var ".$key."='".$value."';\n";
   }
@@ -93,7 +93,7 @@ $sistema = $config_asignacion['sistema'];
               <th scope="col"><?php echo $language_text['col_r1'];?></th>
               <th scope="col"><?php echo $language_text['col_r2'];?></th>
               <th scope="col"><?php echo $language_text['col_r3'];?></th>
-              <th scope="col"><?php echo $language_text['col_puntaje'];?></th>
+              <th scope="col"><?php echo round($language_text['col_puntaje'], 2);?></th>
               <?php
               if($manual)
               {
@@ -129,7 +129,7 @@ $sistema = $config_asignacion['sistema'];
                 <td><?php echo $row['revisor1'];?></td>
                 <td><?php echo $row['revisor2'];?></td>
                 <td><?php if(isset($row['revisor3'])) echo $row['revisor3'];?></td>
-                <td><?php echo $row['promedio'];?></td>
+                <td><?php echo round($row['promedio'], 2);?></td>
                 <?php if($manual){ ?>
                 <td>
                   <select class="select_asignacion">
@@ -203,7 +203,7 @@ $sistema = $config_asignacion['sistema'];
                 <th scope="col"><?php echo $language_text['col_r1'];?></th>
                 <th scope="col"><?php echo $language_text['col_r2'];?></th>
                 <th scope="col"><?php echo $language_text['col_r3'];?></th>
-                <th scope="col"><?php echo $language_text['col_puntaje'];?></th>
+                <th scope="col"><?php echo round($language_text['col_puntaje'],2);?></th>
                 <th><?php echo $language_text['col_sugerencia'];?></th>
                 <th scope="col"><?php echo $language_text['col_opciones'];?></th>
               </tr>
@@ -232,7 +232,7 @@ $sistema = $config_asignacion['sistema'];
                   <td><?php echo $row['revisor1'];?></td>
                   <td><?php echo $row['revisor2'];?></td>
                   <td><?php if(isset($row['revisor3'])) echo $row['revisor3'];?></td>
-                  <td><?php echo $row['promedio'];?></td>
+                  <td><?php echo round($row['promedio'],2);?></td>
                   <td>
                   <?php if($manual){ ?>
                     <select class="select_asignacion">

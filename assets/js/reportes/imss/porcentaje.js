@@ -47,8 +47,11 @@ function porcentajes_nivel_atencion() {
     var objeto_datos = data_grafica.nivel_atencion;
     if (objeto_datos.length > 0) {
 
-        data_r.push([language_text.reportes_imss.lbl_porcentaje_delegacion, parseFloat(objeto_datos[0]['delegacion'])]);
+        //data_r.push([language_text.reportes_imss.lbl_porcentaje_delegacion, parseFloat(objeto_datos[0]['nivel1'])]);
+        data_r.push(["Nivel 1", parseFloat(objeto_datos[0]['nivel1'])]);
         data_r.push([language_text.reportes_imss.lbl_porcentaje_umae, parseFloat(objeto_datos[0]['umae'])]);
+        data_r.push(["Nivel 2", parseFloat(objeto_datos[0]['nivel2'])]);
+        data_r.push(["Otros", parseFloat(objeto_datos[0]['otros'])]);
     }
 
 //    console.log(language_text);
@@ -133,73 +136,132 @@ function grafica_umae() {
 }
 
 function grafica_delegacion() {
+
     var delegacion_graf = porcentajes_delegacion();
     if (delegacion_graf.length > 0) {
-        Highcharts.chart('grafica_delegacion', {
-            lang: textos_lenguaje(),
-            chart: {
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false,
-                type: 'pie'
-            },
-            title: {
-                text: language_text.reportes_imss.titulo_porcentaje + ' delegación'
-            },
-            tooltip: {
-                pointFormat: language_text.reportes.total_gral + ' <b>{point.y}</b><br>' +
-                language_text.reportes.porcentaje_lbl + ' <b>{point.percentage:.1f}%</b>'
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    dataLabels: {
-                        enabled: true,
-                        format: '<b>{point.name}</b>   ' +
-                                language_text.reportes.total_gral + ':<b>{point.y}</b><br> ' +
-                                language_text.reportes.porcentaje_lbl + ': {point.percentage:.1f} % ',
-                        style: {
-                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                        }
-                    }
-                }
-                /*/
-                 pie: {
-                 allowPointSelect: true,
-                 cursor: 'pointer',
-                 dataLabels: {
-                 enabled: false
-                 },
-                 showInLegend: true
-                 }
-                 */
-            },
-//        exporting: {
-//            buttons: {
-//                contextButton: {
-//                    enabled: false,
-//                },
-//                exportButton: {
-//                    text: language_text.reportes.descarga_lbl,
-//                    menuItems: Highcharts.getOptions().exporting.buttons.contextButton.menuItems.splice(5)
-//                },
-//            }
-//        },
-            series: [{
-                    name: language_text.reportes.total_gral,
-                    colorByPoint: true,
-                    data: delegacion_graf
-                }]
-        });
-    } else {
-        $("#pie_porcentaje_del").html("* " + language_text.reportes.lbl_sin_registros);
-        $("#grafica_delegacion").css("display", "none");
+      Highcharts.chart('grafica_delegacion', {
+          lang: textos_lenguaje(),
+          chart: {
+              type: 'column'
+          },
+          title: {
+              text: language_text.reportes_imss.titulo_porcentaje + ' delegación',
+          },
+          xAxis: {
+              type: 'category',
+              labels: {
+                  rotation: -60,
+                  style: {
+                      fontSize: '13px',
+                      fontFamily: 'Verdana, sans-serif'
+                  }
+              }
+          },
+          yAxis: {
+              min: 0,
+              title: {
+                  text: "Valores"
+              }
+          },
+          legend: {
+              enabled: false
+          },
+          tooltip: {
+            pointFormat: language_text.reportes.total_gral + ' <b>{point.y}</b><br>' +
+                         language_text.reportes.porcentaje_lbl + ' <b>{point.percentage:.1f}%</b>'
+          },
+  //        exporting: {
+  //            buttons: {
+  //                contextButton: {
+  //                    enabled: false,
+  //                },
+  //                exportButton: {
+  //                    text: language_text.reportes.descarga_lbl,
+  //                    menuItems: Highcharts.getOptions().exporting.buttons.contextButton.menuItems.splice(5)
+  //                },
+  //            }
+  //        },
+          series: [{
+                  name: 'Population',
+                  colorByPoint: true,
+                  data: delegacion_graf
+              }]
+      });
+    }else{
+      $("#pie_porcentaje_del").html("* " + language_text.reportes.lbl_sin_registros);
+      $("#grafica_delegacion").css("display", "none");
     }
+
+//     console.log("NO CHIDA: ", data_grafica_delegacion)
+//     if (delegacion_graf.length > 0) {
+//         Highcharts.chart('grafica_delegacion', {
+//             lang: textos_lenguaje(),
+//             chart: {
+//                 plotBackgroundColor: null,
+//                 plotBorderWidth: null,
+//                 plotShadow: false,
+//                 type: 'column'
+//             },
+//             title: {
+//                 text: language_text.reportes_imss.titulo_porcentaje + ' delegación'
+//             },
+//             tooltip: {
+//                 pointFormat: language_text.reportes.total_gral + ' <b>{point.y}</b><br>' +
+//                 language_text.reportes.porcentaje_lbl + ' <b>{point.percentage:.1f}%</b>'
+//             },
+//             plotOptions: {
+//                 pie: {
+//                     allowPointSelect: true,
+//                     cursor: 'pointer',
+//                     dataLabels: {
+//                         enabled: true,
+//                         format: '<b>{point.name}</b>   ' +
+//                                 language_text.reportes.total_gral + ':<b>{point.y}</b><br> ' +
+//                                 language_text.reportes.porcentaje_lbl + ': {point.percentage:.1f} % ',
+//                         style: {
+//                             color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+//                         }
+//                     }
+//                 }
+//                 /*/
+//                  pie: {
+//                  allowPointSelect: true,
+//                  cursor: 'pointer',
+//                  dataLabels: {
+//                  enabled: false
+//                  },
+//                  showInLegend: true
+//                  }
+//                  */
+//             },
+// //        exporting: {
+// //            buttons: {
+// //                contextButton: {
+// //                    enabled: false,
+// //                },
+// //                exportButton: {
+// //                    text: language_text.reportes.descarga_lbl,
+// //                    menuItems: Highcharts.getOptions().exporting.buttons.contextButton.menuItems.splice(5)
+// //                },
+// //            }
+// //        },
+//             series: [{
+//                     name: language_text.reportes.total_gral,
+//                     colorByPoint: true,
+//                     data: delegacion_graf
+//                 }]
+//         });
+//     } else {
+//         $("#pie_porcentaje_del").html("* " + language_text.reportes.lbl_sin_registros);
+//         $("#grafica_delegacion").css("display", "none");
+//     }
+
+
 }
 
 function grafica_nivel_atencion() {
     var delegacion_umae_graf = porcentajes_nivel_atencion();
+    console.log(delegacion_umae_graf);
     Highcharts.chart('grafica_nivel_atencion', {
         lang: textos_lenguaje(),
         chart: {

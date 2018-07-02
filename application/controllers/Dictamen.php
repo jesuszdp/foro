@@ -64,8 +64,8 @@ class Dictamen extends General_revision {
                 'd.folio_dictamen' => null,
                 'd.sugerencia' => null,
                 'r.activo' => true
-            ),
-            'order_by' => 'hr.folio, r.fecha_asignacion'
+            )
+            //'order_by' => 'hr.folio, r.fecha_asignacion'
         );
         $revisores = $this->dictamen->get_revisores($param);
         $resultado['success'] = true;
@@ -82,7 +82,7 @@ class Dictamen extends General_revision {
     /*private function combinar_trabajo_revisores($trabajo, $revisores) {
         $lang = $this->obtener_idioma();
         $sugerencias = $this->obtener_grupos_texto(array('sugerencia'), $lang);
-        
+
         $array_resultados = [];
         if (count($trabajo) < 1) {
             return $array_resultados;
@@ -121,7 +121,7 @@ class Dictamen extends General_revision {
     private function combinar_trabajo_revisores($trabajo, $revisores) {
         $lang = $this->obtener_idioma();
         $sugerencias = $this->obtener_grupos_texto(array('sugerencia'), $lang);
-        
+
         $array_resultados = [];
         if (count($trabajo) < 1 OR count($revisores) < 1) {
             return $array_resultados;
@@ -295,9 +295,9 @@ class Dictamen extends General_revision {
         }
     }
 
-      
-      
-     
+
+
+
 
     public function cierre_convocatoria() {
       $status = false;
@@ -342,7 +342,7 @@ class Dictamen extends General_revision {
             'aceptados' => count($trabajos),
             'tipo' => ($value['sugerencia']=='O')?'exposición oral':'exposición con cartel'
             ));
-          
+
         }
       }// for aceptados
 
@@ -371,7 +371,7 @@ class Dictamen extends General_revision {
             'aceptados' => count($trabajos)
             ));
       }
-      
+
 
       if($status)
       {
@@ -382,13 +382,13 @@ class Dictamen extends General_revision {
       echo json_encode(array('success' => $status));
     }
 
-    
-    
+
+
     private function enviar_correo_dictamen($aceptado,$email, $datos) {
         $this->load->config('email');
         $this->load->library('My_phpmailer');
         $mailStatus = $this->my_phpmailer->phpmailerclass();
-        
+
         /*  $mailStatus->SMTPOptions = array(
           'ssl' => array(
           'verify_peer' => false,
@@ -396,7 +396,7 @@ class Dictamen extends General_revision {
           'allow_self_signed' => true
           )
           );*/
-         
+
         $mailStatus->SMTPAuth = false;
         $emailStatus = $this->load->view('correo_foro/aceptado.php', $datos, true);
         if(!$aceptado)

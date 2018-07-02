@@ -534,7 +534,7 @@ class Gestor_revision_model extends MY_Model {
 
             $i = 0;
             foreach ($validar_folios['result'] as $key_f => $folio) { //Se recorren los trabajos que fueron localizados
-                //pr($folio);                
+                //pr($folio);
                 if ($folio['activo'] == true AND $folio['conflicto_interes'] == true) { //En caso de que en los registros se localicen incidencias por conflicto de interes se colocan como inactivos
                     $revision_anterior[$i] = $folio['id_revision'];
                 } elseif ($folio['activo'] == true AND $folio['revisado'] == false AND $folio['fuera_tiempo'] == true) { //En caso de que en los registros se localicen incidencias por periodo fuera de tiempo se colocan como inactivos
@@ -619,14 +619,14 @@ class Gestor_revision_model extends MY_Model {
     * Intercambia revisores, solo aplica para los que no requieren atencion
     * @author clapas
     * @date 13/06/2018
-    * @param array 
+    * @param array
     */
     public function insert_asignar_revisor_en_revision($value=[])
     {
         $salida = false;
         $this->db->flush_cache();
         $this->db->reset_query();
-        $this->db->trans_begin();  
+        $this->db->trans_begin();
 
         $where_update = array(
             'folio' => $value['folio'],

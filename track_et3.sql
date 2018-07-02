@@ -177,4 +177,9 @@ update idiomas.traduccion
 set lang = '{"es":"Total de trabajos evaluados","en":""}'
 where clave_traduccion = 'tab_t_exposiciones';
 
+--Traducciones de notas de la grafica de calidad
+INSERT INTO "idiomas"."traduccion" ("clave_traduccion", "clave_tipo", "clave_grupo", "lang")
+VALUES ('nota_calidad_del', 'lbl', 'reportes_imss', '{"es":"Los valores aquí mostrados se  basan en los promedios de los trabajos de investigación revisados.","en":""}');
+
+
 COMMIT;

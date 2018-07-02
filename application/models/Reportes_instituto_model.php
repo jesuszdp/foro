@@ -80,10 +80,12 @@ class Reportes_instituto_model extends MY_Model {
         $this->db->reset_query();
 
         $this->db->select(array("sum((case when es_umae then 1 else 0 end)) umae",
-            "sum((case when not es_umae then 1 else 0 end)) delegacion"));
+            "sum((case when nivel_atencion=1 then 1 else 0 end)) Nivel1", "sum((case when nivel_atencion=2 then 1 else 0 end)) Nivel2"
+            ,"sum((case when nivel_atencion isnull then 1 else 0 end)) Otros"));
         $this->db->where('tr.clave_delegacional !=', '00');
         $this->db->where('tr.activo', true); //Se refiere a la convocatoria activa
         $res = $this->db->get('foro.trabajos_registrados_imss tr');
+        //pr($res);
         return $res->result_array();
     }
 

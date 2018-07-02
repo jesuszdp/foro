@@ -80,7 +80,10 @@ class Reportes_generales extends General_reportes {
       $output['data'] = array(
         'exposiciones' => $this->reporteg->total_exposiciones(), //total de aceptados para exposicion
         'rechazados' => $this->reporteg->total_rechazados_exposiciones(), // rechazados pero se evaluaron
-        'no_trabajo_educacion' => $this->reporteg->total_rechazados_no_tema_educacion() // se rechazaron pr que no era un tema de educaccion en salud y estos no se evaluan
+        'no_trabajo_educacion' => $this->reporteg->total_rechazados_no_tema_educacion(), // se rechazaron pr que no era un tema de educaccion en salud y estos no se evaluan
+        'en_revision' => $this->reporteg->total_en_revision()[0]['count'],
+        'sin_comite' => $this->reporteg->total_sin_comite()[0]['count'],
+        'sin_asignacion' => $this->reporteg->total_sin_asignacion()[0]['count']
       );
 
 

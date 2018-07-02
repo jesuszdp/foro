@@ -133,12 +133,17 @@ class Reportes_institucion extends General_reportes {
         $umae = $this->reporteimss->calidad_umae();
         $data_umae = [];
         foreach ($umae as $key => $value) {
-            $data_umae[$key] = array($value['nombre_unidad_principal'], $value['promedio']);
+            if($value['promedio'] > 0){
+                $data_umae[$key] = array($value['nombre_unidad_principal'], $value['promedio']);
+            }
+
         }
         $delegacion = $this->reporteimss->calidad_delegacion();
         $data_delegacion = [];
         foreach ($delegacion as $key => $value) {
-            $data_delegacion[$key] = array($value['nombre'], $value['promedio']);
+            if($value['promedio'] > 0){
+              $data_delegacion[$key] = array($value['nombre'], $value['promedio']);
+            }
         }
         return array(
             'umae' => $data_umae,

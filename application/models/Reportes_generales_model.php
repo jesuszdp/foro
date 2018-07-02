@@ -23,7 +23,7 @@ class Reportes_generales_model extends MY_Model {
       $this->db->where('sugerencia is not null', NULL, false);
       $this->db->group_by('sugerencia');
       $result = $this->db->get();
-      // pr($result);
+      pr($result);
       return $result->result_array();
     }
 
@@ -59,6 +59,7 @@ class Reportes_generales_model extends MY_Model {
       $this->db->join("foro.historico_revision hr", "rev.folio=hr.folio and hr.clave_estado='rechazado'","inner", false);
       $this->db->where('tema_educacion=false and revisado=true and rev.activo=true');
       $result = $this->db->get();
+
       return $result->result_array();
     }
 
@@ -78,13 +79,14 @@ class Reportes_generales_model extends MY_Model {
           "sum(case when iu.clave_pais <> 'MX' then 1 else 0 end) as trabajos_extranjeros"
       );
       $this->db->select($select);
-      $this->db->join("foro.dictamen d", "d.folio = ti.folio", "inner");
+      //$this->db->join("foro.dictamen d", "d.folio = ti.folio", "inner");
       $this->db->join("foro.autor au", "au.folio_investigacion = ti.folio and au.registro", "inner", false);
       $this->db->join("sistema.informacion_usuario iu", "iu.id_informacion_usuario = au.id_informacion_usuario", "inner");
-      $result = $this->db->get("foro.trabajo_investigacion ti")->result_array();
+      $result = $this->db->get("foro.trabajo_investigacion ti");
+      //pr($result);
       $this->db->flush_cache();
       $this->db->reset_query();
-      return $result;
+      return $result->result_array();
     }
 
     /**
@@ -105,8 +107,65 @@ class Reportes_generales_model extends MY_Model {
       $this->db->join("foro.convocatoria c", "c.id_convocatoria = ti.id_convocatoria", "inner");
       $this->db->group_by('iu.sexo');
       $result = $this->db->get();
+      //pr($result);
       return $result->result_array();
     }
 
+    /**
+    * Devuelve el total trabajos en revision
+    * @author Cheko
+    * @date 02/07/2018
+    * @return array
+    **/
+    public function total_en_revision(){
+      $this->db->flush_cache();
+      $this->db->reset_query();
+      $this->db->select('count(distinct hr.folio)');
+      $this->db->from('foro.historico_revision hr');
+      $this->db->join('foro.trabajo_investigacion ti', 'hr.folio = ti.folio', 'left');
+      $this->db->join('foro.tipo_metodologia ma',  'ti.id_tipo_metodologia = ma.id_tipo_metodologia','left');
+      $this->db->join('foro.revision rn', 'hr.folio = rn.folio', 'left');
+      $this->db->join("foro.convocatoria c", "c.id_convocatoria = ti.id_convocatoria", "inner");
+      $this->db->where("c.activo = TRUE and hr.clave_estado in('fuera_tiempo', 'discrepancia', 'conflicto_interes', 'asignado')
+      AND actual = TRUE AND rn.activo = true");
+      $result = $this->db->get();
+      return $result->result_array();
+    }
+
+    /**
+    * Devuelve el total trabajos en revision
+    * @author Cheko
+    * @date 02/07/2018
+    * @return array
+    **/
+    public function total_sin_comite(){
+      $this->db->flush_cache();
+      $this->db->reset_query();
+      $this->db->select('count(distinct hr.folio)');
+      $this->db->from('foro.historico_revision hr');
+      $this->db->join('foro.trabajo_investigacion ti', 'hr.folio = ti.folio', 'left');
+      $this->db->join('foro.tipo_metodologia ma',  'ti.id_tipo_metodologia = ma.id_tipo_metodologia','left');
+      $this->db->join("foro.convocatoria c", "c.id_convocatoria = ti.id_convocatoria", "inner");
+      $this->db->where("c.activo = TRUE and hr.clave_estado  = 'sin_asignacion' AND actual = TRUE");
+      $result = $this->db->get();
+      return $result->result_array();
+    }
+
+    /**
+    * Devuelve el total trabajos sin asignar
+    * @author Cheko
+    * @date 02/07/2018
+    * @return array
+    **/
+    public function total_sin_asignacion(){
+      //select count(*) from foro.dictamen where ;
+      $this->db->flush_cache();
+      $this->db->reset_query();
+      $this->db->select('count(*)');
+      $this->db->from('foro.dictamen hr');
+      $this->db->where("sugerencia isnull");
+      $result = $this->db->get();
+      return $result->result_array();
+    }
 
 }
