@@ -86,7 +86,7 @@ class Reportes_calidad_model extends MY_Model {
         $this->db->join("foro.convocatoria c", "c.id_convocatoria = ti.id_convocatoria", "inner");
 
         //$this->db->group_by("iu.sexo");
-        pr($this->db->get("foro.trabajo_investigacion ti"));
+        //pr($this->db->get("foro.trabajo_investigacion ti"));
         $result_sub = $this->db->get("foro.trabajo_investigacion ti")->result_array();
 
         $this->db->flush_cache();
