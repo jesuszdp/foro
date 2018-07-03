@@ -144,7 +144,6 @@ class Reportes_institucion extends General_reportes {
         }
         return array(
             'umae' => $data_umae,
-            
             'delegacion' => $data_delegacion
         );
     }
