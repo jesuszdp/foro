@@ -23,7 +23,7 @@ class Reportes_generales_model extends MY_Model {
       $this->db->where('sugerencia is not null', NULL, false);
       $this->db->group_by('sugerencia');
       $result = $this->db->get();
-      pr($result);
+      //pr($result);
       return $result->result_array();
     }
 
