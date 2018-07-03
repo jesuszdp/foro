@@ -110,7 +110,7 @@ class Reportes_generales extends General_reportes {
      */
     public function total_por_genero(&$output) {
         $output['data'] = array(
-            'genero' => $this->reporteg->total_genero(),
+            'genero' => $this->reporteg->total_genero()
         );
     }
 
@@ -156,5 +156,6 @@ class Reportes_generales extends General_reportes {
         $this->load->model('Reportes_calidad_model', 'reportec');
         $output['data']['data'] = $this->reportec->get_calidad_por_genero();
     }
+
 
 }

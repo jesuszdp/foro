@@ -13,7 +13,7 @@ $(document).ready(function () {
 });
 
 function grafica_umae() {
-    if (data_grafica_umae.length > 0) {
+    if (data_grafica_umae.length >= 0) {
         Highcharts.chart('grafica_umae', {
             lang: textos_lenguaje(),
             chart: {
@@ -67,7 +67,7 @@ function grafica_umae() {
 }
 
 function grafica_delegacion() {
-  console.log("CHIDA: ", data_grafica_delegacion)
+  //console.log("CHIDA: ", data_grafica_delegacion)
     Highcharts.chart('grafica_delegacion', {
         lang: textos_lenguaje(),
         chart: {

@@ -7,13 +7,19 @@ function get_data_trabajos_calidad() {
     var data_r = new Array();
     var objeto = null;
     var text_sexo = '';
-    var objeto_datos = data_grafica.data;
+    var objeto_datos = data_grafica.data[0];
+    //console.log(objeto_datos);
     for (var i in objeto_datos) {
         if (objeto_datos.hasOwnProperty(i)) {
-            objeto = objeto_datos[i];
-            text_sexo = language_text.reportes['rep_sexo_' + i];
-            //data_r.push([text_sexo, parseFloat(objeto["promedio"]), parseFloat(objeto["total_trabajos"])]);
-            data_r.push([text_sexo, parseFloat(objeto["promedio"])]);
+            objeto = objeto_datos;
+            if(i != 'total'){
+              text_sexo = language_text.reportes['rep_sexo_' + i.toUpperCase()];
+              //console.log(text_sexo)
+              //data_r.push([text_sexo, parseFloat(objeto["promedio"]), parseFloat(objeto["total_trabajos"])]);
+              if(objeto[i] > 0){
+                  data_r.push([text_sexo, parseFloat(objeto[i])]);
+              }
+            }
         }
     }
     return data_r;

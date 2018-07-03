@@ -13,7 +13,7 @@ class Reportes_calidad_model extends MY_Model {
      * @author LEAS
      * @fecha 07/06/2018
      * @return type Array
-     * 
+     *
      */
     public function get_total_trabajos_nacionales_extranjeros() {
         $this->db->flush_cache();
@@ -26,7 +26,7 @@ class Reportes_calidad_model extends MY_Model {
             , "count(distinct ti.folio) total_trabajos"
         );
         $this->db->select($select);
-        $this->db->join("foro.dictamen d", "d.folio = ti.folio", "inner");
+        //$this->db->join("foro.dictamen d", "d.folio = ti.folio", "inner");
         $this->db->join("foro.autor au", "au.folio_investigacion = ti.folio and au.registro", "inner", false);
         $this->db->join("sistema.informacion_usuario iu", "iu.id_informacion_usuario = au.id_informacion_usuario", "inner");
              $this->db->join("foro.convocatoria c", "c.id_convocatoria = ti.id_convocatoria", "inner");
@@ -40,7 +40,7 @@ class Reportes_calidad_model extends MY_Model {
      * @author LEAS
      * @fecha 07/06/2018
      * @return type Array
-     * 
+     *
      */
     public function get_calidad_institucion_externos_nacionales_extranjeros($param) {
         $this->db->flush_cache();
@@ -59,6 +59,7 @@ class Reportes_calidad_model extends MY_Model {
             $this->db->where($value);
         }
 
+        //pr($this->db->get("foro.trabajo_investigacion ti"));
         $result = $this->db->get("foro.trabajo_investigacion ti")->result_array();
         $this->db->flush_cache();
         $this->db->reset_query();
@@ -69,14 +70,14 @@ class Reportes_calidad_model extends MY_Model {
      * @author LEAS
      * @fecha 07/06/2018
      * @return type Array obtiene la calidad por genero
-     * 
+     *
      */
     public function get_calidad_por_genero() {
         $this->db->flush_cache();
         $this->db->reset_query();
         $select = array(
-            "iu.sexo", "round(avg(d.promedio)::numeric, 2) promedio"
-            , "count(distinct ti.folio) total_trabajos"
+            "round(avg(case when sexo='M' then d.promedio else 0 end)::numeric,2) M", "round(avg(case when sexo = 'F' then d.promedio else 0 end)::numeric,2) F"
+            , "round(avg(case when sexo = 'O' then d.promedio else 0 end)::numeric,2) O", "round(avg(d.promedio)::numeric, 2) Total"
         );
         $this->db->select($select, FALSE);
         $this->db->join("foro.dictamen d", "d.folio = ti.folio", "inner");
@@ -84,27 +85,28 @@ class Reportes_calidad_model extends MY_Model {
         $this->db->join("sistema.informacion_usuario iu", "iu.id_informacion_usuario = au.id_informacion_usuario", "inner");
         $this->db->join("foro.convocatoria c", "c.id_convocatoria = ti.id_convocatoria", "inner");
 
-        $this->db->group_by("iu.sexo");
-
+        //$this->db->group_by("iu.sexo");
+        //pr($this->db->get("foro.trabajo_investigacion ti"));
         $result_sub = $this->db->get("foro.trabajo_investigacion ti")->result_array();
+
         $this->db->flush_cache();
         $this->db->reset_query();
-        $result = [];
-        if (!empty($result_sub)) {
-            foreach ($result_sub as $value) {
-                $result[$value['sexo']] = $value;
-                unset($result[$value['sexo']]['sexo']);
-            }
-        }
+        // $result = [];
+        // if (!empty($result_sub)) {
+        //     foreach ($result_sub as $value) {
+        //         $result[$value['sexo']] = $value;
+        //         unset($result[$value['sexo']]['sexo']);
+        //     }
+        // }
 
-        return $result;
+        return $result_sub;
     }
 
     /**
      * @author LEAS
      * @fecha 07/06/2018
      * @return type Array
-     * 
+     *
      */
     public function get_calidad_nacionales_institucion_delegacion($nacional = true) {
         $this->db->flush_cache();

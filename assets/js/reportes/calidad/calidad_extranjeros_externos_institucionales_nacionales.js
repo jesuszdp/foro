@@ -7,6 +7,7 @@ function get_data_trabajos_calidad() {
     var data_r = new Array();
     var objeto = null;
     var objeto_datos = data_grafica.data;
+    console.log(objeto_datos);
     for (var i in objeto_datos) {
         if (objeto_datos.hasOwnProperty(i)) {
             objeto = objeto_datos[i];
@@ -115,4 +116,3 @@ Highcharts.chart('progressBar', {
 //            colorByPoint: true
 //        }],
 //});
-

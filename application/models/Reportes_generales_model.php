@@ -98,14 +98,15 @@ class Reportes_generales_model extends MY_Model {
     public function total_genero(){
       $this->db->flush_cache();
       $this->db->reset_query();
-      $this->db->select(array('sexo', 'count(d.folio)'));
-      $this->db->from('foro.dictamen d');
-      $this->db->join('foro.trabajo_investigacion ti', 'd.folio = ti.folio', 'inner');
-      $this->db->join('foro.autor au',  'ti.folio = au.folio_investigacion and au.registro = true', 'inner', false);
-      //$this->db->join("foro.convocatoria c", "c.id_convocatoria = ti.id_convocatoria", "inner");
-      $this->db->join('sistema.informacion_usuario iu', 'iu.id_informacion_usuario = au.id_informacion_usuario', 'inner');
-      $this->db->join("foro.convocatoria c", "c.id_convocatoria = ti.id_convocatoria", "inner");
-      $this->db->group_by('iu.sexo');
+      $this->db->select(array("sum((case when sexo='M' then 1 else 0 end)) M"
+      , "sum((case when sexo='F' then 1 else 0 end)) F",
+      "sum((case when sexo!='M' and sexo!='F' then 1 else 0 end)) O"));
+      $this->db->from('foro.trabajo_investigacion TI');
+      //$this->db->join('foro.dictamen D', 'D.folio = TI.folio', 'inner');
+      $this->db->join('"foro"."autor" "AU"',  '"TI"."folio" = "AU"."folio_investigacion" and "AU"."registro" = true', 'inner',false);
+      $this->db->join('sistema.informacion_usuario IU', 'IU.id_informacion_usuario = AU.id_informacion_usuario', 'inner');
+      $this->db->join("foro.convocatoria C", "C.id_convocatoria = TI.id_convocatoria", "inner");
+      //$this->db->group_by('IU.sexo');
       $result = $this->db->get();
       //pr($result);
       return $result->result_array();
