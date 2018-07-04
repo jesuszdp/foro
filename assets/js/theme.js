@@ -65,7 +65,6 @@ var theme = function () {
     // ---------------------------------------------------------------------------------------
     function handleSmoothScroll(){
         $('.sf-menu a, .scroll-to').click(function () {
-
             if ($(this).hasClass('control')) {}
             else {
 

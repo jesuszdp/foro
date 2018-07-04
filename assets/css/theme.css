@@ -1066,7 +1066,7 @@ textarea {
     }
     .sf-menu ul {
         position:static!important;
-        /* display: none!important; */
+        display: none!important;
     }
     .mobile-submenu-open ul {
         display: block!important;
