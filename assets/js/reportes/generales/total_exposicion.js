@@ -9,7 +9,8 @@ Highcharts.chart('container', {
         plotBackgroundColor: null,
         plotBorderWidth: null,
         plotShadow: false,
-        type: 'pie'
+        type: 'pie',
+        //width: 900
     },
     title: {
         text: language_text.reportes_generales.t_exposiciones

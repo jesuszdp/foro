@@ -162,7 +162,7 @@ function grafica_delegacion() {
           yAxis: {
               min: 0,
               title: {
-                  text: "Valores"
+                  text: "Trabajos registrados"
               }
           },
           legend: {

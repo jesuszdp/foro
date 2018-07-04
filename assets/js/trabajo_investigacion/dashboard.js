@@ -48,6 +48,7 @@ function registros() {
                     dataType: "json"
                 })
                         .done(function (result) {
+                          console.log(result);
                             var estado_tmp;
                             var nombre_metodologia_tmp;
                             var contadores = {total_delegacion: 0, total_umae: 0, total_externos: 0, total_internos: 0};
@@ -85,6 +86,8 @@ function registros() {
                                 } catch (e) {
                                 }
 
+                                console.log(filter);
+
                                 return (!filter.folio || (registro.folio !== null && registro.folio.toLowerCase().indexOf(filter.folio.toString().toLowerCase()) > -1))
                                         && (!filter.titulo || (registro.titulo !== null && registro.titulo.toLowerCase().indexOf(filter.titulo.toString().toLowerCase()) > -1))
                                         && (!filter.nombre_metodologia || (registro.nombre_metodologia !== null && registro.nombre_metodologia.toLowerCase().indexOf(filter.nombre_metodologia.toString().toLowerCase()) > -1))
@@ -110,7 +113,7 @@ function registros() {
             {name: "titulo", title: name_fields.titulo, type: "text", inserting: false, editing: false},
             {name: "nombre_metodologia", title: name_fields.nombre_metodologia, type: "text", inserting: false, editing: false},
             {name: "fecha", title: name_fields.fecha, type: "text", inserting: false, editing: false},
-            {name: "estado", title: name_fields.estado, type: "text", inserting: false, editing: false},
+            {name: "clave_estado", title: name_fields.clave_estado, type: "text", inserting: false, editing: false},
             {name: "es_imss", title: name_fields.es_imss, type: "text", inserting: false, editing: false},
             {type: "control", editButton: false, deleteButton: false, width: 40,
                 searchModeButtonTooltip: language_text.jsgrid_elementos.cambio_busqueda, // tooltip of switching filtering/inserting button in inserting mode

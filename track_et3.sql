@@ -181,5 +181,9 @@ where clave_traduccion = 'tab_t_exposiciones';
 INSERT INTO "idiomas"."traduccion" ("clave_traduccion", "clave_tipo", "clave_grupo", "lang")
 VALUES ('nota_calidad_del', 'lbl', 'reportes_imss', '{"es":"Los valores aquí mostrados se  basan en los promedios de los trabajos de investigación revisados.","en":""}');
 
+--Traducciones de notas de la grafica de porcentajes de nivle (4-julio-2018)
+INSERT INTO "idiomas"."traduccion" ("clave_traduccion", "clave_tipo", "clave_grupo", "lang")
+VALUES ('nota_porcentaje_nivel', 'lbl', 'reportes_imss', '{"es":"Se consideran unidades no medicas como Nivel central,nómina de mando etc.","en":""}');
+
 
 COMMIT;
