@@ -8,21 +8,22 @@ function get_data_trabajos_calidad() {
     var data_r = new Array();
     var objeto = null;
     var text_sexo = '';
-    var objeto_datos = data_grafica.data[0];
-    //console.log(objeto_datos);
+    var objeto_datos = data_grafica.data;
     for (var i in objeto_datos) {
         if (objeto_datos.hasOwnProperty(i)) {
-            objeto = objeto_datos;
-            if(i != 'total'){
-              text_sexo = language_text.reportes['rep_sexo_' + i.toUpperCase()];
+              objeto = objeto_datos[i];
+              text_sexo = language_text.reportes['rep_sexo_' + objeto['sexo']];
               //console.log(text_sexo)
               //data_r.push([text_sexo, parseFloat(objeto["promedio"]), parseFloat(objeto["total_trabajos"])]);
-              if(objeto[i] > 0){
-                  data_r.push([text_sexo, parseFloat(objeto[i])]);
-              }
-            }
+              data_r.push([text_sexo, parseFloat(objeto['promedio'])]);
         }
     }
+    //console.log(objeto_datos);
+    if(objeto_datos.length < 3){
+      text_sexo = language_text.reportes['rep_sexo_O'];
+      data_r.push([text_sexo, 0]);
+    }
+
     return data_r;
 }
 
@@ -60,7 +61,7 @@ Highcharts.chart('progressBar', {
         enabled: false
     },
     tooltip: {
-        pointFormat: language_text.reportes_calidad.medicion_y + ' : <b>{point.y:.1f}% de ' + total + '</b>'
+        pointFormat: language_text.reportes_calidad.medicion_y + ' : <b>{point.y:.1f}</b>'
     },
     series: [{
             name: language_text.reportes_calidad.medicion_y,

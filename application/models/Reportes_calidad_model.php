@@ -76,8 +76,7 @@ class Reportes_calidad_model extends MY_Model {
         $this->db->flush_cache();
         $this->db->reset_query();
         $select = array(
-            "round(avg(case when sexo='M' then d.promedio else 0 end)::numeric,2) M", "round(avg(case when sexo = 'F' then d.promedio else 0 end)::numeric,2) F"
-            , "round(avg(case when sexo = 'O' then d.promedio else 0 end)::numeric,2) O", "round(avg(d.promedio)::numeric, 2) Total"
+            "iu.sexo","round(avg(d.promedio)::numeric, 2) promedio","count(distinct ti.folio) total_trabajos"
         );
         $this->db->select($select, FALSE);
         $this->db->join("foro.dictamen d", "d.folio = ti.folio", "inner");
@@ -85,19 +84,19 @@ class Reportes_calidad_model extends MY_Model {
         $this->db->join("sistema.informacion_usuario iu", "iu.id_informacion_usuario = au.id_informacion_usuario", "inner");
         $this->db->join("foro.convocatoria c", "c.id_convocatoria = ti.id_convocatoria", "inner");
 
-        //$this->db->group_by("iu.sexo");
+        $this->db->group_by("iu.sexo");
         //pr($this->db->get("foro.trabajo_investigacion ti"));
         $result_sub = $this->db->get("foro.trabajo_investigacion ti")->result_array();
 
         $this->db->flush_cache();
         $this->db->reset_query();
-        // $result = [];
-        // if (!empty($result_sub)) {
-        //     foreach ($result_sub as $value) {
-        //         $result[$value['sexo']] = $value;
-        //         unset($result[$value['sexo']]['sexo']);
-        //     }
-        // }
+        $result = [];
+        if (!empty($result_sub)) {
+            foreach ($result_sub as $value) {
+                $result[$value['sexo']] = $value;
+                unset($result[$value['sexo']]['sexo']);
+            }
+        }
 
         return $result_sub;
     }
