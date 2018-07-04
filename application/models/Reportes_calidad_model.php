@@ -26,7 +26,7 @@ class Reportes_calidad_model extends MY_Model {
             , "count(distinct ti.folio) total_trabajos"
         );
         $this->db->select($select);
-        //$this->db->join("foro.dictamen d", "d.folio = ti.folio", "inner");
+        $this->db->join("foro.dictamen d", "d.folio = ti.folio", "inner");
         $this->db->join("foro.autor au", "au.folio_investigacion = ti.folio and au.registro", "inner", false);
         $this->db->join("sistema.informacion_usuario iu", "iu.id_informacion_usuario = au.id_informacion_usuario", "inner");
              $this->db->join("foro.convocatoria c", "c.id_convocatoria = ti.id_convocatoria", "inner");
