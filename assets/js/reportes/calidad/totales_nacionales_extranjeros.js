@@ -28,7 +28,7 @@ Highcharts.chart('progressBar', {
                 enabled: true,
                 format: '<b>{point.name}</b><br> ' +
                         language_text.reportes.total_gral + ': <b>{point.y}</b><br> ' +
-                        language_text.reportes.porcentaje_lbl + ': {point.percentage:.1f} % ',
+                        language_text.reportes.porcentaje_lbl + ': {point.percentage:.1f} %',
                 style: {
                     color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
                 }
@@ -93,7 +93,7 @@ Highcharts.chart('progressBar', {
 //                menuItems: [],
 //                onclick: function () {
 //                    console.log(this);
-//                    
+//
 ////                    this.exportChart({format: "pdf"});
 ////                    chart.exportTest('application/pdf');
 //                }
@@ -103,4 +103,3 @@ Highcharts.chart('progressBar', {
 });
 
 /* End of automation code */
-

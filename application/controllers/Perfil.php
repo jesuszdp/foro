@@ -33,11 +33,12 @@ class Perfil extends MY_Controller {
     $es_imss = $this->get_datos_sesion(En_datos_sesion::ES_IMSS);
     $datos_usuario = $this->usuario->obtener_informacion_usuario(array('where'=>array('id_informacion_usuario'=> $user_sesion['id_informacion_usuario'])))[0];
     $output['language_text'] = $this->language_text;
+    //pr($datos_usuario);
     switch ($datos_usuario['sexo']) {
       case 'M':
         $datos_usuario['sexo'] = $this->language_text['registro_usuario']['ext_sexo_m'];
         break;
-      
+
       case 'F':
         $datos_usuario['sexo'] = $this->language_text['registro_usuario']['ext_sexo_f'];
         break;
@@ -50,7 +51,7 @@ class Perfil extends MY_Controller {
         break;
     }
     $output ['datos_usuario'] = $datos_usuario;
-    
+
     if ($es_imss) {//Edición imsss
       $config['ruta_registro'] = "sesion/registro_internos_ver.php";
     } else {//Es un externo
@@ -58,7 +59,7 @@ class Perfil extends MY_Controller {
     }
 
     $output['paises'] = dropdown_options($this->catalogo->get_paises(), "clave_pais", "lang", $this->obtener_idioma());
-    
+
     $main_content = $this->load->view($config['ruta_registro'], $output, TRUE);
     $this->template->setMainContent($main_content);
     $this->template->getTemplate();
@@ -101,7 +102,7 @@ class Perfil extends MY_Controller {
           'nombre' => $post['ext_nombre'],
           'apellido_paterno' => $post['ext_ap'],
           'apellido_materno' => $post['ext_am'],
-          'sexo' => $post['sexo'], 
+          'sexo' => $post['sexo'],
           'email' => $post['ext_mail'],
           'telefono_personal' => $post['telefono_personal'],
           'telefono_oficina' => $post['telefono_oficina'],
@@ -135,8 +136,8 @@ class Perfil extends MY_Controller {
       }
     } else {
       $datos_usuario = $this->usuario->obtener_informacion_usuario(array('where'=>array('id_informacion_usuario'=>$id_info_u)))[0];
-    } 
-    
+    }
+
     $output ['datos_usuario']= $datos_usuario;
     $output['paises'] = dropdown_options($this->catalogo->get_paises(), "clave_pais", "lang", $this->obtener_idioma());
     $output['language_text'] = $this->language_text;
@@ -168,7 +169,7 @@ class Perfil extends MY_Controller {
       $this->form_validation->set_rules($validations);
 
       if ($this->form_validation->run() == TRUE) {
-        $user_sesion = $this->get_datos_sesion(); 
+        $user_sesion = $this->get_datos_sesion();
 
         $param = array(
           'pass' => $post['reg_password'],

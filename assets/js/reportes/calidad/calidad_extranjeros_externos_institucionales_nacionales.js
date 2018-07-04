@@ -52,7 +52,7 @@ Highcharts.chart('progressBar', {
         enabled: false
     },
     tooltip: {
-        pointFormat: language_text.reportes_calidad.medicion_y + ' : <b>{point.y:.1f}%</b>'
+        pointFormat: language_text.reportes_calidad.medicion_y + ' : <b>{point.y:.1f}</b>'
     },
 //    tooltip: {
 //        pointFormat: language_text.reportes.calidad + ': <b> {point.y}</b><br>' +
