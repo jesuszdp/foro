@@ -29,7 +29,7 @@
 
         <link href="<?php echo asset_url(); ?>css/theme.css" rel="stylesheet">
         <link href="<?php echo asset_url(); ?>css/custom.css" rel="stylesheet">
-
+        <link href="<?php echo asset_url();?>css/esconder.css" rel="stylesheet">
         <?php echo $css_files; ?>
         <?php echo css('template_foro/apprise.css'); ?>
 
@@ -72,7 +72,7 @@
         <div id="overlay">
             <img src="<?php echo base_url('assets/img/loader.gif'); ?>" alt="Loading" /><br/>
             Cargando...
-        </div>    
+        </div>
 
         <!-- Preloader -->
         <div id="preloaders">
@@ -324,6 +324,21 @@
                 theme.initPartnerSlider();
                 theme.initTestimonials();
                 theme.initGoogleMap();
+
+
+
+                $(window).resize(function(){
+
+                   if ($('header').width() < 992 ){
+                     $('#menuREPORTES_MENU').parent()[0].childNodes[1].className = "esconderNav";
+                     $('#menuPERFIL').parent()[0].childNodes[1].className = "esconderNav";
+                     $('#menuADMIN').parent()[0].childNodes[1].className = "esconderNav";
+                     $('.esconderNav').hide();
+                   }else{
+                     $('.esconderNav').show();
+                   }
+
+                });
             });
             jQuery(window).load(function () {
                 theme.initAnimation();
