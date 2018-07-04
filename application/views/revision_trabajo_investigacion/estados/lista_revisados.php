@@ -195,6 +195,7 @@ $sistema = $config_asignacion['sistema'];
           <!-- Aqui va la tabla de asignados -->
           <table class="table">
             <thead>
+              
               <tr>
                 <!-- <th scope="col"></th> -->
                 <th scope="col"><?php echo $language_text['col_folio'];?></th>
