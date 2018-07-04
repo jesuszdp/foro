@@ -969,6 +969,7 @@ textarea {
         width: 250px;
         background-color: rgba(13, 29, 49, 0.95);
         z-index: 1;
+        overflow: auto;
     }
     .navigation.closed {right: -250px;}
     .navigation.opened {right: 0;}
@@ -1065,7 +1066,7 @@ textarea {
     }
     .sf-menu ul {
         position:static!important;
-        display: none!important;
+        /* display: none!important; */
     }
     .mobile-submenu-open ul {
         display: block!important;
