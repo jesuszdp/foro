@@ -93,7 +93,7 @@ $sistema = $config_asignacion['sistema'];
               <th scope="col"><?php echo $language_text['col_r1'];?></th>
               <th scope="col"><?php echo $language_text['col_r2'];?></th>
               <th scope="col"><?php echo $language_text['col_r3'];?></th>
-              <th scope="col"><?php echo round($language_text['col_puntaje'], 2);?></th>
+              <th scope="col"><?php echo $language_text['col_puntaje']?></th>
               <?php
               if($manual)
               {
@@ -203,7 +203,7 @@ $sistema = $config_asignacion['sistema'];
                 <th scope="col"><?php echo $language_text['col_r1'];?></th>
                 <th scope="col"><?php echo $language_text['col_r2'];?></th>
                 <th scope="col"><?php echo $language_text['col_r3'];?></th>
-                <th scope="col"><?php echo round($language_text['col_puntaje'],2);?></th>
+                <th scope="col"><?php echo $language_text['col_puntaje'];?></th>
                 <th><?php echo $language_text['col_sugerencia'];?></th>
                 <th scope="col"><?php echo $language_text['col_opciones'];?></th>
               </tr>

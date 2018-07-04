@@ -4,6 +4,17 @@
     <script src = "<?php echo asset_url() . $value; ?>"></script>
 <?php } ?>
 
+<div class="wpb_column vc_column_container vc_col-sm-8">
+    <div class="vc_column-inner ">
+        <div class="wpb_wrapper">
+            <h3 class="section-title">
+                <span data-animation="flipInY" data-animation-delay="300" class="icon-inner animated flipInY visible"><span class="fa-stack"><i class="fa rhex fa-stack-2x"></i><i class="fa fa-question fa-stack-1x"></i></span></span>
+                <span data-animation="fadeInRight" data-animation-delay="500" class="title-inner animated fadeInRight visible">Reportes IMSS</span><br><br>
+            </h3>
+        </div>
+    </div>
+</div>
+
 <div class="schedule-wrapper clear" data-animation="fadeIn" data-animation-delay="200">
     <div class="schedule-tabs lv1">
         <ul id="tabs-lv1"  class="nav nav-justified">
