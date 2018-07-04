@@ -3,6 +3,7 @@ jQuery(document).ready(function () {
         $(this).css('display', 'none');
     });
 });
+
 function get_data_trabajos_calidad() {
     var data_r = new Array();
     var objeto = null;
@@ -59,7 +60,7 @@ Highcharts.chart('progressBar', {
         enabled: false
     },
     tooltip: {
-        pointFormat: language_text.reportes_calidad.medicion_y + ' : <b>{point.y:.1f}%</b>'
+        pointFormat: language_text.reportes_calidad.medicion_y + ' : <b>{point.y:.1f}% de ' + total + '</b>'
     },
     series: [{
             name: language_text.reportes_calidad.medicion_y,
