@@ -32,6 +32,7 @@ function porcentajes_delegacion() {
     var data_r = new Array();
     var objeto = null;
     var objeto_datos = data_grafica.delegacion;
+    console.log(data_grafica);
     for (var i in objeto_datos) {
         if (objeto_datos.hasOwnProperty(i) && objeto_datos[i].total > 0) {
             objeto = objeto_datos[i];
@@ -138,7 +139,8 @@ function grafica_umae() {
 function grafica_delegacion() {
 
     var delegacion_graf = porcentajes_delegacion();
-    if (delegacion_graf.length > 0) {
+    var total = delegacion_graf.length;
+    if (total > 0) {
       Highcharts.chart('grafica_delegacion', {
           lang: textos_lenguaje(),
           chart: {
@@ -166,9 +168,36 @@ function grafica_delegacion() {
           legend: {
               enabled: false
           },
+          plotOptions: {
+              column: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                // dataLabels: {
+                //     enabled: true,
+                //     format: '<b>{point.name}</b>   ' +
+                //             language_text.reportes.total_gral + ':<b>{point.y}</b><br> ' +
+                //             language_text.reportes.porcentaje_lbl + ': {point.percentage:.1f} % ',
+                //     style: {
+                //         color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                //     }
+                // }
+              }
+          },
           tooltip: {
-            pointFormat: language_text.reportes.total_gral + ' <b>{point.y}</b><br>' +
-                         language_text.reportes.porcentaje_lbl + ' <b>{point.percentage:.1f}%</b>'
+            formatter: function () {
+                console.log(this)
+                var s = '<b>'+language_text.reportes.total_gral + ":</b> " + this.y + '<br>' +
+                '<b>' + language_text.reportes.porcentaje_lbl + ": "+ Highcharts.numberFormat(100 * this.y / total, 0) + "%";
+
+                // $.each(this.points, function () {
+                //     s += '<br/>' + this.series.name + ': ' +
+                //         this.y + 'm';
+                // });
+
+                return s;
+            },
+            //pointFormat: language_text.reportes.total_gral + ' <b>{point.y}</b><br>' +
+                         //language_text.reportes.porcentaje_lbl + Highcharts.numberFormat(100 * this.y / this.y.total,0) + "%"
           },
   //        exporting: {
   //            buttons: {

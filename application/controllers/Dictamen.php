@@ -55,7 +55,7 @@ class Dictamen extends General_revision {
                 'd.folio_dictamen' => null,
                 'd.sugerencia' => null
             ),
-            'order_by' => 'd.promedio, ti.fecha'
+            'order_by' => 'd.promedio desc'
         );
         $trabajo = $this->dictamen->get_trabajos_evaluados($param);
         // Obtenemos el listado de los revisores

@@ -38,7 +38,7 @@ class Dictamen_model extends MY_Model {
             'a.registro' => true,
           )
         );
-        
+
         if(isset($param['where']))
         {
           $this->db->where($param['where']);
@@ -57,7 +57,7 @@ class Dictamen_model extends MY_Model {
         $res = $this->db->get('foro.historico_revision hr');
 //        pr($this->db->last_query());
         $this->db->flush_cache();
-        $this->db->reset_query();    
+        $this->db->reset_query();
         $reusltado = $res->result_array();
         return $reusltado;
 
@@ -67,7 +67,7 @@ class Dictamen_model extends MY_Model {
     }
 
     /**
-    * Devuelve la informacion de los trabajos que han sido o no se asignaron 
+    * Devuelve la informacion de los trabajos que han sido o no se asignaron
     * para el envio de correo
     * @author clapas
     * @date 25/05/2018
@@ -93,7 +93,7 @@ class Dictamen_model extends MY_Model {
             'a.registro' => true
           )
         );
-        
+
         if(isset($param['where']))
         {
           $this->db->where($param['where']);
@@ -111,8 +111,8 @@ class Dictamen_model extends MY_Model {
 
         $res = $this->db->get('foro.historico_revision hr');
         $this->db->flush_cache();
-        $this->db->reset_query();    
-        pr($this->db->last_query());
+        $this->db->reset_query();
+        //pr($this->db->last_query());
         $reusltado = $res->result_array();
         return $reusltado;
 
@@ -142,7 +142,7 @@ class Dictamen_model extends MY_Model {
             'hr.actual' => true
           )
         );
-        
+
         if(isset($param['where']))
         {
           $this->db->where($param['where']);
@@ -160,18 +160,18 @@ class Dictamen_model extends MY_Model {
 
         $res = $this->db->get('foro.historico_revision hr');
         $this->db->flush_cache();
-        $this->db->reset_query();    
+        $this->db->reset_query();
 
         return $res->result_array();
 
       }catch(Exception $ex){
         return [];
-      } 
+      }
     }
 
     /**
      * Devuelve la información de los registros de la tabla catalogos
-     * @author 
+     * @author
      * @date 21/05/2018
      * @return array
      */
@@ -182,7 +182,7 @@ class Dictamen_model extends MY_Model {
 
     /**
      * Devuelve la información de los registros de la tabla catalogos
-     * @author 
+     * @author
      * @date 21/05/2018
      * @return array
      */
@@ -193,7 +193,7 @@ class Dictamen_model extends MY_Model {
 
     /**
      * Devuelve la información de los registros de la tabla catalogos
-     * @author 
+     * @author
      * @date 21/05/2018
      * @return array
      */
@@ -218,7 +218,7 @@ class Dictamen_model extends MY_Model {
         $res = $this->db->get('foro.configuracion');
 
         $this->db->flush_cache();
-        $this->db->reset_query();    
+        $this->db->reset_query();
 
         return $res->result_array()['0']['valor'];
       }catch(Exception $ex){
@@ -241,7 +241,7 @@ class Dictamen_model extends MY_Model {
         $res = $this->db->get('foro.configuracion');
 
         $this->db->flush_cache();
-        $this->db->reset_query();    
+        $this->db->reset_query();
 
         return $res->result_array()['0']['valor'];
       }catch(Exception $ex){
@@ -254,7 +254,7 @@ class Dictamen_model extends MY_Model {
     * @author clapas
     * @date 29/05/2018
     * @param char A si es automatica, M si es manual
-    * @return boolean true si se pudo realizar el cambio, false en otro caso 
+    * @return boolean true si se pudo realizar el cambio, false en otro caso
     */
     public function activar_asignacion($tipo)
     {
@@ -351,7 +351,7 @@ class Dictamen_model extends MY_Model {
       $this->db->trans_begin();
 
       $this->db->set($param['values']);
-      
+
       if(isset($param['where_in']))
       {
         $this->db->where_in($param['where_in'][0],$param['where_in'][1]);
@@ -413,7 +413,7 @@ class Dictamen_model extends MY_Model {
 
       $this->db->flush_cache();
       $this->db->reset_query();
-      return $salida; 
+      return $salida;
     }
 
 
@@ -443,7 +443,7 @@ class Dictamen_model extends MY_Model {
           case 'Q':
             return 0;
             break;
-          
+
           default:
             $filtros = array('aceptado'=>true,'tipo_exposicion'=>$filtro);
             break;
@@ -458,7 +458,7 @@ class Dictamen_model extends MY_Model {
           case 'Q':
             $filtros = array('aceptado'=>null,'sugerencia'=>null);
             break;
-          
+
           default:
             $filtros = array('aceptado'=>true,'sugerencia'=>$filtro);
             break;
@@ -479,7 +479,7 @@ class Dictamen_model extends MY_Model {
     * @param folio_actual
     * @param folio_dictamen
     * @param sugerencia
-    */ 
+    */
     public function dictaminar($folio_actual, $folio_dictamen, $sugerencia)
     {
       $salida = false;
@@ -490,7 +490,7 @@ class Dictamen_model extends MY_Model {
       $valores = array(
         'folio_dictamen' => $folio_dictamen,
         'tipo_exposicion' => $sugerencia,
-        'fecha' => 'now()' 
+        'fecha' => 'now()'
         );
       $this->db->set($valores,false);
       $this->db->where('folio',$folio_actual);
@@ -507,7 +507,7 @@ class Dictamen_model extends MY_Model {
 
       $this->db->flush_cache();
       $this->db->reset_query();
-      return $salida; 
+      return $salida;
       //return false;
     }
 }
