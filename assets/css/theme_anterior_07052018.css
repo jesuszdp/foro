@@ -1165,7 +1165,7 @@ textarea {
     bottom: 70px;
 }
 
-@media (min-width: 768px) and (max-width: 991px) {
+@media (min-width: 800px) and (max-width: 991px) {
     #main-slider.owl-theme .owl-controls .owl-dots {
         bottom: 115px;
     }
@@ -1729,7 +1729,7 @@ textarea {
         border-radius: 0 0 10px 10px;
     }
 }
-@media (min-width: 768px) {
+@media (min-width: 800px) {
     .row.faq .nav li.active:before { content: ''; position: absolute; top: 15px; right: -31px; width: 0; height: 0; border-top: 10px solid transparent; border-right: 10px solid #435469; border-bottom: 10px solid transparent; z-index: 1;}
     .row.faq .nav li.active:after { content: ''; position: absolute; top: 15px; right: -32px; width: 0; height: 0; border-top: 10px solid transparent; border-right: 10px solid #fdfdfd; border-bottom: 10px solid transparent; z-index: 2;}
 }
@@ -3362,7 +3362,7 @@ body.body-dark {
     border-top-color: #1f2c3c;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 800px) {
     .body-dark .row.faq .nav li.active:before { content: ''; position: absolute; top: 15px; right: -31px; width: 0; height: 0; border-top: 10px solid transparent; border-right: 10px solid #435469; border-bottom: 10px solid transparent; z-index: 1;}
     .body-dark .row.faq .nav li.active:after { content: ''; position: absolute; top: 15px; right: -32px; width: 0; height: 0; border-top: 10px solid transparent; border-right: 10px solid #102033; border-bottom: 10px solid transparent; z-index: 2;}
 }
@@ -3501,7 +3501,7 @@ body.rtl .price-table.featured:before {
 body.rtl .bootstrap-select.btn-group .btn .filter-option {text-align: right;}
 body.rtl .bootstrap-select.btn-group .btn .caret {right: auto; left: 12px;}
 body.rtl .row.faq .nav li a .fa {float: right; margin-right: 0; margin-left: 15px;}
-@media (min-width: 768px) {
+@media (min-width: 800px) {
     body.rtl .row.faq .nav li.active:before {content: ''; position: absolute; top: 15px; right: auto; left: -31px; width: 0; height: 0; border-top: 10px solid transparent; border-right: none; border-left: 10px solid #435469; border-bottom: 10px solid transparent; z-index: 1;}
     body.rtl .row.faq .nav li.active:after {content: ''; position: absolute; top: 15px; right: auto; left: -32px; width: 0; height: 0; border-top: 10px solid transparent; border-right: none; border-left: 10px solid #fdfdfd; border-bottom: 10px solid transparent; z-index: 2;}
     body.rtl.body-dark .row.faq .nav li.active:before {content: ''; position: absolute; top: 15px; right: auto; left: -31px; width: 0; height: 0; border-top: 10px solid transparent; border-right: none; border-left: 10px solid #435469; border-bottom: 10px solid transparent; z-index: 1;}

@@ -33,7 +33,7 @@
                         <div class="vc_column-inner vc_custom_1417508840067">
                             <div class="wpb_wrapper">
                                 <div class="row faq   animated fadeInUp visible" data-animation="fadeInUp" data-animation-delay="100">
-                                    <div class="col-sm-4 col-md-4 pull-left">
+                                    <div class="col-md-4">
                                         <ul id="tabs-faq" class="style1 nav">
                                             <li class="control in active" id="tab_1"><a href="<?php echo base_url("index.php/reportes_generales/reportes/1"); ?>" ><i class="fa fa-plus"></i> <span class="faq-inner"><?php echo $language_text['reportes_generales']['tab_t_exposiciones']; ?></span></a></li>
                                             <li class="control" id="tab_2"><a href="<?php echo base_url("index.php/reportes_generales/reportes/2"); ?>"><i class="fa fa-plus"></i> <span class="faq-inner"><?php echo $language_text['reportes_generales']['tab_t_nac_ext']; ?></span></a></li>

@@ -526,7 +526,7 @@ footer a:hover, footer a:focus {
     MEDIA QUERIES
   =============================================*/
 
-@media (min-width:768px) {
+@media (min-width:800px) {
     .page-wrapper-cls {
         margin: 0 0 0 180px;
     }
@@ -542,7 +542,7 @@ footer a:hover, footer a:focus {
         border-radius: 0px;
     }
 }
-@media (min-width:280px) and (max-width:767px ){
+@media (min-width:280px) and (max-width:800px ){
     #menuClose {
         visibility:hidden;
     }
