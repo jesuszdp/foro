@@ -17,7 +17,7 @@
 <div class="tab-content lv2">
     <div id="tab-lv21-first" class="tab-pane fade in active">
         <div class="ajuste">
-            <div id="grafica_nivel_atencion" style="width: 100%; height: 400px; "></div>
+            <div id="grafica_nivel_atencion" style="height: 600px; "></div>
             <!--<div id="grafica_delegacion" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>-->
             <br>
             <div><p id="pie_porcentaje_del"> *<?php echo $language_text['reportes_imss']['nota_porcentaje_nivel']; ?> </p></div>
@@ -26,7 +26,7 @@
     </div>
     <div id="tab-lv21-second" class="tab-pane fade in">
         <div class="ajuste">
-            <div id="grafica_umae" style="width: 100%; height: 400px; "></div>
+            <div id="grafica_umae" style="height: 600px; "></div>
             <br>
             <div><p id="pie_porcentaje_umae"> *<?php echo $language_text['reportes_imss']['nota_porcentaje_umae']; ?> </p></div>
             <!--<div id="grafica_delegacion" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>-->

@@ -334,8 +334,11 @@
                      $('#menuPERFIL').parent()[0].childNodes[1].className = "esconderNav";
                      $('#menuADMIN').parent()[0].childNodes[1].className = "esconderNav";
                      $('.esconderNav').hide();
+                     //$('#menuREPORTES_MENU').children('li').css('display','none !important');
                    }else{
                      $('.esconderNav').show();
+                     //$('.sf-menu ul li').css('background-color','rgba(13, 29, 49, 0.80)');
+                     //background-color: ;
                    }
 
                 });
