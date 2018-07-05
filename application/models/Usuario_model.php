@@ -276,7 +276,7 @@ class Usuario_model extends MY_Model {
         // pr($docente);
 
         if (!is_null($docente)) {
-            if (isset($datos['docente'])) {
+            if (isset($datos['informacion_usuario'])) {
                 $datos['informacion_usuario']['id_usuario'] = $id_usuario;
 //                $datos['usuario']['id_docente'] = $docente['id_informacion_usuario'];
                 $this->db->where('id_informacion_usuario', $docente['id_informacion_usuario']);
