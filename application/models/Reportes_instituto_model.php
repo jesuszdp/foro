@@ -66,6 +66,8 @@ class Reportes_instituto_model extends MY_Model {
         $this->db->order_by('count(tr.folio)', 'desc');
         $this->db->order_by('d.nombre', 'asc');
         $res = $this->db->get('foro.trabajos_registrados_imss tr');
+
+        //pr($res);
         return $res->result_array();
     }
 

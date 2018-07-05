@@ -32,7 +32,6 @@ function porcentajes_delegacion() {
     var data_r = new Array();
     var objeto = null;
     var objeto_datos = data_grafica.delegacion;
-    console.log(data_grafica);
     for (var i in objeto_datos) {
         if (objeto_datos.hasOwnProperty(i) && objeto_datos[i].total > 0) {
             objeto = objeto_datos[i];
@@ -140,6 +139,10 @@ function grafica_delegacion() {
 
     var delegacion_graf = porcentajes_delegacion();
     var total = delegacion_graf.length;
+    var total_trabajos = 0;
+    for(trabajo in delegacion_graf){
+        total_trabajos+= delegacion_graf[trabajo][1];
+    }
     if (total > 0) {
       Highcharts.chart('grafica_delegacion', {
           lang: textos_lenguaje(),
@@ -187,7 +190,7 @@ function grafica_delegacion() {
             formatter: function () {
                 console.log(this)
                 var s = '<b>'+language_text.reportes.total_gral + ":</b> " + this.y + '<br>' +
-                '<b>' + language_text.reportes.porcentaje_lbl + ": "+ Highcharts.numberFormat(100 * this.y / total, 0) + "%";
+                '<b>' + language_text.reportes.porcentaje_lbl + ": "+ Highcharts.numberFormat(100 * this.y / total_trabajos, 0) + "%";
 
                 // $.each(this.points, function () {
                 //     s += '<br/>' + this.series.name + ': ' +
