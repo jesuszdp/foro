@@ -28,10 +28,10 @@
     			</div>
     		</div><!--row-->
     		<br>
-    		<?php echo form_open_multipart('registro_investigacion/nuevo', array('id' => 'form_registro_investigacion', 'class'=>'form-horizontal', 'data-toggle'=>"validator", 'role'=>"form")); ?>
+    		<?php echo form_open_multipart('registro_investigacion/nuevo', array('id' => 'form_registro_investigacion', 'class'=>'form-horizontal', 'data-toggle'=>"validator", 'role'=>"form", 'accept-charset'="utf-8")); ?>
     		<div class="row">
     			<div class="col-sm-offset-2 col-sm-8">
-    			
+
 				    <div class="form-group">
 				      <label for="titulo_trabajo" class="col-sm-3 control-label"><?php echo $language_text['registro_trabajo']['titulo_trabajo'];?>*:</label>
 				      <div class="col-sm-9">
@@ -91,7 +91,7 @@
 	  								if($trabajo['tipo_metodologia'] == $key){
 	  									echo '<option value="'.$key.'" selected>'.$value.'</option>';
 	  								} else {
-	  									echo '<option value="'.$key.'">'.$value.'</option>';		
+	  									echo '<option value="'.$key.'">'.$value.'</option>';
 	  								}
 	  							} else {
 	  								echo '<option value="'.$key.'">'.$value.'</option>';
@@ -191,7 +191,7 @@
 	                  			isset($trabajo['autor_apm']) && isset($trabajo['autor_sexo']) &&
 	                  			isset($trabajo['autor_pais']))
 				  			{
-				  				for ($i=0; $i < count($trabajo['autor_imss']); $i++) { 
+				  				for ($i=0; $i < count($trabajo['autor_imss']); $i++) {
 				  					echo '<tr>';
 				  					echo '<td><input type="text" name="autor_nombre[]" maxlength="100" value="'.$trabajo['autor_nombre'][$i].'"></td>';
 				  					echo '<td><input type="text" name="autor_app[]" maxlength="100" value="'.$trabajo['autor_app'][$i].'"></td>';
@@ -268,7 +268,7 @@
 				  				</td>
 				  				<td><input type="text" name="autor_matricula[]" maxlength="15"></td>
 				  			</tr>
-				  			<?php 
+				  			<?php
 				  			}
 				  			?>
 				  		</tbody>
