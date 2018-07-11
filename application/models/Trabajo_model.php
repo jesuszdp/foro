@@ -183,7 +183,7 @@ class Trabajo_model extends CI_Model {
           , "a.id_informacion_usuario", "iu.es_imss"
           ,"case when uni.es_umae then 3 else 1 end as nivel_atencion"
           , "concat(iu.nombre, ' ', iu.apellido_paterno, ' ', iu.apellido_materno) nombre_investigador",
-          "iu.clave_pais pais", "del.nombre delegacion", "d.promedio"
+          "iu.clave_pais pais", "del.nombre delegacion", "round(d.promedio::numeric,2) promedio"
       ), false);
       $this->db->where(array(
           'a.registro' => true,
