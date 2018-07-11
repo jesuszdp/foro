@@ -157,6 +157,7 @@ class Trabajo_model extends CI_Model {
 //        $this->db->join('catalogo.delegaciones del', 'del.id_delegacion = uni.id_delegacion', 'left');
         $this->db->order_by('ti.folio', 'desc');
         $res = $this->db->get('foro.trabajo_investigacion ti');
+        //pr($res);
 //        pr($this->db->last_query());
 //        pr($this->db->last_query());
         $this->db->flush_cache();
@@ -164,6 +165,53 @@ class Trabajo_model extends CI_Model {
 
         return $res->result_array();
     }
+
+
+    /**
+     * @author cheko
+     * @date 11/06/2018
+     * @description Obtiene la lista de trabajos de investigación
+     *
+     */
+    public function lista_trabajos(){
+      $this->db->flush_cache();
+      $this->db->reset_query();
+
+      $this->db->select(array(
+          "ti.folio", "ti.titulo", "ti.id_tipo_metodologia", "m.lang nombre_metodologia",
+          "date(ti.fecha) fecha", "hr.clave_estado", "et.lang estado"
+          , "a.id_informacion_usuario", "iu.es_imss"
+          ,"case when uni.es_umae then 3 else 1 end as nivel_atencion"
+          , "concat(iu.nombre, ' ', iu.apellido_paterno, ' ', iu.apellido_materno) nombre_investigador",
+          "iu.clave_pais pais", "del.nombre delegacion", "d.promedio"
+      ), false);
+      $this->db->where(array(
+          'a.registro' => true,
+          'hr.actual' => true,
+          'c.activo' => true
+      ));
+      $this->db->join('foro.dictamen d', 'd.folio = ti.folio', 'left');
+      $this->db->join('foro.autor a', 'a.folio_investigacion = ti.folio', 'inner');
+      $this->db->join('foro.tipo_metodologia m', 'm.id_tipo_metodologia = ti.id_tipo_metodologia', 'inner');
+      $this->db->join('foro.historico_revision hr', 'ti.folio = hr.folio', 'left');
+      $this->db->join('foro.estado_trabajo et', 'hr.clave_estado = et.clave_estado', 'left');
+      $this->db->join('sistema.informacion_usuario iu', 'iu.id_informacion_usuario = a.id_informacion_usuario', 'inner');
+      $this->db->join('sistema.historico_informacion_usuario h', 'h.actual = true and h.id_informacion_usuario = iu.id_informacion_usuario', 'left', FALSE);
+      $this->db->join('catalogo.departamento dep', 'dep.clave_departamental = h.clave_departamental', 'left');
+      $this->db->join('foro.convocatoria c', 'ti.id_convocatoria = c.id_convocatoria');
+      $this->db->join('catalogo.unidad uni', 'uni.clave_unidad = dep.clave_unidad', 'left');
+      $this->db->join('catalogo.delegaciones del', 'del.id_delegacion = uni.id_delegacion', 'left');
+      $this->db->order_by('ti.folio', 'desc');
+      $res = $this->db->get('foro.trabajo_investigacion ti');
+      //pr($res);
+//        pr($this->db->last_query());
+//        pr($this->db->last_query());
+      $this->db->flush_cache();
+      $this->db->reset_query();
+
+      return $res->result_array();
+    }
+
 
     public function autores_trabajo_folio($folio, $lang, $autor = null) {
         $this->db->flush_cache();
