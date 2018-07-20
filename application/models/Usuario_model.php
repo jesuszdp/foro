@@ -257,7 +257,7 @@ class Usuario_model extends MY_Model {
     }
 
     /**
-     * 
+     *
      * @param type $datos usuario
       informacion_usuario
       historico_informacion_usuario
@@ -432,7 +432,7 @@ class Usuario_model extends MY_Model {
         }
         //pr($this->db->get_compiled_select());
         $query = $this->db->get();
-        //pr($this->db->last_query()); 
+        //pr($this->db->last_query());
         //exit();
         if ($query) {
             $usuarios = $query->result_array();
@@ -491,28 +491,38 @@ class Usuario_model extends MY_Model {
             $this->db->update('sistema.usuarios');
             $salida = true;
         } catch (Exception $ex) {
-            
+
         }
         $this->db->reset_query();
         return $salida;
     }
 
+
+
     private function update_basicos($params = []) {
-        //pr($params);
-        $salida = false;
+      //  pr($params);
         $this->db->flush_cache();
         $this->db->reset_query();
 
         $this->db->trans_begin();
         $this->db->where('id_usuario', $params['id_usuario']);
+        $user = $params['id_usuario'];
         unset($params['id_usuario']);
         $this->db->update('sistema.informacion_usuario', $params);
-
         if ($this->db->trans_status() === FALSE) {
             $this->db->trans_rollback();
         }else{
+          $this->db->set('email', $params['email']);
+          $this->db->where('id_usuario', $user);
+          $this->db->update('sistema.usuarios');
+          //pr($params);
+
+          if ($this->db->trans_status() === FALSE) {
+              $this->db->trans_rollback();
+          }else{
             $this->db->trans_commit();
             $salida = true;
+          }
         }
         /*
         if (count($resultado) == 1) {

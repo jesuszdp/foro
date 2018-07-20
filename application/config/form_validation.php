@@ -1043,7 +1043,7 @@ $config['form_actualizar_interno'] = array(
     array(
         'field' => 'email',
         'label' => 'E-mail',
-        'rules' => 'trim|required|valida_correo_electronico' //|is_unico_datos_usuarios[email] //|callback_valid_pass
+        'rules' => 'trim|required|valida_correo_electronico|is_unico_datos_usuarios[email]' //|callback_valid_pass
     ),
     array(
         'field' => 'sexo',

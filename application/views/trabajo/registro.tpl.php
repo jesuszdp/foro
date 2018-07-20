@@ -28,7 +28,7 @@
     			</div>
     		</div><!--row-->
     		<br>
-    		<?php echo form_open_multipart('registro_investigacion/nuevo', array('id' => 'form_registro_investigacion', 'class'=>'form-horizontal', 'data-toggle'=>"validator", 'role'=>"form")); ?>
+    		<?php echo form_open_multipart('registro_investigacion/nuevo', array('id' => 'form_registro_investigacion', 'class'=>'form-horizontal', 'data-toggle'=>"validator", 'role'=>"form", 'accept-charset'=>"utf-8")); ?>
     		<div class="row">
     			<div class="col-sm-offset-2 col-sm-8">
 

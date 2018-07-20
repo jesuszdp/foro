@@ -81,8 +81,8 @@ class Registro_investigacion extends MY_Controller {
         if ($post) {
             $trabajo = $post;
             //pr($post);
-            //Validaciones 
-            $this->config->load('form_validation'); //Cargar archivo 
+            //Validaciones
+            $this->config->load('form_validation'); //Cargar archivo
             $validations = $this->config->item('form_registro_investigacion'); //Obtener validaciones de archivo general
             $this->set_textos_campos_validacion($validations, $lan_txt['registro_trabajo']);
             $this->form_validation->set_rules($validations); //Añadir validaciones
@@ -91,7 +91,7 @@ class Registro_investigacion extends MY_Controller {
 
                 $num_caracteres = strlen($post['metodologia'] . $post['antecedentes'] . $post['problema'] . $post['justificacion'] . $post['pregunta_investigacion'] . $post['objetivo'] . $post['hipotesis'] . $post['resultados'] . $post['conclusiones'] . $post['consideraciones_eticas']);
 
-                if ($num_caracteres <= 2500) {
+                // if ($num_caracteres <= 2500) {
 
                     $num_autores = count($post['autor_imss']);
 
@@ -196,6 +196,13 @@ class Registro_investigacion extends MY_Controller {
                                 unset($trabajo['autor_sexo']);
                                 unset($trabajo['autor_pais']);
 
+                                foreach ($trabajo as $key => &$value ) {
+                                //pr($trabajo);
+                                //$value= str_replace('%', 'porciento' , $value);
+                                $dec = utf8_decode ($value);
+                                $value = utf8_encode($dec);
+                                }
+
                                 $datos = array(
                                     'datos' => $trabajo,
                                     'registrante' => $id_informacion_usuario,
@@ -233,15 +240,16 @@ class Registro_investigacion extends MY_Controller {
                             }
                         } // archivo
                     } // se validaron autores
-                } else {
-                    $msg = $lan_txt['registro_trabajo']['rti_caracteres'];
-                    $msg_type = 'danger';
-                    $status = false;
-                } //validacion de caracteres 
+                // } else {
+                //     $msg = $lan_txt['registro_trabajo']['rti_caracteres'];
+                //     $msg_type = 'danger';
+                //     $status = false;
+                // }
+                //validacion de caracteres
             } else {
                 $status = false;
             } //validacion de requeridos
-        } //post 
+        } //post
         //pr($post);
         $output['msg'] = $msg;
         $output['msg_type'] = $msg_type;
@@ -261,7 +269,7 @@ class Registro_investigacion extends MY_Controller {
         $this->load->config('email');
         $this->load->library('My_phpmailer');
         $mailStatus = $this->my_phpmailer->phpmailerclass();
-        
+
         /*  $mailStatus->SMTPOptions = array(
           'ssl' => array(
           'verify_peer' => false,
@@ -269,7 +277,7 @@ class Registro_investigacion extends MY_Controller {
           'allow_self_signed' => true
           )
           );*/
-         
+
         $mailStatus->SMTPAuth = false;
         $emailStatus = $this->load->view('correo_foro/recepcion.php', $datos, true);
         //$emailStatus = $this->procesar_correo($texto, array('{{$folio}}' => $folio, '{{$titulo}}' => $titulo));
@@ -293,12 +301,26 @@ class Registro_investigacion extends MY_Controller {
         $lang = $this->obtener_idioma();
         $output['lang'] = $lang;
         $output['datos'] = $this->trabajo->trabajo_investigacion_folio($folio, $lang)[0];
+       //  $decodificar = $this->trabajo->trabajo_investigacion_folio($folio, $lang)[0];
+       //
+       //  $output['datos'] = $decodificar;
+       //
+       // foreach ($decodificar as $key => &$value ) {
+       //  //pr($trabajo);
+       //  //$value= str_replace('%', 'porciento' , $value);
+       //
+       // $dec = utf8_decode ($value);
+       // $value = utf8_encode($dec);
+       //
+       // }
+
         $autores = $this->trabajo->autores_trabajo_folio($folio, $lang);
         if (!empty($autores)) {
             $output['autor_principal'] = $autores[0];
             unset($autores[0]);
             $output['autores'] = $autores;
         }
+
         $output['language_text'] = $this->obtener_grupos_texto(array('listado_trabajo', 'registro_trabajo', 'detalle_trabajo', 'registro_usuario'), $lang);
 
         $main_content = $this->load->view('trabajo/ver.tpl.php', $output, true);
