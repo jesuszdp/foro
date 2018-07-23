@@ -268,6 +268,36 @@ class Evaluacion_revision_model extends MY_Model {
         return $estado;
     }
 
+    public function reevaluacion_trabajo_investigacion($folio, $language) {
+        $this->db->flush_cache();
+        $this->db->reset_query();
+
+        $this->db->where('folio', $folio);
+        $this->db->where('actual', true);
+        $this->db->select('clave_estado');
+        $estado_investigacion = $this->db->get('foro.historico_revision')->result_array();
+        if (!empty($estado_investigacion) and $estado_investigacion[0]['clave_estado'] == En_estado_revision::RECHAZADO) {
+            $this->db->trans_begin(); //Inicia la transacción
+            $this->db->where("folio", $folio);
+            $this->db->update("foro.revision", ["activo" => FALSE]); //Desactiva todas las revisiones
+            if ($this->db->trans_status() === FALSE) {
+                $estado = FALSE;
+            } else {
+                $res = $this->guardar_historico_estado($folio, En_estado_revision::SN_ASIGNACION); //actualiza al estado de sin asignacion
+                if ($res) {//Se actualizo el estado correctamente
+                    $result = array('message' => $language['reeval_succes'], 'tp_message' => En_tpmsg::SUCCESS);
+                    $this->db->trans_commit(); //Se ejecuta el commit
+                } else {
+                    $result = array('message' => $language['reeval_danger'], 'tp_message' => En_tpmsg::DANGER);
+                    $this->db->trans_rollback();
+                }
+            }
+        } else {//El estado actual no es rechazado,por lo que no se puede regresar a una nueva evaluación
+            $result = array('message' => $language['reeval_danger'], 'tp_message' => En_tpmsg::DANGER);
+        }
+        return $result;
+    }
+
     /**
      * @author LEAS 
      * @fecha 25/05/2018

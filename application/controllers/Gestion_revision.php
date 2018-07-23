@@ -261,7 +261,7 @@ class Gestion_revision extends General_revision {
      * @param int $id_usuario Id de usuario del revisor que se desea modificar
      *
      */
-    public function asignar_revisor_en_revision($folio,$revisor) {
+    public function asignar_revisor_en_revision($folio, $revisor) {
         if ($this->input->is_ajax_request()) { //Validar que se realice una petición ajax
             if (isset($folio) && !empty($folio)) { //Se valida que se envien datos
                 $folio = $this->security->xss_clean($folio); ///Limpiar parámetro
@@ -315,7 +315,7 @@ class Gestion_revision extends General_revision {
         //pr($registro);
         //$lenguaje = obtener_lenguaje_actual();
         $estado_actual_revisor = '';
-        $bandera=0;
+        $bandera = 0;
         if ($registro['revisado'] == false) {
             if ($registro['fuera_tiempo'] == true) {
                 $estado_actual_revisor = 'Fuera de tiempo';
@@ -393,7 +393,7 @@ class Gestion_revision extends General_revision {
      * @date 13/06/2018
      */
     public function asignar_revisor_en_revision_bd() {
-        $datos['resultado']= array('result' => null, 'msg' => 'Hubo un problema, inténtelo de nuevo', 'data' => null);
+        $datos['resultado'] = array('result' => null, 'msg' => 'Hubo un problema, inténtelo de nuevo', 'data' => null);
         if ($this->input->is_ajax_request()) { //Validar que se realice una petición ajax
             if ($this->input->post()) { //Se valida que se envien datos
                 //pr($this->input->post());
@@ -403,12 +403,29 @@ class Gestion_revision extends General_revision {
                 $datos['folio'] = decrypt_base64($post['folio']); //Obtener identificadores de folios
                 //pr($datos);
                 $resultado = $this->gestion_revision->insert_asignar_revisor_en_revision($datos);
-                if($resultado)
-                {
-                    $datos['resultado'] = array('result'=>$resultado, 'msg'=>'Se reasigno correctamente el revisor','data'=>null);
+                if ($resultado) {
+                    $datos['resultado'] = array('result' => $resultado, 'msg' => 'Se reasigno correctamente el revisor', 'data' => null);
                 }
                 $this->load->view('revision_trabajo_investigacion/asignar_revisor_en_revision_bd.php', $datos);
             }
+        }
+    }
+
+    /**
+     * @author LEAS
+     * @Fecha 20/07/2018
+     * @descripcion Permite que se vuelva a evaluar un trabajo de investigacion
+     */
+    public function evaluar_nuevamente() {
+//        pr($this->input->post(null, true));
+        if ($this->input->post(null, true)) {//Valida que sea post
+            $this->load->model("Evaluacion_revision_model", "evaluacion");
+            $post = $this->input->post(null, true);
+            $language = $this->language_text['rechazado'];
+            $succes = $this->evaluacion->reevaluacion_trabajo_investigacion($post['folio'], $language);
+//            pr($succes);
+            $result = json_encode($succes);
+            echo $result;
         }
     }
 
