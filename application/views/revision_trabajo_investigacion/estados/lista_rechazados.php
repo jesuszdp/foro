@@ -25,7 +25,7 @@ if (!empty($data_rechazados)) {
                             <td><?php echo $row['titulo']; ?></td>
                             <td><?php echo $row['metodologia']; ?></td>
                             <td>
-                                <a href="<?php echo site_url() . '/registro_investigacion/ver/' . $row['folio']; ?>" type="button" data-animation="flipInY" data-animation-delay="100" >Ver trabajo <span class="glyphicon glyphicon-new-window"></span></a>
+                                <a href="<?php echo site_url() . '/registro_investigacion/ver/' . $row['folio']; ?>" type="button" data-animation="flipInY" data-animation-delay="100" >Ver trabajo <span class="glyphicon glyphicon-new-window"></span></a><br>
                                 <a class="cambio_revision" type="button" data-animation="flipInY" data-tifolio="<?php echo $row['folio']; ?>" data-animation-delay="100" ><?php echo $language_text['reeval_reevaluacion']; ?> &nbsp;<span class="glyphicon glyphicon-repeat"></span></a>
                             </td>
                         </tr>
