@@ -468,7 +468,8 @@ class Evaluacion_revision_model extends MY_Model {
                     $result["estado_trancicion"] = En_estado_revision::DISCREPANCIA;
                 }
             } else {//deberá hacer una evaluación
-                $result["estado_trancicion"] = $this->validar_discrepancia_o_evaluacion($validaciones['revisiones_ids']);
+                //$result["estado_trancicion"] = $this->validar_discrepancia_o_evaluacion($validaciones['revisiones_ids']);
+                $result["estado_trancicion"] = En_estado_revision::EVALUADO;
                 $result["suma_calificacion"] = $validaciones["suma_promedio"];
                 $result["promedio_general"] = $validaciones["suma_promedio"] / 2;
             }
