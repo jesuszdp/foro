@@ -52,7 +52,6 @@ class Reportes_institucion extends General_reportes {
 
     /**
      * Devuelve la informacion del numero total de trabajos registrados por delegacion y umae
-     * se toman en cuenta unicamente trabajos evaluados
      * @author clapas
      * @date 05/06/2018
      * @return array
@@ -146,6 +145,22 @@ class Reportes_institucion extends General_reportes {
             'umae' => $data_umae,
             'delegacion' => $data_delegacion
         );
+    }
+
+    /**
+     * Devuelve la informacion del numero total de trabajos evaluados por tipo de metodologia
+     * @author clapas
+     * @date 12/08/2018
+     * @return array
+     */
+    public function evaluados_metodologia()
+    {
+        $umae = $this->reporteimss->top_evaluados_umae();
+        //pr($umae);
+        $delegacion = $this->reporteimss->top_evaluados_delegacion();
+        //pr($delegacion);
+        $externos = $this->reporteimss->top_evaluados_externos();
+        //pr($externos);
     }
 
 }
