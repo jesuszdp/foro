@@ -45,6 +45,7 @@ class Revision_model extends MY_Model {
             //$this->db->where("clave_estado", "asignado");
             $this->db->where("hr.actual", TRUE);
             $this->db->where("r.id_usuario", $this->session->userdata('die_sipimss')['usuario']['id_usuario']);
+            $this->db->where("r.activo", TRUE);//Agreaga filtro para saber que esta activa aún la evaluación
             $this->db->where("r.revisado", false);
             $this->db->where("(case when (now() <= CAST(r.fecha_asignacion AS timestamp) + CAST('" . $dias_revision . " days' AS INTERVAL)) then 1 else 0 end = 1)");
 
