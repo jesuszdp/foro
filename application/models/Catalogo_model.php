@@ -667,4 +667,22 @@ class Catalogo_model extends MY_Model {
              $this->db->reset_query();
              return $status;
          }
+
+    /**
+    * Devuelve los tipos de metodolgias activas
+    * @author clapas
+    * @date 13/08/2018
+    * @return array
+    */
+    public function tipos_metodologias()
+    {
+        $this->db->flush_cache();
+        $this->db->reset_query();
+
+        $this->db->select(array('id_tipo_metodologia','lang'));
+        $this->db->where('activo',true);
+        $res = $this->db->get('foro.tipo_metodologia');
+
+        return $res->result_array();
+    }
 }

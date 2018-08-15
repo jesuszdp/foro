@@ -42,6 +42,7 @@
 </div>
 <script type="text/javascript">
     $("#top_registrados").removeClass();
+    $("#top_evaluados").removeClass();
     $("#calidad").removeClass();
     $("#porcentaje_registrados").addClass("active");
 </script>

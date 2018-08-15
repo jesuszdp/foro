@@ -5,6 +5,7 @@
 
 <script type="text/javascript">
     data_grafica_umae = <?php echo json_encode($top['umae']); ?>;
+    //console.log(data_grafica_umae);
     data_grafica_delegacion = <?php echo json_encode($top['delegacion']); ?>;
     titulo = '<?php echo $language_text['reportes_imss']['titulo_top']; ?>';
     tooltip_grafica = '<?php echo $language_text['reportes_imss']['tooltip_top']; ?>';
@@ -36,6 +37,7 @@
 <?php echo js('reportes/imss/top.js'); ?>
 <script>
     $("#calidad").removeClass();
+    $("#top_evaluados").removeClass();
     $("#porcentaje_registrados").removeClass();
     $("#top_registrados").addClass("active");
 </script>

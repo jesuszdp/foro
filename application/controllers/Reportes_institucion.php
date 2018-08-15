@@ -10,6 +10,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Reportes_institucion extends General_reportes {
 
     const TOP_DELEGACION_UMAE = 1, PORCENTAJE_REGISTRO_DELEGACION_UMAE = 2, CALIDAD_DELEGACION_UMAE = 3;
+    const TOP_EVALUADOS = 4;
 
     function __construct() {
         $this->grupo_language_text = ['reportes', 'reportes_imss'];
@@ -42,6 +43,21 @@ class Reportes_institucion extends General_reportes {
             case Reportes_institucion::CALIDAD_DELEGACION_UMAE:
                 $output['calidad'] = $this->calidad_delegacion_umae();
                 $output['view_reporte'] = $this->load->view('reportes/imss/calidad.php', $output, true);
+                break;
+            case Reportes_institucion::TOP_EVALUADOS:
+                $this->load->model('Catalogo_model', 'catalogo');
+                //tipos de metodologia
+                $tm = $this->catalogo->tipos_metodologias();
+                $tipos_metodologias = [];
+                foreach ($tm as $key => $value) {
+                    $lang_json = json_decode($value['lang'],true);
+                    $tipos_metodologias[$key] = array(
+                        'id' => $value['id_tipo_metodologia'],
+                        'valor' => $lang_json[$lang]
+                    );
+                }
+                $output['tipos_metodologias'] = $tipos_metodologias;                
+                $output['view_reporte'] = $this->load->view('reportes/imss/top_evaluados.php', $output, true);
                 break;
         }
 
@@ -151,16 +167,36 @@ class Reportes_institucion extends General_reportes {
      * Devuelve la informacion del numero total de trabajos evaluados por tipo de metodologia
      * @author clapas
      * @date 12/08/2018
+     * @param clase umae delegacion externo
+     * @param value id del tipo de metodologia
      * @return array
      */
-    public function evaluados_metodologia()
+    public function evaluados_metodologia($clase, $value)
     {
-        $umae = $this->reporteimss->top_evaluados_umae();
-        //pr($umae);
-        $delegacion = $this->reporteimss->top_evaluados_delegacion();
-        //pr($delegacion);
-        $externos = $this->reporteimss->top_evaluados_externos();
-        //pr($externos);
+        $data = [];
+        switch ($clase) {
+            case 'umae':
+                $umae = $this->reporteimss->top_evaluados_umae($value);
+                foreach ($umae as $key => $value) {
+                    $data[$key] = array($value['nombre_unidad_principal'], $value['count']);
+                }
+                break;
+            case 'delegacion':
+                $umae = $this->reporteimss->top_evaluados_delegacion($value);
+                foreach ($umae as $key => $value) {
+                    $data[$key] = array($value['nombre'],$value['count']);
+                }
+                break;
+            case 'externo':
+                $umae = $this->reporteimss->top_evaluados_externos($value);
+                foreach ($umae as $key => $value) {
+                    $lang = json_decode($value['lang'],true);
+                    $data[$key] = array($lang['es'], $value['count']);
+                }
+                break;
+        }
+
+        echo json_encode($data);
     }
 
 }
