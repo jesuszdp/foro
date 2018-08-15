@@ -1,14 +1,17 @@
 $(document).ready(function () {
 
     $('#select_umae').change(function(event) {
+        $("#select_umae option[value='0']").remove();
         top_evaluados_umae($(this).val(),$('#select_umae option:selected').text());
     });
 
     $('#select_delegacion').change(function(event) {
+        $("#select_delegacion option[value='0']").remove();
         top_evaluados_delegacion($(this).val(),$('#select_delegacion option:selected').text());
     });
 
     $('#select_externo').change(function(event) {
+        $("#select_externo option[value='0']").remove();
         top_evaluados_externo($(this).val(),$('#select_externo option:selected').text());
     });
     
