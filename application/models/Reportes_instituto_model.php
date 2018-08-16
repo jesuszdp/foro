@@ -339,7 +339,7 @@ class Reportes_instituto_model extends MY_Model {
         $this->db->flush_cache();
         $this->db->reset_query(); 
 
-        $select = array('p.lang::varchar','avg(cse.promedio)::int promedio');
+        $select = array('p.lang::varchar','avg(cse.promedio)::real promedio');
         $groupby = array('p.clave_pais', 'p.lang::varchar');
 
         if(is_null($id_seccion)){

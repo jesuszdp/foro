@@ -230,20 +230,20 @@ class Reportes_institucion extends General_reportes {
             case 'umae':
                 $datos_base = $this->reporteimss->calidad_seccion_umae($value);
                 foreach ($datos_base as $key => $value) {
-                    $data[$key] = array($value['nombre_unidad_principal'], $value['promedio']);
+                    $data[$key] = array($value['nombre_unidad_principal'], floatval($value['promedio']));
                 }
                 break;
             case 'delegacion':
                 $datos_base = $this->reporteimss->calidad_seccion_delegacion($value);
                 foreach ($datos_base as $key => $value) {
-                    $data[$key] = array($value['nombre'],$value['promedio']);
+                    $data[$key] = array($value['nombre'], floatval($value['promedio']));
                 }
                 break;
             case 'externo':
                 $datos_base = $this->reporteimss->calidad_seccion_externo($value);
                 foreach ($datos_base as $key => $value) {
                     $lang = json_decode($value['lang'],true);
-                    $data[$key] = array($lang['es'], $value['promedio']);
+                    $data[$key] = array($lang['es'], floatval($value['promedio']));
                 }
                 break;
         }

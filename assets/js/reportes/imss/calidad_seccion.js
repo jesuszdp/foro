@@ -65,7 +65,7 @@ function top_evaluados_externo(id_tm,texto) {
     })
     .done(function(data) {
         console.log("success");
-        //console.log(data);
+        console.log(data);
         grafica(data,texto,'pais','#grafica_externo');
     })
     .fail(function() {
@@ -88,7 +88,7 @@ function grafica(data_grafica,texto,tipo,div) {
                 renderTo: $container[0],
             },
             title: {
-                text: 'Top de trabajos evaluados del tipo '+texto+' por '+tipo+'.'
+                text: 'Calidad de trabajos evaluados por su '+texto+' en '+tipo+'.'
             },
             xAxis: {
                 type: 'category',
@@ -103,7 +103,7 @@ function grafica(data_grafica,texto,tipo,div) {
             yAxis: {
                 min: 0,
                 title: {
-                    text: 'Número de trabajos evaluados'
+                    text: 'Promedio de trabajos'
                 },
                 scrollbar: {
                     enabled: true,
@@ -114,7 +114,7 @@ function grafica(data_grafica,texto,tipo,div) {
                 enabled: false
             },
             tooltip: {
-                pointFormat: 'Trabajos evaluados:  <b>{point.y}</b>'
+                pointFormat: 'Trabajos evaluados:  <b>{point.y:.2f}</b>'
             },
             series: [{
                     name: 'Population',
