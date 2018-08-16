@@ -685,4 +685,21 @@ class Catalogo_model extends MY_Model {
 
         return $res->result_array();
     }
+
+    /**
+    * Devuelve los tipos de metodolgias activas
+    * @author clapas
+    * @date 15/08/2018
+    * @return array
+    */
+    public function secciones_evaluacion()
+    {
+        $this->db->flush_cache();
+        $this->db->reset_query();
+
+        $this->db->select(array('id_seccion','descripcion'));
+        $res = $this->db->get('foro.seccion');
+
+        return $res->result_array();
+    }
 }

@@ -17,12 +17,13 @@
     <div id="tab-lv21-first" class="tab-pane fade in active">
         <div class="ajuste">
             <div class="form-group">
-                <label for="select_umae" class="col-sm-4 control-label">Seleccione el tipo de investigación: </label>
+                <label for="select_umae" class="col-sm-4 control-label">Seleccione la sección evaluada: </label>
                 <div class="col-sm-6">
                     <select id="select_umae" class="form-control">
                         <option value="0">Seleccione una opción</option>
                         <?php
-                        foreach ($tipos_metodologias as $key => $value) {
+                        pr($secciones);
+                        foreach ($secciones as $key => $value) {
                             echo "<option value='".$value['id']."'>".$value['valor']."</option>";
                         }
                         ?>
@@ -33,7 +34,6 @@
             <div id="grafica_umae" style="width:100%;height:400px;padding-top:5%";></div>
             <br>
             <div><p id="pie_porcentaje_umae"></p></div>
-            <div><p>*En la gráfica solo aparecen las UMAE que registraron trabajos.</p></div>
         </div>
     </div>
     <div id="tab-lv21-second" class="tab-pane fade in ">
@@ -44,7 +44,7 @@
                     <select id="select_delegacion" class="form-control">
                         <option value="0">Seleccione una opción</option>
                         <?php
-                        foreach ($tipos_metodologias as $key => $value) {
+                        foreach ($secciones as $key => $value) {
                             echo "<option value='".$value['id']."'>".$value['valor']."</option>";
                         }
                         ?>
@@ -53,8 +53,6 @@
             </div> <!-- form group-->
             <br>
             <div id="grafica_delegacion" style="width:100%; height:400px;padding-top:5%"></div>
-            <br>
-            <div><p>*En la gráfica solo aparecen las Delegaciones que registraron trabajos.</p></div>
         </div>
     </div>
     <div id="tab-lv21-third" class="tab-pane fade in ">
@@ -65,7 +63,7 @@
                     <select id="select_externo" class="form-control">
                         <option value="0">Seleccione una opción</option>
                         <?php
-                        foreach ($tipos_metodologias as $key => $value) {
+                        foreach ($secciones as $key => $value) {
                             echo "<option value='".$value['id']."'>".$value['valor']."</option>";
                         }
                         ?>
@@ -74,17 +72,15 @@
             </div> <!-- form group-->
             <br>
             <div id="grafica_externo" style="width:100%; height:400px;padding-top:5%"></div>
-            <br>
-            <div><p>*En la gráfica solo aparecen los países que registraron trabajos.</p></div>
         </div>
     </div>
 </div>
 
-<?php echo js('reportes/imss/top_evaluados.js'); ?>
+<?php echo js('reportes/imss/calidad_seccion.js'); ?>
 <script>
     $("#calidad").removeClass();
     $("#top_registrados").removeClass();
     $("#porcentaje_registrados").removeClass();
-    $('#calidad_seccion').removeClass();
-    $("#top_evaluados").addClass("active");
+    $("#top_evaluados").removeClass();
+    $('#calidad_seccion').addClass("active");
 </script>

@@ -44,5 +44,6 @@
     $("#top_registrados").removeClass();
     $("#top_evaluados").removeClass();
     $("#calidad").removeClass();
+    $('#calidad_seccion').removeClass();
     $("#porcentaje_registrados").addClass("active");
 </script>

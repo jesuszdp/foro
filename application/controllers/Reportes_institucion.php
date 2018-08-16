@@ -10,7 +10,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Reportes_institucion extends General_reportes {
 
     const TOP_DELEGACION_UMAE = 1, PORCENTAJE_REGISTRO_DELEGACION_UMAE = 2, CALIDAD_DELEGACION_UMAE = 3;
-    const TOP_EVALUADOS = 4;
+    const TOP_EVALUADOS = 4, CALIDAD_SECCION = 5;
 
     function __construct() {
         $this->grupo_language_text = ['reportes', 'reportes_imss'];
@@ -58,6 +58,22 @@ class Reportes_institucion extends General_reportes {
                 }
                 $output['tipos_metodologias'] = $tipos_metodologias;                
                 $output['view_reporte'] = $this->load->view('reportes/imss/top_evaluados.php', $output, true);
+                break;
+            case Reportes_institucion::CALIDAD_SECCION:
+                $this->load->model('Catalogo_model', 'catalogo');
+                //tipos de metodologia
+                $tm = $this->catalogo->secciones_evaluacion();
+                $secciones = [];
+                foreach ($tm as $key => $value) {
+                    $lang_json = json_decode($value['descripcion'],true);
+                    $secciones[$key] = array(
+                        'id' => $value['id_seccion'],
+                        'valor' => $lang_json[$lang]
+                    );
+                }
+                $output['secciones'] = $secciones;                
+                $output['view_reporte'] = $this->load->view('reportes/imss/calidad_seccion.php', $output, true);
+                break;
                 break;
         }
 
@@ -176,20 +192,20 @@ class Reportes_institucion extends General_reportes {
         $data = [];
         switch ($clase) {
             case 'umae':
-                $umae = $this->reporteimss->top_evaluados_umae($value);
-                foreach ($umae as $key => $value) {
+                $datos_base = $this->reporteimss->top_evaluados_umae($value);
+                foreach ($datos_base as $key => $value) {
                     $data[$key] = array($value['nombre_unidad_principal'], $value['count']);
                 }
                 break;
             case 'delegacion':
-                $umae = $this->reporteimss->top_evaluados_delegacion($value);
-                foreach ($umae as $key => $value) {
+                $datos_base = $this->reporteimss->top_evaluados_delegacion($value);
+                foreach ($datos_base as $key => $value) {
                     $data[$key] = array($value['nombre'],$value['count']);
                 }
                 break;
             case 'externo':
-                $umae = $this->reporteimss->top_evaluados_externos($value);
-                foreach ($umae as $key => $value) {
+                $datos_base = $this->reporteimss->top_evaluados_externos($value);
+                foreach ($datos_base as $key => $value) {
                     $lang = json_decode($value['lang'],true);
                     $data[$key] = array($lang['es'], $value['count']);
                 }
@@ -199,4 +215,39 @@ class Reportes_institucion extends General_reportes {
         echo json_encode($data);
     }
 
+    /**
+     * Devuelve un listado con la calidad de los trabajos evaluados por la seccion evaluada
+     * @author clapas
+     * @date 15/08/2018
+     * @param clase umae delegacion externo
+     * @param value id de la seccion evaluada
+     * @return array
+     */
+    public function calidad_seccion($clase, $value)
+    {
+        $data = [];
+        switch ($clase) {
+            case 'umae':
+                $datos_base = $this->reporteimss->calidad_seccion_umae($value);
+                foreach ($datos_base as $key => $value) {
+                    $data[$key] = array($value['nombre_unidad_principal'], $value['promedio']);
+                }
+                break;
+            case 'delegacion':
+                $datos_base = $this->reporteimss->calidad_seccion_delegacion($value);
+                foreach ($datos_base as $key => $value) {
+                    $data[$key] = array($value['nombre'],$value['promedio']);
+                }
+                break;
+            case 'externo':
+                $datos_base = $this->reporteimss->calidad_seccion_externo($value);
+                foreach ($datos_base as $key => $value) {
+                    $lang = json_decode($value['lang'],true);
+                    $data[$key] = array($lang['es'], $value['promedio']);
+                }
+                break;
+        }
+
+        echo json_encode($data);
+    }
 }

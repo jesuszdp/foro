@@ -141,6 +141,7 @@ class Reportes_instituto_model extends MY_Model {
     * Devuelve el top de trabajos evaluados por tipo de investigacion y UMAE
     * @author clapas
     * @date 12/08/2018
+    * @param int id de la metodologia o null para todas
     * @return array
     */
     public function top_evaluados_umae($metodologia = null)
@@ -178,6 +179,7 @@ class Reportes_instituto_model extends MY_Model {
     * Devuelve el top de trabajos evaluados por tipo de investigacion y Delegacion
     * @author clapas
     * @date 12/08/2018
+    * @param int id de la metodologia o null para todas
     * @return array
     */
     public function top_evaluados_delegacion($metodologia = null)
@@ -215,6 +217,7 @@ class Reportes_instituto_model extends MY_Model {
     * Devuelve el top de trabajos evaluados por tipo de investigacion de externos
     * @author clapas
     * @date 12/08/2018
+    * @param int id de la metodologia o null para todas
     * @return array
     */
     public function top_evaluados_externos($metodologia = null)
@@ -244,6 +247,119 @@ class Reportes_instituto_model extends MY_Model {
        $this->db->order_by('count(d.folio)', 'desc');
 
        $res = $this->db->get('foro.trabajo_investigacion ti');
+       //pr($this->db->last_query());
+       return $res->result_array();
+    }
+
+    /**
+    * Devuelve el top de evaluados por seccion evaluada para la calidad del trabajo
+    * y registradas en umae
+    * @author clapas
+    * @date 15/08/2018
+    * @param int id de la seccion evaluada o null para todas
+    * @return array
+    */
+    public function calidad_seccion_umae($id_seccion=null)
+    {
+        $this->db->flush_cache();
+        $this->db->reset_query(); 
+
+        $select = array('u.nombre_unidad_principal','avg(cse.promedio)::int promedio');
+        $groupby = array('u.clave_unidad_principal','u.nombre_unidad_principal');
+
+        if(is_null($id_seccion)){
+            array_push($select, 'cse.id_seccion', 'cse.descripcion::varchar');
+            array_push($groupby, 'cse.id_seccion', 'cse.descripcion::varchar');
+        }
+
+        $this->db->select($select,false);
+        $this->db->join('foro.trabajos_registrados_imss tri','cse.folio = tri.folio AND tri.es_umae = true','inner',false);
+        $this->db->join('catalogo.unidad u','tri.clave_unidad = u.clave_unidad');
+
+        if(!is_null($id_seccion)){
+            $this->db->where('cse.id_seccion',$id_seccion);
+        }
+
+        $this->db->group_by($groupby,false);
+        $this->db->order_by('avg(cse.promedio)', 'desc');
+
+        $res = $this->db->get('foro.calidad_por_seccion_evaluados cse');
+       //pr($this->db->last_query());
+       return $res->result_array();
+    }
+
+    /**
+    * Devuelve el top de evaluados por seccion evaluada para la calidad del trabajo
+    * y registradas en delegaciones
+    * @author clapas
+    * @date 15/08/2018
+    * @param int id de la seccion evaluada o null para todas
+    * @return array
+    */
+    public function calidad_seccion_delegacion($id_seccion=null)
+    {
+        $this->db->flush_cache();
+        $this->db->reset_query(); 
+
+        $select = array('d.nombre','avg(cse.promedio)::int promedio');
+        $groupby = array('d.clave_delegacional','d.nombre');
+
+        if(is_null($id_seccion)){
+            array_push($select, 'cse.id_seccion', 'cse.descripcion::varchar');
+            array_push($groupby, 'cse.id_seccion', 'cse.descripcion::varchar');
+        }
+
+        $this->db->select($select,false);
+        $this->db->join('foro.trabajos_registrados_imss tri','cse.folio = tri.folio AND tri.es_umae = false','inner',false);
+        $this->db->join('catalogo.delegaciones d','tri.clave_delegacional = d.clave_delegacional');
+
+        if(!is_null($id_seccion)){
+            $this->db->where('cse.id_seccion',$id_seccion);
+        }
+
+        $this->db->group_by($groupby,false);
+        $this->db->order_by('avg(cse.promedio)', 'desc');
+
+        $res = $this->db->get('foro.calidad_por_seccion_evaluados cse');
+       //pr($this->db->last_query());
+       return $res->result_array();
+    }
+
+
+    /**
+    * Devuelve el top de evaluados por seccion evaluada para la calidad del trabajo
+    * y registradas por externos
+    * @author clapas
+    * @date 15/08/2018
+    * @param int id de la seccion evaluada o null para todas
+    * @return array
+    */
+    public function calidad_seccion_externo($id_seccion=null)
+    {
+        $this->db->flush_cache();
+        $this->db->reset_query(); 
+
+        $select = array('p.lang::varchar','avg(cse.promedio)::int promedio');
+        $groupby = array('p.clave_pais', 'p.lang::varchar');
+
+        if(is_null($id_seccion)){
+            array_push($select, 'cse.id_seccion', 'cse.descripcion::varchar');
+            array_push($groupby, 'cse.id_seccion', 'cse.descripcion::varchar');
+        }
+
+        $this->db->select($select,false);
+        $this->db->join('foro.autor a','cse.folio = a.folio_investigacion AND a.registro = true','inner',false);
+        $this->db->join('sistema.informacion_usuario iu', 'a.id_informacion_usuario = iu.id_informacion_usuario AND iu.es_imss = false', 'inner', false);
+        $this->db->join('catalogo.pais p','iu.clave_pais = p.clave_pais');
+
+        if(!is_null($id_seccion)){
+            $this->db->where('cse.id_seccion',$id_seccion);
+        }
+
+        $this->db->group_by($groupby,false);
+        $this->db->order_by('avg(cse.promedio)', 'desc');
+
+        $res = $this->db->get('foro.calidad_por_seccion_evaluados cse');
        //pr($this->db->last_query());
        return $res->result_array();
     }
