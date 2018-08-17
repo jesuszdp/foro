@@ -146,7 +146,7 @@ class Reportes_instituto_model extends MY_Model {
     */
     public function top_evaluados_umae($metodologia = null)
     {   
-        $select = array('u.nombre_unidad_principal', 'count(d.folio)');
+        $select = array('u.nombre_unidad_principal', 'count(d.folio)::int');
         $where = array('u.es_umae' => true);
         $groupby = array('u.clave_unidad_principal','u.nombre_unidad_principal');
 
@@ -184,7 +184,7 @@ class Reportes_instituto_model extends MY_Model {
     */
     public function top_evaluados_delegacion($metodologia = null)
     {
-        $select = array('del.nombre', 'count(d.folio)');
+        $select = array('del.nombre', 'count(d.folio)::int');
         $where = array('tri.es_umae' => false);
         $groupby = array('del.clave_delegacional','del.nombre');
 
@@ -222,7 +222,7 @@ class Reportes_instituto_model extends MY_Model {
     */
     public function top_evaluados_externos($metodologia = null)
     {
-        $select = array('p.clave_pais', 'p.lang::varchar', 'count(d.folio)');
+        $select = array('p.clave_pais', 'p.lang::varchar', 'count(d.folio)::int');
         $where = array('iu.es_imss' => false,'a.registro' => true);
         $groupby = array('p.clave_pais', 'p.lang::varchar');
 
@@ -264,7 +264,7 @@ class Reportes_instituto_model extends MY_Model {
         $this->db->flush_cache();
         $this->db->reset_query(); 
 
-        $select = array('u.nombre_unidad_principal','avg(cse.promedio)::int promedio');
+        $select = array('u.nombre_unidad_principal','avg(cse.promedio)::real promedio');
         $groupby = array('u.clave_unidad_principal','u.nombre_unidad_principal');
 
         if(is_null($id_seccion)){
@@ -301,7 +301,7 @@ class Reportes_instituto_model extends MY_Model {
         $this->db->flush_cache();
         $this->db->reset_query(); 
 
-        $select = array('d.nombre','avg(cse.promedio)::int promedio');
+        $select = array('d.nombre','avg(cse.promedio)::real promedio');
         $groupby = array('d.clave_delegacional','d.nombre');
 
         if(is_null($id_seccion)){
