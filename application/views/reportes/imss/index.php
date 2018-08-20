@@ -21,8 +21,8 @@
             <li class="tab_reporte_calidad" id="top_registrados" data-tab="1"> <a href="<?php echo base_url("index.php/reportes_institucion/reportes/1"); ?>"><strong><?php echo $language_text['reportes_imss']['tab_top']; ?></strong> <br/></a></li>
             <li class="tab_reporte_calidad" id="porcentaje_registrados" data-tab="2"> <a href="<?php echo base_url("index.php/reportes_institucion/reportes/2"); ?>" ><strong><?php echo $language_text['reportes_imss']['tab_porcentaje']; ?></strong> <br/></a></li>
             <li class="tab_reporte_calidad" id="calidad" data-tab="3"> <a href="<?php echo base_url("index.php/reportes_institucion/reportes/3"); ?>"><strong><?php echo $language_text['reportes_imss']['tab_calidad']; ?></strong> <br/></a></li>
-            <li class="tab_reporte_calidad" id="top_evaluados" data-tab="4"> <a href="<?php echo base_url("index.php/reportes_institucion/reportes/4"); ?>"><strong><?php echo /*$language_text['reportes_imss']['tab_calidad'];*/ 'Top de trabajos evaluados'?></strong> <br/></a></li>
-            <li class="tab_reporte_calidad" id="calidad_seccion" data-tab="5"> <a href="<?php echo base_url("index.php/reportes_institucion/reportes/5"); ?>"><strong><?php echo /*$language_text['reportes_imss']['tab_calidad'];*/ 'Calidad de trabajos por sección'?></strong> <br/></a></li>
+            <li class="tab_reporte_calidad" id="top_evaluados" data-tab="4"> <a href="<?php echo base_url("index.php/reportes_institucion/reportes/4"); ?>"><strong><?php echo $language_text['reportes_imss']['tab_top_evaluados'];?></strong> <br/></a></li>
+            <li class="tab_reporte_calidad" id="calidad_seccion" data-tab="5"> <a href="<?php echo base_url("index.php/reportes_institucion/reportes/5"); ?>"><strong><?php echo $language_text['reportes_imss']['tab_calidad_seccion'];?></strong> <br/></a></li>
         </ul>
     </div>
     <div class="tab-content lv1">

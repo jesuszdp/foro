@@ -20,7 +20,7 @@
                 <label for="select_umae" class="col-sm-4 control-label">Seleccione el tipo de investigación: </label>
                 <div class="col-sm-6">
                     <select id="select_umae" class="form-control">
-                        <option value="0">Seleccione una opción</option>
+                        <option value="0"><?php echo $language_text['template_general']['sin_op'];?></option>
                         <?php
                         foreach ($tipos_metodologias as $key => $value) {
                             echo "<option value='".$value['id']."'>".$value['valor']."</option>";
@@ -33,16 +33,16 @@
             <div id="grafica_umae" style="width:100%;height:400px;padding-top:5%";></div>
             <br>
             <div><p id="pie_porcentaje_umae"></p></div>
-            <div><p>*En la gráfica solo aparecen las UMAE que registraron trabajos.</p></div>
+            <div><p>*<?php echo $language_text['reportes_imss']['nota_evaluados_umae']; ?></p></div>
         </div>
     </div>
     <div id="tab-lv21-second" class="tab-pane fade in ">
         <div class="ajuste">
             <div class="form-group">
-                <label for="select_delegacion" class="col-sm-4 control-label">Seleccione el tipo de investigación: </label>
+                <label for="select_delegacion" class="col-sm-4 control-label"><?php echo $language_text['reportes_imss']['select_tipo_investigacion']; ?>: </label>
                 <div class="col-sm-6">
                     <select id="select_delegacion" class="form-control">
-                        <option value="0">Seleccione una opción</option>
+                        <option value="0"><?php echo $language_text['template_general']['sin_op'];?></option>
                         <?php
                         foreach ($tipos_metodologias as $key => $value) {
                             echo "<option value='".$value['id']."'>".$value['valor']."</option>";
@@ -54,16 +54,16 @@
             <br>
             <div id="grafica_delegacion" style="width:100%; height:400px;padding-top:5%"></div>
             <br>
-            <div><p>*En la gráfica solo aparecen las Delegaciones que registraron trabajos.</p></div>
+            <div><p>*<?php echo $language_text['reportes_imss']['nota_evaluados_del']; ?></p></div>
         </div>
     </div>
     <div id="tab-lv21-third" class="tab-pane fade in ">
         <div class="ajuste">
             <div class="form-group">
-                <label for="select_externo" class="col-sm-4 control-label">Seleccione el tipo de investigación: </label>
+                <label for="select_externo" class="col-sm-4 control-label"><?php echo $language_text['reportes_imss']['select_tipo_investigacion']; ?>: </label>
                 <div class="col-sm-6">
                     <select id="select_externo" class="form-control">
-                        <option value="0">Seleccione una opción</option>
+                        <option value="0"><?php echo $language_text['template_general']['sin_op'];?></option>
                         <?php
                         foreach ($tipos_metodologias as $key => $value) {
                             echo "<option value='".$value['id']."'>".$value['valor']."</option>";
@@ -75,7 +75,7 @@
             <br>
             <div id="grafica_externo" style="width:100%; height:400px;padding-top:5%"></div>
             <br>
-            <div><p>*En la gráfica solo aparecen los países que registraron trabajos.</p></div>
+            <div><p>*<?php echo $language_text['reportes_imss']['nota_evaluados_ext']; ?></p></div>
         </div>
     </div>
 </div>

@@ -13,8 +13,8 @@ $(document).ready(function () {
 });
 
 function grafica_umae() {
-    var $container = $('#grafica_umae');
     if (data_grafica_umae.length > 0) {
+        var $container = $('#grafica_umae');
         var chart = new Highcharts.Chart({
             lang: textos_lenguaje(),
             chart: {
@@ -22,7 +22,7 @@ function grafica_umae() {
                 renderTo: $container[0],
             },
             title: {
-                text: titulo + ' UMAE'
+                text: language_text.reportes_imss.titulo_top + ' UMAE'
             },
             xAxis: {
                 type: 'category',
@@ -37,7 +37,7 @@ function grafica_umae() {
             yAxis: {
                 min: 0,
                 title: {
-                    text: yaxis
+                    text: language_text.reportes_imss.yaxis_top
                 },
                 scrollbar: {
                     enabled: true,
@@ -48,7 +48,7 @@ function grafica_umae() {
                 enabled: false
             },
             tooltip: {
-                pointFormat: tooltip_grafica + ' <b>{point.y}</b>'
+                pointFormat: language_text.reportes_imss.tooltip_top + ' <b>{point.y}</b>'
             },
 //        exporting: {
 //            buttons: {
@@ -67,75 +67,80 @@ function grafica_umae() {
                 }]
         });
     } else {
-        $("#pie_porcentaje_umae").html("* " + language_text.reportes.lbl_sin_registros);
-        $("#grafica_umae").css("display", "none");
+        $('#grafica_umae').empty();
+        $('#grafica_umae').append('<center><h3>' + language_text.reportes.lbl_sin_registros + '</h3></center>');
     }
 }
 
 function grafica_delegacion() {
-    var $container = $('#grafica_delegacion');
-    var chart = new Highcharts.Chart({
-        lang: textos_lenguaje(),
-        chart: {
-            type: 'column',
-            renderTo: $container[0],
-        },
-        title: {
-            text: titulo + ' delegación'
-        },
-        xAxis: {
-            type: 'category',
-            labels: {
-                rotation: -60,
-                style: {
-                    fontSize: '13px',
-                    fontFamily: 'Verdana, sans-serif'
+    if(data_grafica_delegacion.length > 0){
+        var $container = $('#grafica_delegacion');
+        var chart = new Highcharts.Chart({
+            lang: textos_lenguaje(),
+            chart: {
+                type: 'column',
+                renderTo: $container[0],
+            },
+            title: {
+                text: language_text.reportes_imss.titulo_top + ' delegación'
+            },
+            xAxis: {
+                type: 'category',
+                labels: {
+                    rotation: -60,
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    }
+                },
+                scrollbar: {
+                    enabled: true,
+                    showFull: true
                 }
             },
-            scrollbar: {
-                enabled: true,
-                showFull: true
-            }
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: yaxis
-            }
-        },
-        legend: {
-            enabled: false
-        },
-        tooltip: {
-            pointFormat: tooltip_grafica + ' <b>{point.y}</b>'
-        },
-//        exporting: {
-//            buttons: {
-//                contextButton: {
-//                    enabled: false,
-//                },
-//                exportButton: {
-//                    text: language_text.reportes.descarga_lbl,
-//                    menuItems: Highcharts.getOptions().exporting.buttons.contextButton.menuItems.splice(5)
-//                },
-//            }
-//        },
-        series: [{
-                name: 'Population',
-                data: data_grafica_delegacion,
-            }]
+            yAxis: {
+                min: 0,
+                title: {
+                    text: language_text.reportes_imss.yaxis_top
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            tooltip: {
+                pointFormat: language_text.reportes_imss.tooltip_top + ' <b>{point.y}</b>'
+            },
+    //        exporting: {
+    //            buttons: {
+    //                contextButton: {
+    //                    enabled: false,
+    //                },
+    //                exportButton: {
+    //                    text: language_text.reportes.descarga_lbl,
+    //                    menuItems: Highcharts.getOptions().exporting.buttons.contextButton.menuItems.splice(5)
+    //                },
+    //            }
+    //        },
+            series: [{
+                    name: 'Population',
+                    data: data_grafica_delegacion,
+                }]
+        }
+    //    , function(chart) { // on complete
+    //         console.log("chart = ");
+    //        console.log(chart);
+    //        //chart.renderer.path(['M', 0, 0, 'L', 100, 100, 200, 50, 300, 100])
+    //        chart.renderer.path(['M', 75, 223.5,'L', 259, 47])//M 75 223.5 L 593 223.5
+    //            .attr({
+    //                'stroke-width': 2,
+    //                stroke: 'red'
+    //            })
+    //            .add();
+    //        
+    //    }
+        );
+    }else{
+        $('#grafica_delegacion').empty();
+        $('#grafica_delegacion').append('<center><h3>' + language_text.reportes.lbl_sin_registros + '</h3></center>');
     }
-//    , function(chart) { // on complete
-//         console.log("chart = ");
-//        console.log(chart);
-//        //chart.renderer.path(['M', 0, 0, 'L', 100, 100, 200, 50, 300, 100])
-//        chart.renderer.path(['M', 75, 223.5,'L', 259, 47])//M 75 223.5 L 593 223.5
-//            .attr({
-//                'stroke-width': 2,
-//                stroke: 'red'
-//            })
-//            .add();
-//        
-//    }
-    );
 }

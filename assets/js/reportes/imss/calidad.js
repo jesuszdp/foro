@@ -13,14 +13,14 @@ $(document).ready(function () {
 });
 
 function grafica_umae() {
-    if (data_grafica_umae.length >= 0) {
+    if (data_grafica_umae.length > 0) {
         Highcharts.chart('grafica_umae', {
             lang: textos_lenguaje(),
             chart: {
                 type: 'column'
             },
             title: {
-                text: titulo + ' UMAE'
+                text: language_text.reportes_imss.titulo_calidad + ' UMAE'
             },
             xAxis: {
                 type: 'category',
@@ -35,14 +35,14 @@ function grafica_umae() {
             yAxis: {
                 min: 0,
                 title: {
-                    text: yaxis
+                    text: language_text.reportes_imss.yaxis_calidad
                 }
             },
             legend: {
                 enabled: false
             },
             tooltip: {
-                pointFormat: tooltip_grafica + ' <b>{point.y:.1f}</b>'
+                pointFormat: language_text.reportes_imss.tooltip_calidad + ' <b>{point.y:.1f}</b>'
             },
 //        exporting: {
 //            buttons: {
@@ -61,20 +61,23 @@ function grafica_umae() {
                 }]
         });
     } else {
-        $("#pie_porcentaje_umae").html("* " + language_text.reportes.lbl_sin_registros);
-        $("#grafica_umae").css("display", "none");
+        $('#grafica_umae').empty();
+        $('#grafica_umae').append('<center><h3>' + language_text.reportes.lbl_sin_registros + '</h3></center>');
+        //$("#pie_porcentaje_umae").html("* " + language_text.reportes.lbl_sin_registros);
+        //$("#grafica_umae").css("display", "none");
     }
 }
 
 function grafica_delegacion() {
   //console.log("CHIDA: ", data_grafica_delegacion)
+  if (data_grafica_delegacion.length >= 0) {
     Highcharts.chart('grafica_delegacion', {
         lang: textos_lenguaje(),
         chart: {
             type: 'column'
         },
         title: {
-            text: titulo + ' delegación'
+            text: language_text.reportes_imss.titulo_calidad + ' delegación'
         },
         xAxis: {
             type: 'category',
@@ -89,14 +92,14 @@ function grafica_delegacion() {
         yAxis: {
             min: 0,
             title: {
-                text: yaxis
+                text: language_text.reportes_imss.yaxis_calidad
             }
         },
         legend: {
             enabled: false
         },
         tooltip: {
-            pointFormat: tooltip_grafica + ' <b>{point.y:.1f}</b>'
+            pointFormat: language_text.reportes_imss.tooltip_calidad + ' <b>{point.y:.1f}</b>'
         },
 //        exporting: {
 //            buttons: {
@@ -114,4 +117,9 @@ function grafica_delegacion() {
                 data: data_grafica_delegacion
             }]
     });
+
+  } else {
+    $('#grafica_delegacion').empty();
+    $('#grafica_delegacion').append('<center><h3>' + language_text.reportes.lbl_sin_registros + '</h3></center>');
+  }
 }

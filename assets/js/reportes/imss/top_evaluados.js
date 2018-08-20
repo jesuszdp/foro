@@ -17,7 +17,7 @@ $(document).ready(function () {
     
 });
 
-function top_evaluados_umae(id_tm,texto) {
+function top_evaluados_umae(id_tm,tipo) {
     console.log(id_tm);
     $.ajax({
         url: site_url + '/reportes_institucion/evaluados_metodologia/umae/' + id_tm,
@@ -26,7 +26,8 @@ function top_evaluados_umae(id_tm,texto) {
     .done(function(data) {
         console.log("success");
         //console.log(data);
-        grafica(data,texto,'UMAE','#grafica_umae');
+        titulo =  language_text.reportes_imss.titulo_top_evaluados_umae;
+        grafica(data,'#grafica_umae',titulo.replace('$type$',tipo));
     })
     .fail(function() {
         console.log("error");
@@ -37,7 +38,7 @@ function top_evaluados_umae(id_tm,texto) {
     
 }
 
-function top_evaluados_delegacion(id_tm,texto) {
+function top_evaluados_delegacion(id_tm,tipo) {
     console.log(id_tm);
     $.ajax({
         url: site_url + '/reportes_institucion/evaluados_metodologia/delegacion/' + id_tm,
@@ -46,7 +47,8 @@ function top_evaluados_delegacion(id_tm,texto) {
     .done(function(data) {
         console.log("success");
         //console.log(data);
-        grafica(data,texto,'Delegacion','#grafica_delegacion');
+        titulo =  language_text.reportes_imss.titulo_top_evaluados_del;
+        grafica(data,'#grafica_delegacion',titulo.replace('$type$',tipo));
     })
     .fail(function() {
         console.log("error");
@@ -57,7 +59,7 @@ function top_evaluados_delegacion(id_tm,texto) {
     
 }
 
-function top_evaluados_externo(id_tm,texto) {
+function top_evaluados_externo(id_tm,tipo) {
     console.log(id_tm);
     $.ajax({
         url: site_url + '/reportes_institucion/evaluados_metodologia/externo/' + id_tm,
@@ -66,7 +68,8 @@ function top_evaluados_externo(id_tm,texto) {
     .done(function(data) {
         console.log("success");
         //console.log(data);
-        grafica(data,texto,'pais','#grafica_externo');
+        titulo =  language_text.reportes_imss.titulo_top_evaluados_ext;
+        grafica(data,'#grafica_externo',titulo.replace('$type$',tipo));
     })
     .fail(function() {
         console.log("error");
@@ -77,9 +80,9 @@ function top_evaluados_externo(id_tm,texto) {
     
 }
 
-function grafica(data_grafica,texto,tipo,div) {
+function grafica(data_grafica,div,titulo) {
+    $(div).empty();
     var $container = $(div);
-    console.log(div);
     if (data_grafica.length > 0) {
         var chart = new Highcharts.Chart({
             lang: textos_lenguaje(),
@@ -88,7 +91,7 @@ function grafica(data_grafica,texto,tipo,div) {
                 renderTo: $container[0],
             },
             title: {
-                text: 'Top de trabajos evaluados del tipo '+texto+' por '+tipo+'.'
+                text: titulo
             },
             xAxis: {
                 type: 'category',
@@ -103,7 +106,7 @@ function grafica(data_grafica,texto,tipo,div) {
             yAxis: {
                 min: 0,
                 title: {
-                    text: 'Número de trabajos evaluados'
+                    text: language_text.reportes_imss.yaxis_top_evaluados
                 },
                 scrollbar: {
                     enabled: true,
@@ -114,7 +117,7 @@ function grafica(data_grafica,texto,tipo,div) {
                 enabled: false
             },
             tooltip: {
-                pointFormat: 'Trabajos evaluados:  <b>{point.y}</b>'
+                pointFormat: language_text.reportes_imss.tooltip_top_evaluados +' <b>{point.y}</b>'
             },
             series: [{
                     name: 'Population',
@@ -122,7 +125,7 @@ function grafica(data_grafica,texto,tipo,div) {
                 }]
         });
     } else {
-        $(div).css("display", "none");
+        $(div).append('<center><h3>' + language_text.reportes.lbl_sin_registros + '</h3></center>');
     }
 }
 

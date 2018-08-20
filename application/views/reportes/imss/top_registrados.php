@@ -5,11 +5,7 @@
 
 <script type="text/javascript">
     data_grafica_umae = <?php echo json_encode($top['umae']); ?>;
-    //console.log(data_grafica_umae);
     data_grafica_delegacion = <?php echo json_encode($top['delegacion']); ?>;
-    titulo = '<?php echo $language_text['reportes_imss']['titulo_top']; ?>';
-    tooltip_grafica = '<?php echo $language_text['reportes_imss']['tooltip_top']; ?>';
-    yaxis = '<?php echo $language_text['reportes_imss']['yaxis_top']; ?>';
 </script>
 
 <div class="schedule-tabs lv2">
@@ -23,8 +19,6 @@
     <div id="tab-lv21-first" class="tab-pane fade in active">
         <div class="ajuste">
             <div id="grafica_umae" style="width:100%; height:400px;"></div>
-            <br>
-            <div><p id="pie_porcentaje_umae"></p></div>
         </div>
     </div>
     <div id="tab-lv21-second" class="tab-pane fade in ">

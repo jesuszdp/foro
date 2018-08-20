@@ -6,9 +6,6 @@
 <script type="text/javascript">
     data_grafica_umae = <?php echo json_encode($calidad['umae']); ?>;
     data_grafica_delegacion = <?php echo json_encode($calidad['delegacion']); ?>;
-    titulo = '<?php echo $language_text['reportes_imss']['titulo_calidad']; ?>';
-    tooltip_grafica = '<?php echo $language_text['reportes_imss']['tooltip_calidad']; ?>';
-    yaxis = '<?php echo $language_text['reportes_imss']['yaxis_top']; ?>';
 </script>
 <?php echo js('reportes/imss/calidad.js'); ?>
 
@@ -23,7 +20,7 @@
     <div id="tab-lv21-first" class="tab-pane fade in active">
         <div class="ajuste">
             <div id="grafica_umae" style="width:100%; height:400px;"></div><br>
-            <div><p id="pie_porcentaje_del"> *<?php echo $language_text['reportes_imss']['nota_calidad_del']; ?> </p></div>
+            <div><p id="pie_porcentaje_umae"> *<?php echo $language_text['reportes_imss']['nota_calidad_del']; ?> </p></div>
         </div>
     </div>
     <div id="tab-lv21-second" class="tab-pane fade in">

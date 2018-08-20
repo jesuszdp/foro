@@ -14,8 +14,6 @@ $(document).ready(function () {
 });
 
 function porcentajes_umae() {
-//    console.log(language_text);
-//    console.log(data_grafica);
     var data_r = new Array();
     var objeto = null;
     var objeto_datos = data_grafica.umae;
@@ -38,10 +36,9 @@ function porcentajes_delegacion() {
             data_r.push([objeto.nombre, parseFloat(objeto.total)]);
         }
     }
-//    console.log(language_text);
-//    console.log(data_r);
     return data_r;
 }
+
 function porcentajes_nivel_atencion() {
     var data_r = new Array();
     var objeto_datos = data_grafica.nivel_atencion;
@@ -54,8 +51,6 @@ function porcentajes_nivel_atencion() {
         data_r.push(["Otros", parseFloat(objeto_datos[0]['otros'])]);
     }
 
-//    console.log(language_text);
-//    console.log(data_r);
     return data_r;
 }
 
@@ -130,8 +125,10 @@ function grafica_umae() {
                 }]
         });
     } else {
-        $("#pie_porcentaje_umae").html("* " + language_text.reportes.lbl_sin_registros);
-        $("#grafica_umae").css("display", "none");
+        //$("#pie_porcentaje_umae").html("* " + language_text.reportes.lbl_sin_registros);
+        //$("#grafica_umae").css("display", "none");
+        $('#grafica_umae').empty();
+        $('#grafica_umae').append('<center><h3>' + language_text.reportes.lbl_sin_registros + '</h3></center>');
     }
 }
 
@@ -220,8 +217,10 @@ function grafica_delegacion() {
               }]
       });
     }else{
-      $("#pie_porcentaje_del").html("* " + language_text.reportes.lbl_sin_registros);
-      $("#grafica_delegacion").css("display", "none");
+      //$("#pie_porcentaje_del").html("* " + language_text.reportes.lbl_sin_registros);
+      //$("#grafica_delegacion").css("display", "none");
+      $('grafica_delegacion').empty();
+      $('#grafica_delegacion').append('<center><h3>' + language_text.reportes.lbl_sin_registros + '</h3></center>');
     }
 
 //     console.log("NO CHIDA: ", data_grafica_delegacion)
@@ -292,8 +291,8 @@ function grafica_delegacion() {
 }
 
 function grafica_nivel_atencion() {
-    var delegacion_umae_graf = porcentajes_nivel_atencion();
-    console.log(delegacion_umae_graf);
+  var delegacion_umae_graf = porcentajes_nivel_atencion();
+  if(delegacion_umae_graf.length > 0){
     Highcharts.chart('grafica_nivel_atencion', {
         lang: textos_lenguaje(),
         chart: {
@@ -340,4 +339,8 @@ function grafica_nivel_atencion() {
                 data: delegacion_umae_graf
             }]
     });
+  }else{
+    $('#grafica_nivel_atencion').empty();
+    $('#grafica_nivel_atencion').append('<center><h3>' + language_text.reportes.lbl_sin_registros + '</h3></center>');
+  }
 }
