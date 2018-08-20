@@ -247,7 +247,7 @@ class Reportes_instituto_model extends MY_Model {
        $this->db->order_by('count(d.folio)', 'desc');
 
        $res = $this->db->get('foro.trabajo_investigacion ti');
-       //pr($this->db->last_query());
+       pr($this->db->last_query());
        return $res->result_array();
     }
 

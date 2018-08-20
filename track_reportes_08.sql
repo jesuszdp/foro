@@ -45,9 +45,9 @@ commit;
 
 begin;
 insert into idiomas.traduccion (clave_traduccion, clave_tipo, clave_grupo, lang) values
-('nota_evaluados_umae','nota','reportes_imss','{"es":"En la gráfica aparecen únicamente las UMAE que registraron trabajos.","en":"En la gráfica aparecen únicamente las UMAE que registraron trabajos."}'),
-('nota_evaluados_del','nota','reportes_imss','{"es":"En la gráfica aparecen únicamente las delegaciones que registraron trabajos.","en":"En la gráfica aparecen únicamente las delegaciones que registraron trabajos."}'),
-('nota_evaluados_ext','nota','reportes_imss','{"es":"En la gráfica aparecen únicamente los países de usuarios externos que registraron trabajos.","en":"En la gráfica aparecen únicamente los países de usuarios externos que registraron trabajos."}');
+('nota_evaluados_umae','nota','reportes_imss','{"es":"En la gráfica aparecen únicamente las UMAE que registraron trabajos y no fueron rechazados.","en":"En la gráfica aparecen únicamente las UMAE que registraron trabajos y no fueron rechazados."}'),
+('nota_evaluados_del','nota','reportes_imss','{"es":"En la gráfica aparecen únicamente las delegaciones que registraron trabajos y no fueron rechazados.","en":"En la gráfica aparecen únicamente las delegaciones que registraron trabajos y no fueron rechazados."}'),
+('nota_evaluados_ext','nota','reportes_imss','{"es":"En la gráfica aparecen únicamente los países de usuarios externos que registraron trabajos y no fueron rechazados.","en":"En la gráfica aparecen únicamente los países de usuarios externos que registraron trabajos y no fueron rechazados."}');
 insert into idiomas.traduccion (clave_traduccion, clave_tipo, clave_grupo, lang) values
 ('select_tipo_investigacion','dropdown','reportes_imss','{"es":"Seleccione el tipo de investigación","en":"Seleccione el tipo de investigación"}'),
 ('select_seccion_calidad','dropdown','reportes_imss','{"es":"Seleccione la sección evaluada","en":"Seleccione la sección evaluada"}');
