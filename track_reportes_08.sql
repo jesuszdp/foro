@@ -1,3 +1,15 @@
+begin;
+drop view if exists foro.calidad_por_seccion_evaluados;
+
+CREATE OR REPLACE VIEW foro.calidad_por_seccion_evaluados as (
+select d.folio, s.*, avg(dr.valor) promedio
+from foro.dictamen d  
+inner join foro.revision r on d.folio = r.folio and r.activo = true
+inner join foro.detalle_revision dr on r.id_revision = dr.id_revision 
+inner join foro.seccion s on dr.id_seccion =  s.id_seccion
+group by d.folio, s.id_seccion, s.descripcion::varchar);
+commit;
+
 begin; 
 update idiomas.traduccion set lang = '{"es":"Top de trabajos registrados","en":"Top de trabajos registrados"}' where clave_traduccion = 'tab_top' and clave_grupo ='reportes_imss';
 update idiomas.traduccion set lang = '{"es":"Porcentaje de trabajos registrados","en":"Porcentaje de trabajos registrados"}' where clave_traduccion = 'tab_porcentaje' and clave_grupo ='reportes_imss';
