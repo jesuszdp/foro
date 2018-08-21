@@ -33,7 +33,7 @@ update idiomas.traduccion set lang = '{"es":"Trabajos registrados:","en":"Trabaj
 update idiomas.traduccion set lang = '{"es":"Trabajos registrados:","en":"Trabajos registrados:"}' where clave_traduccion = 'tooltip_porcentaje' and clave_grupo ='reportes_imss';
 update idiomas.traduccion set lang = '{"es":"Calificación promedio:","en":"Calificación promedio:"}' where clave_traduccion = 'tooltip_calidad' and clave_grupo ='reportes_imss';
 insert into idiomas.traduccion (clave_traduccion, clave_tipo, clave_grupo, lang) values 
-('tooltip_top_evaluados','title','reportes_imss', '{"es":"Trabajs evaluados:","en":"Trabajos evaluados:"}'),
+('tooltip_top_evaluados','title','reportes_imss', '{"es":"Trabajos evaluados:","en":"Trabajos evaluados:"}'),
 ('tooltip_calidad_seccion','title','reportes_imss','{"es":"Calificación promedio:","en":"Calificación promedio:"}');
 update idiomas.traduccion set lang = '{"es":"Trabajos registrados","en":"Trabajos registrados"}' where clave_traduccion = 'yaxis_top' and clave_grupo ='reportes_imss';
 update idiomas.traduccion set lang = '{"es":"Promedio","en":"Promedio"}' where clave_traduccion = 'yaxis_calidad' and clave_grupo ='reportes_imss';
@@ -83,4 +83,10 @@ update idiomas.traduccion set lang = '{"es":"Número de trabajos evaluados del t
 update idiomas.traduccion set lang = '{"es":"Calidad de trabajos por su $type$","en":"Calidad de trabajos por su $type$"}' where clave_traduccion = 'titulo_calidad_seccion_umae' and clave_grupo = 'reportes_imss';
 update idiomas.traduccion set lang = '{"es":"Calidad de trabajos por su $type$","en":"Calidad de trabajos por su $type$"}' where clave_traduccion = 'titulo_calidad_seccion_del' and clave_grupo = 'reportes_imss';
 update idiomas.traduccion set lang = '{"es":"Calidad de trabajos por su $type$","en":"Calidad de trabajos por su $type$"}' where clave_traduccion = 'titulo_calidad_seccion_ext' and clave_grupo = 'reportes_imss';
+commit;
+
+begin;
+update idiomas.traduccion set lang = '{"es":"En la gráfica aparecen únicamente las UMAE que tuvieron trabajos evaluados y no fueron rechazados.","en":"En la gráfica aparecen únicamente las UMAE que tuvieron trabajos evaluados y no fueron rechazados."}' where clave_traduccion = 'nota_evaluados_umae' and clave_grupo = 'reportes_imss';
+update idiomas.traduccion set lang = '{"es":"En la gráfica aparecen únicamente las delegaciones que tuvieron trabajos evaluados y no fueron rechazados.","en":"En la gráfica aparecen únicamente las delegaciones que tuvieron trabajos evaluados y no fueron rechazados."}' where clave_traduccion = 'nota_evaluados_del' and clave_grupo = 'reportes_imss';
+update idiomas.traduccion set lang = '{"es":"En la gráfica aparecen únicamente los países de usuarios externos que tuvieron trabajos evaluados y no fueron rechazados.","en":"En la gráfica aparecen únicamente los países de usuarios externos que tuvieron trabajos evaluados y no fueron rechazados."}' where clave_traduccion = 'nota_evaluados_ext' and clave_grupo = 'reportes_imss';
 commit;
