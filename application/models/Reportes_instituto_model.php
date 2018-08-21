@@ -164,7 +164,7 @@ class Reportes_instituto_model extends MY_Model {
        $this->db->join('foro.trabajo_investigacion ti' ,'tri.folio = ti.folio');
        $this->db->join('foro.tipo_metodologia m', 'ti.id_tipo_metodologia = m.id_tipo_metodologia');
        $this->db->join('catalogo.unidad u', 'tri.clave_unidad = u.clave_unidad');
-       $this->db->join('foro.dictamen d', 'tri.folio = d.folio', 'left');
+       $this->db->join('foro.dictamen d', 'tri.folio = d.folio');
        $this->db->where($where);
        $this->db->group_by($groupby,false);
        $this->db->order_by('count(d.folio)', 'desc');
@@ -202,7 +202,7 @@ class Reportes_instituto_model extends MY_Model {
        $this->db->join('foro.trabajo_investigacion ti' ,'tri.folio = ti.folio');
        $this->db->join('foro.tipo_metodologia m', 'ti.id_tipo_metodologia = m.id_tipo_metodologia');
        $this->db->join('catalogo.delegaciones del', 'tri.clave_delegacional = del.clave_delegacional');
-       $this->db->join('foro.dictamen d', 'tri.folio = d.folio', 'left');
+       $this->db->join('foro.dictamen d', 'tri.folio = d.folio');
        $this->db->where($where);
        $this->db->group_by($groupby, false);
        $this->db->order_by('count(d.folio)', 'desc');
@@ -241,7 +241,7 @@ class Reportes_instituto_model extends MY_Model {
        $this->db->join('sistema.informacion_usuario iu','a.id_informacion_usuario = iu.id_informacion_usuario');
        $this->db->join('catalogo.pais p', 'iu.clave_pais = p.clave_pais');
        $this->db->join('foro.tipo_metodologia m', 'ti.id_tipo_metodologia = m.id_tipo_metodologia');
-       $this->db->join('foro.dictamen d', 'ti.folio = d.folio', 'left');
+       $this->db->join('foro.dictamen d', 'ti.folio = d.folio');
        $this->db->where($where);
        $this->db->group_by($groupby,false);
        $this->db->order_by('count(d.folio)', 'desc');

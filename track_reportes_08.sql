@@ -74,3 +74,13 @@ update foro.seccion set descripcion = '{"es":"Aspectos éticos","en":"Aspectos �
 update foro.seccion set descripcion = '{"es":"Calidad Metodológica (Metodologías Cualitativas)","en":"Calidad Metodológica (Metodologías Cualitativas)"}' where id_seccion = 6;
 update foro.seccion set descripcion = '{"es":"Calidad Metodológica (Metodologías Mixtas)","en":"Calidad Metodológica (Metodologías Mixtas)"}' where id_seccion = 7;
 commit;
+
+-- Cambios 21/08/2018
+begin;
+update idiomas.traduccion set lang = '{"es":"Número de trabajos evaluados del tipo $type$","en":"Número de trabajos evaluados del tipo $type$"}' where clave_traduccion = 'titulo_top_evaluados_umae' and clave_grupo = 'reportes_imss';
+update idiomas.traduccion set lang = '{"es":"Número de trabajos evaluados del tipo $type$","en":"Número de trabajos evaluados del tipo $type$"}' where clave_traduccion = 'titulo_top_evaluados_del' and clave_grupo = 'reportes_imss';
+update idiomas.traduccion set lang = '{"es":"Número de trabajos evaluados del tipo $type$","en":"Número de trabajos evaluados del tipo $type$"}' where clave_traduccion = 'titulo_top_evaluados_ext' and clave_grupo = 'reportes_imss';
+update idiomas.traduccion set lang = '{"es":"Calidad de trabajos por su $type$","en":"Calidad de trabajos por su $type$"}' where clave_traduccion = 'titulo_calidad_seccion_umae' and clave_grupo = 'reportes_imss';
+update idiomas.traduccion set lang = '{"es":"Calidad de trabajos por su $type$","en":"Calidad de trabajos por su $type$"}' where clave_traduccion = 'titulo_calidad_seccion_del' and clave_grupo = 'reportes_imss';
+update idiomas.traduccion set lang = '{"es":"Calidad de trabajos por su $type$","en":"Calidad de trabajos por su $type$"}' where clave_traduccion = 'titulo_calidad_seccion_ext' and clave_grupo = 'reportes_imss';
+commit;
