@@ -27,7 +27,7 @@ insert into idiomas.traduccion (clave_traduccion, clave_tipo, clave_grupo, lang)
 ('titulo_top_evaluados_del','title','reportes_imss','{"es":"Número de trabajos evaluados del tipo $type$ registrados en las delegaciones","en":"Número de trabajos evaluados del tipo $type$ registrados en las delegaciones"}'),
 ('titulo_top_evaluados_ext','title','reportes_imss','{"es":"Número de trabajos evaluados del tipo $type$ registrados por ususarios externos al IMSS","en":"Número de trabajos evaluados del tipo $type$ registrados por usuarios externos al IMSS"}'),
 ('titulo_calidad_seccion_umae','title','reportes_imss','{"es":"Calidad de trabajos por su $type$ registrados en UMAE","en":"Calidad de trabajos por su $type$ registrados en UMAE"}'),
-('titulo_calidad_seccion_del','title','reportes_imss','{"es":"Calidad de trabajos por su $type$ registrados en UMAE","en":"Calidad de trabajos por su $type$ registrados en delegaciones"}'),
+('titulo_calidad_seccion_del','title','reportes_imss','{"es":"Calidad de trabajos por su $type$ registrados en delegaciones","en":"Calidad de trabajos por su $type$ registrados en delegaciones"}'),
 ('titulo_calidad_seccion_ext','title','reportes_imss','{"es":"Calidad de trabajos por su $type$ registrados por usuarios externos al IMSS","en":"Calidad de trabajos por su $type$ registrados por usuarios externos al IMSS"}');
 update idiomas.traduccion set lang = '{"es":"Trabajos registrados:","en":"Trabajos registrados:"}' where clave_traduccion = 'tooltip_top' and clave_grupo ='reportes_imss';
 update idiomas.traduccion set lang = '{"es":"Trabajos registrados:","en":"Trabajos registrados:"}' where clave_traduccion = 'tooltip_porcentaje' and clave_grupo ='reportes_imss';
